@@ -47,7 +47,7 @@ else
     temperatura=${tempInt}
 fi
 
-echo " * La temperatura es de "$temperatura" °C >> ${log}
+echo " * La temperatura es de "$temperatura" °C" >> ${log}
  
 if [ ${temperatura} -gt ${tempWarning} ]; then
     if [ ${temperatura} -gt ${tempCritica} ];then
