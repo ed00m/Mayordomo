@@ -32,7 +32,7 @@ echo "# MONITOR DE TEMPERATURA              " >> ${log}
 echo "#-------------------------------------" >> ${log}
 echo "# Maquina   : "${maquina}               >> ${log}
 echo "# Kernel    : "${kernel}                >> ${log}
-echo "# Fecha     : "{$fecha}                 >> ${log}
+echo "# Fecha     : "${$fecha}                 >> ${log}
 echo ""
  
 obtieneTemp=`sensors`
@@ -47,7 +47,7 @@ else
     temperatura=${tempInt}
 fi
 
-echo " * La temperatura es de "$temperatura" °C" > ${log}
+echo " * La temperatura es de "$temperatura" °C >> ${log}
  
 if [ ${temperatura} -gt ${tempWarning} ]; then
     if [ ${temperatura} -gt ${tempCritica} ];then
