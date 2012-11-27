@@ -13,7 +13,7 @@ kernel=`uname -s -r -v`
 maquina=`uname -n -m -o`
 
 fecha=`date "+%Y%m%d_%H%M%S"`
-log="/tmp/$$_${echa}.log"
+log="/tmp/$$_${fecha}.log"
 asunto="Monitor de temperatura "${maquina}" - "${fecha}
 
 remitente=remitente@dominio.tld
