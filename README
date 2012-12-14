@@ -5,6 +5,7 @@ ARCHIVOS
     * vimrc             Preferencias para VI/VIM
     * zshInstall.sh     Instalador/Configurador de ZSH
     * zshtheme.sh       Configurador de Theme para ZSH
+    * AL-Server.repo    Descargar en cd /etc/yum.repos.d/
 
 PREPARACION DEL AMBIENTE
 
