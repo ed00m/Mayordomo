@@ -1,3 +1,4 @@
+# /etc/sysconfig/network-scripts/ifcfg-ethX
 DEVICE=ethX
 ONBOOT=yes
 BOOTPROTO=static
@@ -7,3 +8,4 @@ NETMASK=255.255.255.0
 NETWORK=XXX.XXX.XXX.0
 HWADDR=XX:YY:CC:VV:BB:NN
 TYPE=Ethernet
+GATEWAY=XXX.XXX.XXX.1
