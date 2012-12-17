@@ -1,0 +1,5 @@
+[AL-Server]
+name=AL Server para Enterprise Linux $releasever
+mirrorlist=http://www.alcancelibre.org/al/el$releasever/al-server
+gpgcheck=1
+gpgkey=http://www.alcancelibre.org/al/AL-RPM-KEY
