@@ -1,0 +1,615 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+
+<title>Guía de supervivencia con LVM | systemadmin.es</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
+<META NAME="Author" CONTENT="Jordi Prats Catala" />
+<META NAME="Robots" CONTENT="INDEX,FOLLOW" />
+<link rel="stylesheet" href="http://systemadmin.es/wp-content/themes/clockworksimple/style-7.css" type="text/css" media="screen" />
+<link rel="pingback" href="http://systemadmin.es/xmlrpc.php" />
+<link rel="search" type="application/opensearchdescription+xml" title="systemadmin.es" href="http://systemadmin.es/buscador.xml" /> 
+<meta name="verify-v1" content="hHVsLtSk0iwMYX+rWAvkC+fmXBP/mF8AUY2ERQNGDBg=" />
+<META name="y_key" content="618e09755e712032">
+<meta name="verify_w" content="48d5f4c5d3feaeab434a2ae22df5c551" />
+<meta name="msvalidate.01" content="4B3E1B02DB874FF7BAE3E096ABCE893C" />
+
+
+	<link rel='archives' title='December 2012' href='http://systemadmin.es/2012/12' />
+	<link rel='archives' title='November 2012' href='http://systemadmin.es/2012/11' />
+	<link rel='archives' title='October 2012' href='http://systemadmin.es/2012/10' />
+	<link rel='archives' title='September 2012' href='http://systemadmin.es/2012/09' />
+	<link rel='archives' title='August 2012' href='http://systemadmin.es/2012/08' />
+	<link rel='archives' title='July 2012' href='http://systemadmin.es/2012/07' />
+	<link rel='archives' title='June 2012' href='http://systemadmin.es/2012/06' />
+	<link rel='archives' title='May 2012' href='http://systemadmin.es/2012/05' />
+	<link rel='archives' title='April 2012' href='http://systemadmin.es/2012/04' />
+	<link rel='archives' title='March 2012' href='http://systemadmin.es/2012/03' />
+	<link rel='archives' title='February 2012' href='http://systemadmin.es/2012/02' />
+	<link rel='archives' title='January 2012' href='http://systemadmin.es/2012/01' />
+	<link rel='archives' title='December 2011' href='http://systemadmin.es/2011/12' />
+	<link rel='archives' title='November 2011' href='http://systemadmin.es/2011/11' />
+	<link rel='archives' title='October 2011' href='http://systemadmin.es/2011/10' />
+	<link rel='archives' title='September 2011' href='http://systemadmin.es/2011/09' />
+	<link rel='archives' title='August 2011' href='http://systemadmin.es/2011/08' />
+	<link rel='archives' title='July 2011' href='http://systemadmin.es/2011/07' />
+	<link rel='archives' title='June 2011' href='http://systemadmin.es/2011/06' />
+	<link rel='archives' title='May 2011' href='http://systemadmin.es/2011/05' />
+	<link rel='archives' title='April 2011' href='http://systemadmin.es/2011/04' />
+	<link rel='archives' title='March 2011' href='http://systemadmin.es/2011/03' />
+	<link rel='archives' title='February 2011' href='http://systemadmin.es/2011/02' />
+	<link rel='archives' title='January 2011' href='http://systemadmin.es/2011/01' />
+	<link rel='archives' title='December 2010' href='http://systemadmin.es/2010/12' />
+	<link rel='archives' title='November 2010' href='http://systemadmin.es/2010/11' />
+	<link rel='archives' title='October 2010' href='http://systemadmin.es/2010/10' />
+	<link rel='archives' title='September 2010' href='http://systemadmin.es/2010/09' />
+	<link rel='archives' title='August 2010' href='http://systemadmin.es/2010/08' />
+	<link rel='archives' title='July 2010' href='http://systemadmin.es/2010/07' />
+	<link rel='archives' title='June 2010' href='http://systemadmin.es/2010/06' />
+	<link rel='archives' title='May 2010' href='http://systemadmin.es/2010/05' />
+	<link rel='archives' title='April 2010' href='http://systemadmin.es/2010/04' />
+	<link rel='archives' title='March 2010' href='http://systemadmin.es/2010/03' />
+	<link rel='archives' title='February 2010' href='http://systemadmin.es/2010/02' />
+	<link rel='archives' title='January 2010' href='http://systemadmin.es/2010/01' />
+	<link rel='archives' title='December 2009' href='http://systemadmin.es/2009/12' />
+	<link rel='archives' title='November 2009' href='http://systemadmin.es/2009/11' />
+	<link rel='archives' title='October 2009' href='http://systemadmin.es/2009/10' />
+	<link rel='archives' title='September 2009' href='http://systemadmin.es/2009/09' />
+	<link rel='archives' title='August 2009' href='http://systemadmin.es/2009/08' />
+	<link rel='archives' title='July 2009' href='http://systemadmin.es/2009/07' />
+	<link rel='archives' title='June 2009' href='http://systemadmin.es/2009/06' />
+	<link rel='archives' title='May 2009' href='http://systemadmin.es/2009/05' />
+	<link rel='archives' title='April 2009' href='http://systemadmin.es/2009/04' />
+	<link rel='archives' title='March 2009' href='http://systemadmin.es/2009/03' />
+	<link rel='archives' title='February 2009' href='http://systemadmin.es/2009/02' />
+	<link rel='archives' title='January 2009' href='http://systemadmin.es/2009/01' />
+	<link rel='archives' title='December 2008' href='http://systemadmin.es/2008/12' />
+	<link rel='archives' title='November 2008' href='http://systemadmin.es/2008/11' />
+	<link rel='archives' title='October 2008' href='http://systemadmin.es/2008/10' />
+	<link rel='archives' title='September 2008' href='http://systemadmin.es/2008/09' />
+<link rel="alternate" type="application/rss+xml" title="systemadmin.es &raquo; Guía de supervivencia con LVM Comments Feed" href="http://systemadmin.es/2011/10/guia-de-supervivencia-con-lvm/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://systemadmin.es/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://systemadmin.es/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Evitar la instalación de actualizaciones al apagar Windows' href='http://systemadmin.es/2011/10/evitar-actualizaciones-al-apagar-windows' />
+<link rel='next' title='Incorrect usage of DB GRANT and GLOBAL PRIVILEGES' href='http://systemadmin.es/2011/10/incorrect-usage-of-db-grant-and-global-privileges' />
+<meta name="generator" content="WordPress 3.5" />
+<link rel='canonical' href='http://systemadmin.es/2011/10/guia-de-supervivencia-con-lvm' />
+<link rel='shortlink' href='http://systemadmin.es/?p=3584' />
+
+<!-- All in One SEO Pack 1.6.13.3 by Michael Torbert of Semper Fi Web Design[221,281] -->
+<meta name="description" content="Mediante LVM podemos gestionar el espacio en disco de una forma mucho más comoda y sin downtime para muchas operaciones. Vamos a ver una guía básica de" />
+<!-- /all in one seo pack -->
+</head>
+<body>
+
+<a name="topofpage"></a>
+<div id="wrapper">
+
+	<div id="header">
+
+		<div class="topmenu">
+
+		<ul>
+			<li class="page_item page-item-2904"><a href="http://systemadmin.es/herramientas">herramientas</a></li>
+<li class="page_item page-item-1793"><a href="http://systemadmin.es/series-de-articulos">series de artículos</a></li>
+<li class="page_item page-item-2"><a href="http://systemadmin.es/sobre-nosotros">sobre el autor</a></li>
+			<li><a href="http://systemadmin.es/feed" rel="noindex,nofollow" class="feed">subscribete</a></li>
+		</ul>
+
+		</div>
+
+		<strong><span class="titolsystemadmin"><a href="http://systemadmin.es">systemadmin.es</a></span></strong>
+		<!-- <h1><a href="http://systemadmin.es">systemadmin.es</a></h1> -->
+		<div class="descri">Tu referencia para la administración de sistemas</div>
+
+	</div>
+
+	<div id="teaser">
+
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a title="systemadmin.es - Tu referencia para la administración de sistemas" href="http://systemadmin.es">systemadmin.es</a></span>  &raquo; <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a title="Dentro de Storage" href="http://systemadmin.es/category/storage">Storage</a></span>  &raquo; Guía de supervivencia con LVM
+	</div>
+
+<div id="sidebar">
+
+	<form method="get" id="searchform" action="/">
+
+		<input type="text" name="s" label="searchform" id="s" value="escribe aqu&iacute;..." onfocus="if (this.value == 'escribe aqu&iacute;...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'escribe aqu&iacute;...';}" />
+		<input type="submit" id="searchsubmit" value="buscar" />
+
+	</form>
+
+<div style="clear: both;"></div>
+
+
+<p class="simh4">Destacados</p>
+
+<ul><li><a href="http://systemadmin.es/2010/01/como-no-mostrar-la-version-de-cherrypy" onClick="pageTracker._trackEvent('destacados','LAMP y web');"><strong>Como no mostrar la versión de CherryPy</strong>: Visitando webs me he cruzado con un error 500 del framework para aplicaciones web CherryPy, concreta...</a></li>
+
+<li><a href="http://systemadmin.es/2010/01/carta-de-google-con-un-pin" onClick="pageTracker._trackEvent('destacados','Seguridad');"><strong>Carta de Google con un PIN</strong>: Para verificar ser el propietario de un determinado negocio Google ofrecía dos opciones: Llamada tel...</a></li>
+
+<li><a href="http://systemadmin.es/2009/09/tipos-de-tuneles-ssh" onClick="pageTracker._trackEvent('destacados','Seguridad');"><strong>Tipos de túneles SSH</strong>: Una de las grandes características de ssh son los túneles. Los podemos hacer tanto directos (un puer...</a></li>
+</ul><!-- Random Posts took 364.504 ms -->
+
+	<!-- <p class="simh4">Enlaces patrocinados</p> -->
+	<!-- ?php if (is_callable(array("LinkLiftPlugin", "execute")) and is_home()) LinkLiftPlugin::execute(); ? -->
+
+
+
+
+	<!-- div class="rightbar" -->
+
+	
+	
+	<!-- /div -->
+
+<div style="clear: both;">
+<!--	<div class="leftbar"> -->
+
+	
+	<p class="simh4">Categorias</p>
+ 	<ul>	<li class="cat-item cat-item-160"><a rel="nofollow" href="http://systemadmin.es/category/aplicaciones" title="View all posts filed under Aplicaciones">Aplicaciones</a>
+</li>
+	<li class="cat-item cat-item-30"><a rel="nofollow" href="http://systemadmin.es/category/backup" title="View all posts filed under Backup">Backup</a>
+</li>
+	<li class="cat-item cat-item-72"><a rel="nofollow" href="http://systemadmin.es/category/bsd" title="View all posts filed under BSD">BSD</a>
+</li>
+	<li class="cat-item cat-item-25"><a rel="nofollow" href="http://systemadmin.es/category/buscador" title="View all posts filed under Buscador">Buscador</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="http://systemadmin.es/category/cluster" title="Referencias sobre clustering, alta disponibilidad, balanceo de carga y compartición de la carga">Clustering</a>
+</li>
+	<li class="cat-item cat-item-52"><a rel="nofollow" href="http://systemadmin.es/category/correo" title="View all posts filed under Correo">Correo</a>
+</li>
+	<li class="cat-item cat-item-119"><a rel="nofollow" href="http://systemadmin.es/category/curiosidades" title="View all posts filed under Curiosidades">Curiosidades</a>
+</li>
+	<li class="cat-item cat-item-3"><a rel="nofollow" href="http://systemadmin.es/category/dba" title="Administración de bases de datos">DBA</a>
+</li>
+	<li class="cat-item cat-item-102"><a rel="nofollow" href="http://systemadmin.es/category/desktop" title="View all posts filed under Desktop">Desktop</a>
+</li>
+	<li class="cat-item cat-item-49"><a rel="nofollow" href="http://systemadmin.es/category/dns" title="View all posts filed under DNS">DNS</a>
+</li>
+	<li class="cat-item cat-item-77"><a rel="nofollow" href="http://systemadmin.es/category/hardware" title="View all posts filed under Hardware">Hardware</a>
+</li>
+	<li class="cat-item cat-item-104"><a rel="nofollow" href="http://systemadmin.es/category/instalaciones" title="View all posts filed under Instalaciones">Instalaciones</a>
+</li>
+	<li class="cat-item cat-item-45"><a rel="nofollow" href="http://systemadmin.es/category/kernel" title="Referencia sobre el nucleo (kernel) del sistema operativo">Kernel</a>
+</li>
+	<li class="cat-item cat-item-47"><a rel="nofollow" href="http://systemadmin.es/category/lamp" title="View all posts filed under LAMP y web">LAMP y web</a>
+</li>
+	<li class="cat-item cat-item-19"><a rel="nofollow" href="http://systemadmin.es/category/monitorizacion" title="View all posts filed under Monitorización">Monitorización</a>
+</li>
+	<li class="cat-item cat-item-92"><a rel="nofollow" href="http://systemadmin.es/category/programacion" title="View all posts filed under Programación">Programación</a>
+</li>
+	<li class="cat-item cat-item-59"><a rel="nofollow" href="http://systemadmin.es/category/redes" title="View all posts filed under Redes">Redes</a>
+</li>
+	<li class="cat-item cat-item-13"><a rel="nofollow" href="http://systemadmin.es/category/rendimiento" title="View all posts filed under Rendimiento">Rendimiento</a>
+</li>
+	<li class="cat-item cat-item-42"><a rel="nofollow" href="http://systemadmin.es/category/storageareanetwork" title="Referencia sobre las SAN (Storage Area Network)">SAN</a>
+</li>
+	<li class="cat-item cat-item-86"><a rel="nofollow" href="http://systemadmin.es/category/script" title="View all posts filed under Script">Script</a>
+</li>
+	<li class="cat-item cat-item-14"><a rel="nofollow" href="http://systemadmin.es/category/seguridad" title="Referencias sobre seguridad en los sistemas">Seguridad</a>
+</li>
+	<li class="cat-item cat-item-22"><a rel="nofollow" href="http://systemadmin.es/category/sistema-de-ficheros" title="View all posts filed under Sistemas de ficheros">Sistemas de ficheros</a>
+</li>
+	<li class="cat-item cat-item-35"><a rel="nofollow" href="http://systemadmin.es/category/embedded" title="Sistemas empotrados">Sistemas empotrados</a>
+</li>
+	<li class="cat-item cat-item-96"><a rel="nofollow" href="http://systemadmin.es/category/storage" title="View all posts filed under Storage">Storage</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="http://systemadmin.es/category/systemadmin" title="sobre systemadmin.es">systemadmin.es</a>
+<ul class='children'>
+	<li class="cat-item cat-item-16"><a rel="nofollow" href="http://systemadmin.es/category/systemadmin/otros" title="View all posts filed under otros">otros</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-12"><a rel="nofollow" href="http://systemadmin.es/category/trucos" title="Trucos y utilidades para hacer más facil la vida del administrador de sistemas">Utilidades</a>
+</li>
+	<li class="cat-item cat-item-11"><a rel="nofollow" href="http://systemadmin.es/category/virtualizacion" title="Virtualización de entornos">Virtualización</a>
+</li>
+</ul>
+
+	
+	</div>
+	
+	<div style="clear: both;"></div>
+	
+	
+		<!-- p class="simh4">Enlaces</p -->
+		<!-- ul><li><a href="http://jordi.prats.systemadmin.es" rel="me" title="Blog del autor de este site">Blog de Jordi Prats Català</a> - Blog del autor de este site</li>
+</ul -->
+		
+	
+
+</div>
+<div id="content">
+
+
+ 	
+
+
+	<div class="entry">
+
+		<div class="indicator">&bull;</div>
+
+
+
+
+		
+			<h1>Guía de supervivencia con LVM</h1>
+
+		
+		
+
+
+		
+		<p>Mediante <strong>LVM</strong> podemos gestionar el espacio en disco de una forma mucho más comoda y <a href="/2010/05/aniversarios-del-uptime-de-los-sistemas">sin downtime</a> para muchas operaciones. Vamos a ver una <strong>guía básica de supervivencia con LVM</strong>:</p>
+<div id="attachment_3585" class="wp-caption aligncenter" style="width: 310px"><a href="http://systemadmin.es/wp-content/uploads/2011/10/supervivencia-con-LVM.jpg"><img src="http://systemadmin.es/wp-content/uploads/2011/10/supervivencia-con-LVM-300x230.jpg" alt="Sobrevive con LVM como Bear Grylls" title="Sobrevive con LVM como Bear Grylls" width="300" height="230" class="size-medium wp-image-3585" /></a><p class="wp-caption-text">Sobrevive con LVM como Bear Grylls</p></div>
+<p><!-- more --></p>
+<p>Mediante <strong>LVM</strong> creamos una <strong>agrupación de los discos físicos</strong>. Para crear este grupo primero debemos incializarlos con <strong>pvcreate</strong>. Una recomendación que aprendí en su día por las malas es <strong>siempre particionar los discos con una partición</strong>:</p>
+<pre>
+# fdisk -l /dev/sdc
+
+Disk /dev/sda: 288.1 GB, 288161071104 bytes
+255 heads, 63 sectors/track, 35033 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1       35033   281402572   8e  Linux LVM
+</pre>
+<p>De esta forma, en <strong>un entorno SAN</strong>, distinguimos claramente los discos nuevos de los actualmente en uso.</p>
+<p>Con la partición creada podemos proceder a inicializarlos con <strong>pvcreate</strong>:</p>
+<pre>
+# pvcreate /dev/sdb1 
+  Physical volume "/dev/sdb1" successfully created
+</pre>
+<p>A continuación podemos crear una agrupación con <strong>vgcreate</strong> con este disco:</p>
+<pre>
+# vgcreate nombrevg /dev/sdb1
+  Volume group "nombrevg" successfully created
+</pre>
+<p>En el caso que queramos añadir un disco nuevo a la agrupación se hace con <strong>vgextend</strong>:</p>
+<pre>
+# vgextend nombrevg /dev/sdc1
+  Volume group "nombrevg" successfully extended
+</pre>
+<p>Para consultar el espacio en uso y disponible tenemos <strong>vgdisplay</strong>:</p>
+<pre>
+# vgdisplay
+  --- Volume group ---
+  VG Name               nombrevg
+  System ID             
+  Format                lvm2
+  Metadata Areas        2
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                2
+  Act PV                2
+  VG Size               192.00 MiB
+  PE Size               4.00 MiB
+  Total PE              48
+<strong>  Alloc PE / Size       0 / 0   
+  Free  PE / Size       48 / 192.00 MiB</strong>
+  VG UUID               9sdaFp-22WU-a3wc-S18U-0z8n-qERe-wnkHpq
+   
+</pre>
+<p>Para crear un nuevo disco del <strong>volume group</strong> tenemos <strong>lvcreate</strong>:</p>
+<ul>
+<li><strong>Nombre del disco</strong>: Lo indicamos con la <strong>opción -n</strong></li>
+<li><strong>Tamaño del disco</strong>: Lo indicamos con la <strong>opción -L</strong> para un tamaño indicado con unidades o con la <strong>opción -l</strong> indicando los <strong>extends del volume group</strong> que queremos usar</li>
+<li>Como último parámetro indicamos el <strong>nombre del volume group que queremos usar</strong></li>
+</ul>
+<p>El comando quedaría:</p>
+<pre>
+# lvcreate -L 1G -n lvdisc local
+  Logical volume "lvdisc" created
+</pre>
+<p>A continuación ya podemos crear el sistema de ficheros con el <strong>nombre del volume group</strong> y el <strong>nombre del disco</strong>:</p>
+<pre>
+# mkfs.ext4 /dev/nombrevg/lvdisc 
+mke2fs 1.41.12 (17-May-2010)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+65536 inodes, 262144 blocks
+13107 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=268435456
+8 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+This filesystem will be automatically checked every 21 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+</pre>
+<p>En el caso que queramos extender el disco lo podemos hacer con <strong>lvextend</strong>. Si se trata de una ampliación lo podemos hacer <strong>en caliente</strong>, sino deberemos desmontar el sistema de ficheros.</p>
+<ul>
+<li>Variación de tamaño: Podemos indicar de dos formas el nuevo tamaño tanto en <strong>unidades</strong> (<strong>M</strong>, <strong>G</strong> con <strong>-L</strong>) como en <strong>extends</strong> (<strong>-l</strong>):
+<ul>
+<li><strong>Tamaño absoluto</strong>: Indicamos el tamaño final que queremos de disco</li>
+<li><strong>Tamaño relativo</strong>: Indicamos el incremento o decremento a respecto al tamaño actual con <strong>+</strong> o <strong>-</strong> delante. Por ejemplo, para <strong>incrementar en 10G</strong> sería: <strong>-L+10G</strong></li>
+</ul>
+<p><strong>Disco a extender</strong>: Path del disco a extender</li>
+</ul>
+<p>A continuación deberemos aplicar la ampliación al sistema de ficheros con <strong>resize2fs</strong> (para <strong>ext2</strong> y <strong>ext3</strong>, en <strong>CentOS 6</strong> también <strong>ext4</strong>) y <strong>resize4fs</strong>, en <strong>CentOS 5</strong>, para <strong>ext4</strong>:</p>
+<pre>
+<strong># lvextend -L +100G /dev/nombrevg/nombrelv </strong>
+  Extending logical volume nombrelv to 1.42 TB
+  Logical volume nombrelv successfully resized
+<strong># resize4fs /dev/nombrevg/nombrelv </strong>
+resize4fs 1.41.12 (17-May-2010)
+Filesystem at /dev/nombrevg/nombrelv is mounted on /var/log; on-line resizing required
+old desc_blocks = 85, new_desc_blocks = 92
+Performing an on-line resize of /dev/nombrevg/nombrelv to 381684736 (4k) blocks.
+
+The filesystem on /dev/nombrevg/nombrelv is now 381684736 blocks long.
+</pre>
+<p>Finalmente, para <strong>crear un snapshot</strong> tenemos que usar <strong>lvcreate con la opción -s</strong>. Las opciones son:</p>
+<ul>
+<li><strong>Crear un snapshot</strong>: Con la <strong>opción -s</strong></li>
+<li><strong>Tamaño del snapshot</strong> para guardar cambios: Con la <strong>opción -L o -l</strong> como en los casos anteriores</li>
+<li><strong>Nombre del snapshot</strong>: Se creará un nuevo disco que será el snapshot, indicamos el <strong>nombre con -n</strong></li>
+<li><strong>Como último parámetro indicamos el disco orige</strong>n del que queremos hacer el snapshot</li>
+</ul>
+<p>El comando quedaría:</p>
+<pre>
+# lvcreate -s -L 10G -n snap /dev/nombrevg/lvdisc 
+  Logical volume "snap" created
+</pre>
+<p>Mediante lvdisplay podemos ver los snapshots que tiene cada disco:</p>
+<pre>
+# lvdisplay
+(...)
+  --- Logical volume ---
+  LV Name                /dev/local/mysql
+  VG Name                data
+  LV UUID                xU9bPe-zfiE-iYqE-10Mz-89gx-Ohc6-ySGeNB
+  LV Write Access        read/write
+<strong>  LV snapshot status     source of
+                         /dev/data/snap.16 [active]
+                         /dev/data/snap.00 [active]
+                         /dev/data/snap.08 [active]</strong>
+  LV Status              available
+  # open                 1
+  LV Size                430.00 GB
+  Current LE             13760
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           253:3
+(...)
+</pre>
+<p>Y el porcentaje de uso del snapshot:</p>
+<pre>
+# lvdisplay
+(...)
+  --- Logical volume ---
+  LV Name                /dev/data/snap.08
+  VG Name                data
+  LV UUID                xEcUcj-1prX-OB64-yCYp-c75B-AeTY-LZeFNZ
+  LV Write Access        read/write
+  LV snapshot status     active destination for /dev/data/mysql
+  LV Status              available
+  # open                 0
+  LV Size                430.00 GB
+  Current LE             13760
+  COW-table size         45.00 GB
+  COW-table LE           1440
+<strong>  Allocated to snapshot  20.27% </strong>
+  Snapshot chunk size    4.00 KB
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           253:8
+(...)
+</pre>
+<p>En caso que <strong>se llene perderemos el snapshot</strong>, pero siempre lo podemos extener con <strong>lvextend</strong>.</p>
+<p>Estos son los comandos básicos para <strong>sobrevivir con LVM</strong>, pero <strong>existen muchas más opciones</strong>.</p>
+
+	<h4 style="margin-top: 50px">Relacionados</h4>
+	<ul class="st-related-posts">
+	<li><a href="http://systemadmin.es/2008/12/recuperacion-parcial-de-una-base-de-datos-innodb-desde-snapshot" onclick="pageTracker._trackEvent('relacionados','995');" title="Recuperación parcial de una base de datos InnoDB desde snapshot (24/December/2008)">Recuperación parcial de una base de datos InnoDB desde snapshot</a></li>
+	<li><a href="http://systemadmin.es/2009/09/quitar-disco-de-volume-group-en-caliente-con-lvm-de-linux" onclick="pageTracker._trackEvent('relacionados','1912');" title="Quitar disco de volume group en caliente con LVM de Linux (9/September/2009)">Quitar disco de volume group en caliente con LVM de Linux</a></li>
+	<li><a href="http://systemadmin.es/2009/02/multipath-y-lvm-con-una-emc-clariion-cx-300-en-rhel-5-o-similares-como-centos-y-fedora" onclick="pageTracker._trackEvent('relacionados','1519');" title="Multipath y LVM con una EMC CLARiiON CX-300 en RHEL 5 (o similares como CentOS y Fedora) (10/February/2009)">Multipath y LVM con una EMC CLARiiON CX-300 en RHEL 5 (o similares como CentOS y Fedora)</a></li>
+	<li><a href="http://systemadmin.es/2011/09/juntar-dos-volume-groups-en-uno-solo" onclick="pageTracker._trackEvent('relacionados','3544');" title="Juntar dos Volume Groups en uno solo (27/September/2011)">Juntar dos Volume Groups en uno solo</a></li>
+	<li><a href="http://systemadmin.es/2008/11/gestion-lvm-en-cluster" onclick="pageTracker._trackEvent('relacionados','302');" title="Gestión LVM en cluster (4/November/2008)">Gestión LVM en cluster</a></li>
+</ul>
+
+
+
+		<div class="metadata">
+
+
+			<div class="metacomments"><a href="http://systemadmin.es/2011/10/guia-de-supervivencia-con-lvm#comments" rel="nofollow" title="Comment on Guía de supervivencia con LVM">2</a></div>
+
+		
+			Dentro de <a href="http://systemadmin.es/category/storage" title="View all posts in Storage" rel="category tag">Storage</a> 
+			October 14, 2011			Tags: <a href="http://systemadmin.es/tag/lvm" rel="nofollow tag">LVM</a>			
+<br>
+<span class="alignright">
+<g:plusone size="medium" href="http://systemadmin.es/2011/10/guia-de-supervivencia-con-lvm"></g:plusone>
+</span>
+
+<br>
+
+		
+
+
+		</div>
+
+
+		
+
+<a href="http://systemadmin.es/2011/10/guia-de-supervivencia-con-lvm/print/" title="Imprimir" rel="nofollow"><img class="WP-PrintIcon" src="http://systemadmin.es/wp-content/plugins/wp-print/images/print.gif" alt="Imprimir" title="Imprimir" style="border: 0px;" /></a>&nbsp;<a href="http://systemadmin.es/2011/10/guia-de-supervivencia-con-lvm/print/" title="Imprimir" rel="nofollow">Imprimir</a>
+  
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-1180418533818744";
+/* 468x60, creado 28/10/09 */
+google_ad_slot = "4612624310";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+<div class="comments-template">
+<!-- You can start editing here. -->
+
+
+	<div class="indicator">&bull;</div>
+	<h2 id="comments">2 comments to &#8220;Guía de supervivencia con LVM&#8221;</h2>
+
+
+<ol class="commentlist">
+
+
+
+	
+	<li id="comment-1728">
+
+<div class="commentmetadata">
+<img alt='' src='http://0.gravatar.com/avatar/c7a41b28d08c1fdd55e90eb5dce38067?s=30&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&amp;r=X' class='avatar avatar-30 photo' height='30' width='30' /><b>Mr. Brown Dispatcher wrote:</b><br />
+<a href="#comment-1728" title="" rel="nofollow">17. October 2011 at 7:31 am</a>
+:  		</div>
+<p>Buena guía para iniciarse en LVM e ir entendiendo su funcionamiento. Sólo por que me pica la curiosidad, comentas el hecho de particionar los discos con una única partición para diferenciar nuevos de ya usados, pero no entiendo mucho el porqué.</p>
+	</li>
+
+
+	
+	<li id="comment-1729">
+
+<div class="commentmetadata_author">
+<img alt='' src='http://1.gravatar.com/avatar/5908eb3bc0188a7d987efa605f4b292e?s=30&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D30&amp;r=X' class='avatar avatar-30 photo' height='30' width='30' /><b>Jordi Prats wrote:</b><br />
+<a href="#comment-1729" title="" rel="nofollow">17. October 2011 at 12:23 pm</a>
+:  		</div>
+<p>Una vez añadiendo discos a un equipo hice el pvcreate de un disco que ya era parte del volume group dejando fuera los datos que tenía (los logical volumes) </p>
+<p>Se puede recuperar modificando el ID en los primeros sectores del disco, pero de momento ya te han quedado los datos inaccesibles. Simplemente viendo que el disco sda no tiene ninguna partición puedes saber que no esta en uso, pero si ves un sdb y sdb1 significa que ese ni tocarlo</p>
+<p>saludos</p>
+	</li>
+
+
+
+	</ol>
+
+
+
+
+
+	<div class="indicator">&bull;</div>	
+	<h2 id="respond">Deja un comentario:</h2>
+
+
+<form action="http://systemadmin.es/wp-comments-post.php" method="post" id="commentform">
+
+<p><input type="text" name="author" id="author" value="" size="40" tabindex="1" />
+<label for="author"><small>Nombre (<span class="resaltat">obligatorio</span>)</small></label></p>
+
+ 	<p><input type="text" name="happy_valor" id="happy_valor" value="" size="22" tabindex="2" />
+	<label for="mcspvalue"><small><span class="resaltat">AntiBot</span>: Suma de 7 y 10 ?</small></label>
+	<input type="hidden" name="happy_jash" value="8f6ba" />
+</p>
+
+<p><input type="text" name="email" id="email" value="" size="40" tabindex="3" />
+<label for="email"><small>Email (<span class="resaltat">obligatorio</span>, no se muestra)</small></label></p>
+
+<p><input type="text" name="url" id="url" value="" size="40" tabindex="4" />
+<label for="url"><small>Website (no se muestra)</small></label></p>
+
+
+
+<p><small><strong>XHTML</strong> - Tags permitidos:&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </small></p>
+
+<p><textarea name="comment" id="comment" cols="80" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="enviar" />
+<input type="hidden" name="comment_post_ID" value="3584" />
+</p>
+
+
+</form>
+
+
+</div>
+
+		
+	</div>
+<!-- end while post -->
+	
+		<div class="navigation">
+
+			<div class="alignleft"></div>
+			<div class="alignright"></div>
+
+		</div>
+
+<!-- 
+		<div class="navigation">
+	
+			&laquo; <a href="http://systemadmin.es/2011/10/evitar-actualizaciones-al-apagar-windows" rel="prev">Evitar la instalación de actualizaciones al apagar Windows</a>  <a href="http://systemadmin.es/2011/10/incorrect-usage-of-db-grant-and-global-privileges" rel="next">Incorrect usage of DB GRANT and GLOBAL PRIVILEGES</a> &raquo;
+		</div>
+-->
+	
+
+	
+</div>
+
+<div style="clear: both;"></div>
+
+<div id="footer">
+	&copy; 2008 <a href="http://systemadmin.es">systemadmin.es</a> &raquo;
+	<!-- a href="http://documentacion.systemadmin.es/Systemadmin:Limitaci%C3%B3n_general_de_responsabilidad" -->Legal<!-- /a --> &raquo; <a href="http://systemadmin.es/feed" rel="nofollow">subscribete mediante RSS</a>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-5982117-1']);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_trackPageLoadTime']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+<!-- Place this render call where appropriate -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'es'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+
+
+</body>
+</html>
+
