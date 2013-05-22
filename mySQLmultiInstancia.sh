@@ -1,5 +1,5 @@
 #!/bin/sh -x
-
+set -e
 nombre=${1:?Nombre Instancia}
 num=${2:?Numero Instancia}
 
@@ -30,7 +30,7 @@ fi
 
 #CONFIGURACION
 if(cp -R /etc/mysql/ /etc/mysql-${nombre});then
-    if (mv /etc/mysql/my.cnf /etc/mysql-${nombre}/${nombre}.cnf);then
+    if (mv /etc/mysql-${nombre}/my.cnf /etc/mysql-${nombre}/${nombre}.cnf);then
 
         #MODIFICAMOS CONFIGURACION PARA LA NUEVA INSTANCIA
         sed -i "s/${puerto}/${puertoNuevo}/g"                /etc/mysql-${nombre}/${nombre}.cnf
