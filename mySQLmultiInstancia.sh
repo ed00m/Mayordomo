@@ -41,18 +41,29 @@ if(cp -R /etc/mysql/ /etc/mysql-${nombre});then
         sed -i "s@/etc/mysql/@/etc/mysql-${nombre}/@g"       /etc/mysql-${nombre}/${nombre}.cnf
         
         #INICIALIZAMOS LA NUEVA INSTANCIA
-        mysql_install_db --user=mysql --datadir=/var/lib/mysql-${nombre}
+        if(!mysql_install_db --user=mysql --datadir=/var/lib/mysql-${nombre});then
+            echo ${msg}
+            exit 1
+        fi
 
         #INICIAMOS LA NUEVA INSTANCIA
-        mysqld_safe --defaults-file=/etc/mysql-${nombre}/${nombre}.cnf &
+        if(!mysqld_safe --defaults-file=/etc/mysql-${nombre}/${nombre}.cnf &);then
+            echo ${msg}
+            exit 1
+        fi
 
         #CAMBIAMOS LA CLAVE DE ROOT
         nuevaClave=$(makepasswd -chars 24)
-        /usr/bin/mysqladmin -S /var/run/mysqld/${nombre}.sock -u root password "${nuevaClave}"
-        echo "Nueva clave: ${nuevaClave}"
-        echo "Para probar la conexion prueba con"
-        echo "mysql -S /var/run/mysqld/${nombre}.sock -u root -p${nuevaClave}"
-        echo "Saludos"
+        
+        if (/usr/bin/mysqladmin -S /var/run/mysqld/${nombre}.sock -u root password "${nuevaClave}");then
+            echo "Nueva clave: ${nuevaClave}"
+            echo "Para probar la conexion prueba con"
+            echo "mysql -S /var/run/mysqld/${nombre}.sock -u root -p${nuevaClave}"
+            echo "Saludos"
+        else
+            echo ${msg}
+            exit 1
+        fi
     else
         echo ${msg}
     fi
