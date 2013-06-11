@@ -1,0 +1,34 @@
+# Denegar archivos potencialmente consumidores de ancho de banda
+# Reglas para todos los BOTS
+# Se permite su utilización en otros sitios web
+User-agent: *
+Disallow: /*.iso$
+Disallow: /*.tar.iso$
+Disallow: /*.mp1$
+Disallow: /*.mp2$
+Disallow: /*.mp3$
+Disallow: /*.mp4$
+Disallow: /*.mpg$
+Disallow: /*.mpeg$
+Disallow: /*.avi$
+Disallow: /*.jpg$
+Disallow: /*.jpeg$
+Disallow: /*.exe$
+Disallow: /*.tar.gz$
+Disallow: /*.7z$
+Disallow: /*.tar.7z$
+Disallow: /*.deb$
+Disallow: /*.rpm$
+Disallow: /*.emerald$
+Disallow: /*.uky$
+Disallow: /*.sh$
+Disallow: /*.r*$
+Disallow: /*.rar$
+Disallow: /*.zip$
+Disallow: /*.tar.zip$
+Disallow: /*.3gp$
+Disallow: /*.flv$
+Disallow: /*.wmv$
+Disallow: /*.css$
+Disallow: /*.cgi$
+Disallow: /*.gz$
