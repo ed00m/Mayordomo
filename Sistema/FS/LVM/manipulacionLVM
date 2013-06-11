@@ -1,0 +1,83 @@
+#########################################
+# MANIPULACION DE PARTICIONES LVM
+#########################################
+
+#########################################
+# BUSCAR LA PARTICION FISICA SIN MONTAR
+#########################################
+
+fdisk -l |grep "/dev/"
+
+Disk /dev/sdb: 288.1 GB, 288161071104 bytes
+255 heads, 63 sectors/track, 35033 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+
+   Device Boot      Start         End      Blocks   Id  System
+   /dev/sdb1               1       35033   281402572   8e  Linux LVM
+
+#########################################
+# INICIALIZAMOS EL VOLUMEN FISICO
+#########################################
+
+pvcreate /dev/sdb1
+
+#########################################
+# AGREGAMOS EL VOLUMEN AL GRUPO DE LVM
+#########################################
+
+vgextend GRUPO /dev/sdb1
+
+#########################################
+# REVISAMOS LA DISPONIBILIDAD DE ESPACIO
+#########################################
+
+vgdisplay
+
+    --- Volume group ---
+    VG Name               GRUPO
+    System ID
+    Format                lvm2
+    Metadata Areas        2
+    Metadata Sequence No  2
+    VG Access             read/write
+    VG Status             resizable
+    MAX LV                0
+    Cur LV                0
+    Open LV               0
+    Max PV                0
+    Cur PV                2
+    Act PV                2
+    VG Size               192000.00 MiB
+    PE Size               4000.00 MiB
+    Total PE              48000
+    Alloc PE / Size       0 / 0
+    Free  PE / Size       48000 / 192000.00 MiB
+    VG UUID               9sdaFp-22WU-a3wc-S18U-0z8n-qERe-wnkHpq
+
+#########################################
+# AHORA PODEMOS AMPLIAR EL VOLUMEN LOGICO
+#########################################
+
+lvextend -L +10G /dev/mapper/GRUPO/volumenlogico
+
+#########################################
+# REDIMENSIONAMOS EL VOLUMEN LOGICO
+#########################################
+
+# Si es ext4 )
+
+resize4fs /dev/mapper/GRUPO/volumenlogico
+
+# Si es ext2/ext3 )
+
+resize2fs /dev/mapper/GRUPO/volumenlogico
+
+# Si es XFS )
+
+xfs_growfs /dev/mapper/GRUPO/volumenlogico
+
+
+
+
+
+        
