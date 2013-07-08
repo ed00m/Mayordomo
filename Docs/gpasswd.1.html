@@ -1,0 +1,226 @@
+<!-- @(#) aw_man_page.template 11/02/12 1.7 -->
+<html>
+	<head>
+		<title>   CentOS   5.5 - gpasswd(1) </title>
+		<link rel="stylesheet" href="http://man.flashnux.com/man_pages.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="keywords" content="Linux, man page, manual page,   CentOS   5.5, gpasswd(1),   CentOS , man pages, manual pages">
+		<meta name="ROBOTS" content="index,follow">
+	</head>
+
+	<body>
+		<table class="prev_next">
+			<col width=25%>
+			<col width=50%>
+			<col width=25%>
+			<tr>
+				<td class="OS"><h1 class="OS">  Linux</h1></td>
+				<td class="distrib"><h1 class="distrib">  CentOS   5.5</h1></td>
+				<td class="nickname"></td>
+			</tr>
+			<tr>
+				<td class="prev"><a href = "http://man.flashnux.com/en/centos/5/5.5/man1/gouldtoppm.1.html"><img src="http://man.flashnux.com/images/previous_01.png"></td>
+
+				<td class="name"><h1 class="name">gpasswd(1)</h1></td>
+				<td class="next"><a href = "http://man.flashnux.com/en/centos/5/5.5/man1/gpg.1.html"><img src="http://man.flashnux.com/images/next_01.png"></td>
+
+			</tr>
+		</table>
+		<hr>
+		
+
+<!-- Creator     : groff version 1.18.1 -->
+<!-- CreationDate: Tue Jan 25 23:01:45 2011 -->
+<h1 align=center>GPASSWD</h1>
+<a name="NAME"></a>
+<h2>NAME</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>gpasswd &minus; administer the /etc/group file</p>
+</td>
+</table>
+<a name="SYNOPSIS"></a>
+<h2>SYNOPSIS</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> <i>group</i></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> &minus;a <i>user group</i></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> &minus;d <i>user group</i></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> &minus;R <i>group</i></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> &minus;r <i>group</i></p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> [&minus;A <i>user,</i>...] [&minus;M
+<i>user,</i>...] <i>group</i></p>
+</td>
+</table>
+<a name="DESCRIPTION"></a>
+<h2>DESCRIPTION</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>gpasswd</b> is used to administer the
+<i>/etc/group</i> file (and <i>/etc/gshadow</i> file if
+compiled with SHADOWGRP defined). Every group can have
+administrators, members and a password. System administrator
+can use <b>&minus;A</b> option to define group
+administrator(s) and <b>&minus;M</b> option to define
+members and has all rights of group administrators and
+members.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
+<p><b>Notes about group passwords</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>Group passwords are an inherent security problem since
+more than one person is permitted to know the password.
+However, groups are a useful tool for permitting
+co&minus;operation between different users.</p>
+</td>
+</table>
+<a name="OPTIONS"></a>
+<h2>OPTIONS</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p>Group administrator can add and delete users using
+<b>&minus;a</b> and <b>&minus;d</b> options respectively.
+Administrators can use <b>&minus;r</b> option to remove
+group password. When no password is set only group members
+can use <b>newgrp</b> to join the group. Option
+<b>&minus;R</b> disables access via a password to the group
+through <b>newgrp</b> command (however members will still be
+able to switch to this group).</p>
+<!-- INDENTATION -->
+<p><b>gpasswd</b> called by a group administrator with group
+name only prompts for the group password. If password is set
+the members can still <b>newgrp</b>(1) without a password,
+non&minus;members must supply the password.</p>
+</td>
+</table>
+<a name="FILES"></a>
+<h2>FILES</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><i>/etc/group</i></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="16%"></td>
+<td width="83%">
+<p>Group account information.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><i>/etc/gshadow</i></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="16%"></td>
+<td width="83%">
+<p>Secure group account information.</p>
+</td>
+</table>
+<a name="SEE ALSO"></a>
+<h2>SEE ALSO</h2>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="10%"></td>
+<td width="89%">
+<p><b>newgrp</b>(1), <b>gshadow</b>(5), <b>groupadd</b>(8),
+<b>groupdel</b>(8), <b>groupmod</b>(8), <b>grpck</b>(8),
+<b>group</b>(5).</p>
+</td>
+</table>
+
+
+		<hr>
+		<table class="prev_next">
+			<tr>
+				<td class="prev"><a href = "http://man.flashnux.com/en/centos/5/5.5/man1/gouldtoppm.1.html#BOT_PREVIOUS" name="BOT_PREVIOUS"><img src="http://man.flashnux.com/images/previous_01.png"></td>
+
+				<td class="name">gpasswd(1)</td>
+				<td class="next"><a href = "http://man.flashnux.com/en/centos/5/5.5/man1/gpg.1.html#BOT_NEXT" name="BOT_NEXT"><img src="http://man.flashnux.com/images/next_01.png"></td>
+
+			</tr>
+		</table>
+	</body>
+</html>
