@@ -37,3 +37,5 @@ GRANT SELECT, UPDATE, INSERT, DELETE
 ON curso.*
 TO 'usuarios'@'localhost'
 IDENTIFIED BY 'usuarios';
+
+flush privileges;
