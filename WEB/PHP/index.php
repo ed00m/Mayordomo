@@ -18,13 +18,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-include 'class.MySQL';
+include 'class.MySQL.php';
 
 $db = new MySQL;
 
 $query = "select idusuarios, name from curso.usuarios";
-$result = ExecuteSQL($query);
+$db->ExecuteSQL($query);
 
-header('Content-type: application/json');
-echo json_encode($result);
+$result = $db->ArrayResults();
 
+var_dump($result);
