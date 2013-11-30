@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
+mariadb_list=/etc/apt/sources.list.d/mariadb.list
+
 echo "[] Elija modo de instalacion, por [c]omando o [a]rchivo"
 read mode
 
@@ -10,10 +12,10 @@ case ${mode} in
         add-apt-repository 'deb http://mirrors.supportex.net/mariadb/repo/5.5/debian wheezy main'
     ;;
     a|A)
-        echo "# MariaDB 5.5 repository list - created 2013-11-30 14:34 UTC" > /etc/apt/sources.list.d/mariaDB.list
-        echo "# http://mariadb.org/mariadb/repositories/" >> /etc/apt/sources.list.d/mariaDB.list
-        echo "deb http://mirrors.supportex.net/mariadb/repo/5.5/debian wheezy main" >> /etc/apt/sources.list.d/mariaDB.list
-        echo "deb-src http://mirrors.supportex.net/mariadb/repo/5.5/debian wheezy main" >> /etc/apt/sources.list.d/mariaDB.list
+        echo "# MariaDB 5.5 repository list - created 2013-11-30 14:34 UTC" > ${mariadb_list}
+        echo "# http://mariadb.org/mariadb/repositories/" >> ${mariadb_list}
+        echo "deb http://mirrors.supportex.net/mariadb/repo/5.5/debian wheezy main" >> ${mariadb_list}
+        echo "deb-src http://mirrors.supportex.net/mariadb/repo/5.5/debian wheezy main" >> ${mariadb_list}
     ;;
 esac
 
