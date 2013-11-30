@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 mariadb_list=/etc/apt/sources.list.d/mariadb.list
 sources_list=/etc/apt/sources.list
