@@ -2,13 +2,18 @@
 archivo=${1?:INGRESE ARCHIVO A PROCESAR}
 
 IFS=";"
+HOME=/home/usuarios
 
-while read nombres1 nombres2 apellidos1 apellidos2 carrera jornada ingreso comuna clave
+while read nombre aPaterno aMaterno
 do
-    clavecrypt=$(perl -e"  use Crypt::PasswdMD5; print unix_md5_crypt(${clave});")
-        usuario=$(echo ${nombres1}|cut -c 1)
-            user=${usuario}${apellidos1}
+    
+    u=$(echo ${nombre}|cut -c 1)
+    o=$(echo ${aMaterno}|cut -c 1)
+    usuario=${u}${aPaterno}${o}
 
-                echo "useradd "${user}" -p "${clavecrypt}" -m -d /home/"${user}" -c "${carrera}" -sincrypt "${clave}
-                    useradd ${user} -p "${clavecrypt}" -m -d /home/${user} -c ${carrera}
-                    done < ${archivo} > cargar2.log
+    clavecrypt=$(perl -e"  use Crypt::PasswdMD5; print unix_md5_crypt(${usuario});")
+
+    echo "useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -sincrypt \"${usuario}"
+    
+done < ${archivo}
+
