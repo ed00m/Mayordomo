@@ -48,6 +48,11 @@ do
             if (! grep ${GROUP} /etc/group);then
                 echo "[] groupadd ${GROUP}"
             fi
+            
+            if [! -d ${HOME} ];then
+                echo "[] ${HOME} no existe, se creara"
+                mkdir -p ${HOME}
+            fi
 
             echo "[] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
         fi
