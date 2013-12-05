@@ -49,7 +49,7 @@ do
                 echo "[] groupadd ${GROUP}"
             fi
             
-            if [! -d ${HOME} ];then
+            if [ ! -d ${HOME} ];then
                 echo "[] ${HOME} no existe, se creara"
                 mkdir -p ${HOME}
             fi
