@@ -46,8 +46,10 @@ do
             esac
             
             if (! grep ${GROUP} /etc/group);then
-                echo "[] groupadd ${GROUP}"
-            else    
+                printf '\033[0;33m%s\033[0m\n' "[] No se encontro coincidencia, groupadd ${GROUP}"
+            else
+                printf '\033[0;33m%s\033[0m\n' "[] [] Se encontro coincidencia, Doble filtro ${GROUP}"
+                
                 groups_list=$(mktemp -t "${groups_list##*/}.XXXXXX") || exit $?
                 
                 for GROUP_LINEA in $(cat ${groups_list});do
@@ -55,6 +57,7 @@ do
                     group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
                     
                     if [ ! "${GROUP}" = "${group_field}" ];then
+                        printf '\033[0;33m%s\033[0m\n' "\"${GROUP}\" = \"${group_field}\""
                         echo "[] groupadd ${GROUP}"
                     fi
                 done
@@ -62,7 +65,7 @@ do
             
             if [ ! -d ${HOME} ];then
                 echo "[] ${HOME} no existe, se creara"
-                mkdir -p ${HOME}
+                echo "mkdir -p ${HOME}"
             fi
 
             echo "[] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
