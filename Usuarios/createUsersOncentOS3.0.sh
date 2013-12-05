@@ -47,6 +47,17 @@ do
             
             if (! grep ${GROUP} /etc/group);then
                 echo "[] groupadd ${GROUP}"
+            else    
+                groups_list=$(mktemp -t "${groups_list##*/}.XXXXXX") || exit $?
+                
+                for GROUP_LINEA in $(cat ${groups_list});do
+                    
+                    group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
+                    
+                    if [ ! "${GROUP}" = "${group_field}" ];then
+                        echo "[] groupadd ${GROUP}"
+                    fi
+                done
             fi
             
             if [ ! -d ${HOME} ];then
