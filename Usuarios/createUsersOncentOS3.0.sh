@@ -9,7 +9,9 @@ do
     then
         printf '\033[0;31m%s\033[0m\n' "[] Informacion faltante para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol}"
     else
-        if [ -z ${nombre##[0-9]*} ] || [ -z ${aPaterno##[0-9]*} ] || [ -z ${aMaterno##[0-9]*} ] || [ -z ${dpto##[0-9]*} ] || [ -z ${rol##[0-9]*} ];
+        if [ -z ${nombre##[0-9]*} ] || [ -z ${aPaterno##[0-9]*} ] || [ -z ${aMaterno##[0-9]*} ] || [ -z ${dpto##[0-9]*} ] || [ -z ${rol##[0-9]*} ] ||
+        [ "${nombre}" = "nombre" ] || [ "${aPaterno}" = "aPaterno" ] || [ "${aMaterno}" = "aMaterno" ] ||
+        [ "${dpto}" = "depto" ] || [ "${rol}" = "rol" ];
         then
             printf '\033[0;31m%s\033[0m\n' "[] Informacion incorrecta para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol}"
         else
