@@ -50,15 +50,21 @@ do
             else
                 printf '\033[0;33m%s\033[0m\n' "[] [] Se encontro coincidencia, Doble filtro ${GROUP}"
                 
-                groups_list=$(mktemp -t "${groups_list##*/}.XXXXXX") || exit $?
+                groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
+                
+                ls -l ${groups_list}
+                
+                grep ${GROUP} /etc/group > ${groups_list}
                 
                 for GROUP_LINEA in $(cat ${groups_list});do
                     
                     group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
                     
                     if [ ! "${GROUP}" = "${group_field}" ];then
-                        printf '\033[0;33m%s\033[0m\n' "\"${GROUP}\" = \"${group_field}\""
+                        printf '\033[0;33m%s\033[0m\n' "Distintos: \"${GROUP}\" = \"${group_field}\""
                         echo "[] groupadd ${GROUP}"
+                    else
+                        printf '\033[0;33m%s\033[0m\n' "\"Distintos ${GROUP}\" = \"${group_field}\""
                     fi
                 done
             fi
