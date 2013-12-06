@@ -45,14 +45,14 @@ do
                 ;;
             esac
             
-            if (! grep ${GROUP} /etc/group);then
-                printf '\033[0;33m%s\033[0m\n' "[] No se encontro coincidencia, groupadd ${GROUP}"
+            if (! grep ${GROUP} /etc/group > /dev/null);then
+                printf '\033[0;33m%s\033[0m\n' "[] No se encontro coincidencia"
+                printf '\033[0;32m%s\033[0m\n' "[] groupadd ${GROUP}"
             else
-                printf '\033[0;33m%s\033[0m\n' "[] [] Se encontro coincidencia, Doble filtro ${GROUP}"
+                printf '\033[0;33m%s\033[0m\n' "[] Se encontro coincidencia"
+                printf '\033[0;32m%s\033[0m\n' "[] Doble filtro ${GROUP}"
                 
                 groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
-                
-                ls -l ${groups_list}
                 
                 grep ${GROUP} /etc/group > ${groups_list}
                 
@@ -61,17 +61,17 @@ do
                     group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
                     
                     if [ ! "${GROUP}" = "${group_field}" ];then
-                        printf '\033[0;33m%s\033[0m\n' "Distintos: \"${GROUP}\" = \"${group_field}\""
-                        echo "[] groupadd ${GROUP}"
+                        printf '\033[0;33m%s\033[0m\n' "[] Distintos: \"${GROUP}\" = \"${group_field}\""
+                        printf '\033[0;32m%s\033[0m\n' "[] groupadd ${GROUP}"
                     else
-                        printf '\033[0;33m%s\033[0m\n' "\"Distintos ${GROUP}\" = \"${group_field}\""
+                        printf '\033[0;33m%s\033[0m\n' "\"[] Iguales ${GROUP}\" = \"${group_field}\""
                     fi
                 done
             fi
             
             if [ ! -d ${HOME} ];then
                 echo "[] ${HOME} no existe, se creara"
-                echo "mkdir -p ${HOME}"
+                echo "[] mkdir -p ${HOME}"
             fi
 
             echo "[] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
