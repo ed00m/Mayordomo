@@ -1,0 +1,21 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system>                                <mount point>   <type>  <options>       <dump>  <pass>
+/dev/mapper/curso-root                         /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/sda2 during installation
+UUID=d7313060-79cd-4403-96d4-19c0bed88114      /boot           ext2    defaults        0       2
+# /boot/efi was on /dev/sda1 during installation
+UUID=F70F-30B8                                 /boot/efi       vfat    defaults        0       1
+/dev/mapper/curso-home                         /home           ext4    defaults        0       2
+/dev/mapper/curso-opt                          /opt            ext4    defaults        0       2
+/dev/mapper/curso-usr                          /usr            ext4    defaults        0       2
+/dev/mapper/curso-var                          /var            ext4    defaults        0       2
+/dev/mapper/curso-swap_1                       none            swap    sw              0       0
+/dev/sr0                                       /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+#/tmp en ram
+tmpfs                                          /tmp            tmpfs   defaults,size=2G,noatime,mode=1777	0	0
