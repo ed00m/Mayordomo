@@ -9,6 +9,7 @@ while read nombre aPaterno aMaterno dpto rol permisos
 do
     count=$((count+1))
     echo "[] Usuario: "${count}
+    
     if [ -z ${nombre} ] || [ -z ${aPaterno} ] || [ -z ${aMaterno} ] ||
     [ -z ${dpto} ] || [ -z ${rol} ] || [ -z ${permisos} ] ;
     then
@@ -62,21 +63,22 @@ do
                 
                 groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
                 
-                cat ${groups_list}
-                
-                grep ${GROUP} /etc/group > ${groups_list}
-                
-                while read GROUP_LINEA;do
-                    
-                    group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
-                    
-                    if [ ! "${GROUP}" = "${group_field}" ];then
-                        printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${GROUP}\" = \"${group_field}\", se creara grupo"
-                        printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
-                    else
-                        printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${GROUP}\" = \"${group_field}\", no se creara grupo"
-                    fi
-                done < ${groups_list}
+                if (grep ${GROUP} /etc/group > ${groups_list});
+                then
+                    while read GROUP_LINEA;do
+                        
+                        group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
+                        
+                        if [ ! "${GROUP}" = "${group_field}" ];then
+                            printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${GROUP}\" = \"${group_field}\", se creara grupo"
+                            printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
+                        else
+                            printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${GROUP}\" = \"${group_field}\", no se creara grupo"
+                        fi
+                    done < ${groups_list}
+                else
+                    exit $?
+                fi
             fi
             
             if [ ! -d ${HOME} ];then
