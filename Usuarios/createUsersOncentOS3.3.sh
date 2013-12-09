@@ -57,14 +57,16 @@ do
                 printf '\033[0;33m%s\033[0m\n' "  [] No se encontro coincidencia en el nombre del grupo, se creara"
                 printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
             else
-                printf '\033[0;33m%s\033[0m\n' "  [] Se encontro coincidencia"
+                printf '\033[0;33m%s\033[0m\n' "  [] Se encontro coincidencia en el nombre del grupo, se filtrara"
                 printf '\033[0;32m%s\033[0m\n' "  [] Doble filtro ${GROUP}"
                 
                 groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
                 
+                cat ${groups_list}
+                
                 grep ${GROUP} /etc/group > ${groups_list}
                 
-                for GROUP_LINEA in $(cat ${groups_list});do
+                while read GROUP_LINEA;do
                     
                     group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
                     
@@ -74,7 +76,7 @@ do
                     else
                         printf '\033[0;33m%s\033[0m\n' "\"  [] Iguales ${GROUP}\" = \"${group_field}\""
                     fi
-                done
+                done < ${groups_list}
             fi
             
             if [ ! -d ${HOME} ];then
