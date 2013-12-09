@@ -55,7 +55,7 @@ funct_home(){
         echo "  [] mkdir -p ${HOME}"
     fi
 }
-funct_userdd(){
+funct_useradd(){
     
     usuario=$1
     clavecrypt=$2
