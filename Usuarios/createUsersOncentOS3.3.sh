@@ -17,7 +17,7 @@ funct_group(){
     echo "  [] GrupoArgs: "${GROUP} 
             
     if (! grep ${GROUP} /etc/group > /dev/null);then
-        printf '\033[0;33m%s\033[0m\n' "  [] No se encontro coincidencia en el nombre del grupo, se creara"
+        printf '\033[0;33m%s\033[0m\n' "  [] No se encontro coincidencia en el nombre del grupo, \"${GROUP}\" se creara"
         printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
     else
         printf '\033[0;33m%s\033[0m\n' "  [] Se encontro coincidencia en el nombre del grupo, se filtrara"
@@ -40,12 +40,15 @@ funct_group(){
         fi
     fi
 }
+
 funct_print_faltante(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
 }
+
 funct_print_incorrecta(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
 }
+
 funct_home(){
     
     HOME=$1
@@ -55,6 +58,7 @@ funct_home(){
         echo "  [] mkdir -p ${HOME}"
     fi
 }
+
 funct_useradd(){
     
     usuario=$1
@@ -66,7 +70,6 @@ funct_useradd(){
     
     echo "  [] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
 }
-
 
 while read nombre aPaterno aMaterno dpto rol permisos
 do
@@ -90,9 +93,7 @@ do
             u=$(echo ${nombre}|cut -c 1)
             o=$(echo ${aMaterno}|cut -c 1)
             usuario=${u}${aPaterno}${o}
-
             clavecrypt=$(perl -e"  use Crypt::PasswdMD5; print unix_md5_crypt(${usuario});")
-            
             dpto_=$(echo ${dpto} | tr '[:upper:]' '[:lower:]')
             rol_=$(echo ${rol} | tr '[:upper:]' '[:lower:]')
             
@@ -123,9 +124,7 @@ do
             
             funct_group ${GROUP}
             funct_group ${MASTERGROUP}
-            
             funct_home ${HOME}
-            
             funct_useradd ${usuario} ${clavecrypt} ${HOME} ${usuario} ${dpto} ${rol} ${GROUP}
         fi
     fi
