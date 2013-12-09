@@ -10,37 +10,6 @@ groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
 # * Functions
 #/
 
-funct_group(){ 
-    
-    GROUP=$1
-    
-    echo "  [] GrupoArgs: "${GROUP} 
-            
-    if (! grep ${GROUP} /etc/group > /dev/null);then
-        printf '\033[0;33m%s\033[0m\n' "  [] No se encontro coincidencia en el nombre del grupo, \"${GROUP}\" se creara"
-        printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
-    else
-        printf '\033[0;33m%s\033[0m\n' "  [] Se encontro coincidencia en el nombre del grupo, se filtrara"
-        printf '\033[0;32m%s\033[0m\n' "  [] Doble filtro ${GROUP}"
-                
-        if (grep ${GROUP} /etc/group > ${groups_list});
-        then
-            while read GROUP_LINEA;do
-                group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
-            
-                if [ ! "${GROUP}" = "${group_field}" ];then
-                    printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${GROUP}\" = \"${group_field}\", se creara grupo"
-                    printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
-                else
-                    printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${GROUP}\" = \"${group_field}\", no se creara grupo"
-                fi
-            done < ${groups_list}
-        else
-            exit $?
-        fi
-    fi
-}
-
 funct_print_faltante(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
 }
@@ -69,6 +38,54 @@ funct_useradd(){
     GROUP=$6 
     
     echo "  [] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
+}
+
+funct_group(){ 
+    
+    VAR=$1
+    TYPE=$2
+    
+    echo "  [] GrupoArgs: "${VAR}" [] Type: "${TYPE}
+    
+    if [ "${TYPE}" = "group" ];then
+        target=/etc/group
+        message="grupo"
+        exec="groupadd ${GROUP}"
+    
+    elif [ "${TYPE}" = "user" ];then
+        target=/etc/passwd
+        message="usuario"
+        exec="useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
+    fi
+            
+    if (! grep ${VAR} ${target} > /dev/null);then
+        printf '\033[0;33m%s\033[0m\n' "  [] No se encontro coincidencia en el nombre del ${message}, \"${VAR}\" se creara"
+        printf '\033[0;32m%s\033[0m\n' "  [] ${exec}"
+    else
+        printf '\033[0;33m%s\033[0m\n' "  [] Se encontro coincidencia en el nombre del ${message}, se filtrara"
+        printf '\033[0;32m%s\033[0m\n' "  [] Doble filtro ${VAR}"
+                
+        if (grep ${VAR} ${target} > ${groups_list});
+        then
+            while read GROUP_LINEA;do
+                group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
+            
+                if [ ! "${VAR}" = "${group_field}" ];then
+                    printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${VAR}\" = \"${group_field}\", se creara ${message}"
+                    printf '\033[0;32m%s\033[0m\n' "  [] ${exec}"
+                else
+                    if [ "${TYPE}" = "user" ];then
+                        # Aca migro
+                        echo " [] Migrare"
+                    else
+                        printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
+                    fi
+                fi
+            done < ${groups_list}
+        else
+            exit $?
+        fi
+    fi
 }
 
 while read nombre aPaterno aMaterno dpto rol permisos
@@ -122,10 +139,15 @@ do
                 ;;
             esac
             
-            funct_group ${GROUP}
-            funct_group ${MASTERGROUP}
+            # Si no existe grupo lo crea
+            funct_group ${GROUP} group
+            funct_group ${MASTERGROUP} group
+            # Si no existe home lo crea
             funct_home ${HOME}
-            funct_useradd ${usuario} ${clavecrypt} ${HOME} ${usuario} ${dpto} ${rol} ${GROUP}
+            # Si usuario no existe lo crea
+            funct_group ${usuario} user
+            # Imprime y/o ejecuta la creacion de nuevos usuarios
+            #funct_useradd ${usuario} ${clavecrypt} ${HOME} ${usuario} ${dpto} ${rol} ${GROUP}
         fi
     fi
     
