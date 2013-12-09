@@ -55,7 +55,7 @@ funct_home(){
         echo "  [] mkdir -p ${HOME}"
     fi
 }
-funct_adduser(){
+funct_userdd(){
     
     usuario=$1
     clavecrypt=$2
