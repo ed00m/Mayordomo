@@ -46,6 +46,27 @@ funct_print_faltante(){
 funct_print_incorrecta(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
 }
+funct_home(){
+    
+    HOME=$1
+    
+    if [ ! -d ${HOME} ];then
+        printf '\033[0;33m%s\033[0m\n' "  [] ${HOME} no existe, se creara"
+        echo "  [] mkdir -p ${HOME}"
+    fi
+}
+funct_adduser(){
+    
+    usuario=$1
+    clavecrypt=$2
+    HOME=$3
+    dpto=$4
+    rol=$5
+    GROUP=$6 
+    
+    echo "  [] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
+}
+
 
 while read nombre aPaterno aMaterno dpto rol permisos
 do
@@ -103,12 +124,9 @@ do
             funct_group ${GROUP}
             funct_group ${MASTERGROUP}
             
-            if [ ! -d ${HOME} ];then
-                printf '\033[0;33m%s\033[0m\n' "  [] ${HOME} no existe, se creara"
-                echo "  [] mkdir -p ${HOME}"
-            fi
-
-            echo "  [] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
+            funct_home ${HOME}
+            
+            funct_useradd ${usuario} ${clavecrypt} ${HOME} ${usuario} ${dpto} ${rol} ${GROUP}
         fi
     fi
     
