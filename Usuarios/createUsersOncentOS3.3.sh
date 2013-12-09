@@ -68,7 +68,12 @@ funct_group(){
         if (grep ${VAR} ${target} > ${groups_list});
         then
             while read GROUP_LINEA;do
-                group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
+                if [ "${TYPE}" = "group" ];then
+                    group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
+                elif [ "${TYPE}" = "user" ];then
+                    group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
+                    group_path=$(echo ${GROUP_LINEA}|cut -d":" -f6)
+                fi
             
                 if [ ! "${VAR}" = "${group_field}" ];then
                     printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${VAR}\" = \"${group_field}\", se creara ${message}"
@@ -77,6 +82,7 @@ funct_group(){
                     if [ "${TYPE}" = "user" ];then
                         # Aca migro
                         echo " [] Migrare"
+                        echo " [] Usuario se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
                     else
                         printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
                     fi
