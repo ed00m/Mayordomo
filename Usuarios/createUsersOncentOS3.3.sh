@@ -71,10 +71,10 @@ do
                     group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
                     
                     if [ ! "${GROUP}" = "${group_field}" ];then
-                        printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${GROUP}\" = \"${group_field}\""
+                        printf '\033[0;33m%s\033[0m\n' "  [] Distintos: \"${GROUP}\" = \"${group_field}\", se creara grupo"
                         printf '\033[0;32m%s\033[0m\n' "  [] groupadd ${GROUP}"
                     else
-                        printf '\033[0;33m%s\033[0m\n' "\"  [] Iguales ${GROUP}\" = \"${group_field}\""
+                        printf '\033[0;33m%s\033[0m\n' "  [] Iguales ${GROUP}\" = \"${group_field}\", no se creara grupo"
                     fi
                 done < ${groups_list}
             fi
