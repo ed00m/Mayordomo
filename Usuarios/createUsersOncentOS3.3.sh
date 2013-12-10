@@ -38,7 +38,7 @@ funct_permissions(){
     then
         chmod="u+rwx"
         permiso="chmod -R 700 ${path}"
-        message=""
+        message="Solo owner"
     fi
     
     printf '\033[0;32m%s\033[0m\n' "    [] Permisos del directorio del usuario ${usuario}: \"${message}\" => ${chmod}"
