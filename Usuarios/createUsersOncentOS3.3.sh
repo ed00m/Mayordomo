@@ -114,7 +114,8 @@ funct_migrate(){
     
     if [ "${LOGICA_COMMIT}" = "TRUE" ];
     then
-        printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
+        #printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
+        printf '\033[0;33m%s\033[0m\n' "    [] usermod -d ${HOME}/${usuario} ${usuario}"
     else
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate: NO APLICA NINGUNA LOGICA"
     fi
