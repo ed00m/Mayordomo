@@ -19,17 +19,18 @@ groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
 #/
 # * Functions
 #/
+
 funct_permises(){
     local usuario=$1
     local acceso=$2
-    local permiso
+    local permiso=$3
     
     if [ "${acceso}" = "group" ];
     then
-    
+        echo " "
     elif [ "${acceso}" = "others" ];
     then
-    
+        echo " "
     fi
     
 }
@@ -222,7 +223,7 @@ funct_group(){
     fi
 }
 
-while read nombre aPaterno aMaterno dpto rol accesos
+while read nombre aPaterno aMaterno dpto rol permisos
 do
     count=$((count+1))
     echo "[] Usuario (${count})"
