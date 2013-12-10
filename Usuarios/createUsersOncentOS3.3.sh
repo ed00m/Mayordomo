@@ -62,16 +62,16 @@ funct_migrate(){
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 2"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
-    elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ];
-    then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 3"
-        printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
-        printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
     elif [ ! -d ${group_path} ] ||
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 4"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
+    elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 3"
+        printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
     fi
     
     printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
