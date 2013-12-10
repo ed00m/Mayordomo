@@ -20,18 +20,25 @@ groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
 # * Functions
 #/
 
-funct_permises(){
+funct_permissions(){
     local usuario=$1
     local acceso=$2
-    local permiso=$3
+    local path=$3
+    local permiso
+    local chmod
     
     if [ "${acceso}" = "group" ];
     then
-        echo " "
+        chmod="ug+rwx"
+        permiso="chmod -R 770 ${path}"
     elif [ "${acceso}" = "others" ];
     then
-        echo " "
+        chmod="u+rwx"
+        permiso="chmod -R 700 ${path}"
     fi
+    
+    printf '\033[0;32m%s\033[0m\n' "    [] A usuario ${usuario} le corresponde ${chmod}"
+    printf '\033[0;32m%s\033[0m\n' "    [] ${permiso}"
     
 }
 
@@ -144,7 +151,7 @@ funct_migrate(){
     if [ "${LOGICA_COMMIT}" = "TRUE" ];
     then
         #printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
-        printf '\033[0;33m%s\033[0m\n' "    [] usermod -d ${HOME}/${usuario} ${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "    [] usermod -d ${HOME}/${usuario} ${usuario}"
     else
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate: NO APLICA NINGUNA LOGICA"
     fi
@@ -217,6 +224,8 @@ funct_group(){
                 printf '\033[0;33m%s\033[0m\n' "    [] Se creara ${message}: ${VAR}"
                 printf '\033[0;32m%s\033[0m\n' "    [] ${exec}"
             fi
+            
+            funct_permissions ${usuario} ${permisos} ${HOME}/${usuario}
         else
             exit $?
         fi
