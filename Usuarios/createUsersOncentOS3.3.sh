@@ -27,7 +27,7 @@ funct_print_dataIncorrect(){
 
 funct_home(){
     
-    HOME=$1
+    local HOME=$1
     
     if [ ! -d ${HOME} ];then
         printf '\033[0;33m%s\033[0m\n' "    [] ${HOME} no existe, se creara"
@@ -37,20 +37,20 @@ funct_home(){
 
 funct_useradd(){
     
-    usuario=$1
-    clavecrypt=$2
-    HOME=$3
-    dpto=$4
-    rol=$5
-    GROUP=$6 
+    local usuario=$1
+    local clavecrypt=$2
+    local HOME=$3
+    local dpto=$4
+    local rol=$5
+    local GROUP=$6 
     
     echo "  [] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
 }
 
 funct_migrate(){
     
-    usuario=$1
-    LOGICA_COMMIT="FALSE"
+    local usuario=$1
+    local LOGICA_COMMIT="FALSE"
     
     if [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ] &&
