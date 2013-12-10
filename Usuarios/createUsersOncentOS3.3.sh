@@ -125,7 +125,7 @@ funct_group(){
                         printf '\033[0;33m%s\033[0m\n' "    [] Usuario ${usuario} se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
                         funct_migrate ${usuario}
                     else
-                        printf '\033[0;33m%s\033[0m\n' "    [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
+                        printf '\033[0;33m%s\033[0m\n' "    [] ${message} \"${VAR}\" ya existe, se cancela la creacion"
                         createGROUPFALSE=TRUE
                     fi
                 fi
