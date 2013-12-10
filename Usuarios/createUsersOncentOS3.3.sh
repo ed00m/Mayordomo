@@ -87,12 +87,12 @@ funct_group(){
     if [ "${TYPE}" = "group" ];then
         target=/etc/group
         message="grupo"
-        exec="groupadd ${GROUP}"
+        exec="groupadd ${VAR}"
     
     elif [ "${TYPE}" = "user" ];then
         target=/etc/passwd
         message="usuario"
-        exec="useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
+        exec="useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${VAR}\""
     fi
             
     MATCH=$(grep ${VAR} ${target}|wc -l|cut -d" " -f1)
