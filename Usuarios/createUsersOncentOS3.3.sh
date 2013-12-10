@@ -62,8 +62,7 @@ funct_migrate(){
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 2"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
-    elif [ ! -d ${group_path} ] ||
-    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
+    elif [ ! -d ${group_path} ];
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 3"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
