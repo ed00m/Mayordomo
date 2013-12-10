@@ -107,7 +107,7 @@ funct_group(){
             
                 if [ ! "${VAR}" = "${group_field}" ];then
                     printf '\033[0;33m%s\033[0m\n' "      [] Distintos: \"${VAR}\" = \"${group_field}\", se creara ${message}"
-                    printf '\033[0;32m%s\033[0m\n' "      [] ${exec}"
+                    createGROUP=TRUE
                 else
                     if [ "${TYPE}" = "user" ];then
                         # Aca migro
@@ -119,6 +119,11 @@ funct_group(){
                     fi
                 fi
             done < ${groups_list}
+            
+            if [ "${createGROUP}" = "TRUE" ];
+            then 
+                printf '\033[0;32m%s\033[0m\n' "      [] ${exec}"
+            fi
         else
             exit $?
         fi
