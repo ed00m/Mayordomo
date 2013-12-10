@@ -40,6 +40,32 @@ funct_useradd(){
     echo "  [] useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
 }
 
+funct_migrate(){
+    
+    usuario=$1
+    
+    if [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -gt 0 ];
+    then
+        printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}/${usuario}/"
+        printf '\033[0;32m%s\033[0m\n' "  [] rm -fr ${group_path}"
+    elif [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -eq 0 ];
+    then
+        printf '\033[0;32m%s\033[0m\n' "  [] rm -fr ${group_path}"
+    elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ];
+    then
+        printf '\033[0;32m%s\033[0m\n' "  [] mkdir -p ${HOME}/${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}/${usuario}/"
+    elif [ ! -d ${group_path} ] ||
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -eq 0 ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "  [] No hay datos que migrar para el usuario ${usuario}"
+    fi
+    
+    printf '\033[0;33m%s\033[0m\n' "    []sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
+}
+
 funct_group(){ 
     
     VAR=$1
@@ -87,14 +113,7 @@ funct_group(){
                         # Aca migro
                         echo "  [] MIGRATE"
                         printf '\033[0;33m%s\033[0m\n' "  [] Usuario ${usuario} se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
-                        if [ -d ${HOME}/${usuario} ];
-                        then
-                            printf '\033[0;32m%s\033[0m\n' "  [] rm -fr ${HOME}/${usuario}"
-                            printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}/${usuario}"
-                        else
-                            printf '\033[0;32m%s\033[0m\n' "  [] mkdir -p ${HOME}/${usuario}"
-                            printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}"
-                        fi
+                        funct_migrate ${usuario}
                     else
                         printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
                     fi
