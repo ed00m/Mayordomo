@@ -100,7 +100,7 @@ funct_group(){
         printf '\033[0;32m%s\033[0m\n' "    [] ${exec}"
     else
         printf '\033[0;33m%s\033[0m\n' "    [] Se encontraron (${MATCH}) coincidencia(s), nombre de ${message} \"${VAR}\" se filtrara"
-        printf '\033[0;32m%s\033[0m\n' "    [] Aplicando Doble filtro a ${VAR}"        
+        echo "    [] Aplicando Doble filtro a ${VAR}"        
         
         if (grep ${VAR} ${target} > ${groups_list});
         then
