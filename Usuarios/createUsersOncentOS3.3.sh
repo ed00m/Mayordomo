@@ -78,9 +78,9 @@ funct_migrate(){
 
 funct_group(){ 
     
-    VAR=$1
-    TYPE=$2
-    MATCH=0
+    local VAR=$1
+    local TYPE=$2
+    local MATCH=0
     
     echo "  [] VAR: "${VAR}" [] Type: "${TYPE}
     
@@ -107,7 +107,8 @@ funct_group(){
         
         if (grep ${VAR} ${target} > ${groups_list});
         then
-            while read GROUP_LINEA;do
+            while read GROUP_LINEA;
+            do
                 if [ "${TYPE}" = "group" ];then
                     group_field=$(echo ${GROUP_LINEA}|cut -d":" -f1)
                 elif [ "${TYPE}" = "user" ];then
