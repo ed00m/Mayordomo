@@ -99,7 +99,7 @@ funct_migrate(){
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 5"
         printf '\033[0;33m%s\033[0m\n' "    [] Origen : Existe y esta vacio"
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
-        printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
         LOGICA_COMMIT="TRUE"
         
@@ -109,6 +109,7 @@ funct_migrate(){
         printf '\033[0;33m%s\033[0m\n' "    [] Origen : No Existe"
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
         LOGICA_COMMIT="TRUE"
     fi
     
@@ -162,7 +163,7 @@ funct_group(){
                 fi
             
                 if [ ! "${VAR}" = "${group_field}" ];then
-                    printf '\033[0;33m%s\033[0m\n' "      [] El ${message} \"${VAR}\" es distinto que \"${group_field}\""
+                    printf '\033[0;33m%s\033[0m\n' "    [] El ${message} \"${VAR}\" es distinto que \"${group_field}\""
                     createGROUPTRUE=TRUE
                 else
                     if [ "${TYPE}" = "user" ];then
