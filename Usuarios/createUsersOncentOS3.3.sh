@@ -52,13 +52,13 @@ funct_migrate(){
     usuario=$1
     
     if [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
-    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -gt 0 ];
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ];
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 1"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
     elif [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
-    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -eq 0 ];
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 2"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
@@ -68,7 +68,7 @@ funct_migrate(){
         printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
     elif [ ! -d ${group_path} ] ||
-    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -eq 0 ];
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 4"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
