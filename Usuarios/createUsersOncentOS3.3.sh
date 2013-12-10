@@ -26,18 +26,22 @@ funct_permissions(){
     local path=$3
     local permiso
     local chmod
+    local message
     
     if [ "${acceso}" = "group" ];
     then
         chmod="ug+rwx"
         permiso="chmod -R 770 ${path}"
+        message="Acceso grupal"
+        
     elif [ "${acceso}" = "others" ];
     then
         chmod="u+rwx"
         permiso="chmod -R 700 ${path}"
+        message=""
     fi
     
-    printf '\033[0;32m%s\033[0m\n' "    [] A usuario ${usuario} le corresponde ${chmod}"
+    printf '\033[0;32m%s\033[0m\n' "    [] Permisos del directorio del usuario ${usuario}: \"${message}\" => ${chmod}"
     printf '\033[0;32m%s\033[0m\n' "    [] ${permiso}"
     
 }
