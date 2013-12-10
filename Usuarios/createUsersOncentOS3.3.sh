@@ -85,8 +85,9 @@ funct_group(){
                 else
                     if [ "${TYPE}" = "user" ];then
                         # Aca migro
-                        echo " [] Migrare"
-                        echo " [] Usuario se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
+                        echo "  [] MIGRATE"
+                        echo "  [] Usuario ${usuario} se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
+                        printf '\033[0;32m%s\033[0m\n' "  [] mv ${HOME}"
                     else
                         printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
                     fi
