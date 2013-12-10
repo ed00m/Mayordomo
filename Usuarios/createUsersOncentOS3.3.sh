@@ -93,8 +93,8 @@ funct_group(){
         printf '\033[0;32m%s\033[0m\n' "    [] ${exec}"
     else
         printf '\033[0;33m%s\033[0m\n' "    [] Se encontraron (${MATCH}) coincidencia(s), nombre de ${message} \"${VAR}\" se filtrara"
-        printf '\033[0;32m%s\033[0m\n' "    [] Doble filtro ${VAR}"
-                
+        printf '\033[0;32m%s\033[0m\n' "    [] Aplicando Doble filtro a ${VAR}"        
+        
         if (grep ${VAR} ${target} > ${groups_list});
         then
             while read GROUP_LINEA;do
@@ -110,7 +110,6 @@ funct_group(){
                     createGROUP=TRUE
                 else
                     if [ "${TYPE}" = "user" ];then
-                        # Aca migro
                         echo "  [] MIGRATE"
                         printf '\033[0;33m%s\033[0m\n' "    [] Usuario ${usuario} se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
                         funct_migrate ${usuario}
