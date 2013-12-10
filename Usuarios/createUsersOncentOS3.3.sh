@@ -47,23 +47,23 @@ funct_migrate(){
     if [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -gt 0 ];
     then
-        printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}/${usuario}/"
-        printf '\033[0;32m%s\033[0m\n' "  [] rm -fr ${group_path}"
+        printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
+        printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
     elif [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -eq 0 ];
     then
-        printf '\033[0;32m%s\033[0m\n' "  [] rm -fr ${group_path}"
+        printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
     elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ];
     then
-        printf '\033[0;32m%s\033[0m\n' "  [] mkdir -p ${HOME}/${usuario}"
-        printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}/${usuario}/"
+        printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
     elif [ ! -d ${group_path} ] ||
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$"|wc -l|cut -d " " -f1) -eq 0 ];
     then
-        printf '\033[0;33m%s\033[0m\n' "  [] No hay datos que migrar para el usuario ${usuario}"
+        printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
     fi
     
-    printf '\033[0;33m%s\033[0m\n' "    []sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
+    printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
 }
 
 funct_group(){ 
@@ -92,8 +92,8 @@ funct_group(){
         printf '\033[0;33m%s\033[0m\n' "    [] No se encontro coincidencia, nombre de ${message} \"${VAR}\" se creara"
         printf '\033[0;32m%s\033[0m\n' "    [] ${exec}"
     else
-        printf '\033[0;33m%s\033[0m\n' "  [] Se encontraron (${MATCH}) coincidencia(s), nombre de ${message} \"${VAR}\" se filtrara"
-        printf '\033[0;32m%s\033[0m\n' "  [] Doble filtro ${VAR}"
+        printf '\033[0;33m%s\033[0m\n' "    [] Se encontraron (${MATCH}) coincidencia(s), nombre de ${message} \"${VAR}\" se filtrara"
+        printf '\033[0;32m%s\033[0m\n' "    [] Doble filtro ${VAR}"
                 
         if (grep ${VAR} ${target} > ${groups_list});
         then
@@ -112,10 +112,10 @@ funct_group(){
                     if [ "${TYPE}" = "user" ];then
                         # Aca migro
                         echo "  [] MIGRATE"
-                        printf '\033[0;33m%s\033[0m\n' "  [] Usuario ${usuario} se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
+                        printf '\033[0;33m%s\033[0m\n' "    [] Usuario ${usuario} se encuentra en ${group_path} y debe estar en ${HOME}/${usuario}"
                         funct_migrate ${usuario}
                     else
-                        printf '\033[0;33m%s\033[0m\n' "  [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
+                        printf '\033[0;33m%s\033[0m\n' "    [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
                     fi
                 fi
             done < ${groups_list}
