@@ -117,7 +117,7 @@ funct_group(){
             
                 if [ ! "${VAR}" = "${group_field}" ];then
                     printf '\033[0;33m%s\033[0m\n' "      [] El ${message} \"${VAR}\" es distinto que \"${group_field}\""
-                    createGROUP=TRUE
+                    createGROUPTRUE=TRUE
                 else
                     if [ "${TYPE}" = "user" ];then
                         echo "  [] MIGRATE"
@@ -125,11 +125,12 @@ funct_group(){
                         funct_migrate ${usuario}
                     else
                         printf '\033[0;33m%s\033[0m\n' "    [] Iguales: \"${VAR}\" = \"${group_field}\", no se creara ${message}"
+                        createGROUPFALSE=TRUE
                     fi
                 fi
             done < ${groups_list}
             
-            if [ "${createGROUP}" = "TRUE" ];
+            if [ "${createGROUPTRUE}" = "TRUE" ] && [ ! "${createGROUPFALSE}" = "TRUE" ];
             then 
                 printf '\033[0;33m%s\033[0m\n' "    [] Se creara ${message}: ${VAR}"
                 printf '\033[0;32m%s\033[0m\n' "    [] ${exec}"
