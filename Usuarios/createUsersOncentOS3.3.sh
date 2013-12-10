@@ -1,5 +1,12 @@
 #!/bin/sh
 
+<<COMENTS
+    white label : INFO
+    orange label: WARNING or NOTICE
+    red label   : ERROR DATA
+    green label : EXECUTION   
+COMENTS
+
 archivo=data/usuarios_pract3.csv
 #archivo=${1?:INGRESE ARCHIVO A PROCESAR}
 IFS=";"
