@@ -52,23 +52,36 @@ funct_migrate(){
     usuario=$1
     
     if [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
-    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ];
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ] &&
+    [ $(ls -1a ${HOME}/${usuario} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ];
     then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 1"
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 1"
+        printf '\033[0;33m%s\033[0m\n' "    [] Origen : Existe y no esta vacio"
+        printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe y no esta vacio"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
     elif [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
-    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ] &&
+    [ $(ls -1a ${HOME}/${usuario} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
     then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 2"
-        printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
-    elif [ ! -d ${group_path} ];
-    then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 3"
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 2"
+        printf '\033[0;33m%s\033[0m\n' "    [] Origen : Existe y esta vacio"
+        printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe y esta vacio"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
-    elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ];
+        printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
+    elif [ ! -d ${group_path} ] && [ -d ${HOME}/${usuario} ];
     then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate::Decision 4"
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 3"
+        printf '\033[0;33m%s\033[0m\n' "    [] Origen : No Existe"
+        printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe"
+        printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
+        printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
+    elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 4"
+        printf '\033[0;33m%s\033[0m\n' "    [] Origen : Existe y no esta vacio"
+        printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
         printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
     fi
