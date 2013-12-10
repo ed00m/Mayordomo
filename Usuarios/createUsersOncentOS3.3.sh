@@ -90,8 +90,9 @@ funct_group(){
                         if [ -d ${HOME}/${usuario} ];
                         then
                             printf '\033[0;32m%s\033[0m\n' "  [] rm -fr ${HOME}/${usuario}"
-                            printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}"
+                            printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}/${usuario}"
                         else
+                            printf '\033[0;32m%s\033[0m\n' "  [] mkdir -p ${HOME}/${usuario}"
                             printf '\033[0;32m%s\033[0m\n' "  [] mv ${group_path}/* ${HOME}"
                         fi
                     else
