@@ -1,11 +1,14 @@
 #!/bin/sh
 
-<<COMENTS
-    white label : INFO
-    orange label: WARNING or NOTICE
-    red label   : ERROR DATA
-    green label : EXECUTION   
-COMENTS
+echo "|||||||||||||||||||||||||||||||||\________________________________"
+    printf '||\n'
+    printf '|| ''\033[0;37m%s\033[0m\n' "white label : INFO "
+    printf '|| ''\033[0;33m%s\033[0m\n' "orange label: WARNING or NOTICE"
+    printf '|| ''\033[0;31m%s\033[0m\n' "red label   : ERROR DATA"
+    printf '|| ''\033[0;32m%s\033[0m\n' "green label : EXECUTION"
+    printf '|| \n'
+echo "|||||||||||||||||||||||||||||||||/¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨"
+echo ""
 
 archivo=data/usuarios_pract3.csv
 #archivo=${1?:INGRESE ARCHIVO A PROCESAR}
@@ -198,7 +201,7 @@ funct_group(){
 while read nombre aPaterno aMaterno dpto rol permisos
 do
     count=$((count+1))
-    echo "[] Usuario: "${count}
+    echo "[] Usuario (${count})"
     
     if [ -z ${nombre} ] || [ -z ${aPaterno} ] || [ -z ${aMaterno} ] ||
     [ -z ${dpto} ] || [ -z ${rol} ] || [ -z ${permisos} ] ;
