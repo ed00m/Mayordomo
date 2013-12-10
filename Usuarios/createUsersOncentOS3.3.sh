@@ -50,6 +50,7 @@ funct_useradd(){
 funct_migrate(){
     
     usuario=$1
+    LOGICA_COMMIT=FALSE
     
     if [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ] &&
@@ -60,6 +61,7 @@ funct_migrate(){
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe y no esta vacio"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
+        LOGICA_COMMIT=TRUE
     elif [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ] &&
     [ $(ls -1a ${HOME}/${usuario} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
@@ -69,6 +71,7 @@ funct_migrate(){
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe y esta vacio"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
+        LOGICA_COMMIT=TRUE
     elif [ ! -d ${group_path} ] && [ -d ${HOME}/${usuario} ];
     then
         printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 3"
@@ -76,6 +79,7 @@ funct_migrate(){
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
+        LOGICA_COMMIT=TRUE
     elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ];
     then
@@ -84,9 +88,22 @@ funct_migrate(){
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
         printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
+        LOGICA_COMMIT=TRUE
+    elif [ ! -d ${HOME}/${usuario} ] && [ ! -d ${group_path} ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 5"
+        printf '\033[0;33m%s\033[0m\n' "    [] Origen : No Existe"
+        printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
+        printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
+        LOGICA_COMMIT=TRUE
     fi
     
-    printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
+    if [ "${LOGICA_COMMIT}" = "TRUE" ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "    [] sed -i -e \"s@${group_path}@${HOME}/${usuario}@g\" /etc/passwd"
+    else
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: NO APLICA NINGUNA LOGICA"
+    fi
 }
 
 funct_group(){ 
