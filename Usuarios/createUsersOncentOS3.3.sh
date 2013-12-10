@@ -19,6 +19,20 @@ groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
 #/
 # * Functions
 #/
+funct_permises(){
+    local usuario=$1
+    local acceso=$2
+    local permiso
+    
+    if [ "${acceso}" = "group" ];
+    then
+    
+    elif [ "${acceso}" = "others" ];
+    then
+    
+    fi
+    
+}
 
 funct_print_dataMissing(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
@@ -95,11 +109,21 @@ funct_migrate(){
         printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
         printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
         LOGICA_COMMIT="TRUE"
+        
+    elif [ -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
+    [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -gt 0 ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 5"
+        printf '\033[0;33m%s\033[0m\n' "    [] Origen : Existe y no esta vacio"
+        printf '\033[0;33m%s\033[0m\n' "    [] Destino: Existe"
+        printf '\033[0;32m%s\033[0m\n' "    [] mv ${group_path}/* ${HOME}/${usuario}/"
+        printf '\033[0;32m%s\033[0m\n' "    [] rm -fr ${group_path}"
+        LOGICA_COMMIT="TRUE"
     
     elif [ ! -d ${HOME}/${usuario} ] && [ -d ${group_path} ] &&
     [ $(ls -1a ${group_path} |grep -vE "^.$|^..$|.profile|.bash"|wc -l|cut -d " " -f1) -eq 0 ];
     then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 5"
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 6"
         printf '\033[0;33m%s\033[0m\n' "    [] Origen : Existe y esta vacio"
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
         printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}/${usuario}"
@@ -108,7 +132,7 @@ funct_migrate(){
         
     elif [ ! -d ${HOME}/${usuario} ] && [ ! -d ${group_path} ];
     then
-        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 6"
+        printf '\033[0;33m%s\033[0m\n' "    [] Migrate: Decision 7"
         printf '\033[0;33m%s\033[0m\n' "    [] Origen : No Existe"
         printf '\033[0;33m%s\033[0m\n' "    [] Destino: No Existe"
         printf '\033[0;33m%s\033[0m\n' "    [] No hay datos que migrar para el usuario ${usuario}"
@@ -198,7 +222,7 @@ funct_group(){
     fi
 }
 
-while read nombre aPaterno aMaterno dpto rol permisos
+while read nombre aPaterno aMaterno dpto rol accesos
 do
     count=$((count+1))
     echo "[] Usuario (${count})"
