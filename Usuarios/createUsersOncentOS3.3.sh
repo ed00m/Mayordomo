@@ -10,11 +10,11 @@ groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
 # * Functions
 #/
 
-funct_print_faltante(){
+funct_print_dataMissing(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
 }
 
-funct_print_incorrecta(){
+funct_print_dataIncorrect(){
     printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
 }
 
@@ -23,8 +23,8 @@ funct_home(){
     HOME=$1
     
     if [ ! -d ${HOME} ];then
-        printf '\033[0;33m%s\033[0m\n' "  [] ${HOME} no existe, se creara"
-        echo "  [] mkdir -p ${HOME}"
+        printf '\033[0;33m%s\033[0m\n' "    [] ${HOME} no existe, se creara"
+        printf '\033[0;32m%s\033[0m\n' "    [] mkdir -p ${HOME}"
     fi
 }
 
@@ -44,8 +44,9 @@ funct_group(){
     
     VAR=$1
     TYPE=$2
+    MATCH=0
     
-    echo "  [] GrupoArgs: "${VAR}" [] Type: "${TYPE}
+    echo "  [] VAR: "${VAR}" [] Type: "${TYPE}
     
     if [ "${TYPE}" = "group" ];then
         target=/etc/group
@@ -58,11 +59,14 @@ funct_group(){
         exec="useradd \"${usuario}\" -p \"${clavecrypt}\" -m -d \"${HOME}/${usuario}\" -c \"${dpto} - ${rol}\" -g \"${GROUP}\""
     fi
             
-    if (! grep ${VAR} ${target} > /dev/null);then
-        printf '\033[0;33m%s\033[0m\n' "  [] No se encontro coincidencia en el nombre del ${message}, \"${VAR}\" se creara"
-        printf '\033[0;32m%s\033[0m\n' "  [] ${exec}"
+    MATCH=$(grep ${VAR} ${target}|wc -l|cut -d" " -f1)
+    
+    if [ ${MATCH} -lt 1 ];
+    then
+        printf '\033[0;33m%s\033[0m\n' "    [] No se encontro coincidencia, nombre de ${message} \"${VAR}\" se creara"
+        printf '\033[0;32m%s\033[0m\n' "    [] ${exec}"
     else
-        printf '\033[0;33m%s\033[0m\n' "  [] Se encontro coincidencia en el nombre del ${message}, se filtrara"
+        printf '\033[0;33m%s\033[0m\n' "  [] Se encontraron (${MATCH}) coincidencia(s), nombre de ${message}, se filtrara"
         printf '\033[0;32m%s\033[0m\n' "  [] Doble filtro ${VAR}"
                 
         if (grep ${VAR} ${target} > ${groups_list});
@@ -102,7 +106,7 @@ do
     if [ -z ${nombre} ] || [ -z ${aPaterno} ] || [ -z ${aMaterno} ] ||
     [ -z ${dpto} ] || [ -z ${rol} ] || [ -z ${permisos} ] ;
     then
-        funct_print_faltante
+        funct_print_dataMissing
     else
         if [ -z ${nombre##[0-9]*} ] || [ -z ${aPaterno##[0-9]*} ] || 
         [ -z ${aMaterno##[0-9]*} ] || [ -z ${dpto##[0-9]*} ] ||
@@ -111,14 +115,19 @@ do
         [ "${aMaterno}" = "aMaterno" ] || [ "${dpto}" = "depto" ] || 
         [ "${rol}" = "rol" ] || [ "${rol}" = "permisos" ] ;
         then
-            funct_print_incorrecta
+            funct_print_dataIncorrect
         else
-            u=$(echo ${nombre}|cut -c 1)
-            o=$(echo ${aMaterno}|cut -c 1)
-            usuario=${u}${aPaterno}${o}
-            clavecrypt=$(perl -e"  use Crypt::PasswdMD5; print unix_md5_crypt(${usuario});")
+            nombre_=$(echo ${nombre} | tr '[:upper:]' '[:lower:]')
+            aPaterno_=$(echo ${aPaterno} | tr '[:upper:]' '[:lower:]')
+            aMaterno_=$(echo ${aMaterno} | tr '[:upper:]' '[:lower:]')
             dpto_=$(echo ${dpto} | tr '[:upper:]' '[:lower:]')
             rol_=$(echo ${rol} | tr '[:upper:]' '[:lower:]')
+            
+            u=$(echo ${nombre_}|cut -c 1)
+            o=$(echo ${aMaterno_}|cut -c 1)
+            usuario=${u}${aPaterno_}${o}
+            
+            clavecrypt=$(perl -e"  use Crypt::PasswdMD5; print unix_md5_crypt(${usuario});")
             
             case ${dpto_} in
                 "informatica")
