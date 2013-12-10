@@ -297,7 +297,7 @@ do
             funct_group ${MASTERGROUP} group
             # Si no existe home lo crea
             funct_home ${HOME}
-            # Si usuario no existe lo crea
+            # Si usuario no existe lo crea, si existe lo migra a la información mas actual
             funct_group ${usuario} user
             # Imprime y/o ejecuta la creacion de nuevos usuarios
             #funct_useradd ${usuario} ${clavecrypt} ${HOME} ${usuario} ${dpto} ${rol} ${GROUP}
