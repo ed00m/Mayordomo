@@ -251,7 +251,7 @@ do
         [ -z ${rol##[0-9]*} ] || [ -z ${permisos##[0-9]*} ] ||
         [ "${nombre}" = "nombre" ] || [ "${aPaterno}" = "aPaterno" ] ||
         [ "${aMaterno}" = "aMaterno" ] || [ "${dpto}" = "depto" ] || 
-        [ "${rol}" = "rol" ] || [ "${rol}" = "permisos" ] ;
+        [ "${rol}" = "rol" ] || [ "${permisos}" = "permisos" ] ;
         then
             funct_print_dataIncorrect
         else
