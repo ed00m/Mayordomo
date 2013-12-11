@@ -46,12 +46,18 @@ funct_permissions(){
     
 }
 
-funct_print_dataMissing(){
-    printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
-}
-
-funct_print_dataIncorrect(){
-    printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para Usuario: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos}"
+funct_print_data(){
+    
+    local TYPE=$1
+    local print="campos: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos} ${fecha_ingreso} ${db}"
+    
+    if [ "${TYPE}" = "incorrect" ];
+    then
+        printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para ${print}"
+    elif [ "${TYPE}" = "missing" ];
+    then
+        printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para ${print}"
+    fi
 }
 
 funct_home(){
@@ -242,18 +248,20 @@ do
     echo "[] Usuario (${count})"
     
     if [ -z ${nombre} ] || [ -z ${aPaterno} ] || [ -z ${aMaterno} ] ||
-    [ -z ${dpto} ] || [ -z ${rol} ] || [ -z ${permisos} ] ;
+    [ -z ${dpto} ] || [ -z ${rol} ] || [ -z ${permisos} ] ||
+    [ -z ${fecha_ingreso} ] || [ -z ${db} ];
     then
-        funct_print_dataMissing
+        funct_print_data missing
     else
         if [ -z ${nombre##[0-9]*} ] || [ -z ${aPaterno##[0-9]*} ] || 
         [ -z ${aMaterno##[0-9]*} ] || [ -z ${dpto##[0-9]*} ] ||
         [ -z ${rol##[0-9]*} ] || [ -z ${permisos##[0-9]*} ] ||
         [ "${nombre}" = "nombre" ] || [ "${aPaterno}" = "aPaterno" ] ||
         [ "${aMaterno}" = "aMaterno" ] || [ "${dpto}" = "depto" ] || 
-        [ "${rol}" = "rol" ] || [ "${rol}" = "permisos" ] ;
+        [ "${rol}" = "rol" ] || [ "${rol}" = "permisos" ] ||
+        [ "${db}" = "db" ] || [ "${fecha_ingreso}" = "fecha" ] ;
         then
-            funct_print_dataIncorrect
+            funct_print_data incorrect
         else
             nombre_=$(echo ${nombre} | tr '[:upper:]' '[:lower:]')
             aPaterno_=$(echo ${aPaterno} | tr '[:upper:]' '[:lower:]')
@@ -300,7 +308,7 @@ do
             # Si usuario no existe lo crea, si existe lo migra a la información mas actual
             funct_group ${usuario} user
             # Si corresponde a dpto informatica se crea perfil en db sino lo rechaza
-            funct_db ${usuario} ${db}
+            funct_db ${usuario} ${dpto_} ${db}
         fi
     fi
     
