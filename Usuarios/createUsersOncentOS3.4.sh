@@ -20,6 +20,56 @@ groups_list=$(mktemp -t "${0##*/}.XXXXXX") || exit $?
 # * Functions
 #/
 
+funct_print_data(){
+    
+    local TYPE=$1
+    local VAR=$2
+    local print="campos: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos} ${fecha_ingreso} ${db}"
+    
+    if [ "${TYPE}" = "incorrect" ];
+    then
+        printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para ${VAR}, ${print}"
+    elif [ "${TYPE}" = "missing" ];
+    then
+        printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para ${VAR}, ${print}"
+    elif [ "${TYPE}" = "withoutPermissions" ];
+    then
+        printf '\033[0;31m%s\033[0m\n' "  [] Departamento ${VAR} no tiene permisos para ingresar a base de datos"
+    fi
+}
+
+funct_db(){
+    local usuario=$1
+    local dpto=$2
+    local db=$3
+    local lectura="GRANT SELECT ON curso.* TO '$1'@'localhost' IDENTIFIED BY '$1';"
+    local escritura="GRANT SELECT, UPDATE, INSERT, DELETE ON curso.* TO '$1'@'localhost' IDENTIFIED BY '$1';"
+    local estructura="GRANT SELECT, UPDATE, INSERT, DELETE ON curso.* TO '$1'@'localhost' IDENTIFIED BY '$1' GRANT OPTION;"
+    
+    echo "  [] DATABASES"
+    printf '\033[0;33m%s\033[0m\n' "     [] Dpto=>${dpto} y permiso de ${db}"
+    
+    if [ "${dpto}" = "informatica" ];then
+        if [ "${db}" = "lectura" ];
+        then
+            printf '\033[0;32m%s\033[0m\n' "     [] echo \"${lectura}\"|mysql -u mayordomo -pmayordomo"
+            printf '\033[0;32m%s\033[0m\n' "     [] echo \"flush privileges;\"|mysql -u mayordomo -pmayordomo"
+        elif [ "${db}" = "escritura" ];
+        then
+            printf '\033[0;32m%s\033[0m\n' "     [] echo \"${escritura}\"|mysql -u mayordomo -pmayordomo"
+            printf '\033[0;32m%s\033[0m\n' "     [] echo \"flush privileges;\"|mysql -u mayordomo -pmayordomo"
+        elif [ "${db}" = "estructura" ];
+        then
+            printf '\033[0;32m%s\033[0m\n' "     [] echo \"${estructura}\"|mysql -u mayordomo -pmayordomo"
+            printf '\033[0;32m%s\033[0m\n' "     [] echo \"flush privileges;\"|mysql -u mayordomo -pmayordomo"
+        else
+            funct_print_data withoutPermissions ${usuario}
+        fi
+    else
+        funct_print_data withoutPermissions ${usuario}
+    fi
+}
+
 funct_permissions(){
     local usuario=$1
     local acceso=$2
@@ -44,20 +94,6 @@ funct_permissions(){
     printf '\033[0;32m%s\033[0m\n' "    [] Aplicando permisos al directorio de ${usuario}, detalle \"${message}\" => ${chmod}"
     printf '\033[0;32m%s\033[0m\n' "    [] ${permiso}"
     
-}
-
-funct_print_data(){
-    
-    local TYPE=$1
-    local print="campos: ${nombre} ${aPaterno} ${aMaterno} ${dpto} ${rol} ${permisos} ${fecha_ingreso} ${db}"
-    
-    if [ "${TYPE}" = "incorrect" ];
-    then
-        printf '\033[0;31m%s\033[0m\n' "  [] Informacion incorrecta para ${print}"
-    elif [ "${TYPE}" = "missing" ];
-    then
-        printf '\033[0;31m%s\033[0m\n' "  [] Informacion faltante para ${print}"
-    fi
 }
 
 funct_home(){
@@ -251,7 +287,7 @@ do
     [ -z ${dpto} ] || [ -z ${rol} ] || [ -z ${permisos} ] ||
     [ -z ${fecha_ingreso} ] || [ -z ${db} ];
     then
-        funct_print_data missing
+        funct_print_data missing "${nombre} ${aPaterno} ${aMaterno}"
     else
         if [ -z ${nombre##[0-9]*} ] || [ -z ${aPaterno##[0-9]*} ] || 
         [ -z ${aMaterno##[0-9]*} ] || [ -z ${dpto##[0-9]*} ] ||
@@ -261,7 +297,7 @@ do
         [ "${rol}" = "rol" ] || [ "${rol}" = "permisos" ] ||
         [ "${db}" = "db" ] || [ "${fecha_ingreso}" = "fecha" ] ;
         then
-            funct_print_data incorrect
+            funct_print_data incorrect "${nombre} ${aPaterno} ${aMaterno}"
         else
             nombre_=$(echo ${nombre} | tr '[:upper:]' '[:lower:]')
             aPaterno_=$(echo ${aPaterno} | tr '[:upper:]' '[:lower:]')
