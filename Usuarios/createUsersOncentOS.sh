@@ -1,5 +1,6 @@
 #!/bin/sh
-archivo=${1?:INGRESE ARCHIVO A PROCESAR}
+archivo=data/usuarios.csv
+#archivo=${1?:INGRESE ARCHIVO A PROCESAR}
 
 IFS=";"
 HOME=/home/usuarios

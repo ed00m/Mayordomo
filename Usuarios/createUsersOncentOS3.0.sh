@@ -1,6 +1,7 @@
 #!/bin/sh
 
-archivo=${1?:INGRESE ARCHIVO A PROCESAR}
+archivo=data/usuarios_dpto.csv
+#archivo=${1?:INGRESE ARCHIVO A PROCESAR}
 IFS=";"
 
 while read nombre aPaterno aMaterno dpto rol
