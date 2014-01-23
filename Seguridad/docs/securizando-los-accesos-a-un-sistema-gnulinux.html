@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="ca">
+	<head>
+		<!-- "H5": The HTML-5 WordPress Template Theme -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Securizando los accesos a un sistema GNU/Linux | Blackhold</title>
+		<meta name="description" content="Blackhold">
+
+		<link rel="stylesheet" type="text/css" href="http://blackhold.nusepas.com/wp-content/themes/H5/style.css" media="screen">
+		<link rel="alternate" type="text/xml" title="Blackhold RSS 0.92 Feed" href="http://blackhold.nusepas.com/feed/rss/">
+		<link rel="alternate" type="application/atom+xml" title="Blackhold Atom Feed" href="http://blackhold.nusepas.com/feed/atom/">
+		<link rel="alternate" type="application/rss+xml" title="Blackhold RSS 2.0 Feed" href="http://blackhold.nusepas.com/feed/">
+		<link rel="pingback" href="http://blackhold.nusepas.com/xmlrpc.php">
+
+				<link rel="alternate" type="application/rss+xml" title="Blackhold &raquo; Securizando los accesos a un sistema GNU/Linux Canal dels comentaris" href="http://blackhold.nusepas.com/2011/02/securizando-los-accesos-a-un-sistema-gnulinux/feed/" />
+<link rel='stylesheet' id='wp-polls-css'  href='http://blackhold.nusepas.com/wp-content/plugins/wp-polls/polls-css.css?ver=2.63' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://blackhold.nusepas.com/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20120924' type='text/css' media='all' />
+<script type='text/javascript' src='http://blackhold.nusepas.com/wp-includes/js/jquery/jquery.js?ver=1.7.2'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blackhold.nusepas.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blackhold.nusepas.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Proyecto guifi.net Euskal Herria' href='http://blackhold.nusepas.com/2011/02/proyecto-guifi-net-euskal-herria/' />
+<link rel='next' title='Acceder a / como root desde grub' href='http://blackhold.nusepas.com/2011/02/acceder_barra_root_grub/' />
+<meta name="generator" content="WordPress 3.4.2" />
+<link rel='shortlink' href='http://wp.me/pF7gP-A2' />
+<SCRIPT type="text/javascript">function wpLiveChat(wpchat_title,wpchat_skin){var str1 = prompt("You are about to enter the Live Chat.\nYou must enter a nickname to continue.\n[Letters and numbers only]", "Guest");if (str1 != null){if ((str1 == "Guest")||(str1 == "admin")) { str1 += "\?\?\?\?" };document.getElementById('wpchatbox').innerHTML = '<iframe scrolling="no" frameborder=0 height=400 width=100% src="http://evbid.com/livechat0.2.1.php?t=1&c=' + wpchat_title + '&n=' + str1 + '&r=' + document.URL + '&x=' + wpchat_skin + '"><iframe>'; }; }; </SCRIPT>
+<!-- All in One SEO Pack 1.6.15.2 by Michael Torbert of Semper Fi Web Design[181,253] -->
+<meta name="description" content="Cuando tenemos una maquina expuesta directamente a internet es realmente muy importante tener primero de todo una buena política de passwords, además de" />
+<link rel="canonical" href="http://blackhold.nusepas.com/2011/02/securizando-los-accesos-a-un-sistema-gnulinux/" />
+<!-- /all in one seo pack -->
+
+
+	<!-- Added by EventCalendar plugin. Version 3.1.4 -->
+	<script type='text/javascript' src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/xmlhttprequest.js'></script>
+	<script type='text/javascript' src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/ec3.js'></script>
+	<script type='text/javascript'><!--
+	ec3.start_of_week=1;
+	ec3.month_of_year=new Array('gener','febrer','març','abril','maig','juny','juliol','agost','setembre','octubre','novembre','desembre');
+	ec3.month_abbrev=new Array('gen','feb','mar','abr','mai','jun','jul','ago','set','oct','nov','des');
+	ec3.myfiles='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53';
+	ec3.home='http://blackhold.nusepas.com';
+	ec3.hide_logo=0;
+	ec3.viewpostsfor="Mostra totes les entrades per a %1$s %2$s";
+	// --></script>
+
+
+<style type='text/css' media='screen'>
+@import url(http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/ec3.css);
+.ec3_ec {
+ background-image:url(http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/ec.png) !IMPORTANT;
+ background-image:none;
+ filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/ec.png');
+}
+
+#ec3_shadow0 {
+ background-image:url(http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/shadow0.png) !IMPORTANT;
+ background-image:none;
+}
+#ec3_shadow0 div {
+ filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/shadow0.png',sizingMethod='scale');
+}
+#ec3_shadow1 {
+ background-image:url(http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/shadow1.png) !IMPORTANT;
+ background-image:none;
+ filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/shadow1.png',sizingMethod='crop');
+}
+#ec3_shadow2 {
+ background-image:url(http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/shadow2.png) !IMPORTANT;
+ background-image:none;
+}
+#ec3_shadow2 div {
+ filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/shadow2.png',sizingMethod='scale');
+}
+
+</style>
+
+<script type="text/javascript"><!-- 
+	 
+	            function addEvent(elm, evType, fn, useCapture) 
+	            // addEvent and removeEvent 
+	            // cross-browser event handling for IE5+,  NS6 and Mozilla 
+	            // By Scott Andrew 
+	            { 
+	              if (elm.addEventListener){ 
+	                  elm.addEventListener(evType, fn, useCapture); 
+	                  return true; 
+	              } else if (elm.attachEvent){ 
+	                  var r = elm.attachEvent("on"+evType, fn); 
+	                  return r; 
+	              } else { 
+	                  // alert("Handler could not be removed"); 
+	              } 
+	            }  
+	            function externalLinks() { 
+	             if (!document.getElementsByTagName) return; 
+	             var anchors = document.getElementsByTagName("a"); 
+				 var newwindows =0;
+	             for (var i=0; i<anchors.length; i++) { 
+	               var anchor = anchors[i]; 
+	               if (anchor.getAttribute("href") && anchor.getAttribute("rel") == "external") {
+	                        anchor.setAttribute("target","_blank"); 
+							newwindows++;
+					}
+	             } 
+	            } 
+	 
+	            addEvent(window, "load", externalLinks); 
+
+	            //--> 
+	            </script> 
+	            
+			<link rel="stylesheet" type="text/css" href="http://blackhold.nusepas.com/index.php?ak_action=aktt_css&v=2.4" />
+			<script type="text/javascript" src="http://blackhold.nusepas.com/index.php?ak_action=aktt_js&v=2.4"></script>
+		<style type="text/css">
+.wp-polls .pollbar {
+	margin: 1px;
+	font-size: 6px;
+	line-height: 8px;
+	height: 8px;
+	background-image: url('http://blackhold.nusepas.com/wp-content/plugins/wp-polls/images/default/pollbg.gif');
+	border: 1px solid #c8c8c8;
+}
+</style>
+
+		<script src="http://blackhold.nusepas.com/wp-content/themes/H5/javascript/h5.js"></script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-6848523-6");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<meta name="google-site-verification" content="uYFYAsqxAQf7nnkLmF_vE_59zaG8X8Obt7N1MtRGbsA" />
+
+	</head>
+	<body class="single single-post postid-2234 single-format-standard">
+
+		<header>
+			<h1><a href="http://blackhold.nusepas.com/">Blackhold</a></h1>
+		</header>
+		<nav>
+			<ul>
+				<li class="page_item page-item-2593"><a href="http://blackhold.nusepas.com/chess/">chess</a></li>
+<li class="page_item page-item-890"><a href="http://blackhold.nusepas.com/irc/">IRC</a></li>
+<li class="page_item page-item-1949"><a href="http://blackhold.nusepas.com/contacto/">Contacto</a></li>
+<li class="page_item page-item-2"><a href="http://blackhold.nusepas.com/quant-a/">About</a></li>
+			</ul>
+		</nav>
+	
+		<section>
+			<article id="post-2234">
+				<header>
+					<h1><a href="http://blackhold.nusepas.com/2011/02/securizando-los-accesos-a-un-sistema-gnulinux/" rel="bookmark" title="Permanent Link to Securizando los accesos a un sistema GNU/Linux">Securizando los accesos a un sistema GNU/Linux</a></h1>
+					<p>Posted on febrer 9th, 2011 by Blackhold</p>
+				</header>
+				<section>
+					<p>Cuando tenemos una maquina expuesta directamente a internet es realmente muy importante tener primero de todo una buena política de passwords, además de realizar 4 cambios para aumentar la seguridad frente ataques por fuerza bruta.</p>
+<p>Lo primero de todo y muy recomendable es no permitir el login de root (si se precisa acceso hacerlo vía pre-sharedkey):<br />
+<span id="more-2234"></span></p>
+<pre># vi /etc/ssh/sshd_config
+PermitRootLogin no</pre>
+<p>A continuación indicamos también qué usuarios son los que pueden acceder por ssh a esta máquina:</p>
+<pre># vi /etc/ssh/sshd_config
+AllowUsers Blackhold pepito manganito</pre>
+<p>También es recomendable, si la máquina está directamente a la red (que no está detrás de NAT), de cambiar el puerto por defecto, en este ejemplo el 2224:</p>
+<pre># vi /etc/ssh/sshd_config
+Port 2224</pre>
+<p>Es importante usar algun puerto que no se use por algún programa, ya que hay algun software de escaneo de puertos que suele mirar los puertos por defecto de los servicios mas comunes.</p>
+<p>Tras aplicar estos cambios es preciso reiniciar el servicio de ssh:</p>
+<pre># /etc/init.d/ssh restart</pre>
+<p>Una vez hecha la parte de la conexión por ssh, es preciso obligar a los usuarios mantener una política de passwords correcta.</p>
+<p>Lo primero es evitar que usen passwords de diccionario. Para ello instalaremos la libreria libpam-cracklib:</p>
+<pre># apt-get install libpam-cracklib</pre>
+<p>Y la activaremos en el fichero common-password:</p>
+<pre># vi /etc/pam.d/common-password
+password requisite pam_cracklib.so retry=3 minlen=8 difok=3</pre>
+<p>Esta línea la tendremos que colocar arriba del todo del bloque primario (&#8220;Primary&#8221; block)</p>
+<p>Además esta librería nos permite realizar varias restricciones, por ejemplo</p>
+<pre>password requisite pam_cracklib.so try_first_pass retry=3 minlen=8 lcredit=1 ucredit=1 dcredit=1 ocredit=0</pre>
+<p>Donde:<br />
+<strong>minlen:</strong> especifica el número mínimo de caracteres.<br />
+<strong>lcredit:</strong> especifica el número mínimo de letras minúsculas<br />
+<strong>ucredit:</strong> especifica el número mínimo de letras mayúsculas<br />
+<strong>dcredit:</strong> especifica el número mínimo de caracteres numéricos ocredit especifica el número de caracteres de otro tipo, como por ejemplo símbolos.</p>
+<p>Este ejemplo requerirá 1 minúscula y 1 mayúscula, además de un número.</p>
+<p>Otra cosa que se puede hacer para mejorar la seguridad es obligar a los usuarios a cambiar su password cada x tiempo, esto se hace en el fichero login.defs:</p>
+<pre>/etc/login.defs
+PASS_MAX_DAYS 60
+PASS_MIN_DAYS 7
+PASS_WARN_AGE 10</pre>
+<p>Nos hará cambiar la contraseña pasados 2 meses, avisándonos cada vez que hagamos login los 10 dias previos a la caducidad.</p>
+<p>Además para forzar que no se repitan los passwords, pam_unix.so nos permite guardar los passwords usados en un fichero llamado opasswd dentro de /etc/security, para activar esto tendremos que volver a editar el fichero common-password y modificar la linea:</p>
+<pre># vi /etc/pam.d/common-password
+password sufficient pam_unix.so nullok use_authtok md5 shadow remember=10</pre>
+<p><em>Esta línea también tiene que ir en la Primary block, debajo de la otra línea que hemos añadido antes.</em></p>
+<p>Podemos hacer la prueba cambiando el password del usuario, veremos como el fichero opasswd va creciendo ;)</p>
+<p>Lo siguiente para evitar que alguien pille un usuario y empiece a probar passwords, vamos a definir un numero máximo de intentos y un tiempo de gracia para que el usuario en cuestión pueda entrar de nuevo pasado este tiempo. Para ello editamos el fichero common-auth:</p>
+<pre># vi /etc/common-auth
+auth required pam_tally.so onerr=fail deny=3 unlock_time=3600</pre>
+<p>Para ver si los logins fallidos de un usuario vamos a usar el comando pam_tally:</p>
+<pre># pam_tally --user usuario
+User usuario (1001) has 3</pre>
+<p>En el caso que un usuario tenga demasiados intentos fallidos, pero sea el propio usuario el que se ha hecho el &#8220;auto-ataque&#8221;, podemos resetear el numero de intentos otra vez a 0:</p>
+<pre># pam_tally --user usuario --reset
+User usuario (1001) had 3
+# pam_tally --user usuario
+User usuario (1001) has 0</pre>
+
+				</section>
+				<footer>
+										
+					<p>
+						This entry was posted on dimecres, febrer 9th, 2011 at 13:50 and is filed under <a href="http://blackhold.nusepas.com/category/linux/ssh/" title="Mostra totes les entrades a ssh" rel="category tag">ssh</a>. 
+						You can follow any responses to this entry through the <a href='http://blackhold.nusepas.com/2011/02/securizando-los-accesos-a-un-sistema-gnulinux/feed/'>RSS 2.0</a> feed.
+
+													You can <a href="#respond">leave a response</a>, or <a href="http://blackhold.nusepas.com/2011/02/securizando-los-accesos-a-un-sistema-gnulinux/trackback/" rel="trackback">trackback</a> from your own site.
+
+						
+					</p>
+				</footer>
+			</article>
+
+			
+
+		<section>
+			<h3>4 Responses to &ldquo;Securizando los accesos a un sistema GNU/Linux&rdquo;</h3>
+
+			
+			<article class="alt" id="comment-1450">
+				<header>
+					<h4> <cite><a href='http://topsy.com/blackhold.nusepas.com/2011/02/securizando-los-accesos-a-un-sistema-gnulinux/?utm_source=pingback&#038;utm_campaign=L2' rel='external nofollow' class='url'>Tweets that mention Securizando los accesos a un sistema GNU/Linux | Blackhold -- Topsy.com</a></cite> &bull; <a href="#comment-1450" title="Permalink for this comment">febrer 9th, 2011 at 14:22</a> </h4>
+									</header>
+				<section>
+					<p>[...] This post was mentioned on Twitter by Blackhold, Miguel Galán. Miguel Galán said: ♻ @Blackhold_: Blog: Securizando los accesos a un sistema GNU/Linux <a href="http://ur.ly/DvWB" rel="nofollow">http://ur.ly/DvWB</a> [...]</p>
+				</section>
+			</article>
+
+						
+			<article id="comment-1505">
+				<header>
+					<h4><img alt='' src='http://0.gravatar.com/avatar/cfcb79b5ef2e7c24963cdced98fff88f?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /> <cite>tonic</cite> &bull; <a href="#comment-1505" title="Permalink for this comment">març 16th, 2011 at 22:08</a> </h4>
+									</header>
+				<section>
+					<p>la leche!!<br />
+el tally ese es util-util, tanto que he estado dos horas sin poder acceder a mi cuenta, hasta que me he acordado de que lo había añadido a /etc/pam.d/common-auth (que por cierto, no es /etc/common-auth ;), he entrado como su, y he reseteado el tally&#8230;</p>
+<p>jejej, por si alguien trata de tocarme el equipo en un descuido está de la leche.</p>
+<p>aparte, ahora me he pillado un tunel ipv6, de manera que mis ordenatas de la &#8220;red local ipv4&#8243; tienen direcciones plenamente públicas y alcanzables por cualquier ordenata operando en ipv6 y con conexión a esta nube&#8230;</p>
+<p>el caso es que, aunque tengo un shorewall6 en el servidor de casa con el que hago mis pinitos, mi ordenata está bastante más expuesto con esto del ipv6, así que el tally me viene de perlas.</p>
+<p>venga, mucho ánimo!!<br />
+sax</p>
+				</section>
+			</article>
+
+						
+			<article class="alt" id="comment-1506">
+				<header>
+					<h4><img alt='' src='http://0.gravatar.com/avatar/cfcb79b5ef2e7c24963cdced98fff88f?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /> <cite>tonic</cite> &bull; <a href="#comment-1506" title="Permalink for this comment">març 16th, 2011 at 22:14</a> </h4>
+									</header>
+				<section>
+					<p>umm, otra cosa que estoy pensando, quizás esto del tally se pueda configurar para que pasado n tiempo sin incrementos de intentos vuelva a dejar entrar, por aquello de que si te hacen un ataque de fuerza bruta luego no puedas acceder&#8230;</p>
+				</section>
+			</article>
+
+						
+			<article id="comment-1507">
+				<header>
+					<h4><img alt='' src='http://0.gravatar.com/avatar/cfcb79b5ef2e7c24963cdced98fff88f?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /> <cite>tonic</cite> &bull; <a href="#comment-1507" title="Permalink for this comment">març 16th, 2011 at 22:21</a> </h4>
+									</header>
+				<section>
+					<p>Vale, no he dicho nada; el tiempo para levantar el veto son 3600 segundos (aka 60 minutos aka 1 hora).<br />
+Siento el despiste<br />
+Atte<br />
+tonic</p>
+				</section>
+			</article>
+
+						
+		</section>
+
+
+
+		<section>
+			<h3>Leave a Response</h3>
+
+			
+			<form action="http://blackhold.nusepas.com/wp-comments-post.php" method="post">
+
+				
+				<label for="author">Name </label>
+				<input type="text" name="author" id="author" value="" size="55" tabindex="1" >
+				
+				<label for="email">Email (will not be published) </label>
+				<input type="text" name="email" id="email" value="" size="55" tabindex="2" >
+				
+				<label for="url">Website</label>
+				<input type="text" name="url" id="url" value="" size="55" tabindex="3">
+
+				
+				<!-- p>Allowed <abbr title="HyperText Markup Language">HTML:</abbr> tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p -->
+				<label for="comment">Comment</label>
+				<textarea name="comment" id="comment" cols="55" rows="10" tabindex="4"></textarea>
+				<input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment">
+				<input type="hidden" name="comment_post_ID" value="2234">
+				<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="4a35607563" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Aviseu-me del seguiment dels comentaris per correu.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notifica'm per correu electrònic si hi ha entrades noves.</label></p>
+			</form>
+			
+		</section>
+
+			<nav2>
+				<p>&laquo; <a href="http://blackhold.nusepas.com/2011/02/proyecto-guifi-net-euskal-herria/" rel="prev">Proyecto guifi.net Euskal Herria</a> &bull; <a href="http://blackhold.nusepas.com/2011/02/acceder_barra_root_grub/" rel="next">Acceder a / como root desde grub</a> &raquo;</p>
+			</nav2>
+		</section>
+
+	
+		<aside>
+			<ul>
+			<li id="search-3" class="widget widget_search"><h2 class="widgettitle">Buscar en el blog</h2>					<form method="get" action="http://blackhold.nusepas.com/">
+						<label for="s">Search the site: </label>
+						<input type="text" id="s" name="s" size="8" value="">
+						<input type="submit" value="Search">
+					</form></li><li id="event-calendar" class="widget ec3_widget_cal"><h2 class="widgettitle">Event Calendar</h2><div id='wp-calendar'>
+<table class='nav'><tbody><tr>
+	<td id='prev'><a id='ec3_prev' href='http://blackhold.nusepas.com/?m=201101&amp;cat=37'>&laquo;&nbsp;gen</a></td>
+	<td><img id='ec3_spinner' style='display:none' src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/ec_load.gif' alt='spinner' />
+	    <a id='ec3_publish' href='http://blackhold.nusepas.com/?ec3_ical' title='Subscribe to iCalendar.'>
+	     <img src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/publish.gif' alt='iCalendar' />
+	    </a>
+	</td>
+	<td id='next'><a id='ec3_next' href='http://blackhold.nusepas.com/?m=201104&amp;cat=37'>abr&nbsp;&raquo;</a></td>
+</tr></tbody></table>
+<table id='ec3_2011_2'>
+<caption><a href="http://blackhold.nusepas.com/?m=201102&amp;cat=37" title="Mostra totes les entrades per a febrer 2011">febrer 2011</a></caption>
+<thead><tr>
+	<th abbr='dilluns' scope='col' title='dilluns'>dl.</th>
+	<th abbr='dimarts ' scope='col' title='dimarts '>dt.</th>
+	<th abbr='dimecres' scope='col' title='dimecres'>dc.</th>
+	<th abbr='dijous' scope='col' title='dijous'>dj.</th>
+	<th abbr='divendres' scope='col' title='divendres'>dv.</th>
+	<th abbr='dissabte' scope='col' title='dissabte'>ds.</th>
+	<th abbr='diumenge' scope='col' title='diumenge'>dg.</th>
+</tr></thead>
+<tbody>
+	<tr><td colspan='1' class='pad'>&nbsp;</td><td id='ec3_2011_2_1'>1</td><td id='ec3_2011_2_2'>2</td><td id='ec3_2011_2_3'>3</td><td id='ec3_2011_2_4'>4</td><td id='ec3_2011_2_5'>5</td><td id='ec3_2011_2_6'>6</td></tr>
+	<tr><td id='ec3_2011_2_7'>7</td><td id='ec3_2011_2_8'>8</td><td id='ec3_2011_2_9'>9</td><td id='ec3_2011_2_10'>10</td><td id='ec3_2011_2_11'>11</td><td id='ec3_2011_2_12'>12</td><td id='ec3_2011_2_13'>13</td></tr>
+	<tr><td id='ec3_2011_2_14'>14</td><td id='ec3_2011_2_15'>15</td><td id='ec3_2011_2_16'>16</td><td id='ec3_2011_2_17'>17</td><td id='ec3_2011_2_18'>18</td><td id='ec3_2011_2_19'>19</td><td id='ec3_2011_2_20'>20</td></tr>
+	<tr><td id='ec3_2011_2_21'>21</td><td id='ec3_2011_2_22'>22</td><td id='ec3_2011_2_23'>23</td><td id='ec3_2011_2_24'>24</td><td id='ec3_2011_2_25'>25</td><td id='ec3_2011_2_26'>26</td><td id='ec3_2011_2_27'>27</td></tr>
+	<tr><td id='ec3_2011_2_28'>28</td><td colspan='6' class='pad' style='vertical-align:bottom'><a href='http://blog.firetree.net/?ec3_version=3.1.4' title='Event Calendar 3.1.4'><span class='ec3_ec'><span>EC</span></span></a></td></tr>
+</tbody>
+</table><table id='ec3_2011_3'>
+<caption><a href="http://blackhold.nusepas.com/?m=201103&amp;cat=37" title="Mostra totes les entrades per a març 2011">març 2011</a></caption>
+<thead><tr>
+	<th abbr='dilluns' scope='col' title='dilluns'>dl.</th>
+	<th abbr='dimarts ' scope='col' title='dimarts '>dt.</th>
+	<th abbr='dimecres' scope='col' title='dimecres'>dc.</th>
+	<th abbr='dijous' scope='col' title='dijous'>dj.</th>
+	<th abbr='divendres' scope='col' title='divendres'>dv.</th>
+	<th abbr='dissabte' scope='col' title='dissabte'>ds.</th>
+	<th abbr='diumenge' scope='col' title='diumenge'>dg.</th>
+</tr></thead>
+<tbody>
+	<tr><td colspan='1' class='pad'>&nbsp;</td><td id='ec3_2011_3_1'>1</td><td id='ec3_2011_3_2'>2</td><td id='ec3_2011_3_3'>3</td><td id='ec3_2011_3_4'>4</td><td id='ec3_2011_3_5'>5</td><td id='ec3_2011_3_6'>6</td></tr>
+	<tr><td id='ec3_2011_3_7'>7</td><td id='ec3_2011_3_8'>8</td><td id='ec3_2011_3_9'>9</td><td id='ec3_2011_3_10'>10</td><td id='ec3_2011_3_11'>11</td><td id='ec3_2011_3_12'>12</td><td id='ec3_2011_3_13'>13</td></tr>
+	<tr><td id='ec3_2011_3_14'>14</td><td id='ec3_2011_3_15'>15</td><td id='ec3_2011_3_16' class="ec3_postday ec3_eventday"><a href="http://blackhold.nusepas.com/?m=20110316&amp;cat=37" title="SAX 2011 &amp; Wireless Battle of the Mesh v4 @all&#160;day" class="eventday">16</a></td><td id='ec3_2011_3_17' class="ec3_postday ec3_eventday"><a href="http://blackhold.nusepas.com/?m=20110317&amp;cat=37" title="SAX 2011 &amp; Wireless Battle of the Mesh v4 @all&#160;day" class="eventday">17</a></td><td id='ec3_2011_3_18' class="ec3_postday ec3_eventday"><a href="http://blackhold.nusepas.com/?m=20110318&amp;cat=37" title="SAX 2011 &amp; Wireless Battle of the Mesh v4 @all&#160;day" class="eventday">18</a></td><td id='ec3_2011_3_19' class="ec3_postday ec3_eventday"><a href="http://blackhold.nusepas.com/?m=20110319&amp;cat=37" title="SAX 2011 &amp; Wireless Battle of the Mesh v4 @all&#160;day" class="eventday">19</a></td><td id='ec3_2011_3_20' class="ec3_postday ec3_eventday"><a href="http://blackhold.nusepas.com/?m=20110320&amp;cat=37" title="SAX 2011 &amp; Wireless Battle of the Mesh v4 @all&#160;day" class="eventday">20</a></td></tr>
+	<tr><td id='ec3_2011_3_21'>21</td><td id='ec3_2011_3_22'>22</td><td id='ec3_2011_3_23'>23</td><td id='ec3_2011_3_24'>24</td><td id='ec3_2011_3_25'>25</td><td id='ec3_2011_3_26'>26</td><td id='ec3_2011_3_27'>27</td></tr>
+	<tr><td id='ec3_2011_3_28'>28</td><td id='ec3_2011_3_29' class="ec3_postday ec3_eventday"><a href="http://blackhold.nusepas.com/?m=20110329&amp;cat=37" title="Charla guifi.net al Parc de Recerca Biomèdica de Barcelona @19:00" class="eventday">29</a></td><td id='ec3_2011_3_30'>30</td><td id='ec3_2011_3_31'>31</td><td colspan='3' class='pad' style='vertical-align:bottom'><a href='http://blog.firetree.net/?ec3_version=3.1.4' title='Event Calendar 3.1.4'><span class='ec3_ec'><span>EC</span></span></a></td></tr>
+</tbody>
+</table></div>
+	<script type='text/javascript' src='http://blackhold.nusepas.com/wp-content/plugins/event-calendar-3-for-php-53/popup.js'></script>
+</li><li id="categories-3" class="widget widget_categories"><h2 class="widgettitle">Categories</h2>		<ul>
+	<li class="cat-item cat-item-26"><a href="http://blackhold.nusepas.com/category/3d/" title="Mostra totes les entrades arxivades en 3D">3D</a> (2)
+</li>
+	<li class="cat-item cat-item-19"><a href="http://blackhold.nusepas.com/category/accesibilidad/" title="Mostra totes les entrades arxivades en accesibilidad">accesibilidad</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://blackhold.nusepas.com/category/analogico/" title="Mostra totes les entrades arxivades en Analógico">Analógico</a> (49)
+</li>
+	<li class="cat-item cat-item-28"><a href="http://blackhold.nusepas.com/category/android/" title="Mostra totes les entrades arxivades en Android">Android</a> (10)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://blackhold.nusepas.com/category/apple/" title="Mostra totes les entrades arxivades en Apple">Apple</a> (2)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://blackhold.nusepas.com/category/blackhold/" title="Mostra totes les entrades arxivades en Blackhold">Blackhold</a> (174)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://blackhold.nusepas.com/category/discordianismo/" title="Mostra totes les entrades arxivades en Discordianismo">Discordianismo</a> (10)
+</li>
+	<li class="cat-item cat-item-20"><a href="http://blackhold.nusepas.com/category/draytek/" title="Mostra totes les entrades arxivades en draytek">draytek</a> (6)
+</li>
+	<li class="cat-item cat-item-37"><a href="http://blackhold.nusepas.com/category/events/" title="events">events</a> (9)
+</li>
+	<li class="cat-item cat-item-14"><a href="http://blackhold.nusepas.com/category/fotografia/" title="Mostra totes les entrades arxivades en Fotografia">Fotografia</a> (5)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://blackhold.nusepas.com/category/gadgets/" title="Mostra totes les entrades arxivades en Gadgets">Gadgets</a> (28)
+</li>
+	<li class="cat-item cat-item-11"><a href="http://blackhold.nusepas.com/category/geek/" title="Mostra totes les entrades arxivades en Geek">Geek</a> (67)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://blackhold.nusepas.com/category/general/" title="Mostra totes les entrades arxivades en General">General</a> (7)
+</li>
+	<li class="cat-item cat-item-16"><a href="http://blackhold.nusepas.com/category/google/" title="Mostra totes les entrades arxivades en Google">Google</a> (17)
+</li>
+	<li class="cat-item cat-item-27"><a href="http://blackhold.nusepas.com/category/guifi-net/" title="Mostra totes les entrades arxivades en Guifi.net">Guifi.net</a> (79)
+</li>
+	<li class="cat-item cat-item-24"><a href="http://blackhold.nusepas.com/category/hackerspaces/" title="Mostra totes les entrades arxivades en Hackerspaces">Hackerspaces</a> (28)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://blackhold.nusepas.com/category/hacktivism/" title="Mostra totes les entrades arxivades en Hacktivism">Hacktivism</a> (83)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://blackhold.nusepas.com/category/hasenfrosch/" title="Mostra totes les entrades arxivades en HasenFrosch">HasenFrosch</a> (9)
+</li>
+	<li class="cat-item cat-item-25"><a href="http://blackhold.nusepas.com/category/humor/" title="Mostra totes les entrades arxivades en Humor">Humor</a> (55)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://blackhold.nusepas.com/category/internet/" title="Mostra totes les entrades arxivades en Internet">Internet</a> (67)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://blackhold.nusepas.com/category/jornadas/" title="Mostra totes les entrades arxivades en Jornadas">Jornadas</a> (7)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://blackhold.nusepas.com/category/linux/" title="Mostra totes les entrades arxivades en Linux">Linux</a> (212)
+<ul class='children'>
+	<li class="cat-item cat-item-46"><a href="http://blackhold.nusepas.com/category/linux/bash/" title="bash, sh, ksh y todos sus amigos">bash</a> (34)
+</li>
+	<li class="cat-item cat-item-43"><a href="http://blackhold.nusepas.com/category/linux/bbdd/" title="tablas... o no!">bbdd</a> (6)
+</li>
+	<li class="cat-item cat-item-40"><a href="http://blackhold.nusepas.com/category/linux/cms/" title="mediawiki, drupal, wordpress &amp; more">cms</a> (8)
+</li>
+	<li class="cat-item cat-item-47"><a href="http://blackhold.nusepas.com/category/linux/dns-dhcp/" title="dns y dhcp">dns-dhcp</a> (4)
+</li>
+	<li class="cat-item cat-item-48"><a href="http://blackhold.nusepas.com/category/linux/filesystems/" title="Mostra totes les entrades arxivades en filesystems">filesystems</a> (14)
+</li>
+	<li class="cat-item cat-item-51"><a href="http://blackhold.nusepas.com/category/linux/ftp/" title="Mostra totes les entrades arxivades en ftp">ftp</a> (2)
+</li>
+	<li class="cat-item cat-item-52"><a href="http://blackhold.nusepas.com/category/linux/http/" title="Mostra totes les entrades arxivades en http">http</a> (1)
+</li>
+	<li class="cat-item cat-item-44"><a href="http://blackhold.nusepas.com/category/linux/mensajeria-instantanea/" title="para hablar con los demás al momento">IM</a> (3)
+</li>
+	<li class="cat-item cat-item-49"><a href="http://blackhold.nusepas.com/category/linux/monitorizacion/" title="Mostra totes les entrades arxivades en monitorización">monitorización</a> (11)
+</li>
+	<li class="cat-item cat-item-38"><a href="http://blackhold.nusepas.com/category/linux/proxy/" title="Mostra totes les entrades arxivades en proxy">proxy</a> (12)
+</li>
+	<li class="cat-item cat-item-41"><a href="http://blackhold.nusepas.com/category/linux/ssh/" title="el maravilloso mundo del ssh :)">ssh</a> (11)
+</li>
+	<li class="cat-item cat-item-50"><a href="http://blackhold.nusepas.com/category/linux/vim/" title="Mostra totes les entrades arxivades en vim">vim</a> (7)
+</li>
+	<li class="cat-item cat-item-45"><a href="http://blackhold.nusepas.com/category/linux/virtualizacion/" title="Mostra totes les entrades arxivades en virtualización">virtualización</a> (9)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://blackhold.nusepas.com/category/music/" title="Mostra totes les entrades arxivades en Music">Music</a> (88)
+</li>
+	<li class="cat-item cat-item-42"><a href="http://blackhold.nusepas.com/category/networking/" title="por donde pasan nuestros datos">Networking</a> (33)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://blackhold.nusepas.com/category/opensource/" title="Mostra totes les entrades arxivades en Opensource">Opensource</a> (35)
+</li>
+	<li class="cat-item cat-item-23"><a href="http://blackhold.nusepas.com/category/programacion/" title="Mostra totes les entrades arxivades en Programación">Programación</a> (9)
+</li>
+	<li class="cat-item cat-item-17"><a href="http://blackhold.nusepas.com/category/scg/" title="Mostra totes les entrades arxivades en SCG">SCG</a> (13)
+</li>
+	<li class="cat-item cat-item-22"><a href="http://blackhold.nusepas.com/category/wordpress/" title="Mostra totes les entrades arxivades en wordpress">wordpress</a> (10)
+</li>
+	<li class="cat-item cat-item-13"><a href="http://blackhold.nusepas.com/category/geek-girl/" title="Mostra totes les entrades arxivades en [Geek-girl]">[Geek-girl]</a> (11)
+</li>
+		</ul>
+</li><li id="linkcat-2" class="widget widget_links"><h2 class="widgettitle">Links</h2>
+	<ul class='xoxo blogroll'>
+<li><a href="http://blueplastic.net" target="_blank">Blueplastic</a></li>
+<li><a href="http://gilabeni.wordpress.com/" rel="acquaintance" title="Blog de ELSEGO de #debian-es" target="_blank">ELSEGO</a></li>
+<li><a href="http://blog.tenak.net/" rel="friend met colleague muse" target="_blank">marc0s</a></li>
+<li><a href="http://marsupi.org" title="Marsupi: rizoma de servidors autogestionats" target="_blank">Marsupi: rizoma de servidors autogestionats</a></li>
+<li><a href="http://www.pacoperea.es" rel="friend met co-resident" title="Mi profesor de guitarra ;)" target="_blank">Paco Perea (Guitarra)</a></li>
+<li><a href="http://redpublicanos.net" rel="contact colleague muse" title="Redpublicanos, para una red pública!" target="_blank">Redpublicanos</a></li>
+<li><a href="http://botiga.setup.cat" rel="contact met co-worker colleague neighbor muse" title="La tienda donde encontrarás el material necesario para montar tu red guifi.net!" target="_blank">Tienda Setup Informatica</a></li>
+
+	</ul>
+</li>
+<li id="discordian_date-3" class="widget discordian_date"><div class="discordian_date" style="width:100%;text-align:left;font-size:12px;line-height:16px;padding-top:40px;padding-bottom:40px;">Today is Setting Orange,<br />the 71st day of Bureaucracy,<br />in the YOLD 3178.</div></li>			</ul>
+		</aside>
+		<footer>
+			<p><a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY:SA</A> 2012 <a href="http://blackhold.nusepas.com/" title="Blackhold">Blackhold</a> &bull; <a href="http://monzilla.biz/" title="WordPress Theme Design">H5 Theme</a> &bull; <a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform">WordPress 3.4.2</a> &bull; <a href="http://blackhold.nusepas.com/feed/" title="Subscribe to Posts Feed">Entries (RSS)</a> &bull; <a href="http://blackhold.nusepas.com/comments/feed/" title="Subscribe to Comments Feed">Comments (RSS)</a></p>
+		</footer>
+<h5><script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2012Octaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://blackhold.nusepas.com/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.4.2'></script>
+	<div style="display:none">
+	<div class="grofile-hash-map-cfcb79b5ef2e7c24963cdced98fff88f">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var pollsL10n = {"ajax_url":"http:\/\/blackhold.nusepas.com\/wp-admin\/admin-ajax.php","text_wait":"Your last request is still being processed. Please wait a while ...","text_valid":"Please choose a valid poll answer.","text_multiple":"Maximum number of choices allowed: ","show_loading":"1","show_fading":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://blackhold.nusepas.com/wp-content/plugins/wp-polls/polls-js.js?ver=2.63'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201242'></script>
+
+	<script src="http://stats.wordpress.com/e-201242.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:1.8.1',blog:'9799399',post:'2234'});
+	var load_cmc = function(){linktracker_init(9799399,2234,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></h5>
+	</body>
+
+<script type="text/javascript">
+_qoptions={
+qacct:"p-61n9PJFWpIhqM"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://stats.marsupi.org/" : "http://stats.marsupi.org/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 2);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://stats.marsupi.org/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tag -->
+
+<div class='fixme' onmouseover='this.fade(0);' onmouseout='this.fade(1);'> 
+<a href="http://udakamp.hackinbadakigu.net/" target="_blank"><img src='http://blackhold.nusepas.com/wp-content/uploads/2011/02/icon-guy-fawkes.png'></a> 
+</div>
+
+<script type='text/javascript' src='http://blackhold.nusepas.com/moo.js'></script> 
+<script type='text/javascript'> 
+ if (top.location != location) {
+  top.location.href = document.location.href;};
+  document.getElementsByName('query')[0].focus();
+</script> 
+
+</html>
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Minified using disk: basic
+Page Caching using disk: enhanced
+
+Served from: blackhold.nusepas.com @ 2012-10-16 16:45:49 -->

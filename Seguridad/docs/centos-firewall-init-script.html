@@ -1,0 +1,996 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CentOS Firewall Init Script &laquo; //burnz.blog</title>
+
+<link rel="stylesheet" href="http://s2.wp.com/wp-content/themes/pub/inove/style.css?m=1337608308g" type="text/css" media="screen" />
+
+<script type="text/javascript" src="http://s2.wp.com/wp-content/themes/pub/inove/js/base.js?m=1315596887g"></script>
+<script type="text/javascript" src="http://s2.wp.com/wp-content/themes/pub/inove/js/menu.js?m=1331739427g"></script>
+
+<link rel="pingback" href="http://burnz.wordpress.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="//burnz.blog &raquo; Feed" href="http://burnz.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="//burnz.blog &raquo; Comments Feed" href="http://burnz.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="//burnz.blog &raquo; CentOS Firewall&nbsp;Init Script Comments Feed" href="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='http://s0.wp.com/_static/??/i/noticons/noticons.css,/wp-content/blog-plugins/loggedout-follow/widget.css,/wp-content/mu-plugins/infinity/themes/pub/inove.css,/wp-content/mu-plugins/post-flair/style.css,/wp-content/mu-plugins/post-flair/sharing/sharing.css,/wp-content/themes/h4/global.css?m=1350004034j' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/_static/??/wp-includes/js/jquery/jquery.js,/wp-content/blog-plugins/loggedout-follow/widget.js,/wp-includes/js/comment-reply.min.js?m=1349903959j'></script>
+<link rel='stylesheet' id='all-css-0' href='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1343991657g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1307172283g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://burnz.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://burnz.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Print next few lines after pattern in&nbsp;AWK' href='http://burnz.wordpress.com/2010/05/06/print-next-few-lines-after-pattern-in-awk/' />
+<link rel='next' title='Installing eAccelerator In Ubuntu&nbsp;Server' href='http://burnz.wordpress.com/2010/12/26/installing-eaccelerator-in-ubuntu-server/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/' />
+<link rel='shortlink' href='http://wp.me/p2Re-52' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fburnz.wordpress.com%2F2010%2F08%2F08%2Fcentos-firewall-init-script%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fburnz.wordpress.com%2F2010%2F08%2F08%2Fcentos-firewall-init-script%2F&amp;for=wpcom-auto-discovery" /><meta property="og:type" content="article" />
+<meta property="og:title" content="CentOS Firewall&nbsp;Init Script" />
+<meta property="og:url" content="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/" />
+<meta property="og:description" content="I wrote a simple chkconfig compatible firewall init script for CentOS/RedHat/Fedora based Linux systems. It will setup iptables firewall rules allowing anyone to access user defined ports (22,80 by..." />
+<meta property="og:site_name" content="//burnz.blog" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976024g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1311618091g" />
+<link rel='openid.server' href='http://burnz.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://burnz.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://burnz.wordpress.com/osd.xml" title="//burnz.blog" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+		<style>
+		/* <![CDATA[ */
+		/* Block: reblog */
+		
+		.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+		.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+		.reblogger-note-content            { margin: 0 0 20px; }
+		.reblog-post .wpcom-enhanced-excerpt-content { border-left: 3px solid #eee; padding-left: 15px; }
+		.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+		.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+		.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+		.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+		
+		.reblog-post .wpcom-enhanced-excerpt { clear: both; }
+		
+		.reblog-post .wpcom-enhanced-excerpt address,
+		.reblog-post .wpcom-enhanced-excerpt li,
+		.reblog-post .wpcom-enhanced-excerpt h1,
+		.reblog-post .wpcom-enhanced-excerpt h2,
+		.reblog-post .wpcom-enhanced-excerpt h3,
+		.reblog-post .wpcom-enhanced-excerpt h4,
+		.reblog-post .wpcom-enhanced-excerpt h5,
+		.reblog-post .wpcom-enhanced-excerpt h6,
+		.reblog-post .wpcom-enhanced-excerpt p { font-size: 100% !important; }
+		
+		.reblog-post .wpcom-enhanced-excerpt blockquote,
+		.reblog-post .wpcom-enhanced-excerpt pre,
+		.reblog-post .wpcom-enhanced-excerpt code,
+		.reblog-post .wpcom-enhanced-excerpt q { font-size: 98% !important; }
+		
+
+		/* ]]> */		
+		</style>
+		<meta name="application-name" content="//burnz.blog" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="my opinion, technology, review, video, etc..." /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://burnz.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="title" content="CentOS Firewall&nbsp;Init Script | //burnz.blog on WordPress.com" />
+<meta name="description" content="I wrote a simple chkconfig compatible firewall init script for CentOS/RedHat/Fedora based Linux systems. It will setup iptables firewall rules allowing anyone to access user defined ports (22,80 by default). It also has the ability to whitelist and blacklist IP’s. I’ve tested it with chkconfig on CentOS 5. To use it: Create a file named&hellip;" />
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+GS_googleAddAdSenseService("ca-pub-3443918307802676");
+GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
+GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post");
+</script>
+<script type='text/javascript'>
+GA_googleFetchAds();
+</script>
+<script type="text/javascript"> 
+	window.google_analytics_uacct = "UA-52447-2"; 
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+
+<body class="single single-post postid-312 single-format-standard highlander-enabled highlander-light">
+<!-- wrap START -->
+<div id="wrap">
+
+<!-- container START -->
+<div id="container"  >
+
+<!-- header START -->
+<div id="header">
+
+	<!-- banner START -->
+		<!-- banner END -->
+
+	<div id="caption">
+		<h1 id="title"><a href="http://burnz.wordpress.com/">//burnz.blog</a></h1>
+		<div id="tagline">my opinion, technology, review, video, etc&#8230;</div>
+	</div>
+
+	<div class="fixed"></div>
+</div>
+<!-- header END -->
+
+<!-- navigation START -->
+<div id="navigation">
+	<!-- menus START -->
+	<ul id="menus">
+	<li class="page_item"><a class="home" title="Home" href="http://burnz.wordpress.com/">Home</a></li>
+	<li class="page_item page-item-2 current_page_parent"><a href="http://burnz.wordpress.com/about/">About</a></li>
+<li class="page_item page-item-13"><a href="http://burnz.wordpress.com/links/">Links</a></li>
+	<li><a class="lastmenu" href="javascript:void(0);"></a></li>
+</ul>
+
+	<!-- menus END -->
+
+	<!-- searchbox START -->
+	<div id="searchbox">
+		<form action="http://burnz.wordpress.com" method="get">
+			<div class="content">
+				<input type="text" class="textfield" name="s" size="24" value="" />
+				<input type="submit" class="button" value="" />
+			</div>
+		</form>
+	</div>
+<script type="text/javascript">
+//<![CDATA[
+	var searchbox = MGJS.$("searchbox");
+	var searchtxt = MGJS.getElementsByClassName("textfield", "input", searchbox)[0];
+	var searchbtn = MGJS.getElementsByClassName("button", "input", searchbox)[0];
+	var tiptext = "Type text to search here...";
+	if(searchtxt.value == "" || searchtxt.value == tiptext) {
+		searchtxt.className += " searchtip";
+		searchtxt.value = tiptext;
+	}
+	searchtxt.onfocus = function(e) {
+		if(searchtxt.value == tiptext) {
+			searchtxt.value = "";
+			searchtxt.className = searchtxt.className.replace(" searchtip", "");
+		}
+	}
+	searchtxt.onblur = function(e) {
+		if(searchtxt.value == "") {
+			searchtxt.className += " searchtip";
+			searchtxt.value = tiptext;
+		}
+	}
+	searchbtn.onclick = function(e) {
+		if(searchtxt.value == "" || searchtxt.value == tiptext) {
+			return false;
+		}
+	}
+//]]>
+</script>
+	<!-- searchbox END -->
+
+	<div class="fixed"></div>
+</div>
+<!-- navigation END -->
+
+<!-- content START -->
+<div id="content">
+
+	<!-- main START -->
+	<div id="main">
+
+
+	<div id="postpath">
+		<a title="Go to homepage" href="http://burnz.wordpress.com/">Home</a>
+		 &gt; <a href="http://burnz.wordpress.com/category/linux-unix/" title="View all posts in Linux / Unix" rel="category tag">Linux / Unix</a>, <a href="http://burnz.wordpress.com/category/security/" title="View all posts in Security" rel="category tag">Security</a>, <a href="http://burnz.wordpress.com/category/tutorial/" title="View all posts in Tutorial" rel="category tag">Tutorial</a>		 &gt; CentOS Firewall&nbsp;Init Script	</div>
+
+	<div id="post-312" class="post-312 post type-post status-publish format-standard hentry category-linux-unix category-security category-tutorial tag-centos tag-firewall tag-script tag-unix">
+		<h2>CentOS Firewall&nbsp;Init Script</h2>
+		<div class="info">
+			<span class="date">August 8, 2010</span>
+			<span class="author"><a href="http://burnz.wordpress.com/author/burnz/" title="Posts by burnz" rel="author">burnz</a></span>										<span class="addcomment"><a href="#respond">Leave a comment</a></span>
+				<span class="comments"><a href="#comments">Go to comments</a></span>
+						<div class="fixed"></div>
+		</div>
+		<div class="content">
+			<p>I wrote a simple chkconfig compatible firewall init script for CentOS/RedHat/Fedora based Linux systems.</p>
+<p>It will setup iptables firewall rules allowing anyone to access user defined ports (22,80 by default). It also has the ability to whitelist and blacklist IP’s. I’ve tested it with chkconfig on CentOS 5.</p>
+<p><span id="more-312"></span>To use it:</p>
+<ol>
+<li>Create a file named /etc/init.d/firewall</li>
+<li>Copy and paste the script into it and save</li>
+<li>Edit the ALLOWED variable with port numbers you want to allow, default is ports 22 (SSH) and 80 (HTTP)</li>
+<li>Execute:</li>
+<pre>touch /usr/local/etc/whitelist.txt &amp;&amp; touch /usr/local/etc/blacklist.txt</pre>
+<li>Edit the whitelist/blacklist files if you want</li>
+<li>Execute:</li>
+<pre>chmod 755 /etc/init.d/firewall</pre>
+<li>Execute:</li>
+<pre>chkconfig --add firewall &amp;&amp; chkconfig firewall on</pre>
+</ol>
+<p>The script:</p>
+<pre>#!/bin/bash
+# chkconfig: 345 30 99
+# description: Starts and stops iptables based firewall
+## List Locations
+#
+WHITELIST=/usr/local/etc/whitelist.txt
+BLACKLIST=/usr/local/etc/blacklist.txt
+#
+## Specify ports you wish to use.
+#
+ALLOWED="22 80"
+#
+## Specify where IP Tables is located
+#
+IPTABLES=/sbin/iptables
+##
+#DO NOT EDIT BELOW THIS LINE
+###
+RETVAL=0
+# To start the firewall
+start() {
+  echo "Setting up firewall rules..."
+  echo 'Allowing Localhost'
+  #Allow localhost.
+  $IPTABLES -A INPUT -t filter -s 127.0.0.1 -j ACCEPT
+  #
+  ## Whitelist
+  #
+  for x in `grep -v ^# $WHITELIST | awk '{print $1}'`; do
+    echo "Permitting $x..."
+    $IPTABLES -A INPUT -t filter -s $x -j ACCEPT
+  done
+  #
+  ## Blacklist
+  #
+  for x in `grep -v ^# $BLACKLIST | awk '{print $1}'`; do
+    echo "Denying $x..."
+    $IPTABLES -A INPUT -t filter -s $x -j DROP
+  done
+  #
+  ## Permitted Ports
+  #
+  for port in $ALLOWED; do
+    echo "Accepting port TCP $port..."
+    $IPTABLES -A INPUT -t filter -p tcp --dport $port -j ACCEPT
+  done
+  for port in $ALLOWED; do
+    echo "Accepting port UDP $port..."
+    $IPTABLES -A INPUT -t filter -p udp --dport $port -j ACCEPT
+  done
+  $IPTABLES -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+  $IPTABLES -A INPUT -p udp -j DROP
+  $IPTABLES -A INPUT -p tcp --syn -j DROP
+  RETVAL=0
+}
+# To stop the firewall
+stop() {
+  echo "Removing all iptables rules..."
+  /sbin/iptables -F
+  /sbin/iptables -X
+  /sbin/iptables -Z
+  RETVAL=0
+}
+case $1 in
+  start)
+  stop
+  start
+  ;;
+stop)
+  stop
+  ;;
+restart)
+  stop
+  start
+  ;;
+status)
+  /sbin/iptables -L
+  /sbin/iptables -t nat -L
+  RETVAL=0
+  ;;
+*)
+  echo "Usage: firewall {start|stop|restart|status}"
+  RETVAL=1
+esac
+exit $RETVAL</pre>
+
+<div class="wpadvert" style="position: relative; width:300px; text-align: center; padding: 0; background: #; margin: 10px auto; overflow: hidden;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("theme_bg", "ffffff"); 
+GA_googleAddAttr("theme_border", "eeeeee"); 
+GA_googleAddAttr("theme_text", "555555"); 
+GA_googleAddAttr("theme_link", "2970A6"); 
+GA_googleAddAttr("theme_url", "c8c7c7"); 
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "burnz.wordpress.com");
+GA_googleAddAttr("Autotag", "gadgets");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "linux-unix");
+GA_googleAddAttr("Tag", "security");
+GA_googleAddAttr("Tag", "tutorial");
+GA_googleAddAttr("Tag", "centos");
+GA_googleAddAttr("Tag", "firewall");
+GA_googleAddAttr("Tag", "script");
+GA_googleAddAttr("Tag", "unix");
+
+GA_googleFillSlot("wpcom_below_post");
+</script>
+</div>
+<style type="text/css">
+div.wpadvert>div { margin-top: 1em; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpadvert script[src*='shareth.ru']").length > 0 || jQuery(".wpadvert .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpadvert' ).css( 'width', '400px' );
+    }
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/?share=facebook" target="_blank" title="Share on Facebook" id="sharing-facebook-312"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/?share=twitter" target="_blank" title="Click to share on Twitter" id="sharing-twitter-312"><span>Twitter</span></a></li><li class="share-end"></li></ul><div class="sharing-clear"></div></div></div></div><div class="wpl-likebox sd-block sd-like"><h3 class="sd-title">Like this:</h3><div class="sd-content"><div id="like-312" class="wpl-button "><a href='http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/?like=1&amp;_wpnonce=20b44328b9' title='I like this.' class='like needs-login sd-button' rel='nofollow'><span>Like</span></a></div><div class="wpl-count sd-like-count">Be the first to like this.</div></div></div></div>						<div class="fixed"></div>
+		</div>
+		<div class="under">
+			<span><span class="categories">Categories: </span><a href="http://burnz.wordpress.com/category/linux-unix/" title="View all posts in Linux / Unix" rel="category tag">Linux / Unix</a>, <a href="http://burnz.wordpress.com/category/security/" title="View all posts in Security" rel="category tag">Security</a>, <a href="http://burnz.wordpress.com/category/tutorial/" title="View all posts in Tutorial" rel="category tag">Tutorial</a></span>
+			<span><span class="tags">Tags: </span><a href="http://burnz.wordpress.com/tag/centos/" rel="tag">CentOS</a>, <a href="http://burnz.wordpress.com/tag/firewall/" rel="tag">Firewall</a>, <a href="http://burnz.wordpress.com/tag/script/" rel="tag">Script</a>, <a href="http://burnz.wordpress.com/tag/unix/" rel="tag">Unix</a></span>
+		</div>
+		<div class="fixed"></div>
+	</div>
+
+	
+<script type="text/javascript" src="http://s2.wp.com/wp-content/themes/pub/inove/js/comment.js?m=1323834278g&amp;1"></script>
+
+
+
+<div id="comments">
+
+<div id="cmtswitcher">
+			<a id="commenttab" class="curtab" href="javascript:void(0);" onclick="MGJS.switchTab('thecomments,commentnavi', 'thetrackbacks', 'commenttab', 'curtab', 'trackbacktab', 'tab');">Comments (1)</a>
+		<a id="trackbacktab" class="tab" href="javascript:void(0);" onclick="MGJS.switchTab('thetrackbacks', 'thecomments,commentnavi', 'trackbacktab', 'curtab', 'commenttab', 'tab');">Trackbacks (1)</a>
+				<span class="addcomment"><a href="#respond">Leave a comment</a></span>
+				<span class="addtrackback"><a href="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/trackback/">Trackback</a></span>
+		<div class="fixed"></div>
+</div>
+
+<div id="commentlist">
+	<!-- comments START -->
+	<ol id="thecomments">
+		<li class="comment even thread-even depth-1 regularcomment highlander-comment" id="comment-4408">
+		<div class="author">
+			<div class="pic">
+				<img alt='' src='http://2.gravatar.com/avatar/e005cedcaf8bb2fda333e9d74427d550?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32' height='32' width='32' />			</div>
+			<div class="name">
+									<a id="commentauthor-4408" class="url" href="http://gravatar.com/sheasie" rel="external nofollow">sheasiee</a>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				June 19, 2012 at 3:20 pm					 | <a href="#comment-4408">#1</a>
+			</div>
+			<div class="act">
+				<a class='comment-reply-link' href='/2010/08/08/centos-firewall-init-script/?replytocom=4408#respond' onclick='return addComment.moveForm("comment-4408", "4408", "respond", "312")'>Reply</a> | 				<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-4408', 'comment-4408', 'commentbody-4408', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-4408">
+					<p>you posted this in 2010, and zero comments?!  nice.  that tells me, zero bugs.  this is awesome and is exactly what i was looking for&#8230; thank you much!</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+</li>
+	</ol>
+	<!-- comments END -->
+
+
+	<!-- trackbacks START -->
+			<ol id="thetrackbacks">
+												<li class="trackback">
+						<div class="date">
+							February 18, 2012 at 11:03 am							 | <a href="#comment-4390">#1</a>
+						</div>
+						<div class="act">
+													</div>
+						<div class="fixed"></div>
+						<div class="title">
+							<a href="http://kiteplans.info/2012/02/18/centos-virtualmin-firewall-init-script/">
+								How to: CentOS 5 and Virtualmin Firewall Init Script | Kiteplans` Blog &#8211; The daily life of a System Admin							</a>
+						</div>
+					</li>
+				
+					</ol>
+		<div class="fixed"></div>
+	<!-- trackbacks END -->
+</div>
+
+</div>
+
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2010/08/08/centos-firewall-init-script/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://burnz.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment"></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1289230950g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+	
+	
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+});
+</script>
+
+<div id="comment-form-subscribe"> 
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe">Notify me of follow-up comments via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='312' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1350375437" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="8b22670c35" /></p><script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="172"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+	
+
+	<div id="postnavi">
+		<span class="prev"><a href="http://burnz.wordpress.com/2010/12/26/installing-eaccelerator-in-ubuntu-server/" rel="next">Installing eAccelerator In Ubuntu&nbsp;Server</a></span>
+		<span class="next"><a href="http://burnz.wordpress.com/2010/05/06/print-next-few-lines-after-pattern-in-awk/" rel="prev">Print next few lines after pattern in&nbsp;AWK</a></span>
+		<div class="fixed"></div>
+	</div>
+
+
+	</div>
+	<!-- main END -->
+
+	
+<!-- sidebar START -->
+<div id="sidebar">
+
+<!-- sidebar north START -->
+<div id="northsidebar" class="sidebar">
+
+	<!-- feeds -->
+	<div class="widget widget_feeds">
+		<div class="content">
+			<div id="subscribe-feeds">
+				<a rel="external nofollow" id="feedrss" title="Subscribe to this blog..." href="http://burnz.wordpress.com/feed/"><abbr title="Really Simple Syndication">RSS</abbr> feed</a>
+									<ul id="feed_readers">
+						<li id="google_reader"><a rel="external nofollow" class="reader" title="Subscribe with Google" href="http://fusion.google.com/add?feedurl=http://burnz.wordpress.com/feed/"><span>Google</span></a></li>
+						<li id="youdao_reader"><a rel="external nofollow" class="reader" title="Subscribe with Youdao" href="http://reader.youdao.com/#url=http://burnz.wordpress.com/feed/"><span>Youdao</span></a></li>
+						<li id="xianguo_reader"><a rel="external nofollow" class="reader" title="Subscribe with Xian Guo" href="http://www.xianguo.com/subscribe.php?url=http://burnz.wordpress.com/feed/"><span>Xian Guo</span></a></li>
+						<li id="zhuaxia_reader"><a rel="external nofollow" class="reader" title="Subscribe with Zhua Xia" href="http://www.zhuaxia.com/add_channel.php?url=http://burnz.wordpress.com/feed/"><span>Zhua Xia</span></a></li>
+						<li id="yahoo_reader"><a rel="external nofollow" class="reader" title="Subscribe with My Yahoo!" href="http://add.my.yahoo.com/rss?url=http://burnz.wordpress.com/feed/"><span>My Yahoo!</span></a></li>
+						<li id="newsgator_reader"><a rel="external nofollow" class="reader" title="Subscribe with newsgator" href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://burnz.wordpress.com/feed/"><span>newsgator</span></a></li>
+						<li id="bloglines_reader"><a rel="external nofollow" class="reader" title="Subscribe with Bloglines" href="http://www.bloglines.com/sub/http://burnz.wordpress.com/feed/"><span>Bloglines</span></a></li>
+						<li id="inezha_reader"><a rel="external nofollow" class="reader" title="Subscribe with iNezha"	href="http://inezha.com/add?url=http://burnz.wordpress.com/feed/"><span>iNezha</span></a></li>
+					</ul>
+							</div>
+
+			<!-- twitter -->
+			
+			<div class="fixed"></div>
+		</div>
+	</div>
+
+	<!-- showcase -->
+	
+<div id="categories-2" class="widget widget_categories"><h3>Categories</h3>		<ul>
+			<li class="cat-item cat-item-3590"><a href="http://burnz.wordpress.com/category/gadget/" title="View all posts filed under Gadget">Gadget</a>
+</li>
+	<li class="cat-item cat-item-54"><a href="http://burnz.wordpress.com/category/general/" title="View all posts filed under General">General</a>
+</li>
+	<li class="cat-item cat-item-81"><a href="http://burnz.wordpress.com/category/google/" title="View all posts filed under Google">Google</a>
+</li>
+	<li class="cat-item cat-item-38791"><a href="http://burnz.wordpress.com/category/linux-unix/" title="View all posts filed under Linux / Unix">Linux / Unix</a>
+</li>
+	<li class="cat-item cat-item-637"><a href="http://burnz.wordpress.com/category/microsoft/" title="View all posts filed under Microsoft">Microsoft</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://burnz.wordpress.com/category/mozilla/" title="View all posts filed under Mozilla">Mozilla</a>
+</li>
+	<li class="cat-item cat-item-458"><a href="http://burnz.wordpress.com/category/php/" title="View all posts filed under PHP">PHP</a>
+</li>
+	<li class="cat-item cat-item-6870"><a href="http://burnz.wordpress.com/category/real-life/" title="View all posts filed under Real Life">Real Life</a>
+</li>
+	<li class="cat-item cat-item-801"><a href="http://burnz.wordpress.com/category/security/" title="View all posts filed under Security">Security</a>
+</li>
+	<li class="cat-item cat-item-8435"><a href="http://burnz.wordpress.com/category/sites/" title="View all posts filed under Sites">Sites</a>
+</li>
+	<li class="cat-item cat-item-581"><a href="http://burnz.wordpress.com/category/software/" title="View all posts filed under Software">Software</a>
+</li>
+	<li class="cat-item cat-item-2932"><a href="http://burnz.wordpress.com/category/tutorial/" title="View all posts filed under Tutorial">Tutorial</a>
+</li>
+	<li class="cat-item cat-item-255"><a href="http://burnz.wordpress.com/category/ubuntu/" title="View all posts filed under Ubuntu">Ubuntu</a>
+</li>
+	<li class="cat-item cat-item-800"><a href="http://burnz.wordpress.com/category/windows/" title="View all posts filed under Windows">Windows</a>
+</li>
+	<li class="cat-item cat-item-33"><a href="http://burnz.wordpress.com/category/wordpress/" title="View all posts filed under Wordpress">Wordpress</a>
+</li>
+	<li class="cat-item cat-item-444"><a href="http://burnz.wordpress.com/category/yahoo/" title="View all posts filed under Yahoo">Yahoo</a>
+</li>
+		</ul>
+</div><div id="text-1" class="widget widget_text"><h3>Bookmark</h3>			<div class="textwidget"><p><a href="http://feeds.feedburner.com/burnz_blog"><img src="http://feeds.feedburner.com/~fc/burnz_blog?bg=000000&amp;fg=FFFFFF&amp;anim=1" height="26" width="88" style="border:0;" alt="" /></a>
+<br />
+<!-- AddThis Bookmark Button BEGIN -->
+<a href="http://www.addthis.com/bookmark.php" title="Bookmark using any bookmark manager!" target="_blank"><img src="http://s3.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="AddThis Social Bookmark Button" /></a>
+<!-- AddThis Bookmark Button END -->
+<br />
+<!-- AddThis Feed Button BEGIN -->
+<a href="http://www.addthis.com/feed.php?pub=1ZPS0J77LJBFRFW8&amp;h1=http%3A%2F%2Fburnz.wordpress.com&amp;t1=" title="Subscribe using any feed reader!"><img src="http://s3.addthis.com/button1-fd.gif" width="125" height="16" border="0" alt="AddThis Feed Button" /></a>
+<!-- AddThis Feed Button END -->
+<br />
+<a href="http://technorati.com/faves?sub=addfavbtn&amp;add=http://burnz.wordpress.com"><img src="http://static.technorati.com/pix/fave/tech-fav-1.png" border="0" alt="Add to Technorati Favorites" /></a>
+<!-- AddThis Feed Button END -->
+<br />
+<!-- Smart PageRank START -->
+<a href="http://www.smartpagerank.com" target="_blank"><img alt="Smart PageRank button" src="http://www.smartpagerank.com/pagerank3.php" border="0" /></a>
+<!-- Smart PageRank END -->
+<br />
+<!-- MyPageRank START -->
+<a href="http://www.mypagerank.net"><img src="http://www.mypagerank.net/services/gbla/gbla.php?s=cb530c58b5a1639b1085ee895436064c524a07288352d33c037821c1d2ad0cb485063fab5eda55c1" border="0" /></a>
+<br />
+<a href="http://www.mypagerank.net/ybs-cb530c58b5a1639b1085ee895436064c524a07.html" target="_blank"><img src="http://www.mypagerank.net/services/yblv/yblv.php?s=cb530c58b5a1639b1085ee895436064c524a07" border="0" alt="Yahoo bot last visit powered by MyPagerank.Net" /></a>
+<br />
+<a href="http://www.mypagerank.net/mbs-cb530c58b5a1639b1085ee895436064c524a07.html" target="_blank"><img src="http://www.mypagerank.net/services/mblv/mblv.php?s=cb530c58b5a1639b1085ee895436064c524a07" border="0" alt="Msn bot last visit powered by MyPagerank.Net" /></a></p>
+<!-- MyPageRank END --></div>
+		</div><div id="archives-3" class="widget widget_archive"><h3>Archives</h3>		<ul>
+			<li><a href='http://burnz.wordpress.com/2010/12/' title='December 2010'>December 2010</a></li>
+	<li><a href='http://burnz.wordpress.com/2010/08/' title='August 2010'>August 2010</a></li>
+	<li><a href='http://burnz.wordpress.com/2010/05/' title='May 2010'>May 2010</a></li>
+	<li><a href='http://burnz.wordpress.com/2009/02/' title='February 2009'>February 2009</a></li>
+	<li><a href='http://burnz.wordpress.com/2008/09/' title='September 2008'>September 2008</a></li>
+	<li><a href='http://burnz.wordpress.com/2008/06/' title='June 2008'>June 2008</a></li>
+	<li><a href='http://burnz.wordpress.com/2008/05/' title='May 2008'>May 2008</a></li>
+	<li><a href='http://burnz.wordpress.com/2008/03/' title='March 2008'>March 2008</a></li>
+	<li><a href='http://burnz.wordpress.com/2008/02/' title='February 2008'>February 2008</a></li>
+	<li><a href='http://burnz.wordpress.com/2008/01/' title='January 2008'>January 2008</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/12/' title='December 2007'>December 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/11/' title='November 2007'>November 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/10/' title='October 2007'>October 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/09/' title='September 2007'>September 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/08/' title='August 2007'>August 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/03/' title='March 2007'>March 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/02/' title='February 2007'>February 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2007/01/' title='January 2007'>January 2007</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/11/' title='November 2006'>November 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/08/' title='August 2006'>August 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/07/' title='July 2006'>July 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/06/' title='June 2006'>June 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/05/' title='May 2006'>May 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/04/' title='April 2006'>April 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2006/03/' title='March 2006'>March 2006</a></li>
+	<li><a href='http://burnz.wordpress.com/2005/10/' title='October 2005'>October 2005</a></li>
+		</ul>
+</div><div id="linkcat-677" class="widget widget_links"><h3>Friends</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://ketawa.wordpress.com" title="koleksi bahan ketawa [//ketawa.blog]" target="_blank">//ketawa.blog</a></li>
+<li><a href="http://videoclip.wordpress.com" title="Collections of video clips">//videoclip.blog</a></li>
+<li><a href="http://www.enemies.org/" title="enemies.org | captured in words" target="_blank">enemies.org</a></li>
+<li><a href="http://mrsburnz.multiply.com/" title="I live my life as it is&#8230;">I live my life as it is&#8230;</a></li>
+<li><a href="http://www.megatazimjamil.com" title="Megat Azim Jamil | blog" target="_blank">Megat Azim Jamil</a></li>
+<li><a href="http://sampuk.blogspot.com/" title="sampuk" target="_blank">sampuk</a></li>
+<li><a href="http://shaolininteger.blogspot.com/" title="Shaolin Integer a.k.a Slash The Underground" target="_blank">Shaolin Integer</a></li>
+<li><a href="http://nyunyu.wordpress.com/" title="Just another regular weblog">Tenere Chiuso</a></li>
+
+	</ul>
+</div>
+<div id="linkcat-8435" class="widget widget_links"><h3>Sites</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://9rules.com/" title="9rules &#8211; Where drinking and blogging is always encouraged" target="_blank">9rules</a></li>
+<li><a href="http://www.alistapart.com/" title="A List Apart" target="_blank">A List Apart</a></li>
+<li><a href="http://www.blogexplosion.com/index.php?ref=burnz" title="BlogExplosion &#8211; Explore your BLOG traffic" target="_blank">BlogExplosion</a></li>
+<li><a href="http://cocoment.com/" title="coComment &#8211; clear conversation in the blogosphere" target="_blank">coComment</a></li>
+<li><a href="http://www.cssbeauty.com/" title="CSS Beauty | CSS Design">CSS Beauty</a></li>
+<li><a href="http://www.css-galleries.com/" title="CSS Gallaries: Aggregating CSS &amp; web design inspiration">CSS Gallaries</a></li>
+<li><a href="http://www.cssheaven.com/" title="CSS Heaven | CSS Gallery">CSS Heaven</a></li>
+<li><a href="http://www.cssnature.org/" title="CSS Nature | CSS and XHTML Websites">CSS Nature</a></li>
+<li><a href="http://www.cssremix.com/" title="CSS Remix: CSS-Based Website Gallery" target="_blank">CSS Remix</a></li>
+<li><a href="http://www.cssvault.com/" title="CSS Vault">CSS Vault</a></li>
+<li><a href="http://www.csszengarden.com/" title="css Zen Garden" target="_blank">css Zen Garden</a></li>
+<li><a href="http://www.csselite.com/" title="CSSElite CSS Gallery">CSSElite</a></li>
+<li><a href="http://www.mostinspired.com/" title="Most Inspired">Most Inspired</a></li>
+<li><a href="http://www.mystiqnetwork.com" title="Mystiq Network Hosting">Mystiq Network Hosting</a></li>
+<li><a href="http://www.opendesigns.org/" title="Open Design Community">Open Designs</a></li>
+<li><a href="http://www.tonyyoo.com/protolize/" title="Protolize | Essential web tools in one place" target="_blank">Protolize</a></li>
+<li><a href="http://www.stylegala.com/" title="Stylegala &#8211; Web Design Publication" target="_blank">Stylegala</a></li>
+<li><a href="http://www.unmatchedstyle.com/" title="Unmatched Style | CSS Web Design Inspiration and CSS Gallery">Unmatched Style</a></li>
+
+	</ul>
+</div>
+<div id="linkcat-1981" class="widget widget_links"><h3>Tools</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.artviper.com/tools.php" title="website tools &#8211; artViper designstudio &#8211; Tools -Ajax, mySQL, PHP">artViper designstudio</a></li>
+<li><a href="http://en.support.wordpress.com/affiliate-links/">Free Hosting</a></li>
+<li><a href="http://www.mootools.net/" title="The Compact Javascript Framework">mootools</a></li>
+
+	</ul>
+</div>
+	</div>
+</div>
+<!-- sidebar END -->
+	<div class="fixed"></div>
+</div>
+<!-- content END -->
+
+<!-- footer START -->
+<div id="footer">
+	<a id="gotop" href="#" onclick="MGJS.goTop();return false;">Top</a>
+	<a id="powered" href="http://wordpress.com/">WordPress</a>
+	<div id="themeinfo">
+		<a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. Theme: <a href="http://theme.wordpress.com/themes/inove/" title="Learn more about this theme">INove</a> by <a href="http://www.neoease.com/" rel="designer">NeoEase</a>.	</div>
+</div>
+<!-- footer END -->
+
+</div>
+<!-- container END -->
+</div>
+<!-- wrap END -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":",language.en,type.wpcom,posttag.centos,posttag.firewall,posttag.script,posttag.unix,as"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cposttag.centos%2Cposttag.firewall%2Cposttag.script%2Cposttag.unix%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+
+	<script type="text/javascript">
+	/* <![CDATA[ */
+	(function($){
+		$(document).on( 'ready post-load', function() {
+
+			// Remove the login box when clicking the page
+			$( document ).mousedown( function( e ) {
+				if ( null == $( e.target ).closest( '#wpl-mustlogin' ).get( 0 ) ) {
+					$( '#wpl-mustlogin' ).remove();
+				}
+			});
+
+			// Handle clicking the like button itself
+			$('.wpl-button > a.like').click( function(e) {
+				e.preventDefault();
+
+				var postid = $(this).parent().attr('id').split('like-')[1];
+				$.post( 'http://burnz.wordpress.com/wp-admin/admin-ajax.php', {
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_like_click'
+				} );
+
+				var tenMins = new Date();
+				tenMins.setTime( tenMins.getTime() + 600000 );
+				document.cookie = 'wpl_rand=02ea940019; expires=' + tenMins.toGMTString() + '; domain=wordpress.com; path=/;';
+
+				$(this).parent().siblings('.wpl-count').after( '\
+					<div id="wpl-mustlogin"> \
+						<form action="https://burnz.wordpress.com/wp-login.php" method="post"> \
+							<p>Just one more step to like this:</p> \
+							<label><span>Username</span> <input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="80" /></label> \
+							<label><span>Password</span> <input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="81" /></label> \
+							<input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="Log In" tabindex="82" /> \
+							<input type="hidden" name="postid" value="' + postid + '" /> \
+							<input type="hidden" name="redirect_to" value="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script?year=2010&#038;monthnum=08&#038;day=08&#038;name=centos-firewall-init-script&#038;like=1" /> \
+							<input type="hidden" name="wpl_rand" value="02ea940019" /> \
+							<p>Not a member yet? <a href="http://wordpress.com/signup/?ref=likebox" id="wpl-signup-link">Sign up with WordPress.com</a></p> \
+						</form> \
+					</div> \
+				');
+
+				$('#wpl-mustlogin').hide().slideDown('fast');
+			} );
+
+			$('#wpl-mustlogin input.input').live( 'focus', function() {
+				$(this).prev().hide();
+			}).live( 'blur', function() {
+				if ( $(this).val() == '' ) {
+					$(this).prev().show();
+				}
+			});
+
+			$('#wpl-mustlogin input#wp-submit').live( 'click', function(e) {
+				e.preventDefault();
+
+				$.post( 'http://burnz.wordpress.com/wp-admin/admin-ajax.php', {
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_login_submit'
+				}, function() {
+					$('#wpl-mustlogin form').submit();
+				} );
+			});
+
+			$('#wpl-mustlogin a#wpl-signup-link').live( 'click', function(e) {
+				e.preventDefault();
+
+				var link = $(this).attr('href');
+
+				$.post( 'http://burnz.wordpress.com/wp-admin/admin-ajax.php', {
+					'action': 'wpl_record_stat',
+					'stat_name': 'loggedout_signup_click'
+				}, function() {
+					location.href = link;
+				} );
+			});
+		})
+	})(jQuery);
+	/* ]]> */
+	</script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=201242ab'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1318621548g'></script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wp-admin-bar-my-account' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-e005cedcaf8bb2fda333e9d74427d550">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/burnz.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/burnz.wordpress.com\/wp-login.php?action=logout&_wpnonce=98c2ae58fc","homeURL":"http:\/\/burnz.wordpress.com\/","postID":"312","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/highlander-comments/script.js?m=1349905738g'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;//burnz.blog&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input type="email" name="email" style="width: 95%; padding: 1px 2px" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="10988"/>
+			<input type="hidden" name="source" value="http://burnz.wordpress.com/2010/08/08/centos-firewall-init-script/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="f72cc2e1c3" /><input type="hidden" name="_wp_http_referer" value="/2010/08/08/centos-firewall-init-script/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/burnz.wordpress.com\/2010\/08\/08\/centos-firewall-init-script\/":312}	</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/post-flair/sharing/sharing.js?m=1349904728g'></script>
+		<script type="text/javascript" charset="utf-8">
+		jQuery(document).ready(function(){
+			jQuery( '.share-facebook' ).click(function(){
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript" charset="utf-8">
+		jQuery(document).ready(function(){
+			jQuery( '.share-twitter' ).click(function(){
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript" src="http://b.scorecardresearch.com/beacon.js"></script><script type="text/javascript">try{COMSCORE.beacon({c1:2,c2:7518284});}catch(e){}</script><noscript><p class="robots-nocontent"><img src="http://b.scorecardresearch.com/p?cj=1c1=2&#038;c2=7518284" alt="" style="display:none" width="1" height="1" /></p></noscript><script type='text/javascript' src='http://s1.wp.com/wp-content/js/devicepx.js?m=1349105731g'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'10988','v':'wpcom','user_id':'0','post':'312','subd':'burnz'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhReUgmLjhGYVIuSU1hMUdBdXMzZkR6cjJQfixZJWxtM0NhP0MxaHFJakZCVlU4MzlNZkoxNC1HUENQNFdsNUhLW3JLX0FkdyZLRS5aeVBRSGxLZGJteX5qbV1odzF5YlVuV0dIekx+T1Y1UXIvYWRnYk1LeVt0dWRDTkhaK2xZfnJSaWQ2WzJnTFhfQVA2OEcuaTglJVAlTUZyfEU/dVpOcm56Rk4uK2JrRTRwZjRWb1JwQ0FnKz9nUmlxenhVNW1+c01YSUZbNjJ3VjcvcG5LelBTNzh+MkJ4Rms5R2RpMFJZYQ=='});
+addLoadEvent(function(){linktracker_init('10988',312);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+
+</body>
+</html>

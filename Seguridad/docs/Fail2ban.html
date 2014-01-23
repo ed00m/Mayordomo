@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<title>Fail2ban - Wikipedia, la enciclopedia libre</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.21wmf1" />
+<link rel="alternate" type="application/x-wiki" title="Editar" href="/w/index.php?title=Fail2ban&amp;action=edit" />
+<link rel="edit" title="Editar" href="/w/index.php?title=Fail2ban&amp;action=edit" />
+<link rel="apple-touch-icon" href="//es.wikipedia.org/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (es)" />
+<link rel="EditURI" type="application/rsd+xml" href="//es.wikipedia.org/w/api.php?action=rsd" />
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de Wikipedia" href="/w/index.php?title=Especial:CambiosRecientes&amp;feed=atom" />
+<link rel="stylesheet" href="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=ext.gadget.a-commons-directo%2Cimagenesinfobox%2CrefToolbar%7Cext.wikihiero%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+
+/* cache key: eswiki:resourceloader:filter:minify-css:7:90928c6bde72339b01a5f26c8258689f */
+</style>
+
+<script src="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Fail2ban","wgTitle":"Fail2ban","wgCurRevisionId":58514823,"wgArticleId":2988374,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Software libre"],"wgBreakFrames":false,"wgPageContentLanguage":"es","wgSeparatorTransformTable":[",	.",".	,"],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],"wgMonthNamesShort":["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],"wgRelevantPageName":"Fail2ban","wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVectorEnabledModules":{"collapsiblenav":true,"collapsibletabs":true,"editwarning":true,"expandablesearch":false,"footercleanup":false,"sectioneditlinks":false,"simplesearch":true,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgTrackingToken":"666aea05ed6bde35660aedf8ee1eacd8","wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3
+,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"vector-simplesearch":1,"useeditwarning":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"variant":"es","language":"es","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":true,"searchNs101":false,"searchNs102":false,"searchNs103":false,"searchNs104":true,"searchNs105":false,"gadget-a-commons-directo":1,"gadget-refToolbar":1,"gadget-imagenesinfobox":1});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: eswiki:resourceloader:filter:minify-js:7:c5f8ab69e30cdbdd46cc34ead2a14da8 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralNotice.bannerController"]);
+}</script>
+<script src="//bits.wikimedia.org/geoiplookup"></script><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.21wmf1/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Fail2ban skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><!-- CentralNotice --><script>mw.centralNotice.initialize();</script></div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading"><span dir="auto">Fail2ban</span></h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">De Wikipedia, la enciclopedia libre</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					Saltar a:					<a href="#mw-head">navegación</a>, 					<a href="#p-search">búsqueda</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><table class="infobox_v2" style="width:22.7em; line-height: 1.4em; text-align:left; padding:.23em;">
+<tr>
+<th class="cabecera informática" colspan="2" style="text-align:center; background-color:#DCEAEC;">Fail2ban</th>
+</tr>
+<tr class="">
+<td colspan="2" class="" style="text-align:center;"><a href="/wiki/Archivo:Fail2ban_logo.png" class="image"><img alt="Fail2ban logo.png" src="//upload.wikimedia.org/wikipedia/commons/d/db/Fail2ban_logo.png" width="135" height="130" /></a></td>
+</tr>
+<tr class="">
+<td colspan="2" class="" style="text-align:center;"><a href="/wiki/Archivo:Fail2ban_screenshot.jpg" class="image"><img alt="Fail2ban screenshot.jpg" src="//upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Fail2ban_screenshot.jpg/200px-Fail2ban_screenshot.jpg" width="200" height="131" /></a></td>
+</tr>
+<tr>
+<th class="" colspan="2" style="text-align:center; background-color:#DCEAEC">Autor</th>
+</tr>
+<tr class="">
+<td colspan="2" class="" style="text-align:center;"><b>Cyril Jaquier</b><br />
+<i><a rel="nofollow" class="external free" href="http://www.fail2ban.org/">http://www.fail2ban.org/</a></i></td>
+</tr>
+<tr>
+<th class="" colspan="2" style="text-align:center; background-color:#DCEAEC">Información general</th>
+</tr>
+<tr class="">
+<th class="" scope="row" style="text-align:left;"><a href="/wiki/Fases_del_desarrollo_de_software" title="Fases del desarrollo de software">Última versión estable</a></th>
+<td class="" style="">0.8.4<br />
+<small><a href="/wiki/Setiembre" title="Setiembre" class="mw-redirect">Setiembre</a> de <a href="/wiki/2009" title="2009">2009</a></small></td>
+</tr>
+<tr class="">
+<th class="" scope="row" style="text-align:left;"><a href="/wiki/Anexo:G%C3%A9neros_de_software" title="Anexo:Géneros de software">Género</a></th>
+<td class="" style=""><i><b>?</b></i></td>
+</tr>
+<tr class="">
+<th class="" scope="row" style="text-align:left;"><a href="/wiki/Licencia_de_software" title="Licencia de software">Licencia</a></th>
+<td class="" style=""><a href="/wiki/GNU_General_Public_License" title="GNU General Public License">GPL</a> v2</td>
+</tr>
+<tr class="">
+<th class="" scope="row" style="text-align:left;"><a href="/wiki/Idioma_espa%C3%B1ol" title="Idioma español">En español</a></th>
+<td class="" style=""><i><b>?</b></i></td>
+</tr>
+</table>
+<p><b>Fail2ban</b> es una aplicación escrita en <a href="/wiki/Python" title="Python">Python</a> para la prevención de intrusos en un sistema, que se basa en la penalización de conexión (bloquear conexión) a los orígenes que intentan accesos por fuerza bruta. Se distribuye bajo la licencia <a href="/wiki/GNU" title="GNU">GNU</a> y típicamente funciona en todos los sistemas <a href="/wiki/POSIX" title="POSIX">POSIX</a> que tengan interfaz con un sistema de control de paquetes o un <a href="/wiki/Firewall" title="Firewall" class="mw-redirect">firewall</a> local.</p>
+<table id="toc" class="toc">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contenido</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Funcionamiento"><span class="tocnumber">1</span> <span class="toctext">Funcionamiento</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Historia"><span class="tocnumber">2</span> <span class="toctext">Historia</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Soporte_actual"><span class="tocnumber">3</span> <span class="toctext">Soporte actual</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Enlaces_relacionados"><span class="tocnumber">4</span> <span class="toctext">Enlaces relacionados</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Enlaces_externos"><span class="tocnumber">5</span> <span class="toctext">Enlaces externos</span></a></li>
+</ul>
+</td>
+</tr>
+</table>
+<h2><span class="editsection">[<a href="/w/index.php?title=Fail2ban&amp;action=edit&amp;section=1" title="Editar sección: Funcionamiento">editar</a>]</span> <span class="mw-headline" id="Funcionamiento">Funcionamiento</span></h2>
+<p>Habitualmente las computadoras sufren ataques de fuerza bruta (especialmente servidores <a href="/wiki/SSH" title="SSH" class="mw-redirect">SSH</a>, <a href="/wiki/File_Transfer_Protocol" title="File Transfer Protocol">FTP</a>, etc) con el fin de descifrar las contraseñas y acceder a ellas. En este punto es que una buena política de contraseñas es importante. Sin embargo, los ataques por fuerza bruta consumen demasiado ancho de banda, hacen crecer los archivos de logs de nuestro sistema y los ciclos de CPU se ven desperdiciados en procesamiento que podría ser utilizado para otras actividades pertinentes.</p>
+<p>Fail2ban se encarga de buscar en los registros (logs) de los programas que se especifiquen, las reglas que el usuario decida para poder aplicarle una penalización. La penalización puede ser bloquear la aplicación que ha fallado en un determinado puerto, bloquearla para todos los puertos, etc. Las penalizaciones así como las reglas, son definidas por el usuario.</p>
+<p>Habitualmente si las IPs de ataque son prohibidas por un lapso prudencial de tiempo, la sobrecarga de red provocada por los ataques baja, y también se baja la probabilidad de que un ataque de fuerza bruta basada en diccionarios tenga éxito.</p>
+<p>Ante una cantidad predefinida (por el usuario) de intentos fallidos, fail2ban determina la acción a tomar sobre la IP que provocó ello. Puede simplemente notificar por e-mail del suceso, denegar el acceso a la IP atacante, denegarla en determinado puerto y habilitarla en otros (mediante la modificación de las entradas en iptables, o el firewall local que corresponda), etc. Puede también levantar las prohibiciones después de un determinado período, en particular por si la prohibición realizada no se tratara de un ataque sino de errores del usuario intentando loguearse. Las acciones son configurables mediante scripts de python.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Fail2ban&amp;action=edit&amp;section=2" title="Editar sección: Historia">editar</a>]</span> <span class="mw-headline" id="Historia">Historia</span></h2>
+<h2><span class="editsection">[<a href="/w/index.php?title=Fail2ban&amp;action=edit&amp;section=3" title="Editar sección: Soporte actual">editar</a>]</span> <span class="mw-headline" id="Soporte_actual">Soporte actual</span></h2>
+<p>Actualmente fail2ban establece filtros para <a href="/wiki/Apache" title="Apache">Apache</a>, <a href="/wiki/Secure_Shell" title="Secure Shell">sshd</a>, <a href="/wiki/Qmail" title="Qmail">qmail</a>, vsftpd, <a href="/wiki/Lighttpd" title="Lighttpd">lighttpd</a>, <a href="/wiki/Postfix" title="Postfix">Postfix</a> y Courier Mail Server. Los filtros son escritos con <a href="/wiki/Expresi%C3%B3n_regular" title="Expresión regular">expresiones regulares</a> de <a href="/wiki/Python" title="Python">Python</a> que establecen la regla que hará disparar una determinada acción sobre la <a href="/wiki/Direcci%C3%B3n_IP" title="Dirección IP">IP</a> que origina el hecho. La tupla (regla, acción) o (filtro, acción) es llamado “Jail” o “prisión”, y es lo que determina la penalización a un host maligno.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Fail2ban&amp;action=edit&amp;section=4" title="Editar sección: Enlaces relacionados">editar</a>]</span> <span class="mw-headline" id="Enlaces_relacionados">Enlaces relacionados</span></h2>
+<ul>
+<li><a href="/wiki/Servidor_HTTP_Apache" title="Servidor HTTP Apache">Servidor HTTP Apache</a></li>
+<li>Servidor Web <a href="/wiki/Lighttpd" title="Lighttpd">Lighttpd</a></li>
+<li>Servidor de Correo <a href="/wiki/Qmail" title="Qmail">Qmail</a></li>
+<li>Servidor de Correo <a href="/wiki/Postfix" title="Postfix">Postfix</a></li>
+</ul>
+<h2><span class="editsection">[<a href="/w/index.php?title=Fail2ban&amp;action=edit&amp;section=5" title="Editar sección: Enlaces externos">editar</a>]</span> <span class="mw-headline" id="Enlaces_externos">Enlaces externos</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.fail2ban.org/wiki/index.php/Main_Page">Página Oficial</a></li>
+<li><a rel="nofollow" class="external text" href="http://sourceforge.net/projects/fail2ban/">Proyecto alojado en Sourceforge</a></li>
+<li><a rel="nofollow" class="external text" href="http://packages.debian.org/unstable/net/fail2ban">Paquete de la Distribución Debian GNU/Linux</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 1944/1000000
+Preprocessor generated node count: 14824/1500000
+Post-expand include size: 7968/2048000 bytes
+Template argument size: 1798/2048000 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 0/500
+-->
+
+<!-- Saved in parser cache with key eswiki:pcache:idhash:2988374-0!*!0!!es!4!* and timestamp 20121017062932 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Obtenido de «<a href="http://es.wikipedia.org/w/index.php?title=Fail2ban&amp;oldid=58514823">http://es.wikipedia.org/w/index.php?title=Fail2ban&amp;oldid=58514823</a>»				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Especial:Categor%C3%ADas" title="Especial:Categorías">Categoría</a>: <ul><li><a href="/wiki/Categor%C3%ADa:Software_libre" title="Categoría:Software libre">Software libre</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Herramientas personales</h5>
+	<ul>
+		<li id="pt-createaccount"><a href="/w/index.php?title=Especial:Entrar&amp;returnto=Fail2ban&amp;type=signup">Crear una cuenta</a></li>
+		<li id="pt-login"><a href="/w/index.php?title=Especial:Entrar&amp;returnto=Fail2ban" title="Te recomendamos iniciar sesión, sin embargo no es obligatorio [o]" accesskey="o">Ingresar</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Espacios de nombres</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Fail2ban"  title="Ver el artículo [c]" accesskey="c">Artículo</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/w/index.php?title=Discusi%C3%B3n:Fail2ban&amp;action=edit&amp;redlink=1"  title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h4>
+		</h4>
+	<h5><span>Variantes</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Vistas</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/wiki/Fail2ban" >Leer</a></span></li>
+					<li id="ca-edit"><span><a href="/w/index.php?title=Fail2ban&amp;action=edit"  title="Puedes editar esta página. Utiliza el botón de previsualización antes de guardar [e]" accesskey="e">Editar</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Fail2ban&amp;action=history"  title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Ver historial</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Acciones</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Buscar</label></h5>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" title="Buscar en este wiki [f]" accesskey="f" id="searchInput" />						<button name="button" title="Busca páginas con este texto." id="searchButton"><img src="//bits.wikimedia.org/static-1.21wmf1/skins/vector/images/search-ltr.png?303-4" alt="Buscar" width="12" height="13" /></button>								<input type='hidden' name="title" value="Especial:Buscar"/>
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(//upload.wikimedia.org/wikipedia/commons/8/8c/Wikipedia-logo-v2-es.png);" href="/wiki/Wikipedia:Portada"  title="Visitar la página principal"></a></div>
+				<!-- /logo -->
+				
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navegación</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/wiki/Wikipedia:Portada" title="Visitar la página principal [z]" accesskey="z">Portada</a></li>
+			<li id="n-portal"><a href="/wiki/Portal:Comunidad" title="Acerca del proyecto, lo que puedes hacer, dónde encontrar información">Portal de la comunidad</a></li>
+			<li id="n-currentevents"><a href="/wiki/Portal:Actualidad" title="Información de contexto sobre acontecimientos actuales">Actualidad</a></li>
+			<li id="n-recentchanges"><a href="/wiki/Especial:CambiosRecientes" title="Lista de cambios recientes en el wiki [r]" accesskey="r">Cambios recientes</a></li>
+			<li id="n-newpages"><a href="/wiki/Especial:P%C3%A1ginasNuevas">Páginas nuevas</a></li>
+			<li id="n-randompage"><a href="/wiki/Especial:Aleatoria" title="Cargar una página al azar [x]" accesskey="x">Página aleatoria</a></li>
+			<li id="n-help"><a href="/wiki/Ayuda:Contenidos" title="El lugar para aprender">Ayuda</a></li>
+			<li id="n-sitesupport"><a href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C12_es.wikipedia.org&amp;uselang=es" title="Apóyanos">Donaciones</a></li>
+			<li id="n-bug_in_article"><a href="/wiki/Wikipedia:Informes_de_error">Notificar un error</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- coll-print_export -->
+<div class="portal" id='p-coll-print_export'>
+	<h5>Imprimir/exportar</h5>
+	<div class="body">
+		<ul id="collectionPortletList"><li id="coll-create_a_book"><a href="/w/index.php?title=Especial:Libro&amp;bookcmd=book_creator&amp;referer=Fail2ban" title="Crear un libro o colección de página" rel="nofollow">Crear un libro</a></li><li id="coll-download-as-rl"><a href="/w/index.php?title=Especial:Libro&amp;bookcmd=render_article&amp;arttitle=Fail2ban&amp;oldid=58514823&amp;writer=rl" title="Descargar una versión PDF de esta página wiki" rel="nofollow">Descargar como PDF</a></li><li id="t-print"><a href="/w/index.php?title=Fail2ban&amp;printable=yes" title="Versión imprimible de esta página [p]" accesskey="p">Versión para imprimir</a></li></ul>	</div>
+</div>
+
+<!-- /coll-print_export -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Herramientas</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/wiki/Especial:LoQueEnlazaAqu%C3%AD/Fail2ban" title="Lista de todas las páginas del wiki que enlazan aquí [j]" accesskey="j">Lo que enlaza aquí</a></li>
+			<li id="t-recentchangeslinked"><a href="/wiki/Especial:CambiosEnEnlazadas/Fail2ban" title="Cambios recientes en las páginas que enlazan con ésta [k]" accesskey="k">Cambios en enlazadas</a></li>
+			<li id="t-upload"><a href="//commons.wikimedia.org/wiki/Special:UploadWizard?uselang=es" title="Subir imágenes o archivos multimedia [u]" accesskey="u">Subir un archivo</a></li>
+			<li id="t-specialpages"><a href="/wiki/Especial:P%C3%A1ginasEspeciales" title="Lista de todas las páginas especiales [q]" accesskey="q">Páginas especiales</a></li>
+			<li id="t-permalink"><a href="/w/index.php?title=Fail2ban&amp;oldid=58514823" title="Enlace permanente a esta versión de la página">Enlace permanente</a></li>
+<li id="t-cite"><a href="/w/index.php?title=Especial:Citar&amp;page=Fail2ban&amp;id=58514823" title="Información de como citar esta página">Citar este artículo</a></li>		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+<div class="portal" id='p-lang'>
+	<h5>En otros idiomas</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-de"><a href="//de.wikipedia.org/wiki/Fail2ban" title="Fail2ban" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interwiki-en"><a href="//en.wikipedia.org/wiki/Fail2ban" title="Fail2ban" lang="en" hreflang="en">English</a></li>
+			<li class="interwiki-fr"><a href="//fr.wikipedia.org/wiki/Fail2ban" title="Fail2ban" lang="fr" hreflang="fr">Français</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> Esta página fue modificada por última vez el 4 ago 2012, a las 17:01.</li>
+											<li id="footer-info-copyright">El texto está disponible bajo la <a rel="license" href="//es.wikipedia.org/wiki/Wikipedia:Texto_de_la_Licencia_Creative_Commons_Atribuci%C3%B3n-CompartirIgual_3.0_Unported">Licencia Creative Commons Atribución Compartir Igual 3.0</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+podrían ser aplicables cláusulas adicionales.
+Léanse los <a href="//wikimediafoundation.org/wiki/T%C3%A9rminos_de_Uso">términos de uso</a> para más información.<br />
+Wikipedia&reg; es una marca registrada de la <a href="//www.wikimediafoundation.org/">Fundación Wikimedia, Inc.</a>, una organización sin ánimo de lucro.<br /></li><li class="noprint"><a class="internal" href="/wiki/Wikipedia:Contacto">Contacto</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="//wikimediafoundation.org/wiki/Pol%C3%ADtica_de_privacidad" title="wikimedia:Política de privacidad">Política de privacidad</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:Acerca_de" title="Wikipedia:Acerca de">Acerca de Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:Limitaci%C3%B3n_general_de_responsabilidad" title="Wikipedia:Limitación general de responsabilidad">Limitación de responsabilidad</a></li>
+											<li id="footer-places-mobileview"><a href="http://es.m.wikipedia.org/w/index.php?title=Fail2ban&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Versión para móviles</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="//wikimediafoundation.org/"><img src="//bits.wikimedia.org/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="//bits.wikimedia.org/static-1.21wmf1/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script src="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=skins.vector&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mobile.desktop","mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.a-commons-directo","ext.gadget.refToolbar","ext.gadget.imagenesinfobox","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup"], null, true);
+}</script>
+<script src="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served by mw57 in 0.384 secs. -->
+	</body>
+</html>

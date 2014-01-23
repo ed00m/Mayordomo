@@ -1,0 +1,513 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>FORWARD and
+	NAT Rules</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Red Hat Enterprise Linux 4"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Firewalls"
+HREF="ch-fw.html"><LINK
+REL="PREVIOUS"
+TITLE="Common iptables Filtering"
+HREF="s1-firewall-ipt-basic.html"><LINK
+REL="NEXT"
+TITLE="Viruses and Spoofed IP Addresses"
+HREF="s1-firewall-ipt-rule.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="rhdocs-man.css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Red Hat Enterprise Linux 4: Security Guide</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-firewall-ipt-basic.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Firewalls</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-firewall-ipt-rule.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-FIREWALL-IPT-FWD"
+>7.4. <SAMP
+CLASS="COMPUTEROUTPUT"
+>FORWARD</SAMP
+> and
+	<ACRONYM
+CLASS="ACRONYM"
+>NAT</ACRONYM
+> Rules</A
+></H1
+><P
+>Most organizations are allotted a limited number of publicly
+	routable IP addresses from their ISP. Due to this limited allowance,
+	administrators must find creative ways to share access to Internet
+	services without giving limited public IP addresses to every node on the
+	LAN. Using private IP address is the common way to allow all nodes on a
+	LAN to properly access internal and external network services. Edge
+	routers (such as firewalls) can receive incoming transmissions from the
+	Internet and route the packets to the intended LAN node. At the same
+	time, firewall/gateways can also route outgoing requests from a LAN node
+	to the remote Internet service. This forwarding of network traffic can
+	become dangerous at times, especially with the availability of modern
+	cracking tools that can spoof <I
+CLASS="EMPHASIS"
+>internal</I
+> IP addresses
+	and make the remote attacker's machine act as a node on your LAN. To
+	prevent this, <TT
+CLASS="COMMAND"
+>iptables</TT
+> provides routing and
+	forwarding policies that can be implemented to prevent aberrant usage of
+	network resources.</P
+><P
+>The <SAMP
+CLASS="COMPUTEROUTPUT"
+>FORWARD</SAMP
+> policy allows an
+	administrator to control where packets can be routed within a LAN. For
+	example, to allow forwarding for the entire LAN (assuming the
+	firewall/gateway is assigned an internal IP address on eth1), the
+	following rules can be set:</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>iptables -A FORWARD -i eth1 -j ACCEPT</TT
+>
+<TT
+CLASS="COMMAND"
+>iptables -A FORWARD -o eth1 -j ACCEPT</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>This rule gives systems behind the firewall/gateway access to the
+      internal network. The gateway routes packets from one LAN node to its
+      intended destination node, passing all packets through its
+      <TT
+CLASS="FILENAME"
+>eth1</TT
+> device.
+      </P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./stylesheet-images/note.png"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Note</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>By default, the IPv4 policy in Red Hat Enterprise Linux kernels disables support
+	    for IP forwarding, which prevents boxes running Red Hat Enterprise Linux from
+	    functioning as dedicated edge routers. To enable IP forwarding, run
+	    the following command:</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>sysctl -w net.ipv4.ip_forward=1</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>If this command is run via shell prompt, then the setting is not
+	  remembered after a reboot. You can permanently set forwarding by
+	  editing the <TT
+CLASS="FILENAME"
+>/etc/sysctl.conf</TT
+> file. Find and edit
+	  the following line, replacing <SAMP
+CLASS="COMPUTEROUTPUT"
+>0</SAMP
+> with
+	  <SAMP
+CLASS="COMPUTEROUTPUT"
+>1</SAMP
+>:
+	</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>net.ipv4.ip_forward = 0</SAMP
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>Execute the following command to enable the change to the
+	<TT
+CLASS="FILENAME"
+>sysctl.conf</TT
+> file:</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>sysctl -p /etc/sysctl.conf</TT
+></PRE
+></TD
+></TR
+></TABLE
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Accepting forwarded packets via the firewall's internal IP device
+      allows LAN nodes to communicate with each other; however they still are
+      not allowed to communicate externally to the Internet. To
+      allow LAN nodes with private IP addresses to communicate with external
+      public networks, configure the firewall for <I
+CLASS="FIRSTTERM"
+>IP
+      masquerading</I
+>, which masks requests from LAN nodes with the IP
+      address of the firewall's external device (in this case, eth0):</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>The rule uses the NAT packet matching table (<TT
+CLASS="OPTION"
+>-t
+	  nat</TT
+>) and specifies the built-in POSTROUTING chain for NAT
+	  (<TT
+CLASS="OPTION"
+>-A POSTROUTING</TT
+>) on the firewall's external
+	  networking device (<TT
+CLASS="OPTION"
+>-o eth0</TT
+>). POSTROUTING allows
+	  packets to be altered as they are leaving the firewall's external
+	  device. The <TT
+CLASS="OPTION"
+>-j MASQUERADE</TT
+> target is specified to mask
+	  the private IP address of a node with the external IP address of the
+	  firewall/gateway.
+      </P
+><P
+>If you have a server on your internal network that you want make
+	available externally, you can use the <TT
+CLASS="OPTION"
+>-j DNAT</TT
+> target of
+	the PREROUTING chain in NAT to specify a destination IP address and port
+	where incoming packets requesting a connection to your internal service
+	can be forwarded. For example, if you wanted to forward incoming HTTP
+	requests to your dedicated Apache HTTP Server server system at 172.31.0.23, run the
+	following command:</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT \
+      --to 172.31.0.23:80</PRE
+></TD
+></TR
+></TABLE
+><P
+>This rule specifies that the NAT table use the built-in PREROUTING
+      chain to forward incoming HTTP requests exclusively to the listed
+      destination IP address of 172.31.0.23.</P
+><DIV
+CLASS="NOTE"
+><P
+></P
+><TABLE
+CLASS="NOTE"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="./stylesheet-images/note.png"
+HSPACE="5"
+ALT="Note"></TD
+><TH
+ALIGN="LEFT"
+VALIGN="CENTER"
+><B
+>Note</B
+></TH
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>If you have a default policy of DROP in your FORWARD chain, you
+	must append a rule to allow forwarding of incoming HTTP requests so that
+	destination NAT routing can be possible. To do this, run the following
+	command:</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>iptables -A FORWARD -i eth0 -p tcp --dport 80 -d 172.31.0.23 -j ACCEPT</PRE
+></TD
+></TR
+></TABLE
+><P
+>This rule allows forwarding of incoming HTTP requests from the
+	firewall to its intended destination of the Apache HTTP Server server behind the
+	firewall.
+	</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-FIREWALL-DMZ"
+>7.4.1. DMZs and <TT
+CLASS="COMMAND"
+>iptables</TT
+></A
+></H2
+><P
+><TT
+CLASS="COMMAND"
+>iptables</TT
+> rules can be set to route traffic to
+	  certain machines, such as a dedicated HTTP or FTP server, in a
+	  <I
+CLASS="FIRSTTERM"
+>demilitarized zone</I
+> (<ACRONYM
+CLASS="ACRONYM"
+>DMZ</ACRONYM
+>)
+	  &#8212; a special local subnetwork dedicated to providing services on
+	  a public carrier such as the Internet. For example, to set a rule for
+	  routing incoming HTTP requests to a dedicated HTTP server at 10.0.4.2
+	  (outside of the 192.168.1.0/24 range of the LAN), NAT calls a
+	  <SAMP
+CLASS="COMPUTEROUTPUT"
+>PREROUTING</SAMP
+> table to forward the
+	  packets to their proper destination:</P
+><TABLE
+CLASS="SCREEN"
+BGCOLOR="#DCDCDC"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT \
+	    --to-destination 10.0.4.2:80</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>With this command, all HTTP connections to port 80 from the
+	outside of the LAN are routed to the HTTP server on a separate network
+	from the rest of the internal network. This form of network segmentation
+	can prove safer than allowing HTTP connections to a machine on the
+	network. If the HTTP server is configured to accept secure connections,
+	then port 443 must be forwarded as well.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-firewall-ipt-basic.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-firewall-ipt-rule.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Common <TT
+CLASS="COMMAND"
+>iptables</TT
+> Filtering</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-fw.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Viruses and Spoofed IP Addresses</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

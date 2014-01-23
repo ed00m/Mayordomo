@@ -1,0 +1,754 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!--DVID=0000FA7E-->
+<HTML><base href="http://linux.about.com/library/cmd/blcmdl1_find.htm">
+<HEAD>
+<TITLE>find - Linux Command - Unix Command</TITLE>
+<META NAME="keywords" CONTENT="linux command find unix command find example examples">
+<META NAME="description" CONTENT="Linux / Unix Command Library: find. Learn about its synopsis, description, options, and examples.">
+<!--GIHEDSTRT-->
+<meta charset="ISO-8859-1"><meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="ROBOTS" content="NOODP">
+<meta name="pd" content="Tuesday, 10-Apr-2012 00:19:46 UTC">
+<link rel="icon" href="http://0.tqn.com/f/a08.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://0.tqn.com/4/o/os.xml" title="About.com">
+<script>var ziRfw=0;zobt="Linux Ads";zOBT=" Ads";function zIpSS(u){zpu(0,u,280,375,"ssWin")}function zIlb(l,t,f){zT(l,'18/1Pp/wX')}function rsi(i,h,w){if(gEI(i)){if(h)gEI(i).height=h;if(w)gEI(i).width=w}}</script><link rel="stylesheet" href="http://0.tqn.com/0/dc/s134.css" media="all"><!--[if lt IE 8]><link rel="stylesheet" href="http://0.tqn.com/8/dc/rdie.css" type="text/css" media="all"><![endif]-->
+<meta http-equiv="pics-Label" content='(pics-1.1 "http://www.icra.org/pics/vocabularyv03/" l gen true for "http://linux.about.com" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0) gen true for "http://linux.about.com" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0))'>
+
+<script>zWASL=1;var zSBT='Ads';zGRH=1</script>
+<style>.tr #oF{margin:0;color:#666}#abc #sidebar,#abc .sb{margin-top:.5em}#tt26 .entry .gB p{margin:0}@media screen and (-webkit-min-device-pixel-ratio:0){#abc #sidebar,#abc #sb1.sb,#abc #sb2.sb{margin-top:1.5em}#tt0 #abc #sidebar{margin-top:.5em}}#abw .gB .u,#abw .gB .u:hover{display:block}</style>
+<script>zGCID=this.zGCID?zGCID+" test36":" test36"</script><style>#wide #gB3{clear:left;margin-right:0;}</style>
+</HEAD>
+
+
+<body id="tt0" class="gt5 compute nd">
+
+<script language="JavaScript">
+<!--
+zGOW=0;xd=0;zap="";zAth='9193';zAthG='9193';zTt='0';zir='';zBTS=0;zBT=0;zCT=0;zSt='';zGz=''
+ch='compute';gs='linux';xg="Linux";zcs=''
+zFDT='0'
+zFST='0'
+zOr='CAG8F90iTrTrEB]u';zTbO=zRQO=1;zp0=zp1=zp2=zp3=zfs=0;zDc=1;
+zSm=zSu=zhc=zpb=zgs=zdn='';zFS='CAG10CA0110C00101';zFD='CAG10CA0110C00101'
+zDO=zis=1;zpid=zi=zRf=ztp=zpo=0;zdx=20;zfx=100;zJs=0;
+zst336280=11;;zst72890=9;;zi=1;zz=';160600=2-1-1299;336280=2-1-1299;72890=2-1-1299;336155=2-1-12-1;93048=2-1-12-1;30050=2-1-12-1';zx='3-1-1399';zde=15;zdp=1440;zds=1440;zfp=0;zfs=66;zfd=100;zdd=20;zaX=new Array(11, new Array(100,504,8197,6,'342,210'),7, new Array(100,284,8196,13,'342,400'));zDc=1;;zDO=1;;zhc='';;zGTH=1;
+zGo=0;zG=17;zTac=2;zDot=0;
+zObT="Linux";zRad=5;var tp=" primedia_"+(zBT?"":"non_")+"site_targeting";if(!this.zGCID)zGCID=tp
+else zGCID+=tp;
+if(zBT>0){zOBR=1}
+if(!this.uy)uy='about.com';if(typeof document.domain!="undefined")document.domain=uy;//-->
+</script>
+<script language="JavaScript" src="http://0.tqn.com/0/js/cj017x14t421p9.js?rdv=j25"></script>
+<script>function zob(p){if(!this.zOfs)return;var a=zOfs,t,i=0,l=a.length;if(l){w('<div id="oF"><b>'+(this.zobt?zobt:xg+' Ads')+'</b><ul>');while((i<l)&&i<zRad){t=a[i++].line1;w('<li><a href="/z/js/o'+(p?p:'')+'.htm?k='+zUriS(t.toLowerCase())+(this.zobr?zobr:'')+'&d='+zUriS(t)+'&r='+zUriS(zWl)+'" target="_'+(this.zOBNW?'new'+zr(9999):'top')+'">'+t+'</a></li>');}w('</ul></div>')}}function rb600(){if(gEI('bb'))gEI('bb').height=600}</script><script language="JavaScript">zJs=10</script>
+<script language="JavaScript1.1">zJs=11</script>
+<script language="JavaScript1.2">zJs=12</script>
+<script language="JavaScript1.3">zJs=13</script>
+<script>zc(5,'jsc',zJs,9999999,'')</script>
+<script>zDO=0</script>
+<script language="JavaScript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+<script>function zSae(n,d,i,u,t,r,b){var f=this.zGRH,x=xf+x1,y=x1+'>';w('<p onMouseOver="return zhl(1,'+n+')" onMouseOut="zhl(0)">'+x2+u+(f?x1+qf+'"t':'')+'" lnp="'+n+x3+d+x4+(f?t+'</a>'+x2+u+x1+qf+'"u" lnp="'+n+x3+d+x4+r:x+'t'+y+t+xh+x+'d'+y+d+xh+x+'u'+y+r+xh)+'</a>'+x+'d'+y+d+xh+'</p>')};z160=zpreC(160,600);z336=zpreC(336,280);z728=zpreC(728,90);z155=zpreC(336,155);zItw=160</script>
+	
+	
+	
+	
+	
+	
+			
+				<div id="abw">
+<div id="abh">
+<div id="adL"><script>if(z728>0){adunit('','',uy,ch,gs,728,90,'1','lb',1)}</script><noscript><a href="http://ad.doubleclick.net/jump/abt.compute/compute_linux;kw=;site=linux;chan=compute;pos=lb;sz=728x90;ord=1CAG8F90iTrTrEB]u" target="_new"><img src="http://ad.doubleclick.net/ad/abt.compute/compute_linux;kw=;site=linux;chan=compute;pos=lb;sz=728x90;ord=1CAG8F90iTrTrEB]u"></a></noscript></div>
+
+
+<ol class="ctr"><li><a href="http://www.about.com/compute/" zT="18/1Yd/Zz">Computing</a></li>
+</ol>
+<div class="ma"><div class="lg"><a href="http://www.about.com/" zT="18/1Yb/Zv"><img src="http://0.tqn.com/f/lg/a154.png" alt="About.com"></a></div><div class="h2"><a href="/" zT="18/1Yc/Zx" title="Linux">Linux</a></div></div>
+<form class="gs" method="get" action="http://linux.about.com/sitesearch.htm" target="_top"><fieldset><input id="sv" name="q" value="" validate="required" alert="Please enter something to search for!"><input type="hidden" name="SUName" value="linux"><button class="btn" type="submit">Search</button></fieldset></form>
+<ul id="up"><li class="h"><a href="http://linux.about.com/" zT="18/1ZZ/aZ"><span>Linux</span></a></li><li><a href="http://linux.about.com/od/linux101/u/userpathI.htm" zT="18/1ZZ/11o">Get Started</a></li><li><a href="http://linux.about.com/od/linux101/u/userpathII.htm" zT="18/1ZZ/11q">Explore Linux</a></li><li><a href="http://linux.about.com/od/linux101/u/userpathIII.htm" zT="18/1ZZ/11r">Become a Guru</a></li><li class="last "></li><script>if(typeof zp!='undefined'){if(zp[8].d){w('<li id="st">');Dsp(zp[8],'ip');w('</li>')}}</script></ul>
+<ul id="pa"><li id="ea"><a href="/gi/pages/shareurl.htm?PG=http%3a%2f%2flinux%2eabout%2ecom%2fod%2fcommands%2fl%2fblcmdl1%5ffind%2ehtm&zItl=" zT="18/1Z0/[3">Share</a></li><li id="pra"><script>w(x2+zWl+'?p=1" zT="18/1[N" rel="nofollow">Print</a>')</script></li></ul>
+</div>
+<div id="abb">
+<div class="tr"><div class="h4">See More About:</div><ul><li><a href="/lr/locate/531887/1/" zT="18/1Ys/[1" rel="nofollow">locate</a></li><li><a href="/lr/ls/531887/2/" zT="18/1Ys/[1" rel="nofollow">ls</a></li><li><a href="/lr/dir/531887/3/" zT="18/1Ys/[1" rel="nofollow">dir</a></li><li><a href="/lr/more/531887/4/" zT="18/1Ys/[1" rel="nofollow">more</a></li><li><a href="/lr/less/531887/5/" zT="18/1Ys/[1" rel="nofollow">less</a></li></ul></div><div id="abm" class="clear"><div id="abc">
+<div id="articlebody">
+<!--gc-->
+<basefont face="verdana, geneva, helvetica" size="2"> 
+<table border=0 cellpadding=0 cellspacing=0 width="100%">
+  <tr> 
+    <td><font face=verdana size=4 color=cc0000><b> Linux / Unix Command: <font face=verdana size=4 color=cc0000><b><i><font face=verdana size=4 color=cc0000>find</font></i></b></font></b></font></td>
+  </tr>
+  <tr>
+    <td bgcolor=cc0000><img src="http://z.about.com" height=1 width=1 border=0></td>
+  </tr>
+  <tr> 
+    <td><img src="http://z.about.com" height=10 width=1> 
+      <a href="/library/cmd/blcmdl.htm"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Command 
+      Library </font></a> </td>
+  </tr>
+</table>
+<H2>NAME</H2>
+
+find - search for files in a directory hierarchy
+
+<H2><a href="/od/commands/a/blcmdl1_findx.htm">EXAMPLES</A></H2>
+
+<A NAME="lbAJ"> </A>
+<H2>SEE ALSO</H2>
+
+<B><a href="/od/commands/l/blcmdl1_locate.htm">locate</A></B>(1L), <B><a href="/od/commands/l/blcmdl5_locatedb.htm">locatedb</A></B>(5L), <B><a href="/library/cmd/blcmdl1_updatedb.htm">updatedb</A></B>(1L), <B><a href="/library/cmd/blcmdl1_xargs.htm">xargs</A></B>(1L)
+
+
+<A NAME="lbAC"> </A>
+<H2>SYNOPSIS</H2>
+
+<B>find</B>
+
+[path...] [expression]
+<A NAME="lbAD"> </A>
+<H2>DESCRIPTION</H2>
+
+This manual page
+documents the GNU version of
+<B>find</B>.
+
+<B>find</B>
+
+searches the directory tree rooted at each given file name by
+evaluating the given expression from left to right, according to the
+rules of precedence (see section OPERATORS), until the outcome is
+known (the left hand side is false for <I>and</I> operations, true for
+<I>or</I>), at which point
+<B>find</B>
+
+moves on to the next file name.
+<p><div id="wide"><script>zSB(3,3)</script></div></p>
+<P>
+
+The first argument that begins with `-', `(', `)', `,', or `!' is taken
+to be the beginning of the expression; any arguments before it are
+paths to search, and any arguments after it are the rest of the
+expression.  If no paths are given, the current directory is used.  If
+no expression is given, the expression `-print' is used.
+<P>
+
+<B>find</B>
+
+exits with status 0 if all files are processed successfully, greater
+than 0 if errors occur.
+<A NAME="lbAE"> </A>
+<H2>EXPRESSIONS</H2>
+
+
+The expression is made up of options (which affect overall operation
+rather than the processing of a specific file, and always return true),
+tests (which return a true or false value), and actions (which have side
+effects and return a true or false value), all separated by operators.
+-and is assumed where the operator is omitted.  If the expression contains
+no actions other than -prune, -print is performed on all files
+for which the expression is true.
+<A NAME="lbAF"> </A>
+<H3>OPTIONS</H3>
+
+
+All options always return true.  They always take effect, rather than
+being processed only when their place in the expression is reached.
+Therefore, for clarity, it is best to place them at the beginning of
+the expression.
+<DL COMPACT>
+<DT>-daystart<DD>
+Measure times (for -amin, -atime, -cmin, -ctime, -mmin, and -mtime)
+from the beginning of today rather than from 24 hours ago.
+<DT>-depth<DD>
+Process each directory's contents before the directory itself.
+<DT>-follow<DD>
+Dereference symbolic links.  Implies -noleaf.
+<DT>-help, --help<DD>
+Print a summary of the command-line usage of
+<B>find</B>
+
+and exit.
+<DT>-maxdepth <I>levels</I><DD>
+Descend at most <I>levels</I> (a non-negative integer) levels of
+directories below the command line arguments.  `-maxdepth 0' means
+only apply the tests and actions to the command line arguments.
+<DT>-mindepth <I>levels</I><DD>
+Do not apply any tests or actions at levels less than <I>levels</I> (a
+non-negative integer).  `-mindepth 1' means process all files except
+the command line arguments.
+<DT>-mount<DD>
+Don't descend directories on other filesystems.  An alternate name for
+-xdev, for compatibility with some other versions of
+<B>find</B>.
+
+<DT>-noleaf<DD>
+Do not optimize by assuming that directories contain 2 fewer
+subdirectories than their hard link count.  This option is needed when
+searching filesystems that do not follow the Unix directory-link
+convention, such as CD-ROM or MS-DOS filesystems or AFS volume mount
+points.  Each directory on a normal Unix filesystem has at least 2
+hard links: its name and its `.'  entry.  Additionally, its
+subdirectories (if any) each have a `..'  entry linked to that
+directory.  When
+<B>find</B>
+
+is examining a directory, after it has statted 2 fewer subdirectories
+than the directory's link count, it knows that the rest of the entries
+in the directory are non-directories (`leaf' files in the directory
+tree).  If only the files' names need to be examined, there is no need
+to stat them; this gives a significant increase in search speed.
+<DT>-version, --version<DD>
+Print the <B>find</B> version number and exit.
+<DT>-xdev<DD>
+Don't descend directories on other filesystems.
+</DL>
+<A NAME="lbAG"> </A>
+<H3>TESTS</H3>
+
+
+Numeric arguments can be specified as
+<DL COMPACT>
+<DT><I>+n</I><DD>
+for greater than
+<I>n</I>,
+
+<DT><I>-n</I><DD>
+for less than
+<I>n</I>,
+
+<DT><I>n</I><DD>
+for exactly
+<I>n</I>.
+
+<DT>-amin <I>n</I><DD>
+File was last accessed <I>n</I> minutes ago.
+<DT>-anewer <I>file</I><DD>
+File was last accessed more recently than <I>file</I> was modified.
+-anewer is affected by -follow only if -follow comes before
+-anewer on the command line.
+<DT>-atime <I>n</I><DD>
+File was last accessed <I>n</I>*24 hours ago.
+<DT>-cmin <I>n</I><DD>
+File's status was last changed <I>n</I> minutes ago.
+<DT>-cnewer <I>file</I><DD>
+File's status was last changed more recently than <I>file</I> was modified.
+-cnewer is affected by -follow only if -follow comes before
+-cnewer on the command line.
+<DT>-ctime <I>n</I><DD>
+File's status was last changed <I>n</I>*24 hours ago.
+<DT>-empty<DD>
+File is empty and is either a regular file or a directory.
+<DT>-false<DD>
+Always false.
+<DT>-fstype <I>type</I><DD>
+File is on a filesystem of type <I>type</I>.  The valid filesystem
+types vary among different versions of Unix; an incomplete list of
+filesystem types that are accepted on some version of Unix or another
+is: ufs, 4.2, 4.3, nfs, tmp, mfs, S51K, S52K.  You can use -printf
+with the %F directive to see the types of your filesystems.
+<DT>-gid <I>n</I><DD>
+File's numeric group ID is <I>n</I>.
+<DT>-group <I>gname</I><DD>
+File belongs to group <I>gname</I> (numeric group ID allowed).
+<DT>-ilname <I>pattern</I><DD>
+Like -lname, but the match is case insensitive.
+<DT>-iname <I>pattern</I><DD>
+Like -name, but the match is case insensitive.  For example, the
+patterns `fo*' and `F??' match the file names `Foo', `FOO', `foo',
+`fOo', etc.
+<DT>-inum <I>n</I><DD>
+File has inode number <I>n</I>.
+<DT>-ipath <I>pattern</I><DD>
+Like -path, but the match is case insensitive.
+<DT>-iregex <I>pattern</I><DD>
+Like -regex, but the match is case insensitive.
+<DT>-links <I>n</I><DD>
+File has <I>n</I> links.
+<DT>-lname <I>pattern</I><DD>
+File is a symbolic link whose contents match shell pattern
+<I>pattern</I>.  The metacharacters do not treat `/' or `.' specially.
+<DT>-mmin <I>n</I><DD>
+File's data was last modified <I>n</I> minutes ago.
+<DT>-mtime <I>n</I><DD>
+File's data was last modified <I>n</I>*24 hours ago.
+<DT>-name <I>pattern</I><DD>
+Base of file name (the path with the leading directories removed)
+matches shell pattern <I>pattern</I>.  The metacharacters (`*', `?',
+and `[]') do not match a `.' at the start of the base name.  To ignore
+a directory and the files under it, use -prune; see an example in the
+description of -path.
+<DT>-newer <I>file</I><DD>
+File was modified more recently than <I>file</I>.
+-newer is affected by -follow only if -follow comes before
+-newer on the command line.
+<DT>-nouser<DD>
+No user corresponds to file's numeric user ID.
+<DT>-nogroup<DD>
+No group corresponds to file's numeric group ID.
+<DT>-path <I>pattern</I><DD>
+File name matches shell pattern <I>pattern</I>.  The metacharacters do
+not treat `/' or `.' specially; so, for example,
+<BR>
+
+
+find . -path './sr*sc'
+<BR>
+
+
+will print an entry for a directory called './src/misc' (if one
+exists).  To ignore a whole directory tree, use -prune rather than
+checking every file in the tree.  For example, to skip the
+directory `src/emacs' and all files and directories under it, and
+print the names of the other files found, do something like this:
+<BR>
+
+
+find . -path './src/emacs' -prune -o -print
+<BR>
+
+
+<DT>-perm <I>mode</I><DD>
+File's permission bits are exactly <I>mode</I> (octal or symbolic).
+Symbolic modes use mode 0 as a point of departure.
+<DT>-perm -<I>mode</I><DD>
+All of the permission bits <I>mode</I> are set for the file.
+<DT>-perm +<I>mode</I><DD>
+Any of the permission bits <I>mode</I> are set for the file.
+<DT>-regex <I>pattern</I><DD>
+File name matches regular expression <I>pattern</I>.  This is a match
+on the whole path, not a search.  For example, to match a file named
+`./fubar3', you can use the regular expression `.*bar.' or `.*b.*3',
+but not `b.*r3'.
+<DT>-size <I>n</I>[bckw]<DD>
+File uses <I>n</I> units of space.  The units are 512-byte blocks by
+default or if `b' follows <I>n</I>, bytes if `c' follows <I>n</I>,
+kilobytes if `k' follows <I>n</I>, or 2-byte words if `w' follows <I>n</I>.
+The size does not count indirect blocks, but it does count blocks in
+sparse files that are not actually allocated.
+<DT>-true<DD>
+Always true.
+<DT>-type <I>c</I><DD>
+File is of type <I>c</I>:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT>b<DD>
+block (buffered) special
+<DT>c<DD>
+character (unbuffered) special
+<DT>d<DD>
+directory
+<DT>p<DD>
+named pipe (FIFO)
+<DT>f<DD>
+regular file
+<DT>l<DD>
+symbolic link
+<DT>s<DD>
+socket
+<DT>D<DD>
+door (Solaris)
+</DL>
+</DL>
+
+<DT>-uid <I>n</I><DD>
+File's numeric user ID is <I>n</I>.
+<DT>-used <I>n</I><DD>
+File was last accessed <I>n</I> days after its status was last changed.
+<DT>-user <I>uname</I><DD>
+File is owned by user <I>uname</I> (numeric user ID allowed).
+<DT>-xtype <I>c</I><DD>
+The same as -type unless the file is a symbolic link.  For symbolic
+links: if -follow has not been given, true if the file is a link to a
+file of type <I>c</I>; if -follow has been given, true if <I>c</I> is
+`l'.  In other words, for symbolic links, -xtype checks the type of
+the file that -type does not check.
+</DL>
+<A NAME="lbAH"> </A>
+<H3>ACTIONS</H3>
+
+<DL COMPACT>
+<DT>-exec <I>command</I> ;<DD>
+Execute <I>command</I>; true if 0 status is returned.  All following
+arguments to
+<B>find</B>
+
+are taken to be arguments to the command until an argument consisting
+of `;' is encountered.  The string `{}' is replaced by the current
+file name being processed everywhere it occurs in the arguments to the
+command, not just in arguments where it is alone, as in some versions
+of
+<B>find</B>.
+
+Both of these constructions might need to be escaped (with a `\') or
+quoted to protect them from expansion by the shell.  The command is
+executed in the starting directory.
+<DT>-fls <I>file</I><DD>
+True; like -ls but write to <I>file</I> like -fprint.
+<DT>-fprint <I>file</I><DD>
+True; print the full file name into file <I>file</I>.  If <I>file</I>
+does not exist when <B>find</B> is run, it is created; if it does
+exist, it is truncated.  The file names ``/dev/stdout'' and
+``/dev/stderr'' are handled specially; they refer to the standard
+output and standard error output, respectively.
+<DT>-fprint0 <I>file</I><DD>
+True; like -print0 but write to <I>file</I> like -fprint.
+<DT>-fprintf <I>file</I> <I>format</I><DD>
+True; like -printf but write to <I>file</I> like -fprint.
+<DT>-ok <I>command</I> ;<DD>
+Like -exec but ask the user first (on the standard input); if the
+response does not start with `y' or `Y', do not run the command, and
+return false.
+<DT>-print<DD>
+True; print the full file name on the standard output, followed by a newline.
+<DT>-print0<DD>
+True; print the full file name on the standard output, followed by a
+null character.  This allows file names that contain newlines to be
+correctly interpreted by programs that process the <B>find</B> output.
+<DT>-printf <I>format</I><DD>
+True; print <I>format</I> on the standard output, interpreting `\'
+escapes and `%' directives.  Field widths and precisions can be
+specified as with the `printf' C function.  Unlike -print, -printf
+does not add a newline at the end of the string.  The escapes and
+directives are:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT>\a<DD>
+Alarm bell.
+<DT>\b<DD>
+Backspace.
+<DT>\c<DD>
+Stop printing from this format immediately and flush the output.
+<DT>\f<DD>
+Form feed.
+<DT>\n<DD>
+Newline.
+<DT>\r<DD>
+Carriage return.
+<DT>\t<DD>
+Horizontal tab.
+<DT>\v<DD>
+Vertical tab.
+<DT>\\<DD>
+A literal backslash (`\').
+<DT>\NNN<DD>
+The character whose ASCII code is NNN (octal).
+</DL>
+<P>
+
+A `\' character followed by any other character is treated as an
+ordinary character, so they both are printed.
+<DL COMPACT>
+<DT>%%<DD>
+A literal percent sign.
+<DT>%a<DD>
+File's last access time in the format returned by the C `ctime' function.
+<DT>%A<I>k</I><DD>
+File's last access time in the format specified by <I>k</I>, which is
+either `@' or a directive for the C `strftime' function.  The possible
+values for <I>k</I> are listed below; some of them might not be
+available on all systems, due to differences in `strftime' between
+systems.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT>@<DD>
+seconds since Jan. 1, 1970, 00:00 GMT.
+</DL>
+<P>
+
+Time fields:
+<DL COMPACT>
+<DT>H<DD>
+hour (00..23)
+<DT>I<DD>
+hour (01..12)
+<DT>k<DD>
+hour ( 0..23)
+<DT>l<DD>
+hour ( 1..12)
+<DT>M<DD>
+minute (00..59)
+<DT>p<DD>
+locale's AM or PM
+<DT>r<DD>
+time, 12-hour (hh:mm:ss [AP]M)
+<DT>S<DD>
+second (00..61)
+<DT>T<DD>
+time, 24-hour (hh:mm:ss)
+<DT>X<DD>
+locale's time representation (H:M:S)
+<DT>Z<DD>
+time zone (e.g., EDT), or nothing if no time zone is determinable
+</DL>
+<P>
+
+Date fields:
+<DL COMPACT>
+<DT>a<DD>
+locale's abbreviated weekday name (Sun..Sat)
+<DT>A<DD>
+locale's full weekday name, variable length (Sunday..Saturday)
+<DT>b<DD>
+locale's abbreviated month name (Jan..Dec)
+<DT>B<DD>
+locale's full month name, variable length (January..December)
+<DT>c<DD>
+locale's date and time (Sat Nov 04 12:02:33 EST 1989)
+<DT>d<DD>
+day of month (01..31)
+<DT>D<DD>
+date (mm/dd/yy)
+<DT>h<DD>
+same as b
+<DT>j<DD>
+day of year (001..366)
+<DT>m<DD>
+month (01..12)
+<DT>U<DD>
+week number of year with Sunday as first day of week (00..53)
+<DT>w<DD>
+day of week (0..6)
+<DT>W<DD>
+week number of year with Monday as first day of week (00..53)
+<DT>x<DD>
+locale's date representation (mm/dd/yy)
+<DT>y<DD>
+last two digits of year (00..99)
+<DT>Y<DD>
+year (1970...)
+</DL>
+</DL>
+
+<DT>%b<DD>
+File's size in 512-byte blocks (rounded up).
+<DT>%c<DD>
+File's last status change time in the format returned by the C `ctime'
+function.
+<DT>%C<I>k</I><DD>
+File's last status change time in the format specified by <I>k</I>,
+which is the same as for %A.
+<DT>%d<DD>
+File's depth in the directory tree; 0 means the file is a command line
+argument.
+<DT>%f<DD>
+File's name with any leading directories removed (only the last element).
+<DT>%F<DD>
+Type of the filesystem the file is on; this value can be used for
+-fstype.
+<DT>%g<DD>
+File's group name, or numeric group ID if the group has no name.
+<DT>%G<DD>
+File's numeric group ID.
+<DT>%h<DD>
+Leading directories of file's name (all but the last element).
+<DT>%H<DD>
+Command line argument under which file was found.
+<DT>%i<DD>
+File's inode number (in decimal).
+<DT>%k<DD>
+File's size in 1K blocks (rounded up).
+<DT>%l<DD>
+Object of symbolic link (empty string if file is not a symbolic link).
+<DT>%m<DD>
+File's permission bits (in octal).
+<DT>%n<DD>
+Number of hard links to file.
+<DT>%p<DD>
+File's name.
+<DT>%P<DD>
+File's name with the name of the command line argument under which
+it was found removed.
+<DT>%s<DD>
+File's size in bytes.
+<DT>%t<DD>
+File's last modification time in the format returned by the C `ctime'
+function.
+<DT>%T<I>k</I><DD>
+File's last modification time in the format specified by <I>k</I>, 
+which is the same as for %A.
+<DT>%u<DD>
+File's user name, or numeric user ID if the user has no name.
+<DT>%U<DD>
+File's numeric user ID.
+</DL>
+<P>
+
+A `%' character followed by any other character is discarded (but the
+other character is printed).
+</DL>
+
+<DT>-prune<DD>
+If -depth is not given, true; do not descend the current directory.
+<BR>
+
+If -depth is given, false; no effect.
+<DT>-ls<DD>
+True; list current file in `ls -dils' format on standard output.
+The block counts are of 1K blocks, unless the environment variable
+POSIXLY_CORRECT is set, in which case 512-byte blocks are used.
+</DL>
+<A NAME="lbAI"> </A>
+<H3>OPERATORS</H3>
+
+
+Listed in order of decreasing precedence:
+<DL COMPACT>
+<DT>( <I>expr</I> )<DD>
+Force precedence.
+<DT>! <I>expr</I><DD>
+True if <I>expr</I> is false.
+<DT>-not <I>expr</I><DD>
+Same as ! <I>expr</I>.
+<DT><I>expr1 expr2</I><DD>
+And (implied); <I>expr2</I> is not evaluated if <I>expr1</I> is false.
+<DT><I>expr1</I> -a <I>expr2</I><DD>
+Same as <I>expr1 expr2</I>.
+<DT><I>expr1</I> -and <I>expr2</I><DD>
+Same as <I>expr1 expr2</I>.
+<DT><I>expr1</I> -o <I>expr2</I><DD>
+Or; <I>expr2</I> is not evaluated if <I>expr1</I> is true.
+<DT><I>expr1</I> -or <I>expr2</I><DD>
+Same as <I>expr1</I> -o <I>expr2</I>.
+<DT><I>expr1</I> , <I>expr2</I><DD>
+List; both <I>expr1</I> and <I>expr2</I> are always evaluated.
+The value of <I>expr1</I> is discarded; the value of the list is the
+value of <I>expr2</I>.
+</DL>
+
+
+
+<h2>EXAMPLES<a name="examples">&nbsp;</a></h2>
+
+<pre style="background:#dddddd;"><b>find /home -user joe</b></pre>		
+Find every file under the directory /home owned by the user joe.
+
+<p>
+<pre style="background:#dddddd;"><b>find /usr -name *stat</b></pre>	
+Find every file under the directory /usr ending in ".stat".
+
+<p>
+<pre style="background:#dddddd;"><b>find /var/spool -mtime +60</b></pre>	
+Find every file under the directory /var/spool that was modified more than 60 days ago.
+
+<p>
+<pre style="background:#dddddd;"><b>find /tmp -name core -type f -print | xargs /bin/rm -f</b></pre>
+Find files named <b>core</b> in or below the directory <b>/tmp</b>
+and delete them. Note that this will work incorrectly if there are
+any filenames containing newlines, single or double quotes, or
+spaces. 
+
+<p>
+<pre style="background:#dddddd;"><b>find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f</b></pre>
+
+<p>Find files named <b>core</b> in or below the directory
+<b>/tmp</b> and delete them, processing filenames in such a way
+that file or directory names containing single or double quotes,
+spaces or newlines are correctly handled. The <b>-name</b> test
+comes before the <b>-type</b> test in order to avoid having to call
+<b><a href="linux.about.com/library/cmd/blcmdl2_stat.htm">stat</a>(2)</b> on
+every file.
+
+<p>
+<pre style="background:#dddddd;"><b>find . -type f -exec file '{}' \;</b></pre>
+Runs `file' on every file in or below the current directory. Notice
+that the braces are enclosed in single quote marks to protect them
+from interpretation as shell script punctuation. The semicolon is
+similarly protected by the use of a backslash, though ';' could
+have been used in that case also.
+
+<p>
+<pre style="background:#dddddd;"><b>find /       \( -perm -4000 -fprintf /root/suid.txt '%#m %u %p\n' \) , \</b>
+<b>             \( -size +100M -fprintf /root/big.txt  '%-10s %p\n' \)</b></pre>
+Traverse the filesystem just once, listing setuid files and
+directories into <b>/root/suid.txt</b> and large files into
+<b>/root/big.txt</b>.
+
+<p>
+<pre style="background:#dddddd;"><b>find $HOME  -mtime 0</b></pre>
+Search for files in your home directory which have been modified in
+the last twenty-four hours. This command works this way because the
+time since each file was last modified is divided by 24 hours and
+any remainder is discarded. That means that to match <b>-mtime</b>
+
+<p>
+<b>0</b>, a file will have to have a modification in the past which
+is less than 24 hours ago.
+
+<pre style="background:#dddddd;"><b>find . -perm 664</b></pre>
+Search for files which have read and write permission for their
+owner, and group, but which other users can read but not write to.
+Files which meet these criteria but have other permissions bits set
+(for example if someone can execute the file) will not be matched.
+
+<p>
+<pre style="background:#dddddd;"><b>find . -perm -664</b></pre>
+Search for files which have read and write permission for their
+owner and group, and which other users can read, without regard to
+the presence of any extra permission bits (for example the
+executable bit). This will match a file which has mode 0777, for
+example.
+
+<p>
+<pre style="background:#dddddd;"><b>find . -perm /222</b></pre>
+Search for files which are writable by somebody (their owner, or
+their group, or anybody else).
+
+<p>
+<pre style="background:#dddddd;"><b>find . -perm /220</b>
+<b>find . -perm /u+w,g+w</b>
+<b>find . -perm /u=w,g=w</b></pre>
+
+All three of these commands do the same thing, but the first one
+uses the octal representation of the file mode, and the other two
+use the symbolic form. These commands all search for files which
+are writable by either their owner or their group. The files don't
+have to be writable by both the owner and group to be matched;
+either will do.
+
+<p>
+<pre style="background:#dddddd;"><b>find . -perm -220</b>
+<b>find . -perm -g+w,u+w</b></pre>
+Both these commands do the same thing; search for files which are
+writable by both their owner and their group.
+
+<p>
+<pre style="background:#dddddd;"><b>find . -perm -444 -perm /222 ! -perm /111</b>
+<b>find . -perm -a+r -perm /a+w ! -perm /a+x</b></pre>
+These two commands both search for files that are readable for
+everybody (-perm -444 or -perm -a+r), have at least on write bit
+set (-perm /222 or -perm /a+w) but are not executable for anybody
+(! -perm /111 and ! -perm /a+x respectively)
+<p>
+
+
+
+<A NAME="lbAJ"> </A>
+<H2>SEE ALSO</H2>
+
+<B><a href="/od/commands/l/blcmdl1_locate.htm">locate</A></B>(1L), <B><a href="/od/commands/l/blcmdl5_locatedb.htm">locatedb</A></B>(5L), <B><a href="/library/cmd/blcmdl1_updatedb.htm">updatedb</A></B>(1L), <B><a href="/library/cmd/blcmdl1_xargs.htm">xargs</A></B>(1L)
+<B>Finding Files</B> (on-line in Info, or printed)
+<P>
+
+<HR>
+
+<p><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Important:</b> 
+  Use the <i>man</i> command (<i>% man</i>) to see how a command is used on your 
+  particular computer. </font> 
+<p><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="blcmdl.htm"><b>>> 
+  Linux/Unix Command Library</b></a></font></p>
+<p><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="blcmd.htm"><b>>> 
+  Shell Command Library</b></a></font></p>
+<!--/gc-->
+</div>
+
+<div id="coda"><div id="resources"><div id="rel"><div class="h5">Related Articles</div><ul><li><a href="http://linux.about.com/od/commands/a/blcmdl1_findx.htm" zT="18/1YL/Zn">Example uses of the Linux Command find</a></li><li><a href="http://linux.about.com/library/cmd/blcmdl1_find2perl.htm" zT="18/1YL/Zn">find2perl - Linux Command - Unix Command</a></li><li><a href="http://linux.about.com/od/emacs_doc/a/emacsdoc110.htm" zT="18/1YL/Zn">Emacs Documentation - Dired and Find</a></li><li><a href="http://linux.about.com/od/itl_guide/a/gdeitl30t02.htm" zT="18/1YL/Zn">Introduction to Linux - 3.3.3. Finding files</a></li><li><a href="http://linux.about.com/library/cmd/blcmdln_file.htm" zT="18/1YL/Zn">file - Linux Command - Unix Command</a></li></ul></div></div><div id="gi"><div class="cr"><div class="img"><a href="/bio/Juergen-Haas-9193.htm" zT="18/1YK"><img src="http://0.tqn.com/d/g/9193.jpg" alt="Juergen Haas"></a></div><p><a href="/bio/Juergen-Haas-9193.htm" zT="18/1YO">Juergen Haas</a><br>Linux Guide</p><ul><li><a href="/gi/pages/stay.htm" zT="18/1YS"><b>Sign up</b> for My Newsletter</a></li></ul><ul class="so"><li><a href="/b/" zT="18/1YM">Headlines</a></li><li><a href="http://forums.about.com/n/pfx/forum.aspx?nav=messages&webtag=ab-linux" zT="18/1YN">Forum</a></li></ul></div></div></div>
+</div>
+<div id="aba"><div id="com"><form class="nl" name="subscription" action="http://clk.about.com/" method="get" alert="Please enter a valid email address."><label for="nTxt">Free Linux Newsletter!</label><input type="hidden" name="zi" value="18/1a9"><input type="hidden" name="surl" value="http://linux.about.com/gi/pages/mmail.htm"><input type="hidden" name="eurl" value="http://linux.about.com/gi/pages/mmail.htm"><input type="hidden" name="cmd_linux" value="+:gs::linux"><input type="hidden" name="gs" value="1"><input type="hidden" name="sdn" value="linux"><input type="hidden" name="tt" value="0"><input type="hidden" name="bts" value="0"><span><input id="nTxt" type="email" name="email" placeholder="Enter email address" validate="email"></span><button type="submit" name="newsub">Sign Up</button></form><p><a href="http://forums.about.com/n/pfx/forum.aspx?nav=messages&webtag=ab-linux" zT="18/1Z1"><b>Discuss</b> in my forum</a></p></div><script>zSB(3,3);if(z336>0){w('<div id="adB"><p>Advertisement</p>');adunit('','','about.com',ch,gs,336,280,'1','bb',3);w('</div>')}</script><script>zob();</script><div id="videos" class="pane"><div class="h3">Related Video</div><dl id="v0"><dt><a href="http://video.about.com/jobsearchtech/5-Important-Career-Skills-for-IT-Jobs.htm" zT='18/1Yr/19Q'><img src="http://0.tqn.com/d/create/1/D/Q/x/G/-/Skills.jpg" alt="5 Important Career Skills for IT Jobs"></a><a class="ol" href="http://video.about.com/jobsearchtech/5-Important-Career-Skills-for-IT-Jobs.htm" zT='18/1Yr/19Q'></a></dt><dd><div class="h5"><a href="http://video.about.com/jobsearchtech/5-Important-Career-Skills-for-IT-Jobs.htm" zT='18/1Yr/19L'>5 Important Career Skills for IT Jobs</a></div></dd></dl><dl id="v1"><dt><a href="http://video.about.com/jobsearchtech/Resume-Writing-Tips-for-a-Software-Engineer.htm" zT='18/1Yr/19R'><img src="http://0.tqn.com/d/create/1/D/V/x/G/-/Software.jpg" alt="Resume Writing Tips for a Software Engineer"></a><a class="ol" href="http://video.about.com/jobsearchtech/Resume-Writing-Tips-for-a-Software-Engineer.htm" zT='18/1Yr/19R'></a></dt><dd><div class="h5"><a href="http://video.about.com/jobsearchtech/Resume-Writing-Tips-for-a-Software-Engineer.htm" zT='18/1Yr/19M'>Resume Writing Tips for a Software Engineer</a></div></dd></dl><dl id="v1"><dt><a href="http://video.about.com/jobsearchtech/Tips-for-Adding-Tech-Certifications-to-Your-Resume.htm" zT='18/1Yr/19S'><img src="http://0.tqn.com/d/create/1/D/V/x/G/-/Software.jpg" alt="Tips for Adding Tech Certifications to Your Resume"></a><a class="ol" href="http://video.about.com/jobsearchtech/Tips-for-Adding-Tech-Certifications-to-Your-Resume.htm" zT='18/1Yr/19S'></a></dt><dd><div class="h5"><a href="http://video.about.com/jobsearchtech/Tips-for-Adding-Tech-Certifications-to-Your-Resume.htm" zT='18/1Yr/19N'>Tips for Adding Tech Certifications to Your Resume</a></div></dd></dl><div class="more"><a href="http://video.about.com/compute.htm" zT='18/1Yr/19O'>More Computing Videos</a><a href="http://video.about.com/" zT='18/1Yr/19P'>See All About.com Videos</a></div></div><script>if(zp[11].d)Dsp(zp[11],'ip')</script></div>
+<script>if(zSbL<1)zSbL=3;zSB(2);zSbL=0</script>
+</div>
+<div id="abf"><div id="browse" class="pane clear"><div class="h3">Explore Linux</div><div id="bc1"><div class="h4">Must Reads</div><ul><li><a href="/od/linux101/a/desktop.htm" zT='18/1fG/1'>Linux Desktop 101</a></li><li><a href="/cs/glossaries/a/aglossary.htm" zT='18/1fG/2'>Linux Glossary</a></li><li><a href="/od/commands/l/blcmd.htm" zT='18/1fG/3'>Linux Commands</a></li><li><a href="/od/commands/l/blcmds.htm" zT='18/1fG/4'>Shell Commands</a></li><li><a href="/od/softgame/" zT='18/1fG/5'>Linux Games</a></li>
+</ul><div class="h4">Most Popular</div><ul><li><a href="http://linux.about.com/od/commands/l/blcmdl1_find.htm" zT="18/yV/O3">find - Linux Command - Unix Command</a></li><li><a href="http://linux.about.com/od/commands/l/blcmdl1_unzip.htm" zT="18/yV/O3">unzip - Linux Command - Unix Command</a></li><li><a href="http://linux.about.com/od/commands/l/blcmdl1_top.htm" zT="18/yV/O3">top - Linux Command - Unix Command</a></li><li><a href="http://linux.about.com/od/commands/l/blcmdl1_ftp.htm" zT="18/yV/O3">ftp - Linux Command - Unix Command</a></li><li><a href="http://linux.about.com/od/commands/l/blcmdl1_ls.htm" zT="18/yV/O3">ls - Linux Command - Unix Command</a></li>
+</ul></div><div id="bc2"><div class="tr"><div class="h4">See More About:</div><ul><li><a href="/lr/locate/531887/1/" zT="18/1gH" rel="nofollow">locate</a></li><li><a href="/lr/ls/531887/2/" zT="18/1gH" rel="nofollow">ls</a></li><li><a href="/lr/dir/531887/3/" zT="18/1gH" rel="nofollow">dir</a></li><li><a href="/lr/more/531887/4/" zT="18/1gH" rel="nofollow">more</a></li><li><a href="/lr/less/531887/5/" zT="18/1gH" rel="nofollow">less</a></li></ul></div><script>splitList(getElementsByClassName('tr',gEI('bc2'))[0].getElementsByTagName('ul')[0]);</script><div class="h4">By Category</div><ul id="bcl"><li><a href="/od/linux101/Linux_101.htm" zT='18/1hZ/1'>Linux 101</a></li><li><a href="/od/glossary/Linux_and_Computing_Glossaries.htm" zT='18/1hZ/2'>Glossaries</a></li><li><a href="/od/howtos/Linux_HowTos.htm" zT='18/1hZ/3'>Linux HowTos</a></li><li><a href="/od/commands/Linux_Commands_and_Shell_Commands.htm" zT='18/1hZ/4'>Linux / Shell Commands</a></li><li><a href="/od/dist/Linux_Distributions_Index.htm" zT='18/1hZ/5'>Linux Distributions</a></li><li><a href="/od/linuxdocumentation/Linux_Documentation.htm" zT='18/1hZ/6'>Linux Documentation</a></li><li><a href="/od/embedded/Embedded_Linux.htm" zT='18/1hZ/7'>Embedded Linux</a></li><li><a href="/od/soft/Linux_Software_Applications_Index.htm" zT='18/1hZ/8'>Linux Software</a></li><li><a href="/od/opensource/Open_Source_Issues.htm" zT='18/1hZ/9'>Open Source Issues</a></li><li><a href="/od/news/Linux_and_Technology_News.htm" zT='18/1hZ/10'>Linux / Tech News</a></li><li><a href="/od/linuxonlinecourses/Linux_Online_Courses.htm" zT='18/1hZ/11'>Linux Online Courses</a></li>
+</ul></div></div><script>splitList(gEI('bcl'));</script><script>zau(256,'341px','230px','fp','http://z.about.com/6/ip/284/29.htm?s=linux','','');</script><div class="ma"><div class="lg"><a href="http://www.about.com/" zT="18/1Yb/Zv"><img src="http://0.tqn.com/f/lg/a154.png" alt="About.com"></a></div><div class="h2"><a href="/" zT="18/1Yc/Zx" title="Linux">Linux</a></div></div><ol class="ct"><li class="h"><a href="http://www.about.com/" zT="18/1Yd/Zz">About.com</a></li><li><a href="http://www.about.com/compute/" zT="18/1Yd/Zz">Computing</a></li><li><a href="/" zT="18/1Yd/Zz">Linux</a></li></ol></div></div><div id="abi" class="hl"><div id="lftr"><ul id="si"><li class="f"><a href="http://www.advertiseonabout.com/" zT="18/1YX/Zr" rel="nofollow">Advertise on About.com</a></li><li><a href="http://www.advertiseonabout.com/about-us/" zT="18/1YX/Zr" rel="nofollow">Our Story</a></li><li><a href="http://www.advertiseonabout.com/category/press-releases/" zT="18/1YX/Zr" rel="nofollow">News &amp; Events</a></li><li><a href="http://spiderbites.about.com/sitemap.htm" zT="18/1YX/Zr">SiteMap</a></li><li><a href="http://azlist.about.com/a.htm" zT="18/1]]">All Topics</a></li><li><a href="http://www.about.com/gi/pages/printrequests.html" zT="18/1YX/Zr" rel="nofollow">Reprints</a></li><li><a href="http://www.about.com/gi/pages/hc.htm" zT="18/1YX/Zr" rel="nofollow">Help</a></li></ul><ul id="li"><li class="f"><a href="http://beaguide.about.com/" zT="18/1YX/Zr" rel="nofollow">Write for About</a></li><li><a href="http://www.about.com/gi/pages/uagree.htm" zT="18/1YX/Zr" rel="nofollow">User Agreement</a></li><li><a href="http://www.about.com/gi/pages/ethics.htm" zT="18/1YX/Zr" rel="nofollow">Ethics Policy</a></li><li><a href="http://www.about.com/gi/pages/patent.htm" zT="18/1YX/Zr" rel="nofollow">Patent Info.</a></li><li><a href="http://www.about.com/gi/pages/mprivacy.htm" zT="18/1YX/Zr" rel="nofollow">Privacy Policy</a></li><li><a href="http://www.about.com/gi/pages/mprivacy.htm#adchoices" zT="18/1YX/Zr" rel="nofollow">Your Ad Choices</a></li></ul></div><div id="di"><p>&copy;2012 About.com. All rights reserved.</p></div></div><script>check_modal();zCi();validateForms();splitLists();</script>
+</div>
+<script>if(this.zKW&&gEI('sv'))gEI('sv').value=zE(zE(zKW,1),1).replace(new RegExp('\\+','g'),' ');
+zPxA[zPxC]=new Image();zPxA[zPxC++].src="http://b.scorecardresearch.com/p?c1=2&c2=6036459&c7=http%3a%2f%2flinux%2eabout%2ecom%2fod%2fcommands%2fl%2fblcmdl1%5ffind%2ehtm&c9=&cv=2.0&cj=1";adclose()
+</script>
+<noscript><img src="http://b.scorecardresearch.com/p?c1=2&c2=6036459&c7=http%3a%2f%2flinux%2eabout%2ecom%2fod%2fcommands%2fl%2fblcmdl1%5ffind%2ehtm&c9=&cv=2.0&cj=1" class="hide"/></noscript>
+</body></html>

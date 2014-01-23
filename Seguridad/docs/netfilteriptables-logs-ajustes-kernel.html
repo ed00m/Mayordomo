@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Netfilter/Iptables, logs y ajustes en el kernel</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="DC.Title" content="Netfilter/Iptables, logs y ajustes en el kernel" />
+<meta name="description" content="La finalidad de este articulo es presentar algunos aspectos tal vez no muy conocidos y/o avanzados relacionados con iptables y su funcionamiento, el fin no es explicar iptables, esta de mas decir que el tema es muy extenso y para que este &quot;pequeño" />
+<meta name="keywords" content="linux,ubuntu,debian,instalar linux,linux windows,linux download,linux usb,drivers linux,comandos linux,linux cd,linux server,linux kernel,linux live,juegos linux,curso linux,cursos linux,servidor linux,vmware linux,wireless linux" />
+<meta name="robots" content="index,follow" />
+<link rel="prev" href="/wiki/iptables-modulo-owner-filtrado-aplicacion" />
+
+<link rel="up" href="/wiki/firewall" />
+
+<link rel="next" href="/wiki/port-knocking" />
+
+<link rel="shortcut icon" href="/files/esdebian.org/favicon.ico" type="image/x-icon" />
+  <style type="text/css" media="all">@import "/files/esdebian.org/css/a5ce792473be141d189ca1a6eabe7388.css";</style>
+  <script type="text/javascript" src="/misc/jquery.js"></script>
+<script type="text/javascript" src="/misc/drupal.js"></script>
+<script type="text/javascript" src="/sites/all/modules/nice_menus/nice_menus.js"></script>
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+GS_googleAddAdSenseService("ca-pub-7249856770950711");
+GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
+GA_googleAddSlot("ca-pub-7249856770950711", "Foro_antes_primer_post");
+GA_googleAddSlot("ca-pub-7249856770950711", "Foro_despues_primer_post");
+GA_googleAddSlot("ca-pub-7249856770950711", "Sitio_encabezado");
+GA_googleAddSlot("ca-pub-7249856770950711", "Sitio_pie");
+</script>
+<script type='text/javascript'>
+GA_googleFetchAds();
+</script>
+
+</head>
+
+<body>
+<!--INFOLINKS_OFF-->
+<a name="arriba"></a>
+  <div id="container">
+    <div id="page"><!-- begin page -->
+      <div id="header" style="margin-bottom: 105px;"><!-- begin header -->
+        <div id="panellogo">
+          <h1 class='site-name'><a href="/" title="esDebian"><i>esDebian</i></a></h1>
+          <div class='site-slogan'>La mayor comunidad de Debian en español</div>        </div><!-- end panellogo -->
+        <div id="panelbuscador">
+          <div id="secondary">
+                        <a href="/user/register">&iexcl;Reg&iacute;strate ya!</a> | <a href="/user">Ingresar</a>
+                      </div><!-- end secondary -->
+                    <script>
+function urlParam (url, param) {
+   var split_url = url.split('?');
+   var cgi_args = split_url[1];
+   if (!cgi_args) return "";
+   var param_array = cgi_args.split('&');
+   for (var i = 0; i < param_array.length; i++) {
+      var attr_val = param_array[i].split('=');
+      if (attr_val[0] == param) return attr_val[1];
+   }
+   return "";
+ }
+
+
+function setContext(context) {
+var as_q = urlParam(location.href, 'as_q');
+if( context != "" )
+url = "busqueda?url=" + context + "&cref=http%3A%2F%2Fwww.esdebian.org%2Fcontexto_esdebian.php%3Furl%3D"  + context + "&cof=FORID%3A11&ie=UTF-8&hl=es&client=pub-7249856770950711&as_q=" + as_q + "&sa=Buscar";
+else
+url = "busqueda?&cref=http%3A%2F%2Fwww.esdebian.org%2Fcontexto_esdebian.php&cof=FORID%3A11&ie=UTF-8&hl=es&client=pub-7249856770950711&as_q=" + as_q + "&sa=Buscar";
+
+document.location = url;
+}
+
+
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      if (oldonload) {
+        oldonload();
+      }
+      func();
+    }
+  }
+}
+
+function replaceAll(s, f, t) {
+  var r = s;
+  while (r.indexOf(f) > -1) {
+    r = r.replace(f, t);
+  }
+  return r;
+}
+
+function fillSearchBox() {
+  document.getElementById("sbutton").value = unescape(replaceAll(urlParam(location.href, 'as_q'), '+', " "));
+}
+
+addLoadEvent(fillSearchBox);
+
+</script>
+
+
+<form action="http://www.esdebian.org/busqueda" id="cse-search-box"><div><input type="hidden" name="cref" value="http://www.esdebian.org/contexto_esdebian.php" /><input type="hidden" name="cof" value="FORID:11" /><input type="hidden" name="ie" value="UTF-8" /><input type="hidden" name="hl" value="es" /><input type="hidden" name="client" value="pub-7249856770950711" /><div id="buscador"><input type="text" name="as_q" id="sbutton" size="25" /><select id="mymenu"><option value="" selected="selected">esDebian</option><option value="foro">Foro</option><option value="wiki">Wiki</option><option value="articulos">Artículos</option><option value="noticias">Noticias</option><option value="usuario">Usuario</option><option value="google">Google</option></select></div><input type="submit" name="sa" value="Buscar" id="buscar" /></div></form>
+
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=es"></script>
+
+<script type="text/javascript">
+var selectmenu=document.getElementById("mymenu");
+
+selectmenu.onchange=function() {
+  var chosenoption=this.options[this.selectedIndex];
+  setContext(chosenoption.value);
+}
+</script>
+        </div><!-- end panelbuscador -->
+        <div class="clear"></div>
+      </div><!-- end header -->
+
+      <div id="primary"><ul class="links"><li  class="first menu-1-1-2"><a href="/" title="Página de inicio de esDebian" class="menu-1-1-2">Inicio</a></li>
+<li  class="menu-1-2-2-active"><a href="/wiki" title="Wiki de esDebian" class="menu-1-2-2-active">Wiki</a></li>
+<li  class="menu-1-3-2"><a href="/articulos" title="Artículos en esDebian" class="menu-1-3-2">Artículos</a></li>
+<li  class="menu-1-4-2"><a href="/blog" title="Blogs en esDebian" class="menu-1-4-2">Blogs</a></li>
+<li  class="menu-1-5-2"><a href="/videos" title="Videos" class="menu-1-5-2">Videos</a></li>
+<li  class="menu-1-6-2"><a href="/foro" title="Foro esDebian" class="menu-1-6-2">Foro</a></li>
+<li  class="last menu-1-7-2"><a href="/que-haces" title="¿Qué haces?" class="menu-1-7-2">¿Qué haces?</a></li>
+</ul></div>
+      <div id="content"><!-- begin content -->
+      <div class="block block-blockcache" id="block-blockcache-50">
+  <h2 class="title"></h2>
+  <div class="content"><ul class="nice-menu nice-menu-down" id="nice-menu-1"><li id="menu-154" class="menu-path-tracker"><a href="/tracker">Envíos recientes</a></li>
+<li id="menu-160" class="menu-path-node-26758"><a href="/soplona" title="Soplona">Soplona</a></li>
+<li id="menu-175" class="menuparent menu-path-node-29514"><a href="/micuenta" title="Mi cuenta">Mi cuenta</a><ul><li id="menu-73" class="menu-path-privatemsg"><a href="/privatemsg">Mensajes privados</a></li>
+</ul>
+</li>
+<li id="menu-176" class="menuparent menu-path-node-29515"><a href="/informacion" title="Información">Información</a><ul><li id="menu-178" class="menu-path-node-24080"><a href="/acerca-esdebian" title="Acerca de esDebian">Acerca de esDebian</a></li>
+<li id="menu-7" class="menu-path-profile"><a href="/profile">Lista de usuarios</a></li>
+<li id="menu-165" class="menu-path-node-27234"><a href="/normas-blog" title="Normas del blog">Normas del blog</a></li>
+<li id="menu-117" class="menu-path-node-24077"><a href="/normas-foro" title="Normas del foro">Normas del foro</a></li>
+<li id="menu-121" class="menu-path-node-24078"><a href="/webmail" title="Webmail">Webmail</a></li>
+<li id="menu-122" class="menu-path-node-24079"><a href="/faqs" title="FAQs">FAQs</a></li>
+</ul>
+</li>
+<li id="menu-181" class="menu-path-node-25495"><a href="/contacto" title="Contacto">Contacto</a></li>
+</ul>
+</div>
+  <div class="footer"><div class="footer-in"></div></div>
+</div>
+      <div class="clear"></div>
+      <div class="breadcrumb"><a href="/">Principal</a> » <a href="/wiki" title="Wiki de esDebian">Wiki</a> » <a href="/wiki/seguridad">Seguridad</a> » <a href="/wiki/firewall">Firewall</a></div>
+        <div id="main" style="width: 95%;"><!-- begin main -->
+                    <!-- google_ad_section_start --><h1 class="title">Netfilter/Iptables, logs y ajustes en el kernel</h1><!-- google_ad_section_end -->          <div class="tabs"><ul class="tabs primary">
+<li class="active"><a href="/wiki/netfilteriptables-logs-ajustes-kernel" class="active">Ver</a></li>
+<li><a href="/node/25336/talk">Comentarios</a></li>
+</ul>
+</div>
+                              <div class="block block-block" id="block-block-16">
+  <h2 class="title"></h2>
+  <div class="content"><div style="float: right; width: 600px;">
+<script type="text/javascript"><!--
+google_ad_client = "pub-7249856770950711";
+/* esDebian - weblog 300x250 */
+google_ad_slot = "0606541579";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script><script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div>
+<script type="text/javascript"><!--
+google_ad_client = "pub-7249856770950711";
+/* esDebian - weblog 300x250 */
+google_ad_slot = "0606541579";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script><script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+</div>
+  <div class="footer"><div class="footer-in"></div></div>
+</div>
+          <div class="node">
+  <div class="itemhead"> 
+        <!-- google_ad_section_start(weight=ignore) -->
+    <div class="metadata">
+                      </div>
+    <!-- google_ad_section_end -->
+  </div> 
+  <div class="content">
+    <!-- google_ad_section_start --><!--INFOLINKS_ON-->
+    <p>La finalidad de este articulo es presentar algunos aspectos tal vez no muy conocidos y/o avanzados relacionados con iptables y su funcionamiento, el fin no es explicar iptables, esta de mas decir que el tema es muy extenso y para que este "pequeño articulo" permanezca pequeño no queda opción mas que asumir que quien lee posee un buen conocimiento previo, además de conocer y comprender el funcionamiento de protocolos como ethernet, IP, TCP y UDP, y el comportamiento del kernel respecto a ellos. Se asume entonces que usted sabe por ejemplo lo que es tamaño de ventana, una conexión half-open o el RTO.</p>
+<p>La idea es mencionar lo que son buenas prácticas a la hora de implementar un firewall, los criterios a la hora de registrar eventos en un log y las variables del núcleo más significativas respecto a eso. El articulo no sigue un formato, son mas bien una lista desordenada de comentarios y experiencias relacionados con el tema.</p>
+<h2>Logs y iptables</h2>
+<h3>¿Que gestor de logs utilizar?</h3>
+<p>Definitivamente ULOG es la mejor alternativa, de hecho Ulog e Iptables pertenecen al mismo proyecto, el proyecto Netfilter [http://www.netfilter.org/].<br />
+Además será más fácil separar el log de iptables de los logs del sistema y la rotacion de los mismos está configurada por defecto.<br />
+Otro motivo, por lo menos a mi parecer, es que puede ser deseable, si estamos dispuestos a asumir el riesgo de perder algún registro del log, desactivar la sincronización del archivo, sincronización es forzar la inmediata escritura en disco por cada registro nuevo, algo fundamental en un archivo de bitácora, lo cual lograría mejorar la velocidad y reducir sobrecargas en un equipo de rendimiento limitado que además cuenta con algún otro servicio además de un firewall, por ejemplo un Proxy caché, no tendría sentido si el equipo se utiliza solo como firewall.</p>
+<p>Aclaro que todo esto es posible hacerlo con syslog pero con ulog es más fácil, además no es muy recomendable utilizar syslog ya que este maneja eventos de diferentes orígenes en un mismo archivo.</p>
+<h3>¿Como debemos registrar?</h3>
+<p>Lo deseable será que para cada registro se agregue, mediante la opción –ulog-prefix, una cadena de texto descriptiva que incluya la cadena en la que se detecto el evento (INPUT, OUTPUT, FORWARD o cadenas de usuario), el por que se registró, (New not Syn, null-flags, etc) y que acción se llevo a cabo (DROP, REJECT, ACCEPT)<br />
+Debe tenerse en cuenta también que una mala definición de las reglas seguramente degenerará en un archivo de log excesivamente grande con la información demasiado dispersa o repetida y que resultará potencialmente inútil, por esto es conveniente definir la regla con la opción -m stare --state NEW. Es muy recomendable también no loguear tráfico broadcast o en su defecto con la opción limit</p>
+<h3>¿Que debemos registrar?</h3>
+<p>Lo primero que debe decidir alguien que ha comprendido la importancia de los logs es ¿Que es lo que queremos loguear?<br />
+Una buena práctica me parece que seria registrar en el log los siguientes eventos (se incluye como ejemplo la etiqueta que me parece adecuada):</p>
+<p><strong>New not Syn [INPUT REJECT]:</strong> así para todas las cadenas y preferentemente sin la opción limit, esto ultimo puede hacer crecer el log bastante rápido pero nos ayudará a determinar, por ejemplo, que tal o cual host envía repetidamente New not Syn o darnos cuenta que nosotros mismos estamos generando segmentos de este tipo (mas adelante se menciona a que se llama New not Syn).<br />
+<strong>WAN -&gt; INPUT [INVALID DROP]:</strong> para registro de datagramas[1] en estado INVALID<br />
+<strong>WAN -&gt; INPUT [REJECT]:</strong> para registro de intentos de conexión a puertos bloqueados, del mismo modo todos los intentos del tipo LAN -&gt; WAN, DMZ -&gt; LAN, OUTPUT -&gt; WAN, etc.<br />
+<strong>Acceso WAN -&gt; DMZ [FORWARD ACCEPT]:</strong> registro de conexiones externas a por ejemplo un acceso ssh a un servidor en DMZ, es decir que se registra una conexión externa perfectamente valida, lo mismo si la conexión proviene de LAN o del mismo firewall.<br />
+<strong>WAN -&gt; INPUT [SYN,FIN DROP]:</strong> para loguear segmentos invalidos (a nivel tcp), como el caso de los flags SYN y FIN activos, o todos [FULL-FLAGS DROP]:, o ninguno [NULL-FLAGS DROP]:<br />
+- También nos podría interesar registrar segmentos que no son inválidos pero si raros, extraño es el caso de un segmento tcp FIN sin el flag PSH activo.<br />
+- También puede ser deseable tomar muestras del tráfico periódicamente con una regla de la forma:</p>
+<p><tt><strong>/sbin/iptables -A INPUT -p tcp  -j ULOG --ulog-prefix "Muestra [INPUT]:" -m limit --limit 15/hour</strong></tt></p>
+<p>Que nos será útil para analizar el tráfico cotidiano.</p>
+<h3>Visualización de los logs</h3>
+<p>Hay herramientas que permiten examinar los logs de forma cómoda y ordenada, hay quienes prefieren valerse de simples editores de texto y/o herramientas como grep o sed para ello, también se suele redirigir el archivo de log a una tty o bien, si se loguea muy poco trafico, a la consola directamente con algo como:</p>
+<p><tt><strong>tail -f /var/log/iptables.log &gt; /dev/tty8&amp;</strong></tt></p>
+<p>o bien</p>
+<p><tt><strong>tail -f /var/log/iptables.log &gt; /dev/console&amp;</strong></tt></p>
+<p>La forma de examinar los logs queda a criterio de quien lo hace, siempre y cuando se haga.</p>
+<h2>Interpretación de un registro de log iptables</h2>
+<p>Un registro tendrá la forma:</p>
+<p><strong>Jun  8 03:12:16 firewall New not Syn [WAN -&gt; DMZ REJT]: IN=eth2 OUT=eth1 MAC=00:a0:c9:xx:xx:xx:00:1a:c1:xx:xx:xx:08:00  SRC=xx.xx.xx.xx DST=xx.xx.xx.xx LEN=40 TOS=00 PREC=0x00 TTL=43 ID=18940 PROTO=TCP SPT=10334 DPT=80 SEQ=88089097 ACK=2227746978 WINDOW=65535 ACK URGP=0</strong></p>
+<p>La información se ordena de izquierda a derecha siguiendo al modelo OSI de abajo hacia arriba, primero lo referido a Enlace de datos (iface, MAC), luego a Red (Dirección IP, TOS) y por ultimo de transporte (Puerto, ACK, etc)<br />
+Se dará un breve detalle de cada campo ya que hay información que podría no estar presente dependiendo de la cadena dentro de la que se realizo el registro o de alguno de los protocolos que intervienen en el caso.</p>
+<p><strong>IN y OUT:</strong> Referido al nivel de enlace de datos, interfase de red por la cual ingreso la trama y por la cual va a salir, esta información estará completa cuando se registre en la cadena FORWARD pero como es lógico solo IN para la cadena INPUT y OUT para la cadena OUTPUT.</p>
+<p><strong>MAC:</strong> No disponible en la cadena OUTPUT, se puede ver que son demasiados números para una dirección MAC, es porque no se refiere a la dirección MAC en si, sino a la información que maneja la capa MAC (Media Access Control, junto a LLC conforman la capa de enlace de datos) y por tanto la información depende del tipo de NIC utilizada, la información que se muestra es tal cual se encuentra en la cabecera de la trama, ethernet en este caso. Se ven concatenados los 6 bytes de la dirección MAC destino con los 6 de origen, los 2 bytes restantes son el campo EtherType, indica al protocolo de nivel superior, como se trata de un datagrama IPv4 el código es 0800.</p>
+<p><strong>SRC y DST:</strong> Ya referido al nivel de RED, IP Origen y destino, preste especial atención al orden, las direcciones MAC están en orden inverso a este.</p>
+<p><strong>LEN:</strong> Longitud total del datagrama, hace referencia al campo LT de la cabecera IP (del bit 17 al 32) y no al campo IHL (longitud de la cabecera, del bit 5 al 8)</p>
+<p><strong>TOS y PREC:</strong> Campo Tipo de servicio de la cabecera IP, por lo general es 00 y con PREC (precedencia)0x00. Rara vez se lo utiliza, por detalles ver la rfc791</p>
+<p><strong>TTL y ID:</strong> Time to live y el campo ID utilizado para rearmar fragmentos, aparecerían también los flags activos si los hubiera.</p>
+<p><strong>PROTO, SPT y DPT:</strong> en este caso, protocolo de transporte y puertos de origen y destino. El valor de PORTO se obtiene del campo protocolo de la cabecera IP por lo que podría tratarse por ejemplo de un datagrama icmp, en tal caso no aparecerán los campos SPT y DPT.</p>
+<p><strong>SEQ, ACK y WINDOW:</strong> Por tratarse de un segmento TCP, número de secuencia del segmento, número de asentimiento y tamaño de la ventana.</p>
+<p><strong>ACK y URGP:</strong> flags TCP, el valor de URGP no es el del flag URG sino el puntero, es generalmente 0 y su valor no es significativo a menos que el flag URG esté activo. En este apartado aparecerán los flags SYN, FIN, RST y PSH cuando estuvieran activos.</p>
+<p>La revisión de logs es una tarea que cualquier administrador medianamente responsable realizara periódicamente, si no a diario.<br />
+El sentido común es la mejor herramienta a la hora de analizar un archivo de log, ver registrado repetidos intentos de conexión ssh es un indicio obvio de que algo pasa, fuera de eso el análisis de logs es una tarea más bien intuitiva, si alguien dice ser capaz de explicar como hacerlo seguramente miente, es solo aplicar el criterio y conocimiento de cada uno para darse cuenta de posibles anomalías, cosas como por ejemplo que el estar generando segmentos con tamaños de ventana muy pequeños puede significar que nuestro equipo se encuentra muy congestionado o cosas similares.</p>
+<h2>Modulos Iptables</h2>
+<p>Hasta no hace mucho el trabajar con iptables, o bien su antecesor ipchains, requería desde el comienzo de bastante conocimiento, para poder utilizarlo debía recompilarse el kernel para agregar el soporte, debía hacerse lo mismo con ciertos módulos si deseábamos cargar ciertas reglas.<br />
+Hoy en día ya no es así, el soporte para iptables ya viene por defecto en los kernel 2.6 y la utilidad iptables se instala automáticamente junto con el sistema, además el solo hecho de ejecutar iptables indicándole una nueva regla desencadena la carga dinámica del modulo iptables por lo que ni siquiera es necesario cargar manualmente el modulo mediante modprobe aunque si es necesario para algunos módulos específicos.<br />
+Se puede saber fácilmente cuando una regla iptables esta utilizando un módulo extra, además del módulo ip_tables, ya que la regla incluirá explícitamente, mediante la opción –m, que módulo es. Por ejemplo una regla que contiene –m state –state NEW indica explícitamente que se utiliza el módulo xt_state.<br />
+Sin embargo hay módulos, que pertenecen a iptables, para los cuales no se tiene soporte por defecto en el kernel y la recopilación será en tal caso necesaria, la razón de no tener el soporte es que son módulos para tareas demasiado especificas y cuya utilización no es común, por lo que agregar el soporte es en la inmensa mayoría de los casos innecesaria. Una breve introducción a los módulos y su utilidad puede obtenerse del manual de iptables [man iptables] o de la pagina oficial del proyecto netfilter. Entre ellos se encuentran módulos de mucha utilidad relacionados con el control de ancho de banda, QoS y para la prevención de DoS. Entre ellos los más destacados son connbytes, connlimit, quota (según el man, mala idea si contamos con procesamiento simétrico) y realm.</p>
+<h2>Reglas innecesarias</h2>
+<p>Suele suceder muy a menudo que, bien por descuido o por desconocimiento, se agreguen reglas innecesarias o se realicen ciertos controles innecesarios lo cual supone una sobrecarga de trabajo para el kernel.</p>
+<p>Un caso típico es la regla que permite consultas DNS, es muy habitual agregar dos reglas, una para TCP y otra para UDP, ya que es sabido que DNS utiliza ambos protocolos, sin embargo esto es un error y muchas veces sucede por ignorar que las consultas DNS se realizan mediante UDP y que TCP es utilizado para la comunicación entre servidores DNS y no para las consultas habituales. Un caso análogo suele suceder con NTP.</p>
+<p>Otro error habitual es el chequear innecesariamente el puerto, origen o destino, de un segmento o hacerlo mas de una vez para el mismo datagrama en dos cadenas diferentes. Esto representa una carga de trabajo ya que iptables debe des encapsular el segmento para determinar el puerto, acción que no se llevará a cabo si la regla no lo especifica.</p>
+<h2>Variables del Núcleo</h2>
+<p>La modificación de variables del núcleo se hace a través del sistema de archivos virtual montado en /proc, generalmente lo que se hace es establecer un comportamiento básico como por ejemplo permitir forward si es un firewall multiradicado, no responder broadcast ICMP, respuestas ICMP no solicitadas o información de source route. Básicamente se hace:</p>
+<p><tt><br />
+<div class="codeblock"><code>echo 0 &gt; /proc/sys/net/ipv4/conf/all/accept_source_route<br />echo 0 &gt; /proc/sys/net/ipv4/conf/default/accept_source_route<br />echo 0 &gt; /proc/sys/net/ipv4/conf/all/accept_redirects<br />echo 0 &gt; /proc/sys/net/ipv4/conf/default/accept_redirects<br />echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts<br />echo 1 &gt; /proc/sys/net/ipv4/icmp_ignore_bogus_error_responses</code></div>
+<p></tt></p>
+<p>Pero nosotros vamos a hilar mas fino, intentaremos ajustar algunos valores para obtener un mejor rendimiento.</p>
+<p>Primero saber que a un firewall no le importa si pasa a través de el un trafico de 1 MB/hora o 30 GB/hora, lo que importa es el numero de conexiones que debe manejar. Pueden ajustarse ciertas variables del núcleo para lograr un mejor rendimiento pero siempre sabiendo lo que se hace, estas modificaciones son equivalentes a modificar el código fuente del kernel.</p>
+<h2>Seguimiento de conexiones</h2>
+<p>Distinguiremos dos tipos de seguimientos de conexiones, uno es el seguimiento de la conexión en si, me refiero a tcp, que mantiene el kernel cuando el software que implementa el protocolo tcp se ejecuta e inicia/acepta una conexión tcp, a este seguimiento lo llamare "Seguimiento en un extremo de la conexión".<br />
+El otro seguimiento es el que un firewall puede hacer de una conexión, donde este no es una de las partes que inicio la conexión, no posee un manejo sobre la misma y no puede hacer mas que "ver" pasar el trafico y actuar en consecuencia, a esto lo llamare "Seguimiento en medio de una conexión".</p>
+<h3>Seguimiento en un extremo</h3>
+<p>TCP en su concepción teórica (rfc793) no considera el caso en que en una conexión una de las partes puede desconectarse sin cerrar la conexión y habiendo enviado todos los ACK y declarado una ventana distinta de cero. En tal caso estaremos en presencia de una conexión half-open particularmente difícil de detectar, y potencialmente eterna, si la parte aún activa no tiene necesidad de enviar datos. Para eso se implementó Keepalive, si luego de cierto tiempo una conexión no ha recibido trafico realiza un sondeo y así determina si el otro extremo aún se encuentra "vivo". Es un método efectivo y no requiere que el otro extremo implemente keepalive pero la configuración por defecto puede no ser la más adecuada para, por ejemplo, un servidor web. Por defecto el kernel enviará la primer zonda si el tiempo de inactividad es de de 2 horas, si esta no obtiene respuesta después de 75 segundos se enviara una segunda zonda y recién a la 9º zonda, 2 horas, 11 minutos y 15 segundos después de recibido el ultimo segmento, se determinara que la conexión se encuentra huérfana y se pasara a CLOSED (depende de la implementación).<br />
+Los clientes de hoy día son realmente muy mala gente y es muy común que no cierren las conexiones, una conexión huérfana consume 64K de memoria física no swapable por lo que una pronta detección es crucial<br />
+Unos valores más adecuados para el caso del servidor web podrían ser iniciar el sondeo después de 10 minutos y enviar unas 10 sondas en intervalos de 45 segundos.</p>
+<p><tt><br />
+<div class="codeblock"><code>echo 600 &gt; /proc/sys/net/ipv4/tcp_keepalive_time<br />echo 45 &gt; /proc/sys/net/ipv4/tcp_keepalive_intvl<br />echo 10 &gt; /proc/sys/net/ipv4/tcp_keepalive_probes</code></div>
+<p></tt></p>
+<p>Hay otras variables interesantes como /proc/sys/net/ipv4/tcp_max_orphans, que al contrario de lo que dicta el sentido común, podríamos querer aumentar ya que alcanzar este valor significa reiniciar[2] esa conexión y todo nuevo intento de conexión posterior a ese, significando que solo se aceptaran nuevas conexiones cuando se vuelva a estar bajo ese umbral, o /proc/sys/net/ipv4/tcp_synack_retries que podríamos querer reducir, pero la influencia de estas en el rendimiento es mínima.</p>
+<h3>Seguimiento en medio de una conexión</h3>
+<p>En este caso el kernel manejara las conexiones a través del modulo ip_conntrack, este llevara un seguimiento de cada conexión en la variable /proc/net/ip_conntrack y su comportamiento dependerá del trafico que circula por cada conexión y algunas variables del núcleo accesibles mediante /proc/sys/net/ipv4/netfilter/.<br />
+Como se dijo anteriormente el kernel no tiene un manejo de estas conexiones por lo que ignora ciertos aspectos de la misma. Como nota, si bien los estados de conexión en el conntrack tienen el mismo nombre que los estados de una conexión TCP, debe tenerse en mente que no es exactamente lo mismo.<br />
+En este caso cuando un datagrama IP es recibido y aceptado se comienza el seguimiento de la conexión, este primer datagrama pone la conexión en estado SYN_SENT ya que se supone que se recibió el syn, cuando se produce tráfico en el sentido contrario la conexión estará en estado SYN_RECV por suponer que se envió el syn/ack, un tercer trafico en el sentido del primer datagrama supone la recepción del ack y la conexión es ESTABLISHED (nótese que estoy hablando de datagramas, no de segmentos).<br />
+En estado ESTABISHED se esperara a que por la conexión pase un FIN o un RST, si se recibe un FIN la conexión se mantendrá en FIN_WAIT durante 2 minutos lo que significa que el "tunel" permanece abierto, esto se debe a que no se lleva un seguimiento de los números de secuencia y ACKs por lo que podrían no haber llegado todos los datagramas de la conexión, ante un FIN en dirección contraria se pasará la conexión a LAST_ACK, similar al comportamiento de TCP. Ante un RST se asume que la conexión es nula, que no hubo tráfico útil durante su establecimiento y por lo tanto la conexión se cierra inmediatamente, en realidad se esperan 10 segundos en estado CLOSE.<br />
+Los tiempos por defecto son bastante apropiados, sin embargo seria bueno modificar algo, debe saber que una conexión en estado ESTABLISHED permanecerá así mientras hay trafico y se la cerrara si esta inactiva por cierto tiempo, y ese tiempo es de 432000 segundos, el equivalente a 5 días. Si no mantendremos conexiones persistentes podemos bajar este valor a una o dos horas</p>
+<p><tt><br />
+<div class="codeblock"><code>echo 7200 &gt; /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_timeout_established</code></div>
+<p></tt></p>
+<p>Pero saber que si la regla que acepta esta conexión chequea que el primer datagrama sea un segmento syn (ver siguiente punto) y la conexión supera este tiempo de inactividad será interrumpida permanentemente. Si se tendrá conexiones de tipo VPN por ejemplo deberá configurarse el servidor para que emita pings regularmente para mantener viva la conexión.</p>
+<h2>Estados del conntrack vs estados tcp</h2>
+<p>Cuando mencioné los estados de una conexión en el conntrack dije por ejemplo que el primer datagrama pone la conexión en estado SYN_SENT ya que se supone que se recibió el syn, el "se supone" se debe a que por defecto no se verifica que se realice el threeway handshake correctamente, la razón es que podría querer utilizarse ruteo dinámico[3] y balanceo de carga donde podría suceder que no todos los segmentos de una conexión pasen por el mismo conntrack. Si no es el caso querremos asegurarnos que ese primer datagrama es un segmento syn y deberemos chequearlo explícitamente.<br />
+Por lo general lo que se hace es DROP de una datagrama NEW que no es syn, la regla tiene la forma</p>
+<p><strong><tt>/sbin/iptables -A FORWARD -p tcp -m state --state NEW ! --syn -j DROP</tt></strong></p>
+<p>Sin embargo el rfc793 dicta que un host respondería normalmente a esto con un reset y por esto puede ser deseable hacer REJECT en lugar de DROP</p>
+<p><tt><strong>/sbin/iptables -A FORWARD -p tcp -m state --state NEW ! --syn -j REJECT --reject-with tcp-reset</strong></tt></p>
+<p>Si analizamos lo anterior nos daremos cuenta que hay más de un motivo para hacerlo, por ejemplo:<br />
+Mostrar un comportamiento predecible y ajustado a los estándares.<br />
+Si tuviéramos firewalls en cascada lograríamos así "limpiar" el conntrack de los demás.<br />
+Si hacemos DROP del datagrama es muy posible que el cliente retransmita el segmento cuando alcance su RTO aumentando el tráfico inútilmente.<br />
+Reducir la posibilidad de ataques basados en usurpación de identidad, el responder con un reset a un paquete New not Syn puede ayudar a otro host, el cual cree estar comunicándose con nosotros, a descubrir que no es asi.</p>
+<p>También se puede diferenciar el siguiente caso, usted puede querer hacerlo aunque no es habitual, y es el de recibir un datagrama NEW que encapsula un segmento tcp reset. La configuración antes mencionada respondería, no puedo asegurar que sea así, con un nuevo reset en contra de lo estipulado en la rfc793 que, con toda razón, dice que nunca debe responderse a un reset si se está en un estado no sincronizado. Esto es para evitar un posible loop si el otro extremo presenta el mismo comportamiento que nosotros. La forma de evitarlo seria agregar una regla antes con algo como:</p>
+<p><tt><strong>/sbin/iptables -A FORWARD -p tcp –tcp-flags RST RST -m state --state NEW -j DROP</strong></tt></p>
+<h3>¿Que son todos esos <strong>New not Syn</strong> y por que los estoy generando?</h3>
+<p>No se por que, debe haber algún motivo pero lo desconozco, si ponen a trabajar un servidor que esté bastante atareado, un web por ejemplo, y definen las reglas para loguear y dropear <strong>New not Syn</strong> se encontraran con que nuestro servidor genera constantemente paquetes de este tipo. Ignoro el motivo pero me ha sucedido siempre, lo he investigado capturando el momento en que se registra el evento y comparandolo con las entradas en el conntrack antes, durante y despues de el momento en que se capturó el datagrama y me he dado cuenta que no tiene razón de ser, el datagrama efectivamente no se corresponde con ninguna conexión del conntrack, mi teoría es que se ha superado el tiempo en /proc/sys/net/ipv4/netfilter/ip_conntrack_tcp_timeout_syn_recv pero no he podido verificarlo, es algo que simplemente sucede.  En algún lugar y por alguna razón cada cierto tiempo se genera un datagrama que parece salido de otro mundo. Es simplemente un comentario, si le pasa a usted sabrá que no es el primero en notarlo.</p>
+<h3>Registros del conntrack y su tamaño</h3>
+<p>Lógicamente el decir que el kernel lleva un seguimiento de las conexiones implica que esta informacion esta almacenada en algun lugar, el modulo ip_conntrack cuenta con una estructura de datos donde almacena informacion referente a cada conexion, cada registro contiene algo como:</p>
+<p><strong>tcp      6 4729 ESTABLISHED src=xxx.xxx.xxx.xxx dst=yyy.yyy.yyy.yyy sport=1625 dport=80 packets=7 bytes=288 src=zzz.zzz.zzz.zzz dst=xxx.xxx.xxx.xxx sport=80 dport=1625 packets=102 bytes=8944 [ASSURED] mark=0 use=1</strong></p>
+<p>El significado de cada campo no es en realidad muy importante, por ejemplo:<br />
+<strong>tcp</strong> es el protocolo de transporte de la conexión, recordar que udp por ejemplo no es orientado a conexión pero el conntrack lo maneja como si lo fuera, lo mismo para icmp, el <strong>6</strong> es el valor numérico del protocolo tcp, el establecido por IANA.org, y se toma de /etc/protocols. <strong>ESTABLISHED </strong>es el estado en el que se encuentra la conexión. <strong>src </strong>y <strong>dst </strong>son origen y destino del primer datagrama que generó la conexión, el <strong>src </strong>y <strong>dst </strong>que se encuentran mas adelante no tiene por que corresponderce con estos, es el origen y destino desde el cual se espera respuesta pero considerando que pudo realizarse NAT.</p>
+<p>Puede verse que la cantidad de información por cada registro es bastante grande, unos 300 bytes, sabiendo que esta información se almacenará en memoria no swapable se dará cuenta que es sumamente importante que la cantidad de entradas sea lo mas reducida posible.</p>
+<p>Suponga este escenario, típico en una empresa: un firewall que da acceso a un servidor web con 50.000 visitas diarias (que no es tanto, creanme) y además varios usuarios navegando y digamos unos 40 de ellos utilizando programas p2p. </p>
+<p>Con la configuración por defecto del kernel el firewall manejará unas 2500 conexiones por el servidor web y unas 1000 por cada usuario (los p2p pueden incluso superar esto), el problema no es solo el tamaño del conntrack, que será de unas 45.000 entradas, unos 15 MB de memoria fisica no swapable, sino que por cada datagrama el kernel debe buscar dentro de esta tabla la entrada correspondiente, si existe, y actualizarla. La busqueda es bastante eficiente ya que se utiliza una tabla hash para eso pero el tiempo consumido es relativamente alto. Configurando correctamente los parámetros del kernel podremos hacer bajar el conntrack a unas 5.000 entradas, incluso menos.</p>
+<p>Sepa también que el tamaño máximo del conntrack esta limitado estáticamente, alcanzar su valor máximo significa rechazar conexiones.<br />
+El valor es determinado en función de la cantidad de memoria física con que cuenta el equipo.<br />
+Ese valor es modificable a través de <strong>/proc/sys/net/ipv4/netfilter/ip_conntrack_max</strong>. La tabla de hash también esta limitada, su tamaño máximo está establecido en <strong>/proc/sys/net/ipv4/netfilter/ip_conntrack_buckets</strong> pero su modificación no tendrá efecto a menos que se lo haga antes de cargar el modulo ip_conntrack, otra forma de hacerlo es indicando el valor en el momento de la carga, por ejemplo:</p>
+<div class="codeblock"><code># modprobe ip_conntrack hashsize=15000</code></div>
+<p>La cantidad de entradas en el conntrack en un momento dado se puede observar en <strong>/proc/sys/net/ipv4/netfilter/ip_conntrack_count</strong>.</p>
+<h2>La tabla mangle</h2>
+<p>Incluso para quien conoce bastante de iptables esta tabla sigue siendo un misterio, no es posible definir su utilidad ya que esta pensada justamente para ser flexible en su uso.<br />
+La utilización mas útil es tal vez para realizar el llamado ruteo dinámico[3]. Suponga un escenario donde se cuenta con un firewall que da salida a la red Internet mediante dos enlaces, la concepción básica de ruteo IP dice que éste se realiza basándose en el destino del datagrama por lo tanto existiendo dos enlaces que comunican hacia una misma red la determinación de la ruta será estática para el kernel, se utilizara siempre una y solo una de las rutas.<br />
+Con la herramienta iproute2 es posible realizar ruteo dinámico basándose en diferentes características del datagrama en cuestión, y entre estas el valor del campo mark.<br />
+Es posible entonces realizar ruteo basándose en cualquier criterio posible determinable mediante iptables y la tabla mangle es el lugar indicado para ello.</p>
+<h2>Glosario</h2>
+<p><strong>[1] Datagrama</strong>: nombre genérico para un PDU de un protocolo no orientado a conexión, el uso más habitual es para referirse a paquetes IP con una sensible diferencia, si un paquete IP se fragmenta sigue siendo un solo paquete mientras que cada fragmento es considerado un datagrama.</p>
+<p><strong>[2] Reiniciar</strong>: en este caso significa responder con un tcp reset, habitualmente se dice “resetear” la conexión, pero el término resetear no existe en el español.</p>
+<p><strong>[3] Ruteo dinámico</strong>: realizar ruteo IP basándose en políticas no convencionales. La utilización del termino “ruteo dinamico” esta mas difundida para referirse al proceso por el cual los routers actualizan sus tablas de rutas mediante la utilización de protocolos de ruteo, léase RIP, BGP, etc.</p>
+<h2>Referencias:</h2>
+<p><a href="http://www.netfilter.org/documentation/index.html#documentation-howto" title="http://www.netfilter.org/documentation/index.html#documentation-howto" rel="nofollow">http://www.netfilter.org/documentation/index.html#documentation-howto</a><br />
+<a href="http://www.rfc-es.org/rfc/rfc0791-es.txt" title="http://www.rfc-es.org/rfc/rfc0791-es.txt" rel="nofollow">http://www.rfc-es.org/rfc/rfc0791-es.txt</a><br />
+<a href="http://www.rfc-es.org/rfc/rfc0793-es.txt" title="http://www.rfc-es.org/rfc/rfc0793-es.txt" rel="nofollow">http://www.rfc-es.org/rfc/rfc0793-es.txt</a><br />
+<a href="http://iptables-tutorial.frozentux.net/spanish/chunkyhtml/" title="http://iptables-tutorial.frozentux.net/spanish/chunkyhtml/" rel="nofollow">http://iptables-tutorial.frozentux.net/spanish/chunkyhtml/</a><br />
+<a href="http://tldp.org/HOWTO/text/Adv-Routing-HOWTO" title="http://tldp.org/HOWTO/text/Adv-Routing-HOWTO" rel="nofollow">http://tldp.org/HOWTO/text/Adv-Routing-HOWTO</a><br />
+<a href="http://www.policyrouting.org/" title="http://www.policyrouting.org/" rel="nofollow">http://www.policyrouting.org/</a><br />
+<a href="http://almacen.gulic.org/03_www/comos/LARTC/html/index.html" title="http://almacen.gulic.org/03_www/comos/LARTC/html/index.html" rel="nofollow">http://almacen.gulic.org/03_www/comos/LARTC/html/index.html</a><br />
+man iptables</p>
+<div class="book-navigation"><div class="page-links clear-block"><a href="/wiki/iptables-modulo-owner-filtrado-aplicacion" class="page-previous" title="Ir a la página anterior">‹ IPTables. Módulo owner. Filtrado por aplicación.</a><a href="/wiki/firewall" class="page-up" title="Ir a la página padre">arriba</a><a href="/wiki/port-knocking" class="page-next" title="Ir a la página siguiente">Port Knocking ›</a></div></div>    <!-- google_ad_section_end --><!--INFOLINKS_OFF-->
+    <!-- google_ad_section_start(weight=ignore) -->
+    <div class="metadata">
+      <div class="commentslink"><ul class="links inline"><li  class="first statistics_counter"><span class="statistics_counter">9582 lecturas</span></li>
+<li  class="last comment_add"><a href="/comment/reply/25336" class="comment_add">Responder</a></li>
+</ul></div>    </div>
+    <!-- google_ad_section_end -->
+  </div>
+</div>
+
+          <a href="#arriba"><img src="/sites/all/themes/MyDrupal_Universal/images/icono_arriba.gif" /></a>
+        </div><!-- end main -->
+
+        
+        <!-- google_ad_section_start(weight=ignore) -->
+        <div id="footer"><!-- start footer -->
+          
+        </div><!-- end footer -->
+        <div class="clear"></div>
+        <!-- google_ad_section_end -->
+      </div><!-- end content -->
+      <div id="anuncios_header"><div class="block block-block" id="block-block-76">
+  <h2 class="title"></h2>
+  <div class="content"><!-- Sitio_encabezado -->
+<script type='text/javascript'>
+GA_googleFillSlot("Sitio_encabezado");
+</script></div>
+  <div class="footer"><div class="footer-in"></div></div>
+</div>
+</div>
+      <div id="content_bottom"></div>
+
+    </div><!-- end container -->
+  </div><!-- end page -->
+
+  <div id="enlaces">
+  <iframe src="http://www.esdebian.org/files/esdebian.org/enlaces/enlaces.html" frameborder="0" scrolling="no" width="100%" height="20"></iframe>
+  </div>
+  
+
+<script type="text/javascript">var infolink_pid = 30837; var infolink_wsid = 0;</script><script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script></body>
+</html>

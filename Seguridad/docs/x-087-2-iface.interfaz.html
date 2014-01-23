@@ -1,0 +1,1685 @@
+<HTML
+><HEAD
+><TITLE
+>Interfaz Configuración de la Interfaz para IP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE="Guía de Administración de Redes con Linux"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Configuración del Protocolo TCP/IP"
+HREF="x-087-2-iface.html"><LINK
+REL="PREVIOUS"
+TITLE="Preparación de los ficheros hosts y networks"
+HREF="x-087-2-iface.simple-resolv.html"><LINK
+REL="NEXT"
+TITLE="Todo sobre ifconfig"
+HREF="x-087-2-iface.ifconfig.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="publicacoes.css"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Guía de Administración de Redes con Linux</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x-087-2-iface.simple-resolv.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capítulo 5. Configuración del Protocolo TCP/IP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x-087-2-iface.ifconfig.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="X-087-2-IFACE.INTERFAZ">5.7. Interfaz Configuración de la Interfaz para IP</H1
+><P
+>Una vez ha configurado su hardware según se ha explicado en <A
+HREF="x-087-2-serial.html"
+>Capítulo 4</A
+>, debe asegurarse de que el software de red del
+núcleo conoce esos dispositivos. Hay una serie de órdenes que se usan con
+objeto de configurar las interfaces de red e inicializar la tabla de encaminamiento.
+Esas tareas son ejecutadas generalmente por el script de inicialización de red cada
+vez que el sistema es arrancado. Las herramientas básicas son <B
+CLASS="COMMAND"
+>ifconfig</B
+> (donde &ldquo;if&thinsp;&rdquo; significa interfaz), y <B
+CLASS="COMMAND"
+>route</B
+>.</P
+><P
+><B
+CLASS="COMMAND"
+>ifconfig</B
+> se usa para dar acceso al núcleo a una
+interfaz. Esto incluye la asignación de una dirección IP y otros parámetros,
+así como la activación de la interfaz. Por activación nos referimos a permitir
+que el núcleo envía y recibe datagramas IP a través de la interfaz. El modo más sencillo
+de invocar esta herramienta es:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    ifconfig <TT
+CLASS="REPLACEABLE"
+><I
+>interfaz</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>dirección-ip</I
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Esta orden asigna <TT
+CLASS="REPLACEABLE"
+><I
+>dirección-ip</I
+></TT
+> a
+<TT
+CLASS="REPLACEABLE"
+><I
+>interfaz</I
+></TT
+> y la activa. Los otros parámetros
+toman valores asignados por omisión. Por ejemplo, la máscara de subred por
+omisión toma el valor correspondiente al tipo de red al que pertenece la
+dirección IP. Así, tendríamos <SPAN
+CLASS="SYSTEMITEM"
+>255.255.0.0</SPAN
+>
+para una dirección de clase B. <B
+CLASS="COMMAND"
+>ifconfig</B
+> es descrito en detalle
+en <A
+HREF="x-087-2-iface.ifconfig.html"
+>Sección 5.8</A
+>.&rdquo;</P
+><P
+><B
+CLASS="COMMAND"
+>route</B
+> permite añadir o quitar rutas de la tabla de
+encaminamiento del núcleo. Se puede invocar como:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    route [add|del] [-net|-host] <TT
+CLASS="REPLACEABLE"
+><I
+>destino</I
+></TT
+> [<TT
+CLASS="REPLACEABLE"
+><I
+>if</I
+></TT
+>]</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Los argumentos <TT
+CLASS="OPTION"
+>add</TT
+> y <TT
+CLASS="OPTION"
+>del</TT
+> determinan,
+respectivamente si se debe añadir o borrar la ruta hacia <TT
+CLASS="REPLACEABLE"
+><I
+>destino</I
+></TT
+>. Los argumentos <TT
+CLASS="OPTION"
+>-net</TT
+> y <TT
+CLASS="OPTION"
+>-host</TT
+>
+señalan al comando si el destino es una red o una máquina (que es lo que se
+supone si no se especifica). El argumento <TT
+CLASS="OPTION"
+>if</TT
+> es opcional también,
+y permite especificar a qué interfaz de red se dirige la ruta&mdash; el núcleo de
+GNU/Linux hará una conjetura si no se aporta este dato. Este tema se explicará más
+detalladamente en las siguientes secciones.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.LOOPBACK">5.7.1. La interfaz de bucle local</H2
+><P
+>&#13;
+La primera interfaz en ser activada es la interfaz de bucle local o loopback:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig lo 127.0.0.1</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;Ocasionalmente, también vera que el nombre comodín <SPAN
+CLASS="SYSTEMITEM"
+>localhost</SPAN
+> es usado en vez de la dirección de IP. <B
+CLASS="COMMAND"
+>ifconfig</B
+> buscará el nombre en el fichero <TT
+CLASS="FILENAME"
+>hosts</TT
+> que
+debe contener un registro declarando <SPAN
+CLASS="SYSTEMITEM"
+>localhost</SPAN
+> como nombre válido para la dirección <SPAN
+CLASS="SYSTEMITEM"
+>127.0.0.1</SPAN
+>:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # Registro de ejemplo para localhost en /etc/hosts
+    localhost     127.0.0.1</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;Para ver la configuración de una interfaz, use <B
+CLASS="COMMAND"
+>ifconfig</B
+>, pasándole como argumento únicamente el nombre
+de la interfaz:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    $ <TT
+CLASS="USERINPUT"
+><B
+>ifconfig lo</B
+></TT
+>
+    lo        Link encap:Local Loopback  
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              UP LOOPBACK RUNNING  MTU:3924  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              Collisions:0 </PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Como podrá observar, la máscara asignada a la interfaz del bucle local es
+<SPAN
+CLASS="SYSTEMITEM"
+>255.0.0.0</SPAN
+>, debido a que
+<SPAN
+CLASS="SYSTEMITEM"
+>127.0.0.1</SPAN
+> es una dirección
+de clase A.</P
+><P
+>Ahora, ya casi puede empezar a jugar con su "mini-red". Sólo queda
+añadir una entrada en la tabla de encaminamiento que comunique al
+IP que puede usar esa interfaz como ruta hacia <SPAN
+CLASS="SYSTEMITEM"
+>127.0.0.1</SPAN
+>. Para llevar esto a cabo,
+basta escribir:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # route add 127.0.0.1</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>También aquí puede usar <SPAN
+CLASS="SYSTEMITEM"
+>localhost</SPAN
+> en lugar de la dirección IP, suponiendo que lo
+haya introducido en su <TT
+CLASS="FILENAME"
+>/etc/hosts</TT
+>.</P
+><P
+>&#13;
+
+
+
+
+Lo siguiente es comprobar que todo funciona como es debido, por
+ejemplo usando <B
+CLASS="COMMAND"
+>ping</B
+>. <B
+CLASS="COMMAND"
+>ping</B
+>
+es el equivalente a un sonar en una red.<A
+NAME="X-087-2-FNTC05"
+HREF="#FTN.X-087-2-FNTC05"
+>[1]</A
+> Esta orden se usa para verificar que una dirección dada es
+accesible y para medir el retraso entre el envío de un datagrama y su recepción
+de vuelta. Este tiempo es conocido como tiempo de ida y vuelta.</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ping localhost</B
+></TT
+>
+    PING localhost (127.0.0.1): 56 data bytes
+    64 bytes from 127.0.0.1: icmp_seq=0 ttl=255 time=0.4 ms
+    64 bytes from 127.0.0.1: icmp_seq=1 ttl=255 time=0.4 ms
+    64 bytes from 127.0.0.1: icmp_seq=2 ttl=255 time=0.4 ms
+    ^C
+    --- localhost ping statistics ---
+    3 packets transmitted, 3 packets received, 0% packet loss
+    round-trip min/avg/max = 0.4/0.4/0.4 ms
+    #</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Cuando se ejecuta <B
+CLASS="COMMAND"
+>ping</B
+> según se muestra
+aquí, la emisión de paquetes continúa a menos que sea interrumpida
+por el usuario. El <TT
+CLASS="LITERAL"
+>^C</TT
+> marca el momento en el que se
+apretó Ctrl-C.</P
+><P
+>Este ejemplo muestra que los paquetes dirigidos a la máquina <SPAN
+CLASS="SYSTEMITEM"
+>127.0.0.1</SPAN
+> están siendo entregados
+correctamente y la respuesta a <B
+CLASS="COMMAND"
+>ping</B
+> es recibida de
+forma casi instantánea. Esto significa que ha establecido con éxito su
+primera interfaz de red.</P
+><P
+>&#13;
+Si la salida de <B
+CLASS="COMMAND"
+>ping</B
+> no se parece a la de más arriba,
+usted tiene problemas. Compruebe la posibilidad de que algún fichero no haya
+sido instalado correctamente. Compruebe que los ejecutables <B
+CLASS="COMMAND"
+>ifconfig</B
+>
+y <B
+CLASS="COMMAND"
+>route</B
+> son compatibles con la versión del núcleo que usa
+y sobre todo que éste ha sido compilado con la opción de red activada (esto se
+puede ver comprobando que existe el directorio <TT
+CLASS="FILENAME"
+>/proc/net</TT
+>).
+Si el mensaje de error es &ldquo;network unreachable&rdquo;(red inaccesible),
+seguramente ejecutó la orden <B
+CLASS="COMMAND"
+>route</B
+> incorrectamente.
+Asegúrese de que es la misma dirección que la que usó con <B
+CLASS="COMMAND"
+>ifconfig</B
+>.</P
+><P
+>&#13;Los pasos descritos arriba son suficientes para poder ejecutar aplicaciones
+de red en una máquina aislada. Una vez esas líneas son añadidas al
+script de inicialización de red y después de asegurarse de que es ejecutado
+en tiempo de arranque, puede proceder a rearrancar su máquina y probar
+las diferentes aplicaciones de red. Por ejemplo <B
+CLASS="COMMAND"
+>telnet localhost</B
+>
+debería establecer una conexión <B
+CLASS="COMMAND"
+>telnet</B
+> con su
+máquina, pidiéndole el nombre de usuario y la contraseña.</P
+><P
+>Sin embargo, la interfaz de bucle local es útil, no sólo como ejemplo en libros
+de redes, o como método de pruebas durante el desarrollo: también la
+utilizan algunas aplicaciones como modo normal de operacion. <A
+NAME="X-087-2-FNTC06"
+HREF="#FTN.X-087-2-FNTC06"
+>[2]</A
+>
+Por ello, debe usted configurarla siempre, independientemente de que
+su máquina esté conectada a una red o no.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.ETHERNET">5.7.2. Interfaces Ethernet</H2
+><P
+>La configuración de una interfaz Ethernet es más o menos igual que la
+de la interfaz de bucle local. Sólo requiere algunos parámetros más cuando
+está usando varias subredes.</P
+><P
+>En la Cervecera Virtual, hemos dividido la red IP, originalmente de
+clase B, en subredes de clase C. Para que la interfaz reconozca esto,
+usamos la orden <B
+CLASS="COMMAND"
+>ifconfig</B
+>
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig eth0 vstout netmask 255.255.255.0</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;Esto asigna a la interfaz <TT
+CLASS="FILENAME"
+>eth0</TT
+> la dirección IP
+de la máquina <SPAN
+CLASS="SYSTEMITEM"
+>vstout</SPAN
+>
+(<SPAN
+CLASS="SYSTEMITEM"
+>191.72.1.2</SPAN
+>).
+Si hubiésemos omitido la máscara de red, <B
+CLASS="COMMAND"
+>ifconfig</B
+>
+habría deducido la máscara de la clase de la red IP, tomando por
+tanto <SPAN
+CLASS="SYSTEMITEM"
+>255.255.0.0</SPAN
+>,
+que es incorrecto. Una comprobación rápida nos da:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig eth0</B
+></TT
+>
+    eth0      Link encap 10Mps Ethernet HWaddr  00:00:C0:90:B3:42
+              inet addr 172.16.1.2 Bcast 172.16.1.255 Mask 255.255.255.0
+              UP BROADCAST RUNNING  MTU 1500  Metric 1
+              RX packets 0 errors 0 dropped 0 overrun 0
+              TX packets 0 errors 0 dropped 0 overrun 0</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Puede ver que <B
+CLASS="COMMAND"
+>ifconfig</B
+> ha fijado la dirección de difusión
+automáticamente (el campo <SPAN
+CLASS="SYSTEMITEM"
+>Bcast</SPAN
+>
+de arriba) a su valor usual, que es el de la red con todos los bits de la máquina
+activados. Además se fija la unidad de transferencia de mensajes
+(tamaño máximo que el núcleo va a generar para esa interfaz) a un máximo
+de 1500 bytes. Todos estos valores pueden ser especificados mediante
+opciones especiales que se explican en <A
+HREF="x-087-2-iface.ifconfig.html"
+>Sección 5.8</A
+>&rdquo;.</P
+><P
+>De forma semejante al caso de la interfaz de bucle local, debe también
+establecer ahora una entrada en la tabla de encaminamiento que informe
+al núcleo de que la red es accesible mediante <TT
+CLASS="FILENAME"
+>eth0</TT
+>.
+Para la Cervecera Virtual, ejecutaría:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>route add -net 172.16.1.0</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;
+Inicialmente podría parecer algo mágico, pues no esta claro como
+<B
+CLASS="COMMAND"
+>route</B
+> detecta cuál es la interfaz que debe
+usar. Sin embargo el truco es sencillo: el núcleo comprueba todas las
+interfaces que han sido configuradas hasta el momento y compara la
+dirección de destino (<SPAN
+CLASS="SYSTEMITEM"
+>191.72.1.0</SPAN
+>
+en este caso) con la parte de red de las direcciones de las interfaces
+(o, lo que es lo mismo, ejecuta un "and" lógico de la dirección de la interfaz
+y la máscara de red). La única interfaz que cumple esto es
+<TT
+CLASS="FILENAME"
+>eth0</TT
+>.</P
+><P
+>Veamos, ¿qué significa la opción <TT
+CLASS="OPTION"
+>&ndash;net</TT
+>?
+Esta opción es necesaria porque el programa <B
+CLASS="COMMAND"
+>route</B
+>
+es capaz de trabajar con rutas a redes o a máquinas concretas (como
+vimos arriba en el caso de <SPAN
+CLASS="SYSTEMITEM"
+>localhost</SPAN
+>).
+Cuando la dirección es dada en notación de cuaterna, intenta adivinar si
+se trata de una red o una máquina fijándose en los bits de máquina
+de la dirección. Si esa parte es nula, <B
+CLASS="COMMAND"
+>route</B
+> asume
+que se trata de una red, y de otro modo lo toma como dirección de una
+máquina. Por tanto, route supondría que <SPAN
+CLASS="SYSTEMITEM"
+>191.72.1.0</SPAN
+> es la dirección de una máquina en vez de una red,
+debido a que no sabe que hemos dividido el espacio de direcciones en
+subredes. Por tanto hemos de decírselo de forma explícita utilizando el
+indicador <TT
+CLASS="OPTION"
+>&ndash;net</TT
+>.</P
+><P
+>Por supuesto, escribir el comando <B
+CLASS="COMMAND"
+>route</B
+> es tedioso
+y susceptible de muchos errores de escritura. Un método más conveniente
+es usar los nombres definidos en <TT
+CLASS="FILENAME"
+>/etc/networks</TT
+> como
+vimos más arriba. Esto hace el comando más inteligible; de este modo incluso
+podemos evitar escribir el indicador <TT
+CLASS="OPTION"
+>&ndash;net</TT
+>, porque
+<B
+CLASS="COMMAND"
+>route</B
+> sabe que <SPAN
+CLASS="SYSTEMITEM"
+>191.72.1.0</SPAN
+> representa una red:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>route add brew-net</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;
+
+Una vez finalizados los pasos básicos de configuración, debemos
+asegurarnos de que la interfaz Ethernet está funcionando correctamente.
+Elija una máquina de su red, por ejemplo <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>, y escriba:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ping vlager</B
+></TT
+>
+    PING vlager: 64 byte packets
+    64 bytes from 172.16.1.1: icmp_seq=0. time=11. ms
+    64 bytes from 172.16.1.1: icmp_seq=1. time=7. ms
+    64 bytes from 172.16.1.1: icmp_seq=2. time=12. ms
+    64 bytes from 172.16.1.1: icmp_seq=3. time=3. ms
+    ^C
+    ----vstout.vbrew.com PING Statistics----
+    4 packets transmitted, 4 packets received, 0
+    round-trip (ms)  min/avg/max = 3/8/12</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;Si el resultado no es similar a éste, algo va mal, obviamente. Una
+tasa de pérdida de paquetes inusualmente alta, sugiere un problema
+de hardware, como terminaciones en mal estado o incluso la ausencia
+de las mismas, etc. Si no recibe ningún paquete, debe comprobar la
+configuración de la interfaz mediante <B
+CLASS="COMMAND"
+>netstat</B
+>,
+que describiremos después en <A
+HREF="x-087-2-iface.netstat.html"
+>Sección 5.9</A
+>&rdquo;.
+Las estadísticas de paquetes producidas por <B
+CLASS="COMMAND"
+>ifconfig</B
+>
+le indican si algún paquete ha sido enviado mediante esa interfaz. Si
+tiene acceso a una máquina remota, también debería dirigirse a esa máquina
+y comprobar las estadísticas de la interfaz. De este modo puede
+determinar exactamente en qué momento se han descartado los paquetes.
+Además, debe consultar la información de encaminamiento con
+<B
+CLASS="COMMAND"
+>route</B
+> para ver si ambas máquinas han registrado
+ésta correctamente en sus tablas. <B
+CLASS="COMMAND"
+>route</B
+> imprime
+la tabla de encaminamiento del núcleo completa si se ejecuta sin
+argumentos (la opción <TT
+CLASS="OPTION"
+>&ndash;n</TT
+> hace que utilice la
+notación de cuaternas en vez de los nombres de las máquinas):
+
+
+
+
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>route -n</B
+></TT
+>
+    Kernel routing table
+    Destination  Gateway  Genmask         Flags Metric Ref Use    Iface
+    127.0.0.1    *        255.255.255.255 UH    1      0      112 lo
+    172.16.1.0   *        255.255.255.0   U     1      0       10 eth0</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>El significado de cada uno de los campos se detalla más adelante en  <A
+HREF="x-087-2-iface.netstat.html"
+>Sección 5.9</A
+>. La columna <SPAN
+CLASS="SYSTEMITEM"
+>Flags</SPAN
+> contiene una lista de los indicadores activos en cada
+interfaz. <SPAN
+CLASS="SYSTEMITEM"
+>U</SPAN
+> indica que la
+interfaz está activa y <SPAN
+CLASS="SYSTEMITEM"
+>H</SPAN
+>
+indica que la dirección de destino es una máquina. Si encuentra que el
+indicador <SPAN
+CLASS="SYSTEMITEM"
+>H</SPAN
+> se ha activado
+para una ruta que pretendía usar para una red, entonces debe usar la
+opción <TT
+CLASS="OPTION"
+>&ndash;net</TT
+> con el comando <B
+CLASS="COMMAND"
+>route</B
+>.
+Para comprobar si alguna ruta esta siendo usada o no, debe mirar si el
+campo  <SPAN
+CLASS="SYSTEMITEM"
+>Use</SPAN
+> en la penúltima
+columna se incrementa entre dos ejecuciones sucesivas de <B
+CLASS="COMMAND"
+>ping</B
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.GATEWAY">5.7.3. Encaminamiento a través de una pasarela</H2
+><P
+>En la sección anterior, cubrimos sólo el caso en el que la máquina sólo
+tiene una única Ethernet. Frecuentemente, es posible encontrar redes
+conectadas unas a otras a través de pasarelas o máquinas de enlace.
+Estas pasarelas pueden simplemente unir dos o más Ethernets, pero
+pueden también servir de enlace con el exterior, con Internet. Para usar
+una pasarela, es necesario añadir información adicional a la capa de red.</P
+><P
+>Por ejemplo, las Ethernets de la Cervecera Virtual y de la Vinatera Virtual
+están unidas a través de una pasarela, <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>. Suponiendo que la máquina <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+> ha sido configurada ya, sólo tenemos que añadir otro
+registro a la tabla de encaminamiento de la máquina
+<SPAN
+CLASS="SYSTEMITEM"
+>vstout</SPAN
+> que le comunique al
+núcleo que puede acceder a todas los nodos de la red de la Vinatera a
+través de<SPAN
+CLASS="SYSTEMITEM"
+> vlager</SPAN
+>. La orden
+apropiada usando <B
+CLASS="COMMAND"
+>route</B
+> se muestra a continuación;
+la palabra clave <SPAN
+CLASS="SYSTEMITEM"
+>gw</SPAN
+> indica que
+el argumento siguiente es una pasarela:</P
+><P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>route add wine-net gw vlager</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Por supuesto, cualquier nodo en la red de la Vinatera al que quiera dirigirse
+debe tener un registro análogo referido a la red de la Cervecera, o de otro
+modo sólo podría enviar datos a la red de la Vinatera desde la Cervecera,
+pero las máquinas de la Vinatera serían incapaces de responder.</P
+><P
+>Este ejemplo describe únicamente una pasarela que conmuta paquetes
+entre dos redes Ethernet aisladas. Supongamos ahora que
+<SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+> también tiene una
+conexión a la Internet (digamos que a través de un enlace SLIP). Nos
+gustaría que los datagramas destinados a <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>cualquier</I
+></SPAN
+>
+dirección fuera de la red de la Cervecera fueran entregados a
+<SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>. Esto se puede conseguir
+convirtiéndolo en la pasarela por omisión para <SPAN
+CLASS="SYSTEMITEM"
+>vstout</SPAN
+>:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>route add default gw vlager</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;El nombre de red <SPAN
+CLASS="SYSTEMITEM"
+>default</SPAN
+> es una abreviatura
+que representa la red <SPAN
+CLASS="SYSTEMITEM"
+>0.0.0.0</SPAN
+>, o ruta por omisión.
+La ruta por omisión analiza cada destino, y es la que será usada si no se encuentra ninguna
+ruta más específica. No es necesario añadir este nombre a <TT
+CLASS="FILENAME"
+>/etc/networks</TT
+>,
+porque esta información esta contenida en el código de <B
+CLASS="COMMAND"
+>route</B
+>.</P
+><P
+>Una tasa alta de pérdida de paquetes usando <B
+CLASS="COMMAND"
+>ping</B
+> hacia una
+máquina situada detrás de una o más pasarelas, puede deberse a que la red está muy
+congestionada. La pérdida de paquetes no se debe tanto a deficiencias técnicas como
+a exceso temporal de carga en las máquinas que actúan de enlace, provocando retrasos
+o incluso el descarte de datagramas entrantes.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.GATEWAY-CONF">5.7.4. Configuración de una Pasarela</H2
+><P
+>Configurar una máquina para conmutar paquetes entre dos Ethernets
+es bastante sencillo. Suponga que nos encontramos en <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>, que contiene dos tarjetas
+Ethernet, respectivamente conectadas a cada una de las dos redes.
+Todo lo que necesitará hacer es configurar ambas interfaces de
+forma separada, dándole a cada una su dirección IP correspondiente,
+y eso es todo.</P
+><P
+>Es bastante útil incluir la información de ambas interfaces en el fichero
+<TT
+CLASS="FILENAME"
+>hosts</TT
+> del modo indicado a continuación, de
+forma que tengamos nombres para referirnos a ellas también:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    172.16.1.1      vlager.vbrew.com    vlager vlager-if1
+    172.16.2.1      vlager-if2</PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>La secuencia de comandos para establecer las dos intefaces
+es por tanto:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig eth0 vlager-if1</B
+></TT
+>
+    # <TT
+CLASS="USERINPUT"
+><B
+>route add brew-net</B
+></TT
+>
+    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig eth1 vlager-if2</B
+></TT
+>
+    # <TT
+CLASS="USERINPUT"
+><B
+>route add wine-net</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Si esta secuencia no funciona, asegúrese de que el núcleo ha sido
+compilado con el soporte para transmisión IP (IP forwarding). Una
+buena forma de hacerlo es comprobar que el primer número de la
+segunda línea de <TT
+CLASS="FILENAME"
+>/proc/net/snmp</TT
+> es un
+<TT
+CLASS="LITERAL"
+>1</TT
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.PLIP">5.7.5. La interfaz PLIP</H2
+><P
+>Si usa un enlace PLIP para conectar dos máquinas, las cosas son un poco
+diferentes de lo visto para una Ethernet. En caso de PLIP se trata de un enlace
+conocido como <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>punto-a-punto</I
+></SPAN
+>, lo que significa que
+sólo hay una máquina a cada extremo del enlace. A las redes como Ethernet
+se les llama redes de <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>difusión</I
+></SPAN
+>. La configuración de
+enlaces punto a punto es diferente porque a diferencia de las redes de difusión,
+los enlaces punto a punto no son una red por sí mismos.</P
+><P
+>PLIP ofrece conexión muy barata y portable entre ordenadores. A modo de
+ejemplo, consideremos un ordenador portátil de un empleado en la
+Cervecera Virtual que se conecta a <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>
+mediante PLIP. El portátil se llama <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+>, y
+tiene un único puerto paralelo. Durante el arranque, este puerto será registrado como
+<TT
+CLASS="FILENAME"
+>plip1</TT
+>. Para activar el enlace, ha de configurar la interfaz
+<TT
+CLASS="FILENAME"
+>plip1</TT
+> mediante las órdenes siguientes:<A
+NAME="X-087-2-FNTC07"
+HREF="#FTN.X-087-2-FNTC07"
+>[3]</A
+>
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig plip1 vlite pointopoint vlager</B
+></TT
+>
+    # <TT
+CLASS="USERINPUT"
+><B
+>route add default gw vlager</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>La primera orden configura la interfaz, diciéndole al núcleo que se
+trata de un enlace punto-a-punto, donde la parte remota tiene la dirección de
+<SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>. El segundo instala la ruta
+por omisión que usa a <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+> como
+pasarela. En <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+> se necesita
+ejecutar <B
+CLASS="COMMAND"
+>ifconfig</B
+> con argumentos similares para activar
+el enlace (en este caso no es necesario usar <B
+CLASS="COMMAND"
+>route</B
+>):
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig plip1 vlager pointopoint vlite</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>Es interesante notar que la interfaz <TT
+CLASS="FILENAME"
+>plip1</TT
+> en <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+> no necesita tener una dirección IP diferente,
+sino que puede usar la misma dirección <SPAN
+CLASS="SYSTEMITEM"
+>172.16.1.1</SPAN
+>. Las redes punto-a-punto no representan directamente una red, así
+que las interfaces no necesitan una dirección en ninguna red soportada. El núcleo
+usa la información de la interfaz que hay en la tabla de enrutamiento para prevenir
+cualquier posible equivocación. <A
+NAME="X-087-2-FNTC08"
+HREF="#FTN.X-087-2-FNTC08"
+>[4]</A
+></P
+><P
+>Una vez hemos configurado el encaminamiento desde el portátil a
+la red de la Cervecera, sólo resta arbitrar un modo para que cualquier
+máquina en esa red pueda acceder a <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+>. Un modo particularmente enrevesado seríia añadir una
+ruta a las tablas de encaminamiento de cada una de las máquinas de la
+red para usar <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+> como
+pasarela hacia <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+>:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>route add vlite gw vlager</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+><P
+>&#13;
+
+
+
+
+Una opción mejor cuando tenemos que trabajar con rutas temporales es usar
+encaminamiento dinámico. Una forma de conseguirlo es usando
+<B
+CLASS="COMMAND"
+>gated</B
+>, un demonio de encaminamiento, que
+deberá instalar en cada una de las máquinas de la red de modo que
+distribuya la información de encaminamiento de forma dinámica. La
+forma más sencilla, sin embargo, consiste en usar <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>proxy
+ARP</I
+></SPAN
+>. Con la sustitución ARP, <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>
+responde a cualquier pregunta ARP dirigida a <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+>
+enviando su propia dirección Ethernet. El efecto conseguido es que todos los paquetes
+dirigidos a <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+> terminan
+yendo a <SPAN
+CLASS="SYSTEMITEM"
+>vlager</SPAN
+>, que se encarga
+de reenviárselos al portátil. Volveremos a hablar de sustitución ARP  en la sección <A
+HREF="x-087-2-iface.verify.arp.html"
+>Sección 5.10</A
+>.&rdquo;</P
+><P
+>&#13;Las actuales versiones de <TT
+CLASS="FILENAME"
+>net-tools</TT
+> contienen una
+herramienta llamada <B
+CLASS="COMMAND"
+>plipconfig</B
+>, que permite
+configurar algunos parámetros que permiten ajustar ciertos parámetros del 
+la temporización de PLIP. La IRQ que va a usarse por el puerto de la impresora
+puese especificarse usando la orden <B
+CLASS="COMMAND"
+>ifconfig</B
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.SLIP">5.7.6. Las interfaces SLIP y PPP</H2
+><P
+>A pesar de que los enlaces SLIP y PPP son simples enlaces
+punto-a-punto igual que las conexiones PLIP, hay mucho más que
+decir de ellas. Generalmente, el establecimiento de un enlace SLIP
+incluye una llamada a un lugar de conexión remoto a través de un módem
+y el establecimiento del modo SLIP en la línea de comunicaciones serie.
+El uso de PPP es similar. Las herramientas necesarias para establecer
+un enlace SLIP o PPP se describen en  <A
+HREF="x-087-2-slip.html"
+>Capítulo 7</A
+>
+y <A
+HREF="x-087-2-ppp.html"
+>Capítulo 8</A
+>.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.DUMMY">5.7.7. La Interfaz Comodín</H2
+><P
+>La interfaz comodín (dummy) parece un tanto exótica y sin embargo
+es bastante útil. Resulta especialmente ventajosa para máquinas aisladas
+y para las que se conectan a una red IP mediante un enlace telefónico.
+Se trata en realidad de máquinas que trabajan de forma aislada la mayor
+parte del tiempo.</P
+><P
+>El dilema con las máquinas aisladas es que el único dispositivo activo
+es el de bucle local, al que generalmente se le asigna la dirección
+<SPAN
+CLASS="SYSTEMITEM"
+>127.0.0.1</SPAN
+>. En ocasiones,
+sin embargo, le resultará necesario enviar datos a la dirección IP
+&ldquo;oficial&ldquo; de la máquina. Supongamos, por ejemplo, el caso
+del portátil <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+> cuando no
+esta conectado a ninguna red. Una aplicación en <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+>
+puede querer enviar datos a otra aplicación en la misma máquina.
+Buscar <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+> en
+<TT
+CLASS="FILENAME"
+>/etc/hosts</TT
+> dará como resultado <SPAN
+CLASS="SYSTEMITEM"
+>172.16.1.65</SPAN
+>, y por tanto intentará
+enviar los datos a esa dirección. Como la única interfaz activa en
+ese momento es la de bucle local, el núcleo no sabe que la dirección se
+refiere a la misma máquina. En consecuencia el núcleo descarta el
+datagrama y genera un error en la aplicación.</P
+><P
+>En esta situación es cuando la interfaz comodín es útil, resolviendo
+el dilema actuando como alter ego de la interfaz de bucle local. En el caso
+de <SPAN
+CLASS="SYSTEMITEM"
+>vlite</SPAN
+>, simplemente debe
+asignarle la dirección <SPAN
+CLASS="SYSTEMITEM"
+>172.16.1.65</SPAN
+> y añadir una ruta que apunte
+a ella. Cada datagrama para <SPAN
+CLASS="SYSTEMITEM"
+>172.16.1.65</SPAN
+> es enviado entonces localmente.
+La forma correcta es pues:<A
+NAME="X-087-2-FNTC09"
+HREF="#FTN.X-087-2-FNTC09"
+>[5]</A
+>
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig dummy vlite</B
+></TT
+>
+    # <TT
+CLASS="USERINPUT"
+><B
+>route add vlite</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="X-087-2-IFACE.INTERFAZ.ALIAS">5.7.8. Alias de IP</H2
+><P
+>Los nuevos núcleos llevan una funcionalidad que puede sustituir por completo a la interfaz
+comodín, y que tiene otras útiles funciones. <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>IP
+Alias</I
+></SPAN
+> permite configurar múltiples direcciones IP en un sólo
+dispositivo físico. En el caso más simple, usted puede reproducir la función
+de la interfaz comodín configurando la dirección del nodo como un alias de la
+interfaz de bucle local, y evitar por completo usar la intefaz comodín. Para usos más complejos,
+usted puede configurar su máquina para simular ser varias máquinas, cada una con
+su propia dirección IP. Esta configuración es llamaba a veces &ldquo;Hosting Virtual,&rdquo;
+aunque técnicamente se usa también para otras muchas técnicas.<A
+NAME="X-087-2-FNTC10"
+HREF="#FTN.X-087-2-FNTC10"
+>[6]</A
+></P
+><P
+>Para configurar un alias para una interfaz, primero debe asegurarse
+de que su núcleo ha sido compilado con soporte para Alias de IP (compruebe
+que tiene un fichero <TT
+CLASS="FILENAME"
+>/proc/net/ip_alias</TT
+> ; si no es
+así, debe recompilar el núcleo). La configuración de un alias de IP es
+virtualmente idéntica a la configuración de un dispositivo de red real; se
+usa un nombre especial para indicar que lo que usted quiere es un alias. Por
+ejemplo:
+
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>    # <TT
+CLASS="USERINPUT"
+><B
+>ifconfig lo:0 172.16.1.1</B
+></TT
+></PRE
+></TD
+></TR
+></TABLE
+>
+
+Esta orden creará un alias para la interfaz de bucle local con la dirección
+<TT
+CLASS="LITERAL"
+>172.16.1.1</TT
+>. Los alias de IP se señalan anteponiendo
+:<TT
+CLASS="REPLACEABLE"
+><I
+>n</I
+></TT
+> al dispositivo actual de red, donde &ldquo;n&rdquo;
+es un entero. En nuestro ejemplo, el dispositivo de red donde estamos creando
+el alias es <TT
+CLASS="LITERAL"
+>lo</TT
+>, y estamos creando un alias numerado como cero
+para él. De esta forma, un único dispositivo físico puede soportar varios alias.</P
+><P
+>Cada alias debe ser tratado como si fuera un dispositivo diferente, y en lo
+referente al software de IP del núcleo, así es; por más que esté compartiendo
+su hardware con otro interfaz.</P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notas</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.X-087-2-FNTC05"
+HREF="x-087-2-iface.interfaz.html#X-087-2-FNTC05"
+>[1]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>¿Alguien recuerda&ldquo;Echoes&rdquo; de Pink Floyd?</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.X-087-2-FNTC06"
+HREF="x-087-2-iface.interfaz.html#X-087-2-FNTC06"
+>[2]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Por ejemplo, todas las aplicaciones
+basadas en RPC utilizan la interfaz de bucle local para registrarse en el
+demonio <B
+CLASS="COMMAND"
+>portmapper</B
+>(mapa de puertos)
+durante el arranque. Entre estas aplicaciones están NIS y NFS.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.X-087-2-FNTC07"
+HREF="x-087-2-iface.interfaz.html#X-087-2-FNTC07"
+>[3]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Dése cuenta de que <TT
+CLASS="USERINPUT"
+><B
+>pointopoint</B
+></TT
+> no es una errata, es así como
+se escribe.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.X-087-2-FNTC08"
+HREF="x-087-2-iface.interfaz.html#X-087-2-FNTC08"
+>[4]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+> Simplemente por precaución, debería
+configurar de todos modos sus enlaces PLIP o SLIP una vez que ha
+completado la configuración de la tabla de encaminamiento de las
+Ethernets. Con algunos núcleos más antiguos, la tabla de
+encaminamiento para la red puede acabar apuntando a su enlace
+punto-a-punto.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.X-087-2-FNTC09"
+HREF="x-087-2-iface.interfaz.html#X-087-2-FNTC09"
+>[5]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>La interfaz comodín se llama <TT
+CLASS="FILENAME"
+>dummy0</TT
+> si usted lo
+tiene cargado como un módulo en lugar de una opción integrada en el
+núcleo. Esto se debe a que es posible cargar varios módulos y tener más
+de una interfaz comodín.</P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.X-087-2-FNTC10"
+HREF="x-087-2-iface.interfaz.html#X-087-2-FNTC10"
+>[6]</A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>Más correctamente, el uso de alias de IP se conoce como hosting virtual de capa de red.
+En los mundos del WWW y STMP es más común usar hosting virtual de capa de aplicación, en el
+que la misma dirección IP es usada por cada máquina virtual, pero en cada petición de la
+capa de aplicación se pasa un nombre de máquina diferente. Servicios como el FTP no son
+capaces de operar de esta forma, y necesitan hosting virtual de capa de red.</P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x-087-2-iface.simple-resolv.html"
+ACCESSKEY="P"
+>Anterior</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Inicio</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x-087-2-iface.ifconfig.html"
+ACCESSKEY="N"
+>Siguiente</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Preparación de los ficheros hosts y networks</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="x-087-2-iface.html"
+ACCESSKEY="U"
+>Subir</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Todo sobre ifconfig</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

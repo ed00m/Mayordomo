@@ -1,0 +1,1176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es" >
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<meta property="fb:app_id" content="143125965710465" /> 
+<meta property="og:type" content="article" /> 
+<meta property="og:url" content="http://www.taringa.net/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html" /> 
+<meta property="og:title" content="El uso del comando &amp;quot;FIND&amp;quot; en GNU/Linux" /> 
+<meta property="og:image" content="http://a02.t26.net/avatares/4/2/9/3/120_429389.jpg" /> 
+<meta property="og:description" content="Comando find es muy potente y practico, tanto así que con el avance que a tenido GNU/Linux en aplicaciones gráficas, las cuales nos ayudan a hacer las cosas mas simples, no e podido sustituir este comando por una aplicación gráfica, y es..." />		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv=”X-Frame-Options” content=”Deny” />
+
+				<link rel="alternate" type="application/atom+xml" title="Comentarios del post:El uso del comando &quot;FIND&quot; en GNU/Linux" href="/rss/6783746/comentarios/" />
+				<link rel="alternate" type="application/atom+xml" title="Post de Ramphis" href="/rss/Ramphis/posts/" />
+				<link rel="alternate" type="application/atom+xml" title="Temas de Ramphis" href="/rss/Ramphis/temas/" />
+		
+				<title>El uso del comando &quot;FIND&quot; en GNU/Linux - Taringa!</title>
+		
+		<link rel="shortcut icon" href="http://o1.t26.net/images/favicon.ico?1.0" type="image/x-icon" />
+		<link type="text/css" href="http://o1.t26.net/img/style.css?1.6.9" rel="stylesheet" />
+		<link type="text/css" href="http://o1.t26.net/img/ui.css?0.3" rel="stylesheet" />
+		<link rel="image_src" href="http://a02.t26.net/avatares/4/2/9/3/120_429389.jpg" /> 
+		<link rel="apple-touch-icon" href="http://o1.t26.net//img/apple-icon.png" /> 
+
+		
+				
+
+		
+		<!-- Jquery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+		
+		<script src="http://o1.t26.net/js/acciones.js?7.9.8" type="text/javascript"></script>
+
+				<script type="text/javascript">
+		var global_data = { user: '', user_key: '', postid: '6783746', comid: '', temaid: '', img: 'http://o1.t26.net/' };
+		$(document).ready(function(){
+			timelib.current = 1350375362;
+			timelib.upd();
+		});
+		</script>
+		<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+
+<script type="text/javascript">
+	GS_googleAddAdSenseService("ca-pub-5717128494977839");
+	GS_googleEnableAllServices();
+</script>
+
+<script src="http://www.google.com/jsapi"></script> 
+<script type="text/javascript" charset="utf-8">google.load('ads.search', '2')</script>
+<script type="text/javascript">
+	GA_googleAddAttr("d", "no");
+	GA_googleAddAttr("s", "na");
+	GA_googleAddAttr("e", "na");
+	GA_googleAddAttr("p", "na");
+	GA_googleAddAttr("c", "linux");
+	GA_googleAddAttr("de", "no");
+	GA_googleAddAttr("screenname", "");
+	
+			GA_googleAddAttr("k", "software, libre, Linux, find");
+	</script>
+
+
+<script type="text/javascript">
+	GA_googleUseIframeRendering();
+</script>				<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-91290-1']);
+  _gaq.push(['_setCustomVar', 1, 'pv', 'post-L', 3]);
+
+
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Anonimo', 2]);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_trackPageLoadTime']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+		<META name="ROBOTS" content="ALL" />
+<meta name="revisit-after" content="1 days" />
+<meta name="title" content="El uso del comando &quot;FIND&quot; en GNU/Linux" />
+<meta name="description" content="Comando find es muy potente y practico, tanto así que con el avance que a tenido GNU/Linux en aplicaciones gráficas, las cuales nos ayudan a hacer l..." />
+<meta name="keywords" content="software, libre, Linux, find" />
+<meta property="dc:date" content="2010-08-29 19:20:03"/>
+<meta property="dc:creator" content="Ramphis" />
+<link rel="prev" href="/prev.php?id=6783746" />
+<link rel="next" href="/next.php?id=6783746" />
+				<script type="text/javascript">var epl_rnd = (new String(Math.random())).substring(2,8) + (((new Date()).getTime()) & 262143)</script>
+		 
+			</head>
+	<body>
+		<div id="fb-root"></div>
+
+		
+		
+		<script type="text/javascript">
+		window.fbAsyncInit=curry(Facebook.init)({ appId: 143125965710465, userId: null });
+		(function(){var e=document.createElement('script');e.src=document.location.protocol+'//connect.facebook.net/es_LA/all.js';e.async=true;document.getElementById('fb-root').appendChild(e)}());
+		</script>
+
+		<div id="header">
+			<div class="wrapper">
+				<a id="logo" href="/" title="Taringa!"></a>								<div id="search" class="floatR">
+					<input type="text"  placeholder="Buscar..." class="searchq fast-search suggest suggest-mention suggest-hashtag" />
+					<a class="btn_search"></a>
+				</div>
+
+
+											<div class="anon-box">
+					<a style="float:left;background:url(http://o1.t26.net/img/fb-icon.png);width:22px;height:22px;margin:14px 14px 0 0" onclick="Facebook.login()"></a>					<div class="register-now">
+						<a style="color:#fff;" href="/registro" title="Registrate!"><b>Registrate!</b></a>
+					</div>
+
+					<div class="login-now">
+						<a style="color:#fff;" href="/login?redirect=%2Fposts%2Flinux%2F6783746%2FEl-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html" title="Identificarme">Identificarme</a>
+					</div>
+
+					<div id="action-dialogs" style="display:none;">
+						<div class="flagPost-dialog" title="Flag Post"></div>
+						<div class="sharePost-dialog-error" title="Error">
+							<p></p>
+						</div>
+					</div>
+				</div>
+
+							
+				</div>
+			</div>
+		</div>
+		<div id="nav" class="">
+			<div class="wrapper clearfix">
+				<ul class="floatL">
+					<li id="menu-section-mi" ><a href="/mi"><i class="icon home"></i></a><span></span>
+						<div class="bubble alerts" style="display:none">
+							<a href="/mi"><span id="mi-counter">0</span></a>
+						</div>
+					</li>
+										<li id="menu-section-posts" class="active"><a href="/">Posts</a></li>
+					<li id="menu-section-comunidades"><a href="/comunidades">Comunidades</a></li>
+					<li id="menu-section-musica"><a href="/musica/" style="background:#0098e8">M&uacute;sica</a></li>					<li id="menu-section-juegos"><a href="/juegos">Juegos</a><img src="http://o1.t26.net/img/icon-new.png" style="margin:3px 0 0 -19px; pointer-events: none" /></li>					<li id="menu-section-tops"><a href="/top">TOPs</a></li>
+									</ul>
+								<ul class="floatR">
+					<li class="active"><a class="show-paises-lista"><img src="http://o1.t26.net/images/global.png" />Global</a></li>
+										<li><a class="notext" data-country="cl"><img src="http://o1.t26.net/images/flags/cl.png" /></a></li>
+									</ul>
+							</div>
+		</div>
+				<div class="country">
+			<div class="wrapper">
+				<ul id="paises-lista" class="real-shadow clearfix clearBeta clearboth" style="display:none">
+					<li><a data-country="0"><img data-lazy="http://o1.t26.net/images/global.png" width="11" style="margin:0 3px 0 2px" /> Global</a> </li>
+					<li><a data-country="ar"><img data-lazy="http://o1.t26.net/images/flags/ar.png" /> Argentina</a> </li>
+					<li><a data-country="cl"><img data-lazy="http://o1.t26.net/images/flags/cl.png" /> Chile</a> </li>
+					<li><a data-country="co"><img data-lazy="http://o1.t26.net/images/flags/co.png" /> Colombia</a> </li>
+					<li><a data-country="es"><img data-lazy="http://o1.t26.net/images/flags/es.png" /> España</a> </li>
+					<li><a data-country="us"><img data-lazy="http://o1.t26.net/images/flags/us.png" /> Estados Unidos</a> </li>
+					<li><a data-country="mx"><img data-lazy="http://o1.t26.net/images/flags/mx.png" /> México</a> </li>
+					<li><a data-country="pe"><img data-lazy="http://o1.t26.net/images/flags/pe.png" /> Perú</a> </li>
+					<li><a data-country="uy"><img data-lazy="http://o1.t26.net/images/flags/uy.png" /> Uruguay</a> </li>
+					<li><a data-country="ve"><img data-lazy="http://o1.t26.net/images/flags/ve.png" /> Venezuela</a> </li>
+				</ul>
+			</div>
+		</div>
+				<div id="main" class="clearfix">		
+						<div id="menu">
+			<div class="clearfix">
+				<ul class="tabs clearfix">
+					<li class="active"><a href="/">Inicio</a></li>
+					<li ><a href="/posts/novatos">Novatos</a></li>
+					<li ><a href="/destacados/">Destacados</a></li>
+									</ul>
+								<div class="player-post clearfix">
+					<a href="/prev.php?id=6783746" class="before hastipsy" title="Post anterior (m&aacute;s viejo)"></a>
+					<a href="/rand.php" class="shuffle hastipsy" title="Post aleatorio"></a>
+					<a href="/next.php?id=6783746" class="next hastipsy" title="Post siguiente (m&aacute;s nuevo)"></a>
+				</div>
+							</div>
+		</div>
+						
+<div id="main-col">
+	<div id="full-col" class="post">
+		<div class="hreview-aggregate">
+			<div>
+			
+		<div class="clearfix" style="position:relative">		
+			<div class="breadcrumb">
+				<a href="/posts/linux">Linux y GNU</a> | 
+				<a title="29/08/2010 19:20" class="hastipsy">
+					Hace m&aacute;s de 2 a&ntilde;os				</a>
+			</div>
+			
+			<ul class="post-share post-share-list">
+		<script type="text/javascript">$(document).ready(function(){$.getScript('http://platform.twitter.com/widgets.js', twitter_ready);});</script>
+	<li>
+		<a href="http://twitter.com/share"
+		class="twitter-share-button"
+		data-count="horizontal"
+		data-via="Taringa"
+		data-lang="es"
+		data-url="http://www.taringa.net/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html"
+		data-text="El uso del comando &amp;quot;FIND&amp;quot; en GNU/Linux -">
+		</a>
+	</li>
+	<li>
+		<g:plusone size="medium"></g:plusone>
+	</li>
+		<li>
+		<a onclick="notifica.share(this, 'post')" class="require-login share-t"></a>
+		<div class="number-share-t unrated">
+			0		</div>
+	</li>
+		<li>
+		<iframe src="//www.facebook.com/plugins/like.php?app_id=247552835288789&amp;href=http://www.taringa.net/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html&amp;send=false&amp;layout=button_count&amp;width=120&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+	</li>
+</ul>
+		</div>
+		<span class="item"><span class="fn"><h1 property="dc:title" class="post-title">El uso del comando &quot;FIND&quot; en GNU/Linux</h1></span></span>
+				<span class="post-content" property="dc:content" style="display:block;width:710px;overflow:hidden;">
+			
+
+<link href="http://o1.t26.net/ads/v5/4130236663.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="http://o1.t26.net/ads/v5/adsense.js?1.5"></script>
+
+<span class="titlePost">
+</span>
+
+<div class="byGoogle topAds">
+<script language="JavaScript">
+<!--
+google_ad_client = 'pub-5717128494977839'; 
+google_ad_channel = '4130236663';
+google_ad_output = 'js';
+google_max_num_ads = '4';
+google_ad_type = 'text';
+google_image_size = '336x280';
+google_feedback = 'on';
+google_language = 'es';
+google_skip = google_adnum;
+var include = "<script type='text/javascript' src='http://pagead2.googlesyndication.com/pagead/show_ads.js'></"+"script>";
+document.write(include);
+
+// -->
+</script>
+  </div>
+<br/>
+<hr />
+
+
+
+
+
+		
+			
+			<div style="text-align: center"><img class="imagen" border="0" src="http://3.bp.blogspot.com/_a-wacchsj74/THGGU0G0nBI/AAAAAAAAAQU/lIlvcIb0XaQ/s320/terminal-logo-small.png" /></div><br /><br />El comando find es muy potente y practico, tanto así que con el avance que a tenido GNU/Linux en aplicaciones gráficas, las cuales nos ayudan a hacer las cosas mas simples, no e podido sustituir este comando por una aplicación gráfica, y es simplemente por lo practico y potente que es a la hora de realizar tareas con mis datos, como hacer backups, buscar archivos en conjunto y aplicarles otro comando, entre otras cosas.<br /><br /><br />Es un comando muy amplio, así que en este articulo les mostrare un uso básico del comando, con ejemplos bien prácticos.<br /><br />Por ejemplo si queremos buscar archivos por nombre, lo hacemos de la siguiente manera:<br /><br />find /media/data -iname “nombre”<br /><br />También podemos usar expresiones regulares para la búsqueda por nombre de archivos como por ejemplo, buscar todos los mp3.<br /><br />find /media/data -iname “*.mp3”<br /><br />Ademas de la búsqueda por nombre podemos hacer otro tipo de busqueda, por ejemplo por grupo, usuario, permisos, tipo, peso, etc, por ejemplo:<br /><br />find /media -user root ---------- buscara todos los archivos del root<br />find /media -group root -------- buscara todos los archivos del grupo root<br />find /media -perm 777 --------- buscara todos los archivos cuyo permisos sean 777<br />find /media -size 30 ------------ buscara todos los archivos que pesen 30kb<br />find /media -size +30 ---------- buscara todos los archivos que pesen mas de 30kb<br />find /media -size -30 ----------- buscara todos los archivos que pesen menos de 30kb<br />find /media -type d ------------- buscara todos los directorios de la ruta especificada<br />find /media -type f ------------- buscara todos los ficheros de la ruta especificada<br />find /media -type l ------------- buscara todos los enlaces simbolicos de la ruta especificada<br /><br />Tambien podemos usar condiciones:<br /><br />find /media -iname “nombre” -and -type d  - buscara archivos con el nombre especificado y que sean directorios<br /><br />find /media -iname “nombre” -or -iname “nombre2” - buscara archivos que tengan uno de los dos nombres especificados.<br /><br />Ademas de hacer búsquedas, podemos jugar con el comando find, enlazándolo con otros comandos, como por ejemplo podemos buscar todos los archivos mp3 de un directorio y copiarlo en otro directorio, borrar todos los archivos encontrados, actualizar las fechas de acceso a la actual, etc... la opción que se usa para ello es -exec, aquí les dejo unos ejemplos:<br /><br />find /media/ -iname “*.mp3” -exec cp {} /home/usuario/ ;<br /><br />Lo que hicimos fue agregarle la sentencia -exec, para ejecutar el comando cp (-exec cp), luego de ello agregamos las llaves {}, esto serian los archivos encontrados por find, luego la ruta a donde lo copiamos (-exec cp {} /home/usuario/) y luego terminamos la sentencia con ;<br /><br />Otro ejemplo, en el cual actualizaremos la fecha de acceso de todos los archivos encontrados:<br /><br />find /media -type f -exec touch {} :<br /><br />Como ven “Find” es un comando muy funcional, y les puede ayudar mucho en sus tareas diarias, y en su ambiente laboral, espero que les haya gustado, hasta la próxima.<br /><br />Gracias
+		</span>
+		
+					
+	</div><!-- post-content -->
+	<div id="edit_form"></div>  
+	
+		
+<ul class="post-share-bottom rounded clearfix post-share-list">
+	<script type="text/javascript" src="http://connect.facebook.net/es_LA/all.js#xfbml=1"></script>
+	<script type="text/javascript"> $(document).ready(function(){ $.getScript('http://platform.twitter.com/widgets.js', twitter_ready); }); </script>
+
+		<li class="email-big">
+		<div class="number-email-t unrated">
+			0		</div>
+		<span class="shareByEmail bottom email-t" object="post" objectid="6783746">Enviar </span>
+	</li>
+	
+	
+	<li>
+		<a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical"
+		data-via=Taringa		data-lang=es		data-url="http://www.taringa.net/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html"
+		data-text="El uso del comando &amp;quot;FIND&amp;quot; en GNU/Linux -"></a>
+	</li>
+	<li>
+		<g:plusone size="tall"></g:plusone>
+	</li>
+		<li class="t-big">
+		<a onclick="notifica.share(this, 'post')" class="require-login share-t"></a>
+		<div class="number-share-t unrated">
+			0		</div>
+	</li>
+		<li>
+		<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.taringa.net%2Fposts%2Flinux%2F6783746%2FEl-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html&amp;send=false&amp;layout=box_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=68&amp;appId=263212030385421" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:68px;" allowTransparency="true"></iframe>
+	</li>
+</ul>
+
+
+	
+
+					<hr style="margin: 5px;" />
+			
+
+
+
+<link href="http://o1.t26.net/ads/v5/2920788207.css" rel="stylesheet" type="text/css" />
+<div class="byGoogle footerAds">
+
+  <script language="JavaScript">
+  <!--
+	google_ad_client = 'pub-5717128494977839'; 
+	google_ad_channel = '2920788207';
+	google_ad_output = 'js';
+	google_max_num_ads = '2';
+	google_ad_type = 'text';
+	google_image_size = '336x280';
+	google_feedback = 'on';
+	google_language = 'es';
+	google_skip = google_adnum;
+	var include = "<script type='text/javascript' src='http://pagead2.googlesyndication.com/pagead/show_ads.js'></"+"script>";
+	document.write(include);
+  // -->
+  </script>
+  </div>
+
+
+
+
+
+
+
+
+
+		
+		<!--anchor for taringa toolbar-->
+		<a href="" name="controls"></a>
+
+		<div class="post-data box clearfix rounded shadow" id="post-data-stats">
+			<div id="post-msg-responses" style="display:none"><span></span></div>
+
+						<div class="post-points clearfix">
+								<div class="give-points" style="margin-bottom:17px">
+					<div id="point-bar" class="rounded real-shadow clearfix">
+	<div id="points-text" style="font-size:12px;line-height:18px">
+		<span>Dar puntos</span>
+	</div>
+	<ul>
+								<li><a onclick="nvotar_post(1, '55945ab9a11aff1aa923b4ddc461eee6')" class="require-login">1</a></li>
+								<li><a onclick="nvotar_post(2, 'f245713430a43702787a410bfa72c554')" class="require-login">2</a></li>
+								<li><a onclick="nvotar_post(3, '85ac89fb4fc8d1dcaf146a5195ecbe6c')" class="require-login">3</a></li>
+								<li><a onclick="nvotar_post(4, '2143ad1f0fd58f8433cc7f26f8b1c893')" class="require-login">4</a></li>
+								<li><a onclick="nvotar_post(5, '9b5a96fc1580e28ac600d3ebfe79e2af')" class="require-login">5</a></li>
+								<li><a onclick="nvotar_post(6, 'dfb4f8a4fc00ca2339dca81347061016')" class="require-login">6</a></li>
+								<li><a onclick="nvotar_post(7, '551a452f2f269554ead2cb74b91a50cb')" class="require-login">7</a></li>
+								<li><a onclick="nvotar_post(8, 'a0b652b1cda4b62a32a5b73695cb9753')" class="require-login">8</a></li>
+								<li><a onclick="nvotar_post(9, '36d5f5cdf9354b8cb6770d8e29987322')" class="require-login">9</a></li>
+			</ul>
+</div>
+<div class="masdiez">
+	<a onclick="nvotar_post(10, '825ddbfe8488d332a6aadd37630a6516')" class="require-login">+10</a>
+</div>
+				</div>
+								<div class="total-points">
+					<i class="icon points" style="margin: 9px 5px 0 0"></i>
+											<span id="postTotalScore">21</span> Puntos															<div class="clearfix">
+						<p class="floatR" style="padding-left: 5px">
+							Votos: <strong><span class="votes">3</span></strong> - 
+							T! score: <span class="rating"><strong><span class="value">7</span> / <span class="best">10</span></strong></span>
+						</p>
+					</div>
+									</div>
+			</div>	
+						<div class="post-stats clearfix">
+				<div class="floatL">
+				<a name="register" onclick="" class="require-login  follow-button ui-btn">
+	<i class="icon followers"></i>
+	<span class="follow-button-text">Seguir</span>
+	<span class="following-button-text" style="display:none">Siguiendo</span>
+	<span class="unfollow-button-text disabled" style="display:none">Dejar de seguir</span>
+</a>
+<a name="register" onclick=""	class="require-login  ui-btn ui-state-default">
+	<i class="icon favs"></i>
+	A favoritos</a><a id="flag-post" name="register" onclick="" class="require-login  fg-button ui-button ui-state-default ui-corner-all">
+	<i class="icon report"></i>
+</a>				</div>
+				<ul class="action-data floatR">
+				<li class="followers-count">
+					<div class="clearfix">
+						<i class="icon followers"></i>
+						<span class="data-followers-count" data-val="1">1</span>
+					</div>
+					<strong>Seguidores</strong>
+					
+				</li>
+				<li>
+					<div class="clearfix">
+						<i class="icon visits"></i>
+						<span>10.154</span>
+					</div>
+					<strong>Visitas</strong>
+				</li>
+				<li class="favs-count">
+					<div class="clearfix">
+						<i class="icon favs"></i>
+						<span id="fav_counter" data-val="4">4</span>
+					</div>
+					<strong>Favoritos</strong>
+				</li>
+				</ul>
+			</div>
+		</div><!-- post-data -->
+
+		
+		<!-- ACTION DIALOGS -->
+		<div id="action-dialogs" style="display:none;">
+			<!-- POST -->
+						<div class="share-dialog">
+				<form id="recomendar-post" object="post">
+					<textarea style="float:none;width:600px;" class="shareMessage ui-corner-all form-input-text box-shadow-soft" placeholder="Escribe un comentario..."></textarea>
+					<div data-privacy="0" style="margin-right: 12px; margin-top: 3px;" class="privacy-shout floatR hastipsy" original-title="Opciones de privacidad">
+						<i title="Opciones de Privacidad" class="icon privacy"></i>
+					</div>
+					<ul class="select-list">
+						<li class="selected"><a data-value="0">Todos pueden comentar</a></li>
+						<li><a data-value="1">Solo quien sigo puede comentar</a></li>
+						<li><a data-value="2">Nadie puede comentar</a></li>
+					</ul>
+											<div class="share-shout" style="margin: -18px 0px 0 0;z-index:9999; ">
+							<!-- FACEBOOK -->
+															<a id="facebook-share" title="Compartir en Facebook" onclick="facebookShare()" class="face-shout face-share hastipsy ui-state-disabled"></a>
+							
+							<!-- TWITTER -->
+															<a id="twitter-share" title="Compartir en Twitter"  onclick="twitterShare()"  class="tw-shout tw-share hastipsy "></a>
+													</div>
+
+						<script type="text/javascript">
+							//clicks
+							function facebookShare(){
+								var fbs = readCookie('fbs');
+								if (fbs === null || fbs == 'true') {
+									createCookie('fbs', 'false', 365);
+									$('.face-share').addClass("ui-state-disabled");
+								} else {
+									createCookie('fbs', 'true', 365);
+									$('.face-share').removeClass("ui-state-disabled");
+								}
+							};
+
+							function twitterShare(){
+								var tws = readCookie('tws');
+								if (tws === null || tws == 'true') {
+									createCookie('tws', 'false', 365);
+									$('.tw-share').addClass("ui-state-disabled");
+								} else {
+									createCookie('tws', 'true', 365);
+									$('.tw-share').removeClass("ui-state-disabled");
+								}
+							};
+						</script>
+										<div class="link-summary">
+						<h3>El uso del comando &quot;FIND&quot; en GNU/Linux</h3>
+						<p>Comando find es muy potente y practico, tanto así que con el avance que a tenido GNU/Linux en aplicaciones gráficas, las cuales nos ayudan a hacer las cosas mas simples, no e podido sustituir este comando por una aplicación gráfica, y es...</p>
+					</div>
+				</form>
+			</div>
+						<div class="bloquear-dialog" title="Bloquear Usuario">
+				<p>&#191;Seguro que deseas bloquear a este usuario?</p>
+			</div>
+						<div class="flagPost-dialog" title="Denunciar Post">
+			</div>
+			<div class="sharePost-dialog-error" title="Error">
+				<p></p>
+			</div>
+			<div class="calPost-dialog" title="Denuncia - Camara del libro">
+				<p>¿Seguro deseas procesar este post?</p>
+			</div>
+		</div>
+		<!-- END ACTION DIALOGS -->
+
+		
+
+					<div class="banner 728x90" style="width:728px;margin:15px 0 15px -10px">
+<script type="text/javascript">
+  GA_googleFillSlotWithSize("ca-pub-5717128494977839", "tar_p_728_linux", 728, 90);
+</script>
+
+</div>
+			<div class="clearfix"></div>
+		
+		<div id="comments" class="box content-safe">
+			
+
+<div class="title clearfix">
+	<h2>4 comentarios</h2>
+</div>
+
+
+<div id="comments-content">
+<div  id="div_cmnt_455381" class="comment clearfix  ">
+		<span id="citar_comm_455381" style="display: none;">Muy bueno che..!!!, que viva el Software Libre..!! jaaa +10 de hoy ;)</span>
+		<div class="comment-data">
+		<a href="/pomelonacho" class="min-avatar">
+			<img class="lazy avatar-48" orig="http://a03.t26.net/avatares/4/5/8/8/48_458851.jpg?292080" />
+		</a>
+	</div>
+	<div class="comment-text">
+		<div class="comment-author clearfix">		
+			@<a href="/pomelonacho" class="hovercard" data-uid="458851">pomelonacho</a>
+						<span class="subtext">
+								<a href="/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html#comid-455381">
+					<span title="09.12.2010 a las 15:44 hs." ts="1291920279">
+						Hace m&aacute;s de 1 a&ntilde;o					</span>
+				</a>
+			</span>
+						<span class="hastipsy comment-votes-extra-container ratedcomment  "
+				style="display:none;"
+				data-votes-total="0"
+				data-votes-positivo="0"
+				data-votes-negativo="0"
+				title="+0 / -0">
+				0			</span>
+		</div>
+		<div class="comment-content">
+			Muy bueno che..!!!, que viva el Software Libre..!! jaaa +10 de hoy <span style="position:relative; display:inline-block; overflow:hidden; top:-2px;"><img src="http://o1.t26.net/images/big2v5.gif" style="position:absolute; top:-308px; clip:rect(308px 16px 324px 0px);" /><img src="http://o1.t26.net/images/space.gif" style="vertical-align:middle; width:16px;height:16px" /></span>		</div>
+	</div>
+	<div class="comment-actions rounded shadow">
+		<ul>
+
+			
+			
+						<li class="">
+				<a title="Me gusta" class="require-login hastipsy" onclick="comment.vote(this, 455381, 6783746, 458851, 1, '4a7b9ab53e4b7659ee02b501a9e9ee20')">
+					<i class="icon thumb-up"></i>
+				</a>
+			</li>
+			<li class="">
+				<a title="No me gusta" class="require-login hastipsy" onclick="comment.vote(this, 455381, 6783746, 458851, -1, '4a7b9ab53e4b7659ee02b501a9e9ee20')">
+					<i class="icon thumb-down"></i>
+				</a>
+			</li>
+			
+			      
+			
+			
+			
+		</ul>
+	</div>
+</div>
+<div  id="div_cmnt_558313" class="comment clearfix  ">
+		<span id="citar_comm_558313" style="display: none;">gracias...!!! buscaba ejemplos con [b]find -size[/b]  ^^ 
++10</span>
+		<div class="comment-data">
+		<a href="/dar12spin" class="min-avatar">
+			<img class="lazy avatar-48" orig="http://a09.t26.net/avatares/3/0/0/4/48_3004765.jpg" />
+		</a>
+	</div>
+	<div class="comment-text">
+		<div class="comment-author clearfix">		
+			@<a href="/dar12spin" class="hovercard" data-uid="3004765">dar12spin</a>
+						<span class="subtext">
+								<a href="/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html#comid-558313">
+					<span title="28.03.2011 a las 0:51 hs." ts="1301284280">
+						Hace m&aacute;s de 1 a&ntilde;o					</span>
+				</a>
+			</span>
+						<span class="hastipsy comment-votes-extra-container ratedcomment  "
+				style="display:none;"
+				data-votes-total="0"
+				data-votes-positivo="0"
+				data-votes-negativo="0"
+				title="+0 / -0">
+				0			</span>
+		</div>
+		<div class="comment-content">
+			gracias...!!! buscaba ejemplos con <b>find -size</b>  <span style="position:relative; display:inline-block; overflow:hidden; top:-2px;"><img src="http://o1.t26.net/images/big2v5.gif" style="position:absolute; top:-572px; clip:rect(572px 16px 588px 0px);" /><img src="http://o1.t26.net/images/space.gif" style="vertical-align:middle; width:16px;height:16px" /></span> <br />+10		</div>
+	</div>
+	<div class="comment-actions rounded shadow">
+		<ul>
+
+			
+			
+						<li class="">
+				<a title="Me gusta" class="require-login hastipsy" onclick="comment.vote(this, 558313, 6783746, 3004765, 1, '1a08bfeaec18c7c5112bd5af1bc5074e')">
+					<i class="icon thumb-up"></i>
+				</a>
+			</li>
+			<li class="">
+				<a title="No me gusta" class="require-login hastipsy" onclick="comment.vote(this, 558313, 6783746, 3004765, -1, '1a08bfeaec18c7c5112bd5af1bc5074e')">
+					<i class="icon thumb-down"></i>
+				</a>
+			</li>
+			
+			      
+			
+			
+			
+		</ul>
+	</div>
+</div>
+<div  id="div_cmnt_558314" class="comment clearfix  ">
+		<span id="citar_comm_558314" style="display: none;">Se inventó la interfaz gráfica, usar find para buscar es ser una larva informática  ^^</span>
+		<div class="comment-data">
+		<a href="/wnldoop" class="min-avatar">
+			<img class="lazy avatar-48" orig="http://a11.t26.net/avatares/6/1/2/2/48_6122822.jpg" />
+		</a>
+	</div>
+	<div class="comment-text">
+		<div class="comment-author clearfix">		
+			@<a href="/wnldoop" class="hovercard" data-uid="6122822">wnldoop</a>
+						<span class="subtext">
+								<a href="/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html#comid-558314">
+					<span title="28.03.2011 a las 0:52 hs." ts="1301284345">
+						Hace m&aacute;s de 1 a&ntilde;o					</span>
+				</a>
+			</span>
+						<span class="hastipsy comment-votes-extra-container ratedcomment negativo thumb-down"
+				style=""
+				data-votes-total="-4"
+				data-votes-positivo="0"
+				data-votes-negativo="4"
+				title="+0 / -4">
+				-4			</span>
+		</div>
+		<div class="comment-content">
+			Se inventó la interfaz gráfica, usar find para buscar es ser una larva informática  <span style="position:relative; display:inline-block; overflow:hidden; top:-2px;"><img src="http://o1.t26.net/images/big2v5.gif" style="position:absolute; top:-572px; clip:rect(572px 16px 588px 0px);" /><img src="http://o1.t26.net/images/space.gif" style="vertical-align:middle; width:16px;height:16px" /></span>		</div>
+	</div>
+	<div class="comment-actions rounded shadow">
+		<ul>
+
+			
+			
+						<li class="">
+				<a title="Me gusta" class="require-login hastipsy" onclick="comment.vote(this, 558314, 6783746, 6122822, 1, '6b010425e881d99dcf0af8690f7e9d07')">
+					<i class="icon thumb-up"></i>
+				</a>
+			</li>
+			<li class="">
+				<a title="No me gusta" class="require-login hastipsy" onclick="comment.vote(this, 558314, 6783746, 6122822, -1, '6b010425e881d99dcf0af8690f7e9d07')">
+					<i class="icon thumb-down"></i>
+				</a>
+			</li>
+			
+			      
+			
+			
+			
+		</ul>
+	</div>
+</div>
+<div  id="div_cmnt_564842" class="comment clearfix  ">
+		<span id="citar_comm_564842" style="display: none;">[quote=wnldoop]Se inventó la interfaz gráfica, usar find para buscar es ser una larva informática  ^^[/quote]
+
+:idiot: y cuando tienes que hacerlo sin usar demasiados recursos???</span>
+		<div class="comment-data">
+		<a href="/dar12spin" class="min-avatar">
+			<img class="lazy avatar-48" orig="http://a09.t26.net/avatares/3/0/0/4/48_3004765.jpg" />
+		</a>
+	</div>
+	<div class="comment-text">
+		<div class="comment-author clearfix">		
+			@<a href="/dar12spin" class="hovercard" data-uid="3004765">dar12spin</a>
+						<span class="subtext">
+								<a href="/posts/linux/6783746/El-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html#comid-564842">
+					<span title="03.04.2011 a las 0:49 hs." ts="1301802597">
+						Hace m&aacute;s de 1 a&ntilde;o					</span>
+				</a>
+			</span>
+						<span class="hastipsy comment-votes-extra-container ratedcomment  "
+				style="display:none;"
+				data-votes-total="0"
+				data-votes-positivo="0"
+				data-votes-negativo="0"
+				title="+0 / -0">
+				0			</span>
+		</div>
+		<div class="comment-content">
+			<blockquote><div class="cita"><a href="/wnldoop"><img src="http://a11.t26.net/avatares/6/1/2/2/16_6122822.jpg" /></a><a href="/wnldoop">wnldoop</a> dijo:</div><div class="citacuerpo"><p>Se inventó la interfaz gráfica, usar find para buscar es ser una larva informática  <span style="position:relative; display:inline-block; overflow:hidden; top:-2px;"><img src="http://o1.t26.net/images/big2v5.gif" style="position:absolute; top:-572px; clip:rect(572px 16px 588px 0px);" /><img src="http://o1.t26.net/images/space.gif" style="vertical-align:middle; width:16px;height:16px" /></span></p></div></blockquote><br /><br /><img src="http://o1.t26.net/images/smiles/idiot.gif" /> y cuando tienes que hacerlo sin usar demasiados recursos???		</div>
+	</div>
+	<div class="comment-actions rounded shadow">
+		<ul>
+
+			
+			
+						<li class="">
+				<a title="Me gusta" class="require-login hastipsy" onclick="comment.vote(this, 564842, 6783746, 3004765, 1, 'aca8b4053ff850d2df1eaee35285d2e5')">
+					<i class="icon thumb-up"></i>
+				</a>
+			</li>
+			<li class="">
+				<a title="No me gusta" class="require-login hastipsy" onclick="comment.vote(this, 564842, 6783746, 3004765, -1, 'aca8b4053ff850d2df1eaee35285d2e5')">
+					<i class="icon thumb-down"></i>
+				</a>
+			</li>
+			
+			      
+			
+			
+			
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+$('img.lazy').lazyload({placeHolder:global_data.img+'images/space.gif',sensitivity:300});
+var zIndexNumber = 99;$('div.avatar-box').each(function(){$(this).css('zIndex', zIndexNumber);zIndexNumber -= 1});
+</script>
+
+
+
+</div>
+<!-- INICIO - Paginado -->
+
+<script type="text/javascript">var comment_ultima_pagina = true;</script>
+
+		</div>
+
+		
+		<div class="banner-300 floatL">
+			
+<script type="text/javascript">
+  GA_googleFillSlotWithSize("ca-pub-5717128494977839", "tar_p_300_linux", 300, 250);
+</script>
+
+		</div>
+
+				<div class="box floatR" style="width: 390px;"><!-- RELATED POSTS -->
+			<div class="title clearfix">
+				<h2>Relacionados</h2> 
+			</div>
+			<div class="list">
+									<div class="list-element">
+						<i class="icon linux"></i>
+						<a href="/posts/linux/14393887/Todo-sobre-software-libre-_Linux_GNU_megapost_.html" title="Todo sobre software libre [Linux/GNU][megapost]">Todo sobre software libre [Linux/GNU][megapost]</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon info"></i>
+						<a href="/posts/info/13275492/Todo-el-software-libre-que-necesita-tu-PC.html" title="Todo el software libre que necesita tu PC">Todo el software libre que necesita tu PC</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon info"></i>
+						<a href="/posts/info/1721068/Lo-mas-basico-_conceptos-software-libre_x-mi_.html" title="Lo mas basico [conceptos software libre][x mi]">Lo mas basico [conceptos software libre][x mi]</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon linux"></i>
+						<a href="/posts/linux/5202866/Un-poco-decepcionado-del-Software-Libre.html" title="Un poco decepcionado del Software Libre">Un poco decepcionado del Software Libre</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon linux"></i>
+						<a href="/posts/linux/15670263/El-Software-Libre-nos-afecta-a-todos.html" title="El Software Libre nos afecta a todos">El Software Libre nos afecta a todos</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon offtopic"></i>
+						<a href="/posts/offtopic/5390759/Aguante-el-software-libre.html" title="Aguante el software libre">Aguante el software libre</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon linux"></i>
+						<a href="/posts/linux/6941193/GNU_Linux-vs-Windows_-Entrevista-con-Jon-_Maddog_-Hall_.html" title="GNU/Linux vs Windows. Entrevista con Jon ‘Maddog’ Hall.">GNU/Linux vs Windows. Entrevista con Jon ‘Maddog’ Hall.</a>						
+					</div>
+									<div class="list-element">
+						<i class="icon linux"></i>
+						<a href="/posts/linux/7016264/Las-mujeres-y-el-software-libre_.html" title="Las mujeres y el software libre!">Las mujeres y el software libre!</a>						
+					</div>
+							</div>
+		</div><!-- END RELATED POSTS -->
+				<div class="clearfix"></div>
+		
+
+		<br/>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5717128494977839";
+google_ad_slot = "0536577215";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+				
+				</div>
+	</div>
+</div><!-- main-col -->
+
+<div id="sidebar"><!-- SIDEBAR -->
+	<div id="post-author-box" class="box"><!-- POST AUTHOR -->
+	<div class="title clearfix">
+		<h2 class="author-nick"><a rel="author" class="textlimit " data-width="162" style="display:block; max-width:162px; overflow:hidden" href="/Ramphis">Ramphis</a></h2>
+		<div class="action">
+
+							<i class="icon Regular hastipsy" title="Regular" ></i>
+			
+						<i class="icon hastipsy male" title="Hombre"></i>
+						<i class="icon flag"><img class="hastipsy country-name" title="República Dominicana" src="http://o1.t26.net/images/flags/do.png" width="16" height="11" align="absmiddle" alt="República Dominicana" hspace="3" /></i>		</div>
+	</div>
+	<div class="author clearfix">
+		<div class="floatL profile">
+			<a href="/Ramphis">
+				<img class="big-avatar" src="http://a02.t26.net/avatares/4/2/9/3/120_429389.jpg" onerror="error_avatar(this)" />
+			</a>
+			 <span class="rank " ><a rel="me" href="/Ramphis">Regular</a></span>
+		</div>
+		<div class="stats">
+						<div id="user-metadata-post">
+				<div>
+					<i class="icon followers"></i>
+					<span class="value followers-count">
+						<a class="data-followers-count" rel="me"
+						   data-val="15"
+						   href="/Ramphis/seguidores">15</a>
+					</span>
+					<span>Seguidores</span>
+				</div>
+				<div>
+					<i class="icon points"></i>
+					<span class="value" data-val="211">211</span>
+					<span>Puntos</span>
+				</div>
+								<div>
+					<i class="icon sprite-document-text-image"></i>
+										<span class="value" data-val="6">
+						<a rel="me" href="/Ramphis/posts">
+							6						</a>
+					</span>
+					<span>Posts</span>
+									</div>
+							</div>
+		</div>
+		<div class="clearfix floatL view-more-content" style="width:100%;margin-top:10px">
+			<span style="color:#999;font-size:11px">
+							Acerca						</span>
+
+							<p style="font-size:12px;margin:0 0 5px 0">A compartir!</p>
+			
+					</div>
+	</div>
+	<div class="read-more clearfix">
+		<span class="show-more"><a onclick="nviewmore_authorprofile(true);">Ver m&aacute;s del autor &raquo;</a></span>
+		<span class="show-less" style="display:none"><a onclick="nviewmore_authorprofile(false);">&laquo; Ver menos</a></span>
+	</div>
+</div>
+	
+
+
+
+		
+<div class="box">
+	<script type="text/javascript">GA_googleFillSlotWithSize("ca-pub-5717128494977839", "tar_p_250_linux", 250, 250)</script>
+</div>			<div class="box"><!-- POST TAGS -->
+		<div class="title clearfix">
+			<h2>Tags</h2>
+		</div>
+		<div class="tag">
+						<div class="tag_element"><a href="/tags/software">software</a></div>
+						<div class="tag_element"><a href="/tags/libre">libre</a></div>
+						<div class="tag_element"><a href="/tags/Linux">Linux</a></div>
+						<div class="tag_element"><a href="/tags/find">find</a></div>
+					</div>
+
+	</div>
+	
+	
+	
+
+	<style>a.clearfix:hover { text-decoration: none }</style>
+	<br />
+
+		<div class="box">
+		<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5717128494977839";
+google_ad_slot = "7351203807";
+google_ad_width = 200;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+	</div>
+	
+	
+	
+</div><!-- END SIDEBAR -->
+
+<div id="shareContainer"></div>
+
+<script type="text/javascript">
+
+var x = location.href.split('#pagina-');if (x[1]) comment.page(x[1]);
+
+$(document).ready(function(){
+	if (window.location.hash) {
+		if (global_data.postid && (location.href.indexOf('#comid-') != -1)) {
+			$.ajax({
+				type: 'post',
+				url: '/ajax/comment/link',
+				data: {
+					postid: global_data.postid,
+					commentid: window.location.hash
+				},
+				success: function (r) {
+					var status = parseInt(r.charAt(0)), data = r.substr(3);
+					if (status == 1) {
+						var container = $('#action-dialogs');
+						container.after(data);
+						$.scrollTo('#comments-linked');
+					}
+				}
+			});	
+		}
+	}
+});	
+</script>
+<script type="text/javascript" src="http://ads.adsinimages.com/js/inimage-min.gz.js"></script>
+<script type="text/javascript">
+function intextual_inimage_process() {
+if(window['inimage']) {
+clearTimeout(intextual_inimage_timeout);
+inimage.options = {
+hash:"EA99H5-mO0JFmmfVFc7ah8we3Uk=",
+cantIMG:1,
+fromClass:"post-content",
+fromId:"",
+category:73,
+exId:"customAd"
+};
+inimage.processImages();
+}
+}
+var intextual_inimage_timeout = setTimeout(intextual_inimage_process, 0);
+</script>
+		</div> 
+		<div id="footer">
+			<div class="wrapper clearfix">
+				<div class="last-action clearfix">
+					<div id="asd" class="floatL">
+						<input type="text"  placeholder="Buscar..." class="searchq fast-search" />
+						<a class="btn_search"></a>
+					</div>
+															<div class="floatL">
+						<a href="http://www.wiroos.com/" class="pie-wiroos" alt="Hosting por WIROOS" title="Hosting por WIROOS"></a>
+					</div>
+															<div class="floatR">
+						<a onclick="$('body').scrollTo(0)" class="irCielo">
+							<strong>Ir al cielo</strong>
+						</a>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+
+		<div id="footer-links" style="width: 1002px; margin:0 auto;position:relative">
+			<ul class="clearfix footer-list">
+								<li><a href="http://anuncie.taringa.net">Anunciar</a></li>
+				<li><a href="http://ayuda.itaringa.net">Ayuda</a></li>
+				<li><a href="/prensa">Prensa</a></li>
+				<li><a href="/protocolo/">Protocolo</a></li>
+				<li><a href="/widgets/compartir">Desarrolladores</a></li>				<li><a href="/denuncia-publica/">Denuncias</a></li>
+				<li><a href="/takedown-notice.php">Report Abuse - DMCA</a></li>
+				<li><a href="/terminos-y-condiciones/">T&eacute;rminos y condiciones</a></li>
+				<li><a href="/privacidad-de-datos/">Privacidad de datos</a></li>
+				<li><a href="/buscar/amigos/">Buscar amigos</a></li>							</ul>
+		</div>
+
+		<a id="scroll-up" onclick="scrollTo(0,0)"></a>
+
+		
+		<script id="hovercard" type="text/html">
+		<div class="tooltip-c compact clearfix">
+			<span class="pick"></span>
+			<div class="clearfix data-tip">
+				<a href="/<%= nick_full %>" class="avatar-tip"><img src="<%= avatar %>" /></a>
+				<div class="user-tip">
+					<a class="nick" href="/<%= nick_full %>"><%= nick %></a>
+					<img src="http://o1.t26.net/images/flags/<%= flag %>.png" /> <%= rango %>
+				</div>
+			</div>
+			<div class="view-more"><a>M&aacute;s informaci&oacute;n</a></div>
+		</div>
+		<div class="tooltip-c extended clearfix" style="word-wrap:break-word; overflow:hidden">
+			<span class="pick"></span>
+			<div class="clearfix data-tip">
+				<a href="/<%= nick_full %>" class="avatar-tip"><img src="<%= avatar %>" /></a>
+				<div class="user-tip">
+					<a class="nick" href="/<%= nick_full %>"><%= nick %></a>
+					<img src="http://o1.t26.net/images/flags/<%= flag %>.png" /> <%= rango %>
+				</div>
+			</div>
+			<div class="more-data">
+				<strong><%= followers %> Seguidores</strong>
+				<span><%= nameline %></span>
+				<%= bio %>
+			</div>
+			<div class="view-more">
+				<%= followButton %>
+			</div>
+		</div>
+		</script>
+
+				<script id="lastmessages_tmpl" type="text/html">
+		<% if ( data.length == 0 ) { %>
+		<div class="list-element">
+			No tienes mensajes? Prueba escribiendo a tus amigos!		</div>
+		<% } else { %>
+		<% for (var i = 0, c = data.length; i < c; ++i) { %>
+		<div class="list-element msg<% if (data[i].unread) { %> unread<% } %>">
+			<a href="/mensajes/leer/<%= data[i].id %>" class="msg-element"></a>
+			<a href="/<%= data[i].nick %>">
+				<img class="msg-avatar <%= data[i].online %>" src="<%= data[i].avatar %>" />
+			</a>
+			<div class="info-msg">
+				<a class="msg-nick" href="/<%= data[i].nick %>"><%= data[i].nick %></a><br />
+				<a class="asunto" style="overflow:hidden" href="/mensajes/leer/<%= data[i].id %>"><%= data[i].subject %></a>
+			</div>
+		</div>
+		<% } %>
+		<% } %>
+		</script>
+				
+		<script id="lastfavorites_tmpl" type="text/html">
+			<% if ( data.length == 0 ) { %>
+				<div class="list-element">
+					A&uacute;n no tienes favoritos				</div>
+			<% } else { %>
+			<% for ( var i = 0; i < data.length; i++ ) { %>
+			<div onClick="goToRef('<%= data[i].url %>'); return false;" class="list-element">
+				<i class="icon <%= data[i].categoria %>" title="<%= data[i].categoria_name %>"></i>
+				<a href="<%= data[i].url %>"><%= data[i].titulo %></a>
+			</div>
+			<% } %>
+		<% } %>
+		</script>
+
+		<script id="user_suggest" type="text/html">
+		<li class="clearfix user-suggest <%= type %>">
+			<a>
+				<img src="<%= icon %>" />
+				<div>
+					<strong><%= label %></strong>
+					<span><%= desc %></span>
+				</div>
+			</a>
+		</li>
+		</script>
+
+		<script id="word_suggest" type="text/html">
+		<li class="clearfix user-suggest <%= type %>">
+			<a><strong><%= label %></strong></a>
+		</li>
+		</script>
+
+		<script id="action_log_item" type="text/html">
+		<div class="list-element overflow">
+			<i class="icon <%=icon%>" style="margin-right:10px"></i>
+			<img src="<%=avatar%>" class="avatar-16 floatL" style="margin-right:8px" />
+			<%=text%>
+			<span ts="<%=timestamp%>"><%=date%></span>
+		</div>
+		</script>
+
+		<script id="quick_mp" type="text/html">
+		<div class="comment clearfix">
+			<div class="comment-data">
+				<a class="min-avatar" href="/">
+					<img class="avatar-48" src="http://o1.t26.net/img/avatares/48/a48_1.jpg" />
+				</a>
+			</div>
+			<div class="comment-text">
+				<div class="comment-author clearfix">
+					@<a href="/" class="hovercard"></a>
+					<span class="subtext"> 
+						<span style="text-transform:lowercase" ts="<%=timestamp%>">Hace instantes</span>
+					</span>
+					<div class="comment-content"><%=text%></div>
+				</div>
+			</div>
+		</div>
+		</script>
+
+		<script type="text/html" id="user_suggest_item">
+			<li><a data-nick="<%=user%>"></a><img src="<%=avatar%>"/><span class="nick"><%=user%></span><span class="name"><%=name%></span></li>
+		</script>
+
+	<!-- My shout box -->
+		<!-- Templates Attachments -->
+		<script type="text/html" id="template_attach_progress">
+			<a class="cancel-attach"><i class="icon remove-s"></i></a>
+			<div class="my-shout-attach-progressBar"></div>
+		</script>
+		<script type="text/html" id="template_attach_error">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<div class="my-shout-attach-error"><%= message %></div>
+		</script>
+		<!-- FIN - Templates Attachments -->
+
+		<!-- Templates Attachments - Input -->
+		<script type="text/html" id="template_attach_image_input">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<div class="add-url clearfix">
+				<label>URL</label>
+				<form>
+					<input class="simple" type="text" name="url" tabindex="601" placeholder="URL de la imagen" autocomplete="off" />
+					<input class="simple-btn" type="submit"  tabindex="602" value="Agregar" />
+				</form>
+			</div>
+		</script>
+
+		<script type="text/html" id="template_attach_video_input">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<div class="add-url clearfix">
+				<label>URL</label>
+				<form>
+					<input class="simple" type="text" name="url" tabindex="601" placeholder="URL del video" autocomplete="off" />
+					<input class="simple-btn" type="submit"  tabindex="602" value="Agregar" />
+				</form>
+			</div>
+		</script>
+
+		<script type="text/html" id="template_attach_link_input">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<div class="add-url clearfix">
+				<label>URL</label>
+				<form>
+					<input class="simple" type="text" name="url" tabindex="601" placeholder="URL del enlace" autocomplete="off" />
+					<input class="simple-btn" type="submit" tabindex="602" value="Agregar" />
+				</form>
+			</div>
+		</script>
+		<!-- FIN - Templates Attachments - Input -->
+
+		<!-- Templates Attachments - Preview -->
+		<script type="text/html" id="template_attach_image_preview">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<img src="<%= url %>" />
+		</script>
+
+		<script type="text/html" id="template_attach_video_preview">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<%= html %>
+		</script>
+
+		<script type="text/html" id="template_attach_link_preview">
+			<a class="remove-attach"><i class="icon remove-s"></i></a>
+			<div class="link-data" style="width:auto;">
+				<h2 class="floatL"><a class="textlimit" style="display:block; max-width:570px; overflow:hidden;" data-width="570" href="<%= url %>"><%= title %></a></h2>
+				<p class="link-desc floatL"><%= description %></p>
+				<p class="link-desc floatL"><img class="floatL" src="http://getfavicon.appspot.com/<%= url %>" style="width:16px; height:16px; margin-right:2px; vertical-align:middle" /><a class="floatL textlimit" data-width="532" style="color:#006595; display:block; max-width:532px; overflow:hidden;" href="<%= url %>"><%= url %></a></p>
+			</div>
+		</script>
+		<!-- FIN - Templates Attachments - Preview -->
+	<!-- FIN - My shout box -->
+
+
+				<div class="tooltip-anonimo clearfix box-shadow-soft" style="display:none">
+			<span class="pointer" style="position:absolute;top:0;right:5px" onclick="$('.tooltip-anonimo').hide();">X</span>
+			<span class="pico"></span>
+			<p><strong>Se parte de Taringa!</strong></p>
+			<p>Esta acci&oacute;n es solo para usuarios de Taringa!</p>
+			<a class="ui-btn ui-button-positive" href="/registro">Reg&iacute;strate</a>
+			<a class="ui-btn" href="/login?redirect=%2Fposts%2Flinux%2F6783746%2FEl-uso-del-comando-Equot_FINDEquot_-en-GNU_Linux.html">Identificarme</a>
+		</div>
+		<script type="text/javascript">
+		$('.tooltip a.follow-button').live('click',	function () {
+			location.href = '/registro';
+			$(this).removeClass('ui-button-positive');
+			$(this).find('span.ui-button-text .following-button-text').remove();
+			$(this).find('span.ui-button-text .follow-button-text').show();
+			return false;
+		});
+		</script>
+		
+		
+						
+<script  src="http://cf.ads.kontextua.com/container/tags/13338.js"></script>
+
+		<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+			</body>
+</html>

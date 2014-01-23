@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.1" />
+		<meta name="keywords" content="Setup a Home Router using IPTables" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="Notes (en)" />
+		<link rel="alternate" type="application/rss+xml" title="Notes RSS Feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="Notes Atom Feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+		<title>Setup a Home Router using IPTables - Notes</title>
+		<link rel="stylesheet" href="/wiki/skins/common/shared.css?207" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/wiki/skins/common/commonPrint.css?207" type="text/css" media="print" />
+		<link rel="stylesheet" href="/wiki/skins/monobook/main.css?207" type="text/css" media="screen" />
+		<!--[if lt IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE50Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 5.5000]><link rel="stylesheet" href="/wiki/skins/monobook/IE55Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 6]><link rel="stylesheet" href="/wiki/skins/monobook/IE60Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="/wiki/skins/monobook/IE70Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" media="print" />
+		<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/wiki/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" type="text/css" />
+		<!--[if lt IE 7]><script type="text/javascript" src="/wiki/skins/common/IEFixes.js?207"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		<script type= "text/javascript">/*<![CDATA[*/
+		var skin = "monobook";
+		var stylepath = "/wiki/skins";
+		var wgArticlePath = "/wiki/index.php/$1";
+		var wgScriptPath = "/wiki";
+		var wgScript = "/wiki/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://itsecureadmin.com";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "Setup_a_Home_Router_using_IPTables";
+		var wgTitle = "Setup a Home Router using IPTables";
+		var wgAction = "view";
+		var wgArticleId = "1451";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "en";
+		var wgContentLanguage = "en";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 1749;
+		var wgVersion = "1.15.1";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+
+		<script type="text/javascript" src="/wiki/skins/common/wikibits.js?207"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="/wiki/skins/common/ajax.js?207"></script>
+		<script type="text/javascript" src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Setup_a_Home_Router_using_IPTables skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Setup a Home Router using IPTables</h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From Notes</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content -->
+			<a name="Setting_up_IPTables_for_NAT_routing" id="Setting_up_IPTables_for_NAT_routing"></a><h3> <span class="mw-headline"> Setting up IPTables for NAT routing </span></h3>
+<p><i>The following configuration is used on a Linksys WRT54GL with OpenWRT WhiteRussion v5.</i>
+</p>
+<ol><li> Must have at least 2 NICs, one for WAN, one for LAN.
+</li><li> Must have support for IPTables and NAT in your kernel.
+</li><li> I am using dnsmasq as DNS and DHCP servers -- 
+</li></ol>
+<pre>/etc/dnsmasq.conf
+Add this line to enable dhcp:
+dhcp-range=192.168.0.100,192.168.0.250,72h
+Restrict dnsmasq to just the LAN interface
+interface=eth0
+</pre>
+<ol><li> Setup IPTables
+</li></ol>
+<pre># First we flush our current rules
+iptables -F
+iptables -t nat -F
+
+# Setup default policies to handle unmatched traffic unless otherwise defined
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD DROP
+
+# Define interfaces, eg:
+export LAN=eth0
+export WAN=eth1
+
+# Lock down some services so they only work from the LAN
+iptables -I INPUT 1 -i ${LAN} -j ACCEPT
+iptables -I INPUT 1 -i lo -j ACCEPT
+iptables -A INPUT -p UDP --dport bootps -i&nbsp;! ${LAN} -j REJECT
+iptables -A INPUT -p UDP --dport domain -i&nbsp;! ${LAN} -j REJECT 
+
+# Allow SSH access from WAN
+iptables -A INPUT -p TCP --dport ssh -i ${WAN} -j ACCEPT
+ 
+# Disallow traffic to privileged ports - optional, think it through.
+iptables -A INPUT -p TCP -i&nbsp;! ${LAN} -d 0/0 --dport 0:1023 -j DROP
+iptables -A INPUT -p UDP -i&nbsp;! ${LAN} -d 0/0 --dport 0:1023 -j DROP
+
+# Finally, add the rules for NAT
+iptables -I FORWARD -i ${LAN} -d 192.168.0.0/255.255.0.0 -j DROP
+iptables -A FORWARD -i ${LAN} -s 192.168.0.0/255.255.0.0 -j ACCEPT
+iptables -A FORWARD -i ${WAN} -d 192.168.0.0/255.255.0.0 -j ACCEPT
+iptables -t nat -A POSTROUTING -o ${WAN} -j MASQUERADE
+
+# Tell the kernel that ip forwarding is OK
+echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+for f in /proc/sys/net/ipv4/conf/*/rp_filter&nbsp;; do echo 1 &gt; $f&nbsp;; done
+
+</pre>
+<p>Save the IPTables configuration:
+</p>
+<pre>/etc/init.d/iptables save
+</pre>
+<p>Edit sysctl.conf and enable IP forwarding in the kernel:
+</p>
+<pre>net.ipv4.ip_forward = 1
+net.ipv4.conf.default.rp_filter = 1
+
+# May need to add the following if you use DHCP on WAN
+net.ipv4.ip_dynaddr = 1
+</pre>
+<p>Port Forwarding Examples
+</p>
+<ol><li> Sample SSH port forward
+</li></ol>
+<pre>iptables -t nat -A PREROUTING -p tcp --dport 22 -i ${WAN} -j DNAT --to 192.168.1.10
+</pre>
+<ol><li> Sample FTP forwarding
+</li></ol>
+<pre>iptables -t nat -A PREROUTING -p tcp --dport 21 -i ${WAN} -j DNAT --to 192.168.0.56
+</pre>
+<ol><li> HTTP forwarding
+</li></ol>
+<pre>iptables -t nat -A PREROUTING -p tcp --dport 80 -i ${WAN} -j DNAT --to 192.168.0.101
+</pre>
+<ol><li> Bittorrent forwarding
+</li></ol>
+<pre>iptables -t nat -A PREROUTING -p tcp --dport 6881:6889 -i ${WAN} -j DNAT --to 192.168.0.2
+</pre>
+<p>This is the current setup that I am using:
+</p>
+<pre>iptables -t nat -A PREROUTING -p tcp --dport 22 -i ${WAN} -j DNAT --to 192.168.1.10
+iptables -t nat -A PREROUTING -p tcp --dport 25 -i ${WAN} -j DNAT --to 192.168.1.10
+iptables -t nat -A PREROUTING -p tcp --dport 143 -i ${WAN} -j DNAT --to 192.168.1.10
+iptables -t nat -A PREROUTING -p tcp --dport 993 -i ${WAN} -j DNAT --to 192.168.1.10
+iptables -t nat -A PREROUTING -p tcp --dport 8080 -i ${WAN} -j DNAT --to 192.168.1.10:80
+iptables -t nat -A PREROUTING -p tcp --dport 80 -i ${WAN} -j DNAT --to 192.168.1.101
+iptables -t nat -A PREROUTING -p tcp --dport 443 -i ${WAN} -j DNAT --to 192.168.1.101
+</pre>
+<!-- 
+NewPP limit report
+Preprocessor node count: 4/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:1451-0!1!0!!en!2!edit=0 and timestamp 20121106010326 -->
+<div class="printfooter">
+Retrieved from "<a href="http://itsecureadmin.com/wiki/index.php/Setup_a_Home_Router_using_IPTables">http://itsecureadmin.com/wiki/index.php/Setup_a_Home_Router_using_IPTables</a>"</div>
+						<!-- end content -->
+						<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+	
+				 <li id="ca-nstab-main" class="selected"><a href="/wiki/index.php/Setup_a_Home_Router_using_IPTables" title="View the content page [c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="/wiki/index.php?title=Talk:Setup_a_Home_Router_using_IPTables&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="/wiki/index.php?title=Setup_a_Home_Router_using_IPTables&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				 <li id="ca-history"><a href="/wiki/index.php?title=Setup_a_Home_Router_using_IPTables&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="/wiki/index.php?title=Special:UserLogin&amp;returnto=Setup_a_Home_Router_using_IPTables" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url();" href="/wiki/index.php/Main_Page" title="Visit the main page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage-description"><a href="/wiki/index.php/Main_Page">Main Page</a></li>
+				<li id="n-portal"><a href="/wiki/index.php/Notes:Community_Portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+				<li id="n-currentevents"><a href="/wiki/index.php/Notes:Current_events" title="Find background information on current events">Current events</a></li>
+				<li id="n-recentchanges"><a href="/wiki/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="/wiki/index.php/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="/wiki/index.php/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform"><div>
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" name="search" type="text" title="Search Notes [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/wiki/index.php/Special:WhatLinksHere/Setup_a_Home_Router_using_IPTables" title="List of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/wiki/index.php/Special:RecentChangesLinked/Setup_a_Home_Router_using_IPTables" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="/wiki/index.php/Special:SpecialPages" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="/wiki/index.php?title=Setup_a_Home_Router_using_IPTables&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="/wiki/index.php?title=Setup_a_Home_Router_using_IPTables&amp;oldid=1749" title="Permanent link to this revision of the page">Permanent link</a></li>			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/wiki/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+					<li id="lastmod"> This page was last modified on 5 November 2006, at 22:11.</li>
+					<li id="viewcount">This page has been accessed 10,450 times.</li>
+					<li id="privacy"><a href="/wiki/index.php/Notes:Privacy_policy" title="Notes:Privacy policy">Privacy policy</a></li>
+					<li id="about"><a href="/wiki/index.php/Notes:About" title="Notes:About">About Notes</a></li>
+					<li id="disclaimer"><a href="/wiki/index.php/Notes:General_disclaimer" title="Notes:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+</div>
+
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.220 secs. --></body></html>

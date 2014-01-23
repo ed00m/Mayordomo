@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="client-nojs">
+<head>
+<title>Netfilter/iptables - Wikipedia, la enciclopedia libre</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.21wmf1" />
+<link rel="alternate" type="application/x-wiki" title="Editar" href="/w/index.php?title=Netfilter/iptables&amp;action=edit" />
+<link rel="edit" title="Editar" href="/w/index.php?title=Netfilter/iptables&amp;action=edit" />
+<link rel="apple-touch-icon" href="//es.wikipedia.org/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (es)" />
+<link rel="EditURI" type="application/rsd+xml" href="//es.wikipedia.org/w/api.php?action=rsd" />
+<link rel="copyright" href="//creativecommons.org/licenses/by-sa/3.0/" />
+<link rel="alternate" type="application/atom+xml" title="Feed Atom de Wikipedia" href="/w/index.php?title=Especial:CambiosRecientes&amp;feed=atom" />
+<link rel="stylesheet" href="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=ext.gadget.a-commons-directo%2Cimagenesinfobox%2CrefToolbar%7Cext.wikihiero%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+
+/* cache key: eswiki:resourceloader:filter:minify-css:7:90928c6bde72339b01a5f26c8258689f */
+</style>
+
+<script src="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Netfilter/iptables","wgTitle":"Netfilter/iptables","wgCurRevisionId":60202328,"wgArticleId":283017,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Software para Linux","Software libre","Seguridad informática"],"wgBreakFrames":false,"wgPageContentLanguage":"es","wgSeparatorTransformTable":[",	.",".	,"],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],"wgMonthNamesShort":["","ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],"wgRelevantPageName":"Netfilter/iptables","wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVectorEnabledModules":{"collapsiblenav":true,"collapsibletabs":true,"editwarning":true,"expandablesearch":false,"footercleanup":false,"sectioneditlinks":false,"simplesearch":true,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgTrackingToken":"d19cd4e53688977b0336275214fd83ff","wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3
+,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"vector-simplesearch":1,"useeditwarning":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"variant":"es","language":"es","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":true,"searchNs101":false,"searchNs102":false,"searchNs103":false,"searchNs104":true,"searchNs105":false,"gadget-a-commons-directo":1,"gadget-refToolbar":1,"gadget-imagenesinfobox":1});;},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: eswiki:resourceloader:filter:minify-js:7:c5f8ab69e30cdbdd46cc34ead2a14da8 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralNotice.bannerController"]);
+}</script>
+<script src="//bits.wikimedia.org/geoiplookup"></script><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.21wmf1/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Netfilter_iptables skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><!-- CentralNotice --><script>mw.centralNotice.initialize();</script></div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading"><span dir="auto">Netfilter/iptables</span></h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">De Wikipedia, la enciclopedia libre</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					Saltar a:					<a href="#mw-head">navegación</a>, 					<a href="#p-search">búsqueda</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="es" dir="ltr" class="mw-content-ltr"><p><b>Netfilter</b> es un <a href="/wiki/Framework" title="Framework">framework</a> disponible en el <a href="/wiki/N%C3%BAcleo_(inform%C3%A1tica)" title="Núcleo (informática)">núcleo</a> <a href="/wiki/Linux_(n%C3%BAcleo)" title="Linux (núcleo)" class="mw-redirect">Linux</a> que permite interceptar y manipular <a href="/wiki/Paquete_de_red" title="Paquete de red">paquetes de red</a>. Dicho <a href="/wiki/Framework" title="Framework">framework</a> permite realizar el manejo de paquetes en diferentes estados del procesamiento. Netfilter es también el nombre que recibe el proyecto que se encarga de ofrecer herramientas libres para <a href="/wiki/Cortafuegos_(inform%C3%A1tica)" title="Cortafuegos (informática)">cortafuegos</a> basados en <a href="/wiki/Linux" title="Linux" class="mw-redirect">Linux</a>.</p>
+<p>El componente más popular construido sobre <i>Netfilter</i> es <b>iptables</b>, una herramienta de <a href="/wiki/Cortafuegos_(inform%C3%A1tica)" title="Cortafuegos (informática)">cortafuegos</a> que permite no solamente <a href="/w/index.php?title=Filtrador_de_paquetes&amp;action=edit&amp;redlink=1" class="new" title="Filtrador de paquetes (aún no redactado)">filtrar paquetes</a>, sino también realizar <a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">traducción de direcciones de red</a> (NAT) para <a href="/wiki/IPv4" title="IPv4">IPv4</a> o mantener registros de <a href="/wiki/Log" title="Log">log</a>. El proyecto Netfilter no sólo ofrece componentes disponibles como <a href="/wiki/M%C3%B3dulo_de_n%C3%BAcleo" title="Módulo de núcleo">módulos del núcleo</a> sino que también ofrece herramientas de espacio de usuario y librerías.</p>
+<p>iptables es el nombre de la herramienta de <a href="/wiki/Espacio_de_usuario" title="Espacio de usuario">espacio de usuario</a> mediante la cual el administrador puede definir políticas de filtrado del tráfico que circula por la red. El nombre <i>iptables</i> se utiliza frecuentemente de forma errónea para referirse a toda la infraestructura ofrecida por el proyecto Netfilter. Sin embargo, el proyecto ofrece otros subsistemas independientes de iptables tales como el <i>connection tracking system</i> o sistema de <a href="/w/index.php?title=Cortafuegos_stateful&amp;action=edit&amp;redlink=1" class="new" title="Cortafuegos stateful (aún no redactado)">seguimiento de conexiones</a>, que permite encolar paquetes para que sean tratados desde espacio de usuario. <i>iptables</i> es un software disponible en prácticamente todas las <a href="/wiki/Distribuci%C3%B3n_Linux" title="Distribución Linux">distribuciones de Linux</a> actuales.</p>
+<table id="toc" class="toc">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contenido</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Historia"><span class="tocnumber">1</span> <span class="toctext">Historia</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Resumen_de_operaci.C3.B3n"><span class="tocnumber">2</span> <span class="toctext">Resumen de operación</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Tablas"><span class="tocnumber">2.1</span> <span class="toctext">Tablas</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Destinos_de_reglas"><span class="tocnumber">2.2</span> <span class="toctext">Destinos de reglas</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Diagramas"><span class="tocnumber">2.3</span> <span class="toctext">Diagramas</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Seguimiento_de_conexiones"><span class="tocnumber">2.4</span> <span class="toctext">Seguimiento de conexiones</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#iptables"><span class="tocnumber">3</span> <span class="toctext">iptables</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Opciones_comunes"><span class="tocnumber">3.1</span> <span class="toctext">Opciones comunes</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Especificaciones_de_las_reglas"><span class="tocnumber">3.2</span> <span class="toctext">Especificaciones de las reglas</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Invocaci.C3.B3n"><span class="tocnumber">3.3</span> <span class="toctext">Invocación</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Ejemplos"><span class="tocnumber">4</span> <span class="toctext">Ejemplos</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Firewall_con_iptables"><span class="tocnumber">4.1</span> <span class="toctext">Firewall con iptables</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Filtrado_de_puertos"><span class="tocnumber">4.2</span> <span class="toctext">Filtrado de puertos</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Enlaces_externos"><span class="tocnumber">5</span> <span class="toctext">Enlaces externos</span></a></li>
+</ul>
+</td>
+</tr>
+</table>
+<h2><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=1" title="Editar sección: Historia">editar</a>]</span> <span class="mw-headline" id="Historia">Historia</span></h2>
+<p>El proyecto Netfilter/iptables comenzó en <a href="/wiki/1998" title="1998">1998</a> con <a href="/w/index.php?title=Rusty_Russell&amp;action=edit&amp;redlink=1" class="new" title="Rusty Russell (aún no redactado)">Rusty Russell</a>, también autor del proyecto que lo precedió, <a href="/wiki/Ipchains" title="Ipchains">ipchains</a>. A medida que el proyecto fue creciendo, fundó el <i>Netfilter Core Team</i> (o simplemente el <i>coreteam</i>) en <a href="/wiki/1999" title="1999">1999</a>, que se trata del grupo de personas que se encarga directamente del desarrollo y mantenimiento del proyecto. El <a href="/wiki/Software" title="Software">software</a> que ellos produjeron (al que llamaremos netfilter de aquí en adelante) está licenciado bajo la licencia <a href="/wiki/Licencia_p%C3%BAblica_general_de_GNU" title="Licencia pública general de GNU" class="mw-redirect">GPL</a> (GNU General Public License), y fue incorporado al núcleo Linux 2.3 en marzo de <a href="/wiki/2000" title="2000">2000</a>. En agosto de <a href="/wiki/2003" title="2003">2003</a>, <a href="/w/index.php?title=Harald_Welte&amp;action=edit&amp;redlink=1" class="new" title="Harald Welte (aún no redactado)">Harald Welte</a> fue designado líder del <i>coreteam</i>. En febrero de <a href="/wiki/2007" title="2007">2007</a> entra a formar parte del <i>coreteam</i> el <a href="/wiki/Andaluc%C3%ADa" title="Andalucía">andaluz</a> <a href="/w/index.php?title=Pablo_Neira&amp;action=edit&amp;redlink=1" class="new" title="Pablo Neira (aún no redactado)">Pablo Neira</a>.</p>
+<p>Antes de iptables, los programas más usados para crear <a href="/wiki/Cortafuegos_(inform%C3%A1tica)" title="Cortafuegos (informática)">cortafuegos</a> en Linux eran <a href="/wiki/Ipchains" title="Ipchains">ipchains</a> en el núcleo Linux 2.2 e <a href="/w/index.php?title=Ipfwadm&amp;action=edit&amp;redlink=1" class="new" title="Ipfwadm (aún no redactado)">ipfwadm</a> en el núcleo Linux 2.0, que a su vez se basaba en <a href="/wiki/Ipfw" title="Ipfw">ipfw</a> de <a href="/wiki/BSD" title="BSD" class="mw-redirect">BSD</a>. Tanto <i>ipchains</i> como <i>ipfwadm</i> alteran el código de red para poder manipular los paquetes, ya que no existía un <i><a href="/wiki/Framework" title="Framework">framework</a></i> general para el manejo de paquetes hasta la aparición de netfilter. iptables mantiene la idea básica introducida en Linux con <i>ipfwadm</i>: listas de reglas en las que se especifica qué <i>matchear</i> dentro de un paquete y qué hacer con ese paquete. ipchains agrega el concepto de <i>cadenas</i> de reglas (<i>chains</i>) e iptables extendió esto a la idea de <i>tablas</i>: se consultaba una tabla para decidir si había que <i>NAT-ear</i> un paquete, y se consultaba otra para decidir como filtrar un paquete. Adicionalmente, se modificaron los tres puntos en los que se realiza el filtrado en el viaje de un paquete, de modo que un paquete pase solo por un punto de filtrado.</p>
+<p>Mientras que <i>ipchains</i> e <i>ipfwadm</i> combinan filtrado de paquetes y NAT (específicamente tres tipos de NAT, llamados <i>masquerading</i> o <a href="/w/index.php?title=Enmascaramiento_de_IP&amp;action=edit&amp;redlink=1" class="new" title="Enmascaramiento de IP (aún no redactado)">enmascaramiento de IP</a>, <i>port forwarding</i> o <a href="/wiki/Redireccionamiento_de_puertos" title="Redireccionamiento de puertos" class="mw-redirect">redireccionamiento de puertos</a>, y <i>redirection</i> o redirección), netfilter hace posible por su parte separar las operaciones sobre los paquetes en tres partes: <i>packet filtering</i> (filtrado de paquetes), <i>connection tracking</i> (seguimiento de conexiones) y Network Address Translation (NAT o traducción de direcciones de red). Cada parte se conecta a las herramientas de netfilter en diferentes puntos para acceder a los paquetes. Los subsistemas de seguimiento de conexiones y NAT son más generales y poderosos que los que realizaban <i>ipchains</i> e <i>ipfwadm</i>.</p>
+<p>Esta división permite a iptables, a su vez, usar la información que la capa de seguimiento de conexiones ha determinado acerca del paquete: esta información estaba antes asociada a NAT. Esto hace a iptables superior a <i>ipchains</i>, ya que tiene la habilidad de monitorizar el estado de una conexión y redirigir, modificar o detener los paquetes de datos basados en el estado de la conexión y no solamente por el origen, destino o contenido del paquete. Un cortafuegos que utilice iptables de este modo se llama <a href="/w/index.php?title=Cortafuegos_stateful&amp;action=edit&amp;redlink=1" class="new" title="Cortafuegos stateful (aún no redactado)">cortafuegos stateful</a>, contrario a <i>ipchains</i> que solo permite crear un <a href="/w/index.php?title=Cortafuegos_stateless&amp;action=edit&amp;redlink=1" class="new" title="Cortafuegos stateless (aún no redactado)">cortafuegos stateless</a> (excepto en casos muy limitados). Podemos decir entonces que <i>ipchains</i> no está al tanto del contexto completo en el cual un paquete surge, mientras que iptables sí y por lo tanto iptables puede hacer mejores decisiones sobre el futuro de los paquetes y las conexiones.</p>
+<p>iptables, el subsistema NAT y el subsistema de seguimiento de conexiones son también extensibles, y muchas extensiones ya están incluidas en el paquete básico de iptables, tal como la extensión ya mencionada que permite la consulta del estado de la conexión. Extensiones adicionales se distribuyen junto a la utilidad iptables, como <a href="/wiki/Parche" title="Parche">parches</a> al <a href="/wiki/C%C3%B3digo_fuente" title="Código fuente">código fuente</a> del núcleo junto con una herramienta llamada <i>patch-o-matic</i> que permite aplicar los parches.</p>
+<p>Una versión de iptables para <a href="/wiki/IPv6" title="IPv6">IPv6</a> ya fue escrita, llamada ip6tables al igual que la herramienta de administración.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=2" title="Editar sección: Resumen de operación">editar</a>]</span> <span class="mw-headline" id="Resumen_de_operaci.C3.B3n">Resumen de operación</span></h2>
+<p>iptables permite al <a href="/wiki/Administrador_de_sistemas" title="Administrador de sistemas">administrador del sistema</a> definir reglas acerca de qué hacer con los <a href="/wiki/Paquete_de_red" title="Paquete de red">paquetes de red</a>. Las reglas se agrupan en <i>cadenas</i>: cada cadena es una lista ordenada de reglas. Las cadenas se agrupan en <i>tablas</i>: cada tabla está asociada con un tipo diferente de procesamiento de paquetes.</p>
+<p>Cada regla especifica qué paquetes la cumplen (<i>match</i>) y un <i>objetivo</i> que indica qué hacer con el paquete si éste cumple la regla. Cada paquete de red que llega a una computadora o que se envía desde una computadora recorre por lo menos una cadena y cada regla de esa cadena se comprueba con el paquete. Si la regla cumple con el datagrama, el recorrido se detiene y el destino de la regla dicta lo que se debe hacer con el paquete. Si el paquete alcanza el fin de una cadena predefinida sin haberse correspondido con ninguna regla de la cadena, la <i>política</i> de destino de la cadena dicta qué hacer con el paquete. Si el paquete alcanza el fin de una cadena definida por el usuario sin haber cumplido ninguna regla de la cadena o si la cadena definida por el usuario está vacía, el recorrido continúa en la cadena que hizo la llamada (lo que se denomina <i>implicit target RETURN</i> o RETORNO de destino implícito). Solo las cadenas predefinidas tienen políticas.</p>
+<p>En <i>iptables</i>, las reglas se agrupan en cadenas. Una cadena es un conjunto de reglas para paquetes IP, que determinan lo que se debe hacer con ellos. Cada regla puede desechar el paquete de la cadena (cortocircuito), con lo cual otras cadenas no serán consideradas. Una cadena puede contener un enlace a otra cadena: si el paquete pasa a través de esa cadena entera o si cumple una regla de destino de retorno, va a continuar en la primera cadena. No hay un límite respecto de cuán anidadas pueden estar las cadenas. Hay tres cadenas básicas (<i>INPUT</i>, <i>OUTPUT</i> y <i>FORWARD</i>: ENTRADA, SALIDA y REENVÍO) y el usuario puede crear tantas como desee. Una regla puede ser simplemente un puntero a una cadena.</p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=3" title="Editar sección: Tablas">editar</a>]</span> <span class="mw-headline" id="Tablas">Tablas</span></h3>
+<p>Hay tres tablas ya incorporadas, cada una de las cuales contiene ciertas cadenas predefinidas. Es posible crear nuevas tablas mediante módulos de extensión. El administrador puede crear y eliminar cadenas definidas por usuarios dentro de cualquier tabla. Inicialmente, todas las cadenas están vacías y tienen una política de destino que permite que todos los paquetes pasen sin ser bloqueados o alterados.</p>
+<ul>
+<li>filter table (<i>Tabla de filtros</i>) — Esta tabla es la responsable del filtrado (es decir, de bloquear o permitir que un paquete continúe su camino). Todos los paquetes pasan a través de la tabla de filtros. Contiene las siguientes cadenas predefinidas y cualquier paquete pasará por una de ellas:
+<ul>
+<li><i>INPUT chain</i> (Cadena de ENTRADA) — Todos los paquetes destinados a este sistema atraviesan esta cadena (y por esto se la llama algunas veces <i>LOCAL_INPUT</i> o <i>ENTRADA_LOCAL</i>)</li>
+<li><i>OUTPUT chain</i> (Cadena de SALIDA) — Todos los paquetes creados por este sistema atraviesan esta cadena (a la que también se la conoce como <i>LOCAL_OUTPUT</i> o <i>SALIDA_LOCAL</i>)</li>
+<li><i>FORWARD chain</i> (Cadena de REDIRECCIÓN) — Todos los paquetes que meramente pasan por este sistema para ser <a href="/wiki/Encaminamiento" title="Encaminamiento">encaminados</a> a su destino recorren esta cadena</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>nat table (<i>Tabla de traducción de direcciones de red</i>) — Esta tabla es la responsable de configurar las reglas de reescritura de direcciones o de puertos de los paquetes. El primer paquete en cualquier conexión pasa a través de esta tabla; los veredictos determinan como van a reescribirse todos los paquetes de esa conexión. Contiene las siguientes cadenas redefinidas:
+<ul>
+<li><i>PREROUTING chain</i> (Cadena de PRERUTEO) — Los paquetes entrantes pasan a través de esta cadena antes de que se consulte la tabla de ruteo local, principalmente para DNAT (<i>destination</i>-<a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">NAT</a> o <a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">traducción de direcciones de red</a> de destino)</li>
+<li><i>POSTROUTING chain</i> (Cadena de POSRUTEO) — Los paquetes salientes pasan por esta cadena después de haberse tomado la decisión del ruteo, principalmente para SNAT (<i>source</i>-<a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">NAT</a> o <a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">traducción de direcciones de red</a> de origen)</li>
+<li><i>OUTPUT chain</i> (Cadena de SALIDA) — Permite hacer un DNAT limitado en paquetes generados localmente</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>mangle table (<i>Tabla de destrozo</i>) — Esta tabla es la responsable de ajustar las opciones de los paquetes, como por ejemplo la <a href="/wiki/Calidad_de_servicio" title="Calidad de servicio">calidad de servicio</a>. Todos los paquetes pasan por esta tabla. Debido a que está diseñada para efectos avanzados, contiene todas las cadenas predefinidas posibles:
+<ul>
+<li><i>PREROUTING chain</i> (Cadena de PRERUTEO) — Todos los paquetes que logran entrar a este sistema, antes de que el ruteo decida si el paquete debe ser reenviado (cadena de REENVÍO) o si tiene destino local (cadena de ENTRADA)</li>
+<li><i>INPUT chain</i> (Cadena de ENTRADA) — Todos los paquetes destinados para este sistema pasan a través de esta cadena</li>
+<li><i>FORWARD chain</i> (Cadena de REDIRECCIÓN) — Todos los paquetes que exactamente pasan por este sistema pasan a través de esta cadena</li>
+<li><i>OUTPUT chain</i> (Cadena de SALIDA) — Todos los paquetes creados en este sistema pasan a través de esta cadena</li>
+<li><i>POSTROUTING chain</i> (Cadena de POSRUTEO) — Todos los paquetes que abandonan este sistema pasan a través de esta cadena</li>
+</ul>
+</li>
+</ul>
+<p>Además de las cadenas ya incorporadas, el usuario puede crear todas las cadenas definidas por el usuario que quiera dentro de cada tabla, las cuales permiten agrupar las reglas en forma lógica.</p>
+<p>Cada cadena contiene una lista de reglas. Cuando un paquete se envía a una cadena, se lo compara, en orden, contra cada regla en la cadena. La regla especifica qué propiedades debe tener el paquete para que la regla coincida, como <a href="/wiki/Puerto_de_red" title="Puerto de red">número de puerto</a> o <a href="/wiki/Direcci%C3%B3n_IP" title="Dirección IP">dirección IP</a>. Si la regla no coincide, el procesamiento continúa con la regla siguiente. Si la regla, por el contrario, coincide con el paquete, las instrucciones de destino de las reglas se siguen (y cualquier otro procesamiento de la cadena normalmente se aborta). Algunas propiedades de los paquetes solo pueden examinarse en ciertas cadenas (por ejemplo, la interfaz de red de salida no es válida en la cadena de ENTRADA). Algunos destinos solo pueden usarse en ciertas cadenas y/o en ciertas tablas (por ejemplo, el destino <i>SNAT</i> solo puede usarse en la cadena de POSRUTEO de la tabla de traducción de direcciones de red).</p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=4" title="Editar sección: Destinos de reglas">editar</a>]</span> <span class="mw-headline" id="Destinos_de_reglas">Destinos de reglas</span></h3>
+<p>El destino de una regla puede ser el nombre de una cadena definida por el usuario o uno de los destinos ya incorporados <tt>ACCEPT</tt>, <tt>DROP</tt>, <tt>QUEUE</tt>, o <tt>RETURN</tt> (<i>aceptar</i>, <i>descartar</i>, <i>encolar</i> o <i>retornar</i>, respectivamente). Cuando un destino es el nombre de una cadena definida por el usuario, al paquete se lo dirige a esa cadena para que sea procesado (tal como ocurre con una llamada a una <a href="/wiki/Subrutina" title="Subrutina">subrutina</a> en un <a href="/wiki/Lenguaje_de_programaci%C3%B3n" title="Lenguaje de programación">lenguaje de programación</a>). Si el paquete consigue atravesar la cadena definida por el usuario sin que ninguna de las reglas de esa cadena actúe sobre él, el procesamiento del paquete continúa donde había quedado en la cadena actual. Estas llamadas entre cadenas se pueden anidar hasta cualquier nivel deseado.</p>
+<p>Existen los siguientes destinos ya incorporados:</p>
+<dl>
+<dt><tt>ACCEPT</tt> (aceptar)</dt>
+<dd>Este destino hace que netfilter acepte el paquete. El significado de esto depende de cuál sea la cadena realizando esta aceptación. Un paquete que se acepta en la cadena de ENTRADA se le permite ser recibido por el sistema (<i>host</i>), un paquete que se acepta en la cadena de SALIDA se le permite abandonar el sistema y un paquete que se acepta en la cadena de REDIRECCIÓN se le permite ser encaminado (routing) a través del sistema.</dd>
+</dl>
+<dl>
+<dt><tt>DROP</tt> (descartar)</dt>
+<dd>Este destino hace que netfilter descarte el paquete sin ningún otro tipo de procesamiento. El paquete simplemente desaparece sin ningún tipo de indicación al sistema o aplicación de origen, de que fue descartado en el sistema de destino. Esto se refleja en el sistema que envía el paquete a menudo, como un <i>communication timeout</i> (alcance del máximo tiempo de espera en la comunicación), lo que puede causar confusión, aunque el descarte de paquetes entrantes no deseados se considera a veces una buena política de seguridad, pues no da ni siquiera el indicio a un posible atacante de que el sistema destino existe.</dd>
+</dl>
+<dl>
+<dt><tt>QUEUE</tt> (encolar)</dt>
+<dd>Este destino hace que el paquete sea enviado a una cola en el <a href="/wiki/Espacio_de_usuario" title="Espacio de usuario">espacio de usuario</a>. Una aplicación puede usar la biblioteca <a href="/w/index.php?title=Libipq&amp;action=edit&amp;redlink=1" class="new" title="Libipq (aún no redactado)">libipq</a>, también parte del proyecto netfilter/iptables, para alterar el paquete. Si no hay ninguna aplicación que lea la cola, este destino es equivalente a DROP.</dd>
+</dl>
+<dl>
+<dt><tt>RETURN</tt> (retorno)</dt>
+<dd>Hace que el paquete en cuestión deje de circular por la cadena en cuya regla se ejecutó el destino <tt>RETURN</tt>. Si dicha cadena es una subcadena de otra, el paquete continuará por la cadena superior como si nada hubiera pasado. Si por el contrario la cadena es una cadena principal (por ejemplo la cadena <tt>INPUT</tt>), al paquete se le aplicará la política por defecto de la cadena en cuestión (<tt>ACCEPT</tt>, <tt>DROP</tt> o similar).</dd>
+</dl>
+<p>Hay muchos destinos de extensión disponibles. Algunos de los más comunes son:</p>
+<dl>
+<dt><tt>REJECT</tt> (rechazo)</dt>
+<dd>Este destino tiene el mismo efecto que 'DROP', salvo que envía un paquete de error a quien envió originalmente. Se usa principalmente en las cadenas de ENTRADA y de REDIRECCIÓN de la tabla de filtrado. El tipo de paquete se puede controlar a través del parámetro '--reject-with'. Un paquete de rechazo puede indicar explícitamente que la conexión ha sido filtrada (un paquete ICMP filtrado administrativamente por conexión), aunque la mayoría de los usuarios prefieren que el paquete indique simplemente que la computadora no acepta ese tipo de conexión (tal paquete será un paquete <i>tcp-reset</i> para conexiones TCP denegadas, un <i>icmp-port-unreachable</i> para sesiones UDP denegadas o un <i>icmp-protocol-unreachable</i> para paquetes no TCP y no UDP). Si el parámetro '--reject-with' no se especifica, el paquete de rechazo por defecto es siempre <i>icmp-port-unreachable</i>.</dd>
+</dl>
+<dl>
+<dt><tt>LOG</tt> (bitácora)</dt>
+<dd>Este destino lleva un <i>log</i> o bitácora del paquete. Puede usarse en cualquier cadena en cualquier tabla, y muchas veces se usa para <i>debuggear</i> (análisis de fallos, como ser la verificación de qué paquetes están siendo descartados).</dd>
+</dl>
+<dl>
+<dt><tt>ULOG</tt></dt>
+<dd>Este destino lleva un <i>log</i> o bitácora del paquete, pero no de la misma manera que el destino LOG. El destino LOG le envía información al <i>log</i> del <a href="/wiki/N%C3%BAcleo_(inform%C3%A1tica)" title="Núcleo (informática)">núcleo</a>, pero ULOG hace <a href="/wiki/Multidifusi%C3%B3n" title="Multidifusión">multidifusión</a> de los paquetes que coincidan con esta regla a través de un <a href="/wiki/Socket" title="Socket">socket</a> <a href="/w/index.php?title=Netlink&amp;action=edit&amp;redlink=1" class="new" title="Netlink (aún no redactado)">netlink</a>, de manera que programas del espacio de usuario puedan recibir este paquete conectándose al <i>socket</i>.</dd>
+</dl>
+<dl>
+<dt><tt>DNAT</tt></dt>
+<dd>Este destino hace que la dirección (y opcionalmente el puerto) de destino del paquete sean reescritos para <a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">traducción de dirección de red</a>. Mediante la opción '--to-destination' debe indicarse el destino a usar. Esto es válido solamente en las cadenas de SALIDA y PRERUTEO dentro de la tabla de nat. Esta decisión se recuerda para todos los paquetes futuros que pertenecen a la misma conexión y las respuestas tendrán su dirección y puerto de origen cambiados al original (es decir, la inversa de este paquete).</dd>
+</dl>
+<dl>
+<dt><tt>SNAT</tt></dt>
+<dd>Este destino hace que la dirección (y opcionalmente el puerto) de origen del paquete sean reescritos para <a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">traducción de dirección de red</a>. Mediante la opción '--to-source' debe indicarse el origen a usar. Esto es válido solamente en la cadena de POSRUTEO dentro de la tabla de nat y, como DNAT, se recuerda para todos los paquetes que pertenecen a la misma conexión.</dd>
+</dl>
+<dl>
+<dt><tt>MASQUERADE</tt></dt>
+<dd>Esta es una forma especial, restringida de SNAT para direcciones IP dinámicas, como las que proveen la mayoría de los <a href="/wiki/Proveedor_de_servicios_de_Internet" title="Proveedor de servicios de Internet">proveedores de servicios de Internet</a> (ISPs) para <a href="/wiki/M%C3%B3dem" title="Módem">módems</a> o <a href="/wiki/L%C3%ADnea_de_abonado_digital" title="Línea de abonado digital">línea de abonado digital</a> (DSL). En vez de cambiar la regla de SNAT cada vez que la dirección IP cambia, se calcula la dirección IP de origen a la cual hacer NAT fijándose en la dirección IP de la interfaz de salida cuando un paquete coincide con esta esta regla. Adicionalmente, recuerda cuales conexiones usan MASQUERADE y si la dirección de la interfaz cambia (por ejemplo, por reconectarse al ISP), todas las conexiones que hacen NAT a la dirección vieja se olvidan.</dd>
+</dl>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=5" title="Editar sección: Diagramas">editar</a>]</span> <span class="mw-headline" id="Diagramas">Diagramas</span></h3>
+<p>Los siguientes diagramas pueden resultar de utilidad para entender mejor como es que un paquete recorre las tablas y cadenas del núcleo de netfilter:</p>
+<ul>
+<li><a class="external free" href="http://commons.wikimedia.org/wiki/Image:Diagrama_linux_netfilter_iptables.gif">http://commons.wikimedia.org/wiki/Image:Diagrama_linux_netfilter_iptables.gif</a></li>
+<li><a class="external free" href="http://en.wikipedia.org/wiki/Image:Iptables_packet_traversal.pdf">http://en.wikipedia.org/wiki/Image:Iptables_packet_traversal.pdf</a></li>
+<li><a rel="nofollow" class="external free" href="http://www.shorewall.net/images/Netfilter.png">http://www.shorewall.net/images/Netfilter.png</a></li>
+<li><a rel="nofollow" class="external free" href="http://dmiessler.com/images/DM_NF.PNG">http://dmiessler.com/images/DM_NF.PNG</a></li>
+</ul>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=6" title="Editar sección: Seguimiento de conexiones">editar</a>]</span> <span class="mw-headline" id="Seguimiento_de_conexiones">Seguimiento de conexiones</span></h3>
+<p>Una de las características de importancia que está construída por encima del <i>framework</i> de netfilter es el seguimiento de conexiones (<i>connection tracking</i>). El seguimento de conexiones le permite al núcleo llevar cuenta de todas las conexiones o sesiones lógicas de red y de este modo relacionar todos los paquetes que pueden llegar a formar parte de esa conexión. La <a href="/wiki/Traducci%C3%B3n_de_direcci%C3%B3n_de_red" title="Traducción de dirección de red" class="mw-redirect">traducción de dirección de red</a> (NAT) depende de esta información para traducir todos los paquetes relacionados de la misma manera e iptables puede usar esta información para actuar como un <a href="/w/index.php?title=Cortafuegos_stateful&amp;action=edit&amp;redlink=1" class="new" title="Cortafuegos stateful (aún no redactado)">cortafuegos stateful</a>.</p>
+<p>El seguimiento de conexiones clasifica cada paquete en uno de cuatro estados:</p>
+<dl>
+<dt><tt>NEW</tt> (nuevo)</dt>
+<dd>Intentando crear una conexión nueva.</dd>
+</dl>
+<dl>
+<dt><tt>ESTABLISHED</tt> (establecido)</dt>
+<dd>Parte de una conexión ya existente.</dd>
+</dl>
+<dl>
+<dt><tt>RELATED</tt> (relacionado)</dt>
+<dd>Relacionada, aunque no realmente parte de una conexión existente.</dd>
+</dl>
+<dl>
+<dt><tt>INVALID</tt> (inválido)</dt>
+<dd>No es parte de una conexión existente e incapaz de crear una conexión nueva.</dd>
+</dl>
+<p>Un caso común sería que el primer paquete que el cortafuegos ve se clasificará como <tt>NEW</tt>, la respuesta se clasificará como <tt>ESTABLISHED</tt> y un error <a href="/wiki/Internet_Control_Message_Protocol" title="Internet Control Message Protocol">ICMP</a> sería <tt>RELATED</tt>. Un paquete de error ICMP que no coincide con una conexión conocida será <tt>INVALID</tt>.</p>
+<p>El estado de la conexión es completamente independiente de cualquier <i>estado de TCP</i>. Si la terminal (<i>host</i>) responde con un paquete SYN ACK para señalar una conexión TCP entrante nueva, la conexión TCP misma no se establece, pero la conexión a la que se le hace el seguimiento sí se establece. Este paquete 'coincidirá el estado <tt>ESTABLISHED</tt>.</p>
+<p>Sin embargo, una conexión a la que se le hace el seguimiento de un <i>protocolo sin estado</i> como UDP tiene un estado de conexión.</p>
+<p>Es más, mediante el uso de módulo que pueden agregarse, al seguimiento de conexión se le puede dar conocimiento de los protocolos de la capa de aplicación y así que entienda que dos o más conexiones distintas están "relacionadas". Por ejemplo, considérese el protocolo <a href="/wiki/File_Transfer_Protocol" title="File Transfer Protocol">FTP</a>. Se establece una conexión de control, pero cada vez que se transfiere información, se establece otra conexión para que la transfiera. Si se carga el módulo nf_conntrack_ftp, el primer paquete de una conexión de datos FTP se clasificará como <tt>RELATED</tt> en lugar de <tt>NEW</tt>, ya que lógicamente es parte de una conexión existente.</p>
+<p>iptables puede usar la información del seguimiento de conexiones para conseguir hacer reglas de filtrado de paquetes más potentes y más fáciles de manejar. La extensión de "estado" le permite a las reglas de iptables que examinen la clasificación de seguimiento de conexión para un paquete. Por ejemplo, una regla puede permitir el paso solo a paquetes <tt>NEW</tt> desde dentro del cortafuegos hacia afuera, pero permitir paquetes <tt>RELATED</tt> y <tt>ESTABLISHED</tt> en ambas direcciones. Esto permite el paso de paquetes de respuesta normales desde el exterior (<tt>ESTABLISHED</tt>), pero no permite que lleguen conexiones nuevas desde el exterior al interior. Sin embargo, si una conexión de datos FTP necesita llegar desde el exterior del cortafuegos hacia el interior, será permitido, porque el paquete se clasificará correctamente como <tt>RELATED</tt> para la conexión de control FTP, en vez de <tt>NEW</tt>.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=7" title="Editar sección: iptables">editar</a>]</span> <span class="mw-headline" id="iptables">iptables</span></h2>
+<p>iptables es una aplicación en <a href="/wiki/Espacio_de_usuario" title="Espacio de usuario">espacio de usuario</a> que le permite a un administrador de sistema configurar las tablas, cadenas y reglas de netfilter (descritas más arriba). Debido a que iptables requiere privilegios elevados para operar, el único que puede ejecutarlo es el <a href="/wiki/Root" title="Root">superusuario</a>. En la mayoría de los sistemas Linux, iptables está instalado como <tt>/sbin/iptables</tt>. La sintaxis detallada del comando <tt>iptables</tt> está documentada en su <a href="/wiki/P%C3%A1gina_de_man" title="Página de man" class="mw-redirect">página de man</a>, la cual puede verse tecleando el comando "<tt>man iptables</tt>" desde la línea de comandos.</p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=8" title="Editar sección: Opciones comunes">editar</a>]</span> <span class="mw-headline" id="Opciones_comunes">Opciones comunes</span></h3>
+<p>En cada una de las formas de invocación de iptables que se muestra a continuación, las siguientes opciones comunes están disponibles:</p>
+<dl>
+<dt><tt>-t <i>tabla</i></tt></dt>
+<dd>Hace que el comando se aplique a la <i><tt>tabla</tt></i> especificada. Si esta opción se omite, el comando se aplica a la tabla <i>filter</i> por defecto.</dd>
+<dt><tt>-v</tt></dt>
+<dd>Produce una salida con detalles (del inglés, <i>verbose</i>).</dd>
+<dt><tt>-n</tt></dt>
+<dd>Produce una salida numérica (es decir, números de puerto en lugar de nombres de servicio y direcciones IP en lugar de <a href="/wiki/Dominio_de_Internet" title="Dominio de Internet">nombres de dominio</a>).</dd>
+<dt><tt>--line-numbers</tt></dt>
+<dd>Cuando se listan reglas, agrega números de línea al comienzo de cada regla, correspondientes a la posición de esa regla en su cadena.</dd>
+</dl>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=9" title="Editar sección: Especificaciones de las reglas">editar</a>]</span> <span class="mw-headline" id="Especificaciones_de_las_reglas">Especificaciones de las reglas</span></h3>
+<p>La mayoría de las formas de comandos de iptables requieren que se les indiquen una especificación de reglas, que es usada para comparar un subconjunto particular del tráfico de paquetes de red procesados por una cadena. La especificación de regla incluye también un destino que especifica qué hacer con paquetes que son comparados por la regla. Las siguientes opciones se usan (frecuentemente combinadas unas con otras) para crear especificaciones de reglas.</p>
+<dl>
+<dt><tt>-j <i>destino</i></tt></dt>
+<dt><tt>--jump <i>destino</i></tt></dt>
+<dd>Especifica el destino de una regla. El destino es el nombre de una cadena definida por el usuario (creada usando la opción <tt>-N</tt>, uno de los destinos ya incorporados, <tt>ACCEPT</tt>, <tt>DROP</tt>, <tt>QUEUE</tt>, o <tt>RETURN</tt>, o un destino de extensión, como <tt>REJECT</tt>, <tt>LOG</tt>, <tt>DNAT</tt>, o <tt>SNAT</tt>. Si esta opción es omitida en una regla, entonces el comparado de la regla no tendrá efecto en el destino de un paquete, pero los contadores en la regla se incrementarán.</dd>
+</dl>
+<dl>
+<dt><tt>-i [!] <i>in-interface</i></tt></dt>
+<dt><tt>--in-interface [!] <i>in-interface</i></tt></dt>
+<dd>Nombre de una interfaz a través de la cual un paquete va a ser recibido (solo para paquetes entrando en las cadenas de INPUT, FORWARD y PREROUTING). Cuando se usa el argumento '!' antes del nombre de la interfaz, el significado se invierte. Si el nombre de la interfaz termina con '+', entonces cualquier interfaz que comience con este nombre será comparada. Si esta opción se omite, se comparará todo nombre de interfaz.</dd>
+</dl>
+<dl>
+<dt><tt>-o [!] <i>out-interface</i></tt></dt>
+<dt><tt>--out-interface [!] <i>out-interface</i></tt></dt>
+<dd>Nombre de una interfaz a través de la cual un paquete va a ser enviado (para paquetes entrando en las cadenas de FORWARD, OUTPUT y POSTROUTING). Cuando se usa el argumento '!' antes del nombre de la interfaz, el significado se invierte. Si el nombre de la interfaz termina con '+', entonces cualquier interfaz que comience con este nombre será comparada. Si esta opción se omite, se comparará todo nombre de interfaz.</dd>
+</dl>
+<dl>
+<dt><tt>-p [!] <i>protocol</i></tt></dt>
+<dt><tt>--protocol [!] <i>protocol</i></tt></dt>
+<dd>Compara paquetes del nombre de protocolo especificado. Si '!' precede el nombre de protocolo, se comparan todos los paquetes que no son el protocolo especificado. Nombres de protocolo válidos son <tt><a href="/wiki/Internet_Control_Message_Protocol" title="Internet Control Message Protocol">icmp</a></tt>, <tt><a href="/wiki/User_Datagram_Protocol" title="User Datagram Protocol">udp</a></tt>, <tt><a href="/wiki/Transmission_Control_Protocol" title="Transmission Control Protocol">tcp</a></tt>... Una lista de todos los protocolos válidos puede encontrarse en el archivo /etc/protocols.</dd>
+</dl>
+<dl>
+<dt><tt>-s [!] <i>origen</i>[/<i>prefijo</i>]</tt></dt>
+<dt><tt>--source [!] <i>origen</i>[/<i>prefijo</i>]</tt></dt>
+<dd>Compara paquetes IP viniendo de la dirección de origen especificada. La dirección de origen puede ser una dirección IP, una dirección IP con un <a href="/w/index.php?title=Prefijo_de_red&amp;action=edit&amp;redlink=1" class="new" title="Prefijo de red (aún no redactado)">prefijo de red</a> asociado, o un nombre de terminal (<i>hostname</i>). Si '!' precede al origen, se comparan todos los paquetes que no vienen del origen especificado.</dd>
+</dl>
+<dl>
+<dt><tt>-d [!] <i>destino</i>[/<i>prefijo</i>]</tt></dt>
+<dt><tt>--destination [!] <i>destino</i>[/<i>prefijo</i>]</tt></dt>
+<dd>Compara paquetes IP yendo a la dirección de destino especificada. La dirección de destino puede ser una dirección IP, una dirección IP con un <a href="/w/index.php?title=Prefijo_de_red&amp;action=edit&amp;redlink=1" class="new" title="Prefijo de red (aún no redactado)">prefijo de red</a> asociado, o un nombre de terminal (<i>hostname</i>). Si '!' precede al origen, se <i>matchean</i> todos los paquetes que no van al destino especificado.</dd>
+</dl>
+<dl>
+<dt><tt>--destination-port [!] [<i>puerto</i>[[:<i>puerto</i>]]</tt></dt>
+<dt><tt>--dport [!] [<i>puerto</i>[[:<i>puerto</i>]]</tt></dt>
+<dd><i>Matchea</i> paquetes TCP o UDP (dependiendo del argumento a la opción <tt>-p</tt>) destinados a los puertos o rango de puertos (cuando se usa la forma <tt><i>puerto</i>:<i>puerto</i></tt>) especificados. Si '!' precede la especificación de puertos, se <i>matchean</i> todos los paquetes TCP o UDP que no están destinados a los puertos o rango de puertos especificados.</dd>
+</dl>
+<dl>
+<dt><tt>--source-port [!] [<i>puerto</i>[[:<i>puerto</i>]]</tt></dt>
+<dt><tt>--sport [!] [<i>puerto</i>[[:<i>puerto</i>]]</tt></dt>
+<dd><i>Matchea</i> paquetes TCP o UDP (dependiendo del argumento a la opción <tt>-p</tt>) que vienen de los puertos o rango de puertos (cuando se usa la forma <tt><i>puerto</i>:<i>puerto</i></tt>) especificados. Si '!' precede la especificación de puertos, se <i>matchean</i> todos los paquetes TCP o UDP que no vienen de los puertos o rango de puertos especificados.</dd>
+</dl>
+<dl>
+<dt><tt>--tcp-flags [!] <i>mask comp</i></tt></dt>
+<dd><i>Matchea</i> paquetes TCP que tienen marcadas o desmarcadas ciertas banderas del protocolo TCP. El primer argumento especifica las banderas a examinar en cada paquete TCP, escritas en una lista separada por comas (no se permiten espacios). El segundo argumento es otra lista separada por comas de banderas que deben estar marcadas dentro de las que se debe examinar. Estas banderas son: SYN, ACK, FIN, RST, URG, PSH, ALL, y NONE. Por lo tanto, la opción "<tt>--tcp-flags SYN,ACK,FIN,RST SYN</tt>" solo va a <i>matchear</i> paquetes con la bandera SYN marcada y las banderas ACK, FIN y RST desmarcadas.</dd>
+</dl>
+<dl>
+<dt><tt>[!] --syn</tt></dt>
+<dd><i>Matchea</i> paquetes TCP que tienen la bandera SYN marcada y las banderas ACK, FIN y RST desmarcadas. Estos paquetes son los que se usan para iniciar conexiones TCP. Al bloquear tales paquetes en la cadena de INPUT, se previenen conexiones TCP entrantes, pero conexiones TCP salientes no serán afectadas. Esta opción puede combinarse con otras, como <tt>--source</tt>, para bloquear o dejar pasar conexiones TCP entrantes solo de ciertas terminales o redes. Esta opción es equivalente a "<tt>--tcp-flags SYN, RST, ACK SYN</tt>". Si '!' precede a <tt>--syn</tt>, el significado de la opción se invierte.</dd>
+</dl>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=10" title="Editar sección: Invocación">editar</a>]</span> <span class="mw-headline" id="Invocaci.C3.B3n">Invocación</span></h3>
+<p>El comando iptables tiene las siguientes formas de invocación. Ítems entre llaves, <tt>{...|...|...}</tt>, son requeridos, pero solo se puede indicar uno de los ítems separados por '<tt>|</tt>'. Ítems entre corchetes, <tt>[...]</tt>, son opcionales.</p>
+<pre>
+iptables { -A | --append | -D | --delete } <i>cadena especificación-de-regla</i> [ <i>opciones</i> ]
+</pre>
+<p>Esta forma de invocación del comando agrega (<tt>-A</tt> o <tt>--append</tt>) o elimina (<tt>-D</tt> o <tt>--delete</tt>) una regla de la cadena especificada. Por ejemplo, para agregar una regla a la cadena de INPUT en la tabla <i>filter</i> (la tabla por defecto cuando la opción <tt>-t</tt> no se especifica) que descarte todos los paquetes <a href="/wiki/User_Datagram_Protocol" title="User Datagram Protocol">UDP</a>, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -A INPUT -p udp -j DROP</tt></dd>
+</dl>
+<p>Para borrar la regla agregada por el comando anterior, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -D INPUT -p udp -j DROP</tt></dd>
+</dl>
+<p>El comando anterior borra en verdad la primera regla de la cadena de INPUT que coincida con la especificación de regla "<tt>-p udp -j DROP</tt>". Si hay varias reglas idénticas en la cadena, solo se borra la primera regla que concuerde.</p>
+<pre>
+iptables { -R | --replace | -I | --insert } <i>cadena numregla especificación-de-regla</i> [ <i>opciones</i> ]
+</pre>
+<p>Esta forma de invocación del comando reemplaza (<tt>-R</tt> o <tt>--replace</tt>) una regla existente o inserta (<tt>-I</tt> o <tt>--insert</tt>) una regla nueva en la cadena especificada. De hecho, para reemplazar la cuarta regla en la cadena de INPUT por una regla que descarte todos los paquetes <a href="/wiki/Internet_Control_Message_Protocol" title="Internet Control Message Protocol">ICMP</a>, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -R INPUT 4 -p icmp -j DROP</tt></dd>
+</dl>
+<p>Para insertar una regla nueva en el segundo lugar de la cadena de OUTPUT que descarte todo el tráfico TCP dirigido al puerto 80 en cualquier terminal, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -I OUTPUT 2 -p tcp --dport 80 -j DROP</tt></dd>
+</dl>
+<pre>
+iptables { -D | --delete } <i>cadena numregla</i> [ <i>opciones</i> ]
+</pre>
+<p>Esta forma de invocación del comando elimina una regla del índice numérico especificado en la cadena especificada. Las reglas se numeran comenzando desde 1. Por ejemplo, para eliminar la tercer regla de la cadena FORWARD, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -D FORWARD 3</tt></dd>
+</dl>
+<pre>
+iptables { -L | --list | -F | --flush | -Z | --zero } [ <i>cadena</i> ] [ <i>opciones</i> ]
+</pre>
+<p>Esta forma de invocación del comando se usa para listar las reglas en una cadena (<tt>-L</tt> o <tt>--list</tt>), tirar (es decir, eliminar) todas las reglas de una cadena (<tt>-F</tt> o <tt>--flush</tt>), o para poner en cero el byte y los contadores de paquetes de una cadena (<tt>-Z</tt> o <tt>--zero</tt>). Si no se especifica ninguna cadena, la operación se realiza para todas las cadenas. Por ejemplo, para listar las reglas en la cadena de OUTPUT, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -L OUTPUT</tt></dd>
+</dl>
+<p>Para tirar todas las cadenas, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -F</tt></dd>
+</dl>
+<p>Para poner en cero el byte y los contadores de paquetes de la cadena de PREROUTING en la tabla <i>nat</i>, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -t nat -Z PREROUTING</tt></dd>
+</dl>
+<pre>
+iptables { -N | --new-chain } <i>cadena</i>
+iptables { -X | --delete-chain } [ <i>cadena</i> ]
+</pre>
+<p>Esta forma de invocación del comando se usa para crear (<tt>-N</tt> o <tt>--new-chain</tt>) una cadena definida por el usuario nueva o para eliminar (<tt>-X</tt> o <tt>--delete-chain</tt>) una cadena definida por el usuario existente. Si no se especifica ninguna cadena con las opciones <tt>-X</tt> o <tt>--delete-chain</tt>, se eliminan todas las cadenas definidas por el usuario. No es posible eliminar cadenas ya incorporadas, como ser las cadenas de INPUT o OUTPUT en la tabla <i>filter</i>.</p>
+<pre>
+iptables { -P | --policy } <i>cadena destino</i>
+</pre>
+<p>Esta forma de invocación del comando se usa para especificar la política de destino para una cadena. De hecho, para especificar la política de destino para la cadena de INPUT en DROP, usamos este comando:</p>
+<dl>
+<dd><tt>iptables -P INPUT DROP</tt></dd>
+</dl>
+<pre>
+iptables { -E | --rename-chain } <i>nombre-de-cadena-viejo nombre-de-cadena-nuevo</i>
+</pre>
+<p>Esta forma de invocación del comando se usa para renombrar una cadena definida por el usuario.</p>
+<h2><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=11" title="Editar sección: Ejemplos">editar</a>]</span> <span class="mw-headline" id="Ejemplos">Ejemplos</span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="/wiki/Archivo:Netfilter_15112010309.jpg" class="image"><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/9/90/Netfilter_15112010309.jpg/220px-Netfilter_15112010309.jpg" width="220" height="165" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="/wiki/Archivo:Netfilter_15112010309.jpg" class="internal" title="Aumentar"><img src="//bits.wikimedia.org/static-1.21wmf1/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+Seminario de Netfilter</div>
+</div>
+</div>
+<p>Estos son ejemplos de uso cotidiano en algún Firewall o <a href="/wiki/Cortafuegos_(inform%C3%A1tica)" title="Cortafuegos (informática)">cortafuegos</a>.</p>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=12" title="Editar sección: Firewall con iptables">editar</a>]</span> <span class="mw-headline" id="Firewall_con_iptables">Firewall con iptables</span></h3>
+<p>Para generar este <i>script</i> con <i>iptables</i>, se deben seguir los siguientes pasos:</p>
+<ol>
+<li>Se crea un archivo de texto con un editor de <a href="/wiki/Archivo_de_texto" title="Archivo de texto">texto plano</a> cualquiera, como ser <a href="/wiki/Vi" title="Vi">vi</a>, <a href="/wiki/Emacs" title="Emacs">emacs</a> o <a href="/wiki/Nano_(editor_de_texto)" title="Nano (editor de texto)">nano</a>, entre muchísimos otros. A este archivo se lo llama, por ejemplo, <tt>iptables_ipt</tt></li>
+<li>Se le da <a href="/wiki/Permisos_de_acceso_a_archivos" title="Permisos de acceso a archivos">permiso de ejecución</a> mediante el comando <tt>chmod u+x o también chmod 700 iptables_ipt</tt>.</li>
+<li>Se ejecuta desde la <a href="/wiki/L%C3%ADnea_de_comandos" title="Línea de comandos">línea de comandos</a> <tt>./iptables_ipt</tt></li>
+</ol>
+<pre>
+#!/bin/bash
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate NEW ! -i eth1 -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -i eth0 -o eth1 -j ACCEPT
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+iptables -A FORWARD -i eth1 -o eth1 -j REJECT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+echo "Firewall Activado"
+</pre>
+<p>Para este ejemplo, <tt>eth0</tt> es la puerta local, y <tt>eth1</tt> es la puerta de enlace a <a href="/wiki/Internet" title="Internet">Internet</a>. Puede además agregarse bloqueo de puertos específicos, como por ejemplo:</p>
+<pre>
+iptables -A INPUT -p tcp --dport 25 -j DROP # smtp filtrado 
+
+# Corroboramos con nmap los puertos y nos dirá algo parecido 
+
+$sudo nmap -sT "nuestra IP"
+
+ * 22/tcp   filtered  ssh *
+ * 25/tcp   filtered  smtp *
+</pre>
+<h3><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=13" title="Editar sección: Filtrado de puertos">editar</a>]</span> <span class="mw-headline" id="Filtrado_de_puertos">Filtrado de puertos</span></h3>
+<p>Para filtrar un puerto específico, como el 22 o 443, el código recomendable sería el siguiente:</p>
+<pre>
+sudo iptables -t filter -I INPUT -p tcp --dport 22 -j DROP
+sudo iptables -t filter -I INPUT -p tcp --dport 443 -j DROP
+</pre>
+<h2><span class="editsection">[<a href="/w/index.php?title=Netfilter/iptables&amp;action=edit&amp;section=14" title="Editar sección: Enlaces externos">editar</a>]</span> <span class="mw-headline" id="Enlaces_externos">Enlaces externos</span></h2>
+<ul>
+<li><a href="/w/index.php?title=Archivo:Commons-logo.svg&amp;page=1" class="image" title="Colabora en Commons."><img alt="Colabora en Commons." src="//upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Commons-logo.svg/15px-Commons-logo.svg.png" width="15" height="20" /></a> <a href="/wiki/Wikimedia_Commons" title="Wikimedia Commons">Wikimedia Commons</a> alberga contenido multimedia sobre <b><a href="//commons.wikimedia.org/wiki/Category:Netfilter" class="extiw" title="commons:Category:Netfilter">Netfilter/iptables</a></b>. <span class="interProject"><a href="//commons.wikimedia.org/wiki/Category:Netfilter" class="extiw" title="commons:Category:Netfilter">Commons</a></span></li>
+</ul>
+<ul>
+<li>(en inglés) <a rel="nofollow" class="external text" href="http://www.netfilter.org/">Página oficial del proyecto Netfilter/iptables</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.linuxguruz.com/iptables/">Links al tema en inglés</a></li>
+<li>Frontends (opcionales):
+<ul>
+<li><a rel="nofollow" class="external free" href="http://shorewall.net/">http://shorewall.net/</a> - Shorewall</li>
+<li><a rel="nofollow" class="external free" href="http://firehol.sourceforge.net/">http://firehol.sourceforge.net/</a> - FireHOL</li>
+<li><a rel="nofollow" class="external free" href="http://www.fwbuilder.org/">http://www.fwbuilder.org/</a> - Firewall Builder (<a href="/wiki/Interfaz_gr%C3%A1fica_de_usuario" title="Interfaz gráfica de usuario">GUI</a>)</li>
+<li><a rel="nofollow" class="external free" href="http://www.fs-security.com/">http://www.fs-security.com/</a> - <a href="/wiki/Firestarter" title="Firestarter">Firestarter</a> (GUI)</li>
+<li><a rel="nofollow" class="external free" href="http://dag.wieers.com/home-made/dwall/">http://dag.wieers.com/home-made/dwall/</a> - Dwall</li>
+<li><a rel="nofollow" class="external free" href="http://www.solsoft.com/netfilterone">http://www.solsoft.com/netfilterone</a> - NetfilterOne (GUI)</li>
+<li><a rel="nofollow" class="external free" href="http://kmyfirewall.sourceforge.net/">http://kmyfirewall.sourceforge.net/</a> - KMyFirewall (GUI)</li>
+<li><a rel="nofollow" class="external free" href="http://www.simonzone.com/software/guarddog/">http://www.simonzone.com/software/guarddog/</a> - Guarddog (GUI)</li>
+<li><a rel="nofollow" class="external free" href="http://weblog.tinixtech.com.ar">http://weblog.tinixtech.com.ar</a> - Programming Iptables.</li>
+<li><a rel="nofollow" class="external free" href="http://www.hacktimes.com/detecci_n_control_y_contenci_n_de_tr_fico_innecesa/">http://www.hacktimes.com/detecci_n_control_y_contenci_n_de_tr_fico_innecesa/</a> - Detección, control y contención de tráfico innecesario con Iptables</li>
+<li><a rel="nofollow" class="external free" href="http://www.tutorial-es.com/seguridad/sistema/39-seguridad-con-reglas-iptables-firewall">http://www.tutorial-es.com/seguridad/sistema/39-seguridad-con-reglas-iptables-firewall</a> - Seguridad con reglas Iptables</li>
+<li><a rel="nofollow" class="external free" href="http://fedoraproject.org/wiki/SystemConfig/firewall">http://fedoraproject.org/wiki/SystemConfig/firewall</a> - Systems config firewall incluido con Fedora y RedHat Enterprise Linux</li>
+</ul>
+</li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 163/1000000
+Preprocessor generated node count: 393/1500000
+Post-expand include size: 260/2048000 bytes
+Template argument size: 18/2048000 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/500
+-->
+
+<!-- Saved in parser cache with key eswiki:pcache:idhash:283017-0!*!0!!es!4!* and timestamp 20121016050915 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Obtenido de «<a href="http://es.wikipedia.org/w/index.php?title=Netfilter/iptables&amp;oldid=60202328">http://es.wikipedia.org/w/index.php?title=Netfilter/iptables&amp;oldid=60202328</a>»				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/wiki/Especial:Categor%C3%ADas" title="Especial:Categorías">Categorías</a>: <ul><li><a href="/wiki/Categor%C3%ADa:Software_para_Linux" title="Categoría:Software para Linux">Software para Linux</a></li><li><a href="/wiki/Categor%C3%ADa:Software_libre" title="Categoría:Software libre">Software libre</a></li><li><a href="/wiki/Categor%C3%ADa:Seguridad_inform%C3%A1tica" title="Categoría:Seguridad informática">Seguridad informática</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Herramientas personales</h5>
+	<ul>
+		<li id="pt-createaccount"><a href="/w/index.php?title=Especial:Entrar&amp;returnto=Netfilter%2Fiptables&amp;type=signup">Crear una cuenta</a></li>
+		<li id="pt-login"><a href="/w/index.php?title=Especial:Entrar&amp;returnto=Netfilter%2Fiptables" title="Te recomendamos iniciar sesión, sin embargo no es obligatorio [o]" accesskey="o">Ingresar</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Espacios de nombres</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Netfilter/iptables"  title="Ver el artículo [c]" accesskey="c">Artículo</a></span></li>
+					<li  id="ca-talk"><span><a href="/wiki/Discusi%C3%B3n:Netfilter/iptables"  title="Discusión acerca del artículo [t]" accesskey="t">Discusión</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h4>
+		</h4>
+	<h5><span>Variantes</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Vistas</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/wiki/Netfilter/iptables" >Leer</a></span></li>
+					<li id="ca-edit"><span><a href="/w/index.php?title=Netfilter/iptables&amp;action=edit"  title="Puedes editar esta página. Utiliza el botón de previsualización antes de guardar [e]" accesskey="e">Editar</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/w/index.php?title=Netfilter/iptables&amp;action=history"  title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">Ver historial</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Acciones</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Buscar</label></h5>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" title="Buscar en este wiki [f]" accesskey="f" id="searchInput" />						<button name="button" title="Busca páginas con este texto." id="searchButton"><img src="//bits.wikimedia.org/static-1.21wmf1/skins/vector/images/search-ltr.png?303-4" alt="Buscar" width="12" height="13" /></button>								<input type='hidden' name="title" value="Especial:Buscar"/>
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(//upload.wikimedia.org/wikipedia/commons/8/8c/Wikipedia-logo-v2-es.png);" href="/wiki/Wikipedia:Portada"  title="Visitar la página principal"></a></div>
+				<!-- /logo -->
+				
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navegación</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/wiki/Wikipedia:Portada" title="Visitar la página principal [z]" accesskey="z">Portada</a></li>
+			<li id="n-portal"><a href="/wiki/Portal:Comunidad" title="Acerca del proyecto, lo que puedes hacer, dónde encontrar información">Portal de la comunidad</a></li>
+			<li id="n-currentevents"><a href="/wiki/Portal:Actualidad" title="Información de contexto sobre acontecimientos actuales">Actualidad</a></li>
+			<li id="n-recentchanges"><a href="/wiki/Especial:CambiosRecientes" title="Lista de cambios recientes en el wiki [r]" accesskey="r">Cambios recientes</a></li>
+			<li id="n-newpages"><a href="/wiki/Especial:P%C3%A1ginasNuevas">Páginas nuevas</a></li>
+			<li id="n-randompage"><a href="/wiki/Especial:Aleatoria" title="Cargar una página al azar [x]" accesskey="x">Página aleatoria</a></li>
+			<li id="n-help"><a href="/wiki/Ayuda:Contenidos" title="El lugar para aprender">Ayuda</a></li>
+			<li id="n-sitesupport"><a href="//donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C12_es.wikipedia.org&amp;uselang=es" title="Apóyanos">Donaciones</a></li>
+			<li id="n-bug_in_article"><a href="/wiki/Wikipedia:Informes_de_error">Notificar un error</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- coll-print_export -->
+<div class="portal" id='p-coll-print_export'>
+	<h5>Imprimir/exportar</h5>
+	<div class="body">
+		<ul id="collectionPortletList"><li id="coll-create_a_book"><a href="/w/index.php?title=Especial:Libro&amp;bookcmd=book_creator&amp;referer=Netfilter%2Fiptables" title="Crear un libro o colección de página" rel="nofollow">Crear un libro</a></li><li id="coll-download-as-rl"><a href="/w/index.php?title=Especial:Libro&amp;bookcmd=render_article&amp;arttitle=Netfilter%2Fiptables&amp;oldid=60202328&amp;writer=rl" title="Descargar una versión PDF de esta página wiki" rel="nofollow">Descargar como PDF</a></li><li id="t-print"><a href="/w/index.php?title=Netfilter/iptables&amp;printable=yes" title="Versión imprimible de esta página [p]" accesskey="p">Versión para imprimir</a></li></ul>	</div>
+</div>
+
+<!-- /coll-print_export -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Herramientas</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/wiki/Especial:LoQueEnlazaAqu%C3%AD/Netfilter/iptables" title="Lista de todas las páginas del wiki que enlazan aquí [j]" accesskey="j">Lo que enlaza aquí</a></li>
+			<li id="t-recentchangeslinked"><a href="/wiki/Especial:CambiosEnEnlazadas/Netfilter/iptables" title="Cambios recientes en las páginas que enlazan con ésta [k]" accesskey="k">Cambios en enlazadas</a></li>
+			<li id="t-upload"><a href="//commons.wikimedia.org/wiki/Special:UploadWizard?uselang=es" title="Subir imágenes o archivos multimedia [u]" accesskey="u">Subir un archivo</a></li>
+			<li id="t-specialpages"><a href="/wiki/Especial:P%C3%A1ginasEspeciales" title="Lista de todas las páginas especiales [q]" accesskey="q">Páginas especiales</a></li>
+			<li id="t-permalink"><a href="/w/index.php?title=Netfilter/iptables&amp;oldid=60202328" title="Enlace permanente a esta versión de la página">Enlace permanente</a></li>
+<li id="t-cite"><a href="/w/index.php?title=Especial:Citar&amp;page=Netfilter%2Fiptables&amp;id=60202328" title="Información de como citar esta página">Citar este artículo</a></li>		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+<div class="portal" id='p-lang'>
+	<h5>En otros idiomas</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-ar"><a href="//ar.wikipedia.org/wiki/%D9%86%D8%AA_%D9%81%D9%8A%D9%84%D8%AA%D8%B1" title="نت فيلتر" lang="ar" hreflang="ar">العربية</a></li>
+			<li class="interwiki-de"><a href="//de.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interwiki-en"><a href="//en.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="en" hreflang="en">English</a></li>
+			<li class="interwiki-fr"><a href="//fr.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interwiki-it"><a href="//it.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interwiki-lv"><a href="//lv.wikipedia.org/wiki/Netfilter/iptables" title="Netfilter/iptables" lang="lv" hreflang="lv">Latviešu</a></li>
+			<li class="interwiki-nl"><a href="//nl.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="nl" hreflang="nl">Nederlands</a></li>
+			<li class="interwiki-no"><a href="//no.wikipedia.org/wiki/Netfilter_og_iptables" title="Netfilter og iptables" lang="no" hreflang="no">Norsk (bokmål)‎</a></li>
+			<li class="interwiki-pl"><a href="//pl.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interwiki-pt"><a href="//pt.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interwiki-ru"><a href="//ru.wikipedia.org/wiki/Netfilter" title="Netfilter" lang="ru" hreflang="ru">Русский</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> Esta página fue modificada por última vez el 3 oct 2012, a las 18:22.</li>
+											<li id="footer-info-copyright">El texto está disponible bajo la <a rel="license" href="//es.wikipedia.org/wiki/Wikipedia:Texto_de_la_Licencia_Creative_Commons_Atribuci%C3%B3n-CompartirIgual_3.0_Unported">Licencia Creative Commons Atribución Compartir Igual 3.0</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+podrían ser aplicables cláusulas adicionales.
+Léanse los <a href="//wikimediafoundation.org/wiki/T%C3%A9rminos_de_Uso">términos de uso</a> para más información.<br />
+Wikipedia&reg; es una marca registrada de la <a href="//www.wikimediafoundation.org/">Fundación Wikimedia, Inc.</a>, una organización sin ánimo de lucro.<br /></li><li class="noprint"><a class="internal" href="/wiki/Wikipedia:Contacto">Contacto</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="//wikimediafoundation.org/wiki/Pol%C3%ADtica_de_privacidad" title="wikimedia:Política de privacidad">Política de privacidad</a></li>
+											<li id="footer-places-about"><a href="/wiki/Wikipedia:Acerca_de" title="Wikipedia:Acerca de">Acerca de Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Wikipedia:Limitaci%C3%B3n_general_de_responsabilidad" title="Wikipedia:Limitación general de responsabilidad">Limitación de responsabilidad</a></li>
+											<li id="footer-places-mobileview"><a href="http://es.m.wikipedia.org/w/index.php?title=Netfilter/iptables&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Versión para móviles</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="//wikimediafoundation.org/"><img src="//bits.wikimedia.org/images/wikimedia-button.png" width="88" height="31" alt="Wikimedia Foundation"/></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="//bits.wikimedia.org/static-1.21wmf1/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script src="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=skins.vector&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mobile.desktop","mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.a-commons-directo","ext.gadget.refToolbar","ext.gadget.imagenesinfobox","ext.vector.collapsibleNav","ext.vector.collapsibleTabs","ext.vector.editWarning","ext.vector.simpleSearch","ext.UserBuckets","ext.articleFeedback.startup"], null, true);
+}</script>
+<script src="//bits.wikimedia.org/es.wikipedia.org/load.php?debug=false&amp;lang=es&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served by srv288 in 0.105 secs. -->
+	</body>
+</html>

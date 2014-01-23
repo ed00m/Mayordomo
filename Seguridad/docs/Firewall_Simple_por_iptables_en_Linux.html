@@ -1,0 +1,664 @@
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es" dir="ltr">
+        <head>
+<!-- !DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head -->
+<!--  <title>GULIX - Grupo de Usuarios GNU/Linux IX regi&oacute;n</title> -->
+<title>Firewall Simple por iptables en Linux - Proyectos GULIX</title>
+  <meta name="author" content="Unknown">
+  <meta NAME="description" CONTENT="Nuestro inter&eacute;s es dar a conocer el software libre y el sistema operativo linux. Compartir experiencias y  realizar soporte informal a herramientas de software libre y otras actividades afines.">
+            
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<meta name="keywords" content="Firewall Simple por iptables en Linux,Comandos básicos en Linux,Tutoriales / Manuales by Gulix,Knxroot" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Proyectos GULIX (Español)" />
+		<link title="Creative Commons" type="application/rdf+xml" href="/w/index.php?title=Firewall_Simple_por_iptables_en_Linux&amp;action=creativecommons" rel="meta" />
+		<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+<link rel="alternate" type="application/rss+xml" title="Proyectos GULIX RSS feed" href="http://gulix.cl/w/index.php?title=Especial:Recentchanges&amp;feed=rss" />
+<link rel="alternate" type="application/atom+xml" title="Proyectos GULIX Atom feed" href="http://gulix.cl/w/index.php?title=Especial:Recentchanges&amp;feed=atom" />
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "/w/skins/common/shared.css?116";
+			@import "/w/skins/gulix/main.css?116";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="/w/skins/common/commonPrint.css?116" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "/w/skins/gulix/IE50Fixes.css?116";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "/w/skins/gulix/IE55Fixes.css?116";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "/w/skins/gulix/IE60Fixes.css?116";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "/w/skins/gulix/IE70Fixes.css?116";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="/w/skins/common/IEFixes.js?116"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "gulix";
+var stylepath = "/w/skins";
+var wgArticlePath = "/wiki/$1";
+var wgScriptPath = "/w";
+var wgScript = "/w/index.php";
+var wgServer = "http://gulix.cl";
+var wgCanonicalNamespace = "";
+var wgCanonicalSpecialPageName = false;
+var wgNamespaceNumber = 0;
+var wgPageName = "Firewall_Simple_por_iptables_en_Linux";
+var wgTitle = "Firewall Simple por iptables en Linux";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = "600";
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "es";
+var wgContentLanguage = "es";
+var wgBreakFrames = false;
+var wgCurRevisionId = "1946";
+var wgVersion = "1.12.0";
+var wgEnableAPI = true;
+var wgEnableWriteAPI = false;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="/w/skins/common/wikibits.js?116"><!-- wikibits js --></script>
+		<!-- Head Scripts -->
+		<script type="text/javascript" src="/w/skins/common/ajax.js?116"></script>
+		<script type="text/javascript" src="/w/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=gulix"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "/w/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "/w/index.php?title=MediaWiki:Gulix.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "/w/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+
+
+        <link rel="stylesheet" type="text/css" href="/css/estilo.css">
+	
+        <link rel="stylesheet" type="text/css" href="/css/estilo3.css">
+
+        <script type="text/javascript" language="JavaScript" src="/js/fun.gulix.js"></script>
+        <link type="text/css" href="/luces.css" rel="StyleSheet">
+        <script type="text/javascript" language="JavaScript" src="/luces.js"></script>
+        <script type="text/javascript" language="JavaScript" src="/js/rutinasgulix.js"></script>
+
+	</head>
+<body            class="mediawiki ns-0 ltr page-Firewall_Simple_por_iptables_en_Linux">
+
+<div id="main">
+
+<div id="header"></div>
+
+
+
+
+<div id="content-container" class="content-container">
+
+
+<div class="top-box2">
+        <div class="inner">
+
+<div style="padding-top: 10px;">
+
+
+<div class="searchbox" name="buscar" id="buscar"> 
+	<form method="get" action="http://www.gulix.cl/search.php">
+		  <input type="text" name="q" id="q" size="20" value="" style="width: 100px;"/>   
+		  <input type="hidden" value="www.gulix.cl" name="domains"/>
+		  <input type="hidden" value="www.gulix.cl" name="sitesearch"/>
+		  <input type="hidden" value="pub-8673081827788089" name="client"/>
+        	  <input type="hidden" value="1" name="forid"/>
+        	  <input type="hidden" value="2532393091" name="channel"/>
+        	  <input type="hidden" value="UTF-8" name="ie"/>
+        	  <input type="hidden" value="UTF-8" name="oe"/>
+        	  <input type="hidden" value="es" name="hl"/>
+	 </form>
+</div>
+
+
+
+<div>
+<table align="center" style="background:none;">
+<tbody><tr>
+
+<td>
+<ul style="padding-left: 0px;" class="ancho" id="tab_ancho">
+
+            				<li class="tab1">
+						<a href="/" tabindex="1" class="a_tab1"><span>Home</span></a>
+            				</li>
+            				<!-- <li class="tab11">
+						<a href="/index.php?id=5" tabindex="1" class="a_tab11"><span>actividades</span></a>
+            				</li>-->
+
+            				
+            				<li class="tab2">
+						<a href="/foro" tabindex="2" class="a_tab2"><span>Foro</span></a>
+            				</li>
+            				<li class="tab3">
+						<a href="/wiki" tabindex="3" class="a_tab3"><span>Wiki</span></a>
+            				</li>
+            				<li class="tab4">
+						<a href="/index.php?id=4" tabindex="4" class="a_tab4"><span>Chat</span></a>
+
+            				</li>
+            				<li class="tab5">
+						<a href="http://mail.gulix.cl/" tabindex="5" class="a_tab5"><span>Webmail</span></a>
+            				</li>
+					<li class="tab6">
+						<a href="http://docs.gulix.cl/" tabindex="6" class="a_tab6"><span>Documentos</span></a>
+            				</li>
+            				<li class="tab7">
+
+						<a href="/index.php?id=2" tabindex="7" class="a_tab7"><span>Links</span></a>
+            				</li>
+            				<li class="tab8">
+						<a href="/noticias/" tabindex="8" class="a_tab8"><span>Noticias</span></a>
+            				</li>
+             				<li class="tab10">
+						<a href="/fedorafaq" tabindex="10" class="a_tab10"><span>Fedora FAQ</span></a>
+
+            				</li>
+            				<li class="tab9">
+						<a href="javascript:buscar_fade()" tabindex="9" class="a_tab9"><span>Buscar</span></a>
+            				</li>
+        				</ul>
+</td>
+</tr>
+</tbody></table>
+        				
+</div>
+
+        				
+</div>
+        </div>
+    </div>
+
+
+
+<div id="ccontent" class="ccontent">
+
+	<div class="portlet" id="p-personal">
+		<h5>Herramientas personales</h5>
+		<div class="pBody">
+			<ul>
+							<li id="pt-login"><a href="/w/index.php?title=Especial:Userlogin&amp;returnto=Firewall_Simple_por_iptables_en_Linux" title="Le animamos a registrarse, aunque no es obligatorio [o]" accesskey="o">Registrarse/Entrar</a></li>
+						</ul>
+		</div>
+	</div>
+	
+
+<TABLE cellpadding="0" cellspacing="0" style="width:100%;height:100%;" id="principal">
+<tr>
+	<td>
+	
+	<!-- NAV -->
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+			<div class='portlet' id='p-navigation'>
+			<h5>Navegación</h5>
+			<div class='pBody'>
+				<ul>
+									<li id="n-mainpage"
+						>
+						<a href="/wiki/Portada"
+							 title="Visitar la Portada [z]" accesskey="z">
+						Portada						</a>
+					</li>
+									<li id="n-portal"
+						>
+						<a href="/wiki/Proyectos_GULIX:Portal_de_la_comunidad"
+							 title="Acerca del proyecto, qué puede hacer, dónde encontrar información">
+						Portal de la comunidad						</a>
+					</li>
+									<li id="n-currentevents"
+						>
+						<a href="/wiki/Proyectos_GULIX:Actualidad"
+							 title="Información de contexto sobre acontecimientos actuales">
+						Actualidad						</a>
+					</li>
+									<li id="n-recentchanges"
+						>
+						<a href="/wiki/Especial:Recentchanges"
+							 title="La lista de cambios recientes en el wiki [r]" accesskey="r">
+						Cambios recientes						</a>
+					</li>
+									<li id="n-randompage"
+						>
+						<a href="/wiki/Especial:Random"
+							 title="Cargar una página aleatoriamente [x]" accesskey="x">
+						Página aleatoria						</a>
+					</li>
+									<li id="n-help"
+						>
+						<a href="/wiki/Ayuda:Ayuda"
+							 title="El lugar para aprender">
+						Ayuda						</a>
+					</li>
+									<li id="n-sitesupport"
+						>
+						<a href="/wiki/Proyectos_GULIX:Apoyo_al_proyecto"
+							 title="Respáldenos">
+						Donaciones						</a>
+					</li>
+								</ul>
+			</div>
+		</div>
+		<!-- FIN NAV -->
+	
+	
+	<!-- SEARCH -->
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Buscar</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/Especial:Search" id="searchform">
+			<div>
+				<input id="searchInput" name="search" type="text"
+					 title="Buscar en este wiki [f]" accesskey="f"						 value="" 
+				/>
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	
+					value="Ir"
+					 title="Ir al artículo con este nombre exacto si existe" 
+				/>&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" 
+					value="Buscar"
+					 title="Search the pages for this text" 
+				/>
+			</div>
+			</form>
+		</div>
+	</div>
+	<!-- FIN SEARCH -->
+	
+	
+	
+	
+	
+	<!-- HERRAMIENTAS-->
+	<div class="portlet" id="p-tb">
+		<h5>Herramientas</h5>
+		<div class="pBody">
+			<ul>
+							<li id="t-whatlinkshere">
+					<a href="/wiki/Especial:Whatlinkshere/Firewall_Simple_por_iptables_en_Linux" title="Lista de todas las páginas del wiki que enlazan con ésta [j]" accesskey="j">
+					Lo que enlaza aquí					</a>
+				</li>
+									<li id="t-recentchangeslinked">
+						<a href="/wiki/Especial:Recentchangeslinked/Firewall_Simple_por_iptables_en_Linux" title="Cambios recientes en las páginas que enlazan con ésta [k]" accesskey="k">
+						Cambios en enlazadas						</a>
+					</li>
+								<li id="t-upload">
+					<a href="/wiki/Especial:Upload"
+					 title="Subir imágenes o archivos multimedia [u]" accesskey="u">
+					Subir archivo					</a>
+				</li>
+							<li id="t-specialpages">
+					<a href="/wiki/Especial:Specialpages"
+					 title="Lista de todas las páginas especiales [q]" accesskey="q">
+					Páginas especiales					</a>
+				</li>
+							<li id="t-print">
+					<a href="/w/index.php?title=Firewall_Simple_por_iptables_en_Linux&amp;printable=yes"
+						 title="Versión imprimible de la página [p]" accesskey="p">
+						Versión para imprimir					</a>
+				</li>
+							<li id="t-permalink">
+					<a href="/w/index.php?title=Firewall_Simple_por_iptables_en_Linux&amp;oldid=1946"
+					 title="Enlace permanente a esta versión de la página">Enlace permanente					</a>
+				</li>
+							</ul>
+		</div>
+	</div>
+	
+	<!-- FIN HERRAMIENTAS-->
+	<!-- LENGUAJE-->
+		<!-- FIN LENGUAJE-->
+
+
+
+
+	
+	</td>
+	<td>
+		  <div id="p-cactions" class="portlet"><!-- oculto -->
+			<h5>Vistas</h5>
+			<div class="pBody">
+				<ul>
+								 	<li id="ca-nstab-main"
+				 	 
+				 		class="selected"
+				 	>
+				 		<a href="/wiki/Firewall_Simple_por_iptables_en_Linux"
+				 			 title="Ver el artículo [c]" accesskey="c">
+				 		Artículo				 		</a>
+				 	</li>
+								 	<li id="ca-talk"
+				 	 
+				 		class="new"
+				 	>
+				 		<a href="/w/index.php?title=Discusi%C3%B3n:Firewall_Simple_por_iptables_en_Linux&amp;action=edit"
+				 			 title="Discusión acerca del artículo [t]" accesskey="t">
+				 		Discusión				 		</a>
+				 	</li>
+								 	<li id="ca-viewsource"
+				 	>
+				 		<a href="/w/index.php?title=Firewall_Simple_por_iptables_en_Linux&amp;action=edit"
+				 			 title="Esta página está protegida, sólo puede ver su código fuente [e]" accesskey="e">
+				 		Ver código fuente				 		</a>
+				 	</li>
+								 	<li id="ca-history"
+				 	>
+				 		<a href="/w/index.php?title=Firewall_Simple_por_iptables_en_Linux&amp;action=history"
+				 			 title="Versiones anteriores de esta página y sus autores [h]" accesskey="h">
+				 		Historial				 		</a>
+				 	</li>
+								</ul>
+			</div>
+		</div>
+		
+		<div id="content">
+			<a name="top" id="top"></a>
+						<h1 class="firstHeading">Firewall Simple por iptables en Linux</h1>
+			<div id="bodyContent">
+				<h3 id="siteSub">De Proyectos GULIX</h3>
+				<div id="contentSub"></div>
+																	<div id="jump-to-nav">Saltar a 
+						<a href="#column-one">navegación</a>, 
+						<a href="#searchInput">búsqueda</a>
+					</div>
+								<!-- start content -->
+				<table id="toc" class="toc" summary="Tabla de contenidos"><tr><td><div id="toctitle"><h2>Tabla de contenidos</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introducci.C3.B3n"><span class="tocnumber">1</span> <span class="toctext">Introducción</span></a></li>
+<li class="toclevel-1"><a href="#Existen_3_tipos_de_tablas_v.C3.A1lidas"><span class="tocnumber">2</span> <span class="toctext">Existen 3 tipos de tablas válidas</span></a></li>
+<li class="toclevel-1"><a href="#Ordenes_b.C3.A1sicas"><span class="tocnumber">3</span> <span class="toctext">Ordenes básicas</span></a></li>
+<li class="toclevel-1"><a href="#Ejemplo"><span class="tocnumber">4</span> <span class="toctext">Ejemplo</span></a></li>
+<li class="toclevel-1"><a href="#Agregando_otros_filtros"><span class="tocnumber">5</span> <span class="toctext">Agregando otros filtros</span></a></li>
+<li class="toclevel-1"><a href="#Leer_m.C3.A1s"><span class="tocnumber">6</span> <span class="toctext">Leer más</span></a></li>
+<li class="toclevel-1"><a href="#Autores_de_este_Art.C3.ADculo"><span class="tocnumber">7</span> <span class="toctext">Autores de este Artículo</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "mostrar"; var tocHideText = "ocultar"; showTocToggle(); } </script>
+<a name="Introducci.C3.B3n"></a><h2> <span class="mw-headline">Introducción </span></h2>
+<p>El siguiente pretende ser un tutorial rápido para implementar un firewall medianamente genérico en su servidor sin perder demasiado tiempo ni obtener una mayor complejidad al hacerlo.
+</p><p><br />
+</p>
+<a name="Existen_3_tipos_de_tablas_v.C3.A1lidas"></a><h2> <span class="mw-headline"> Existen 3 tipos de tablas válidas </span></h2>
+<p><b>Nat</b>&nbsp;: Conexiones modificadas por el firewall, como por ejemplo, enmascarar conexiones, realizar redirecciones de puertos, etc. 
+</p><p><b>Filter</b>: Donde se añaden las relacionadas con el filtrado. 
+</p><p><b>Mangle</b> Modifica paquetes pero, a diferencia de Nat, es mucho mas potente. Con Mangle podemos modificar cualquier aspecto del paquete (flags, TTL, etc) (útil para bloquiar webs).
+</p><p><br />
+</p>
+<a name="Ordenes_b.C3.A1sicas"></a><h2> <span class="mw-headline"> Ordenes básicas </span></h2>
+<p>iptables –F&nbsp;: limpa, flush de reglas
+iptables –L&nbsp;: listado de reglas que se estan aplicando
+iptables –A&nbsp;: append, añadir regla
+iptables –D&nbsp;: borrar una reglas
+</p><p><br />
+</p>
+<a name="Ejemplo"></a><h2> <span class="mw-headline"> Ejemplo </span></h2>
+<pre>#!/bin/bash
+# Un firewall simple genérico by Gustavo Lacoste
+iptables=/sbin/iptables
+#Borramos antiguas reglas.
+$iptables -F
+#HOSTS
+#IPWEB: la ip del servidor web.
+#IPWAN: la ip publica del servidor 
+#IPNTP: Servidor de tiempo.
+#IPWEB=200.200.45.12 (ejemplo)
+
+IPWEB="`/sbin/ifconfig eth0 | grep 'inet addr' | awk '{print $2}' | sed -e 's/.*://'`"
+IPWAN=$IPWEB
+IPNTP=ntp.shoa.cl
+
+case $1 in
+start)
+  #Politica por defecto: Denegar todo&nbsp;!
+  $iptables -P INPUT DROP
+  $iptables -P OUTPUT DROP
+  $iptables -P FORWARD DROP
+
+  #Permitimos paquetes de conexiones previamente establecidas
+  # esto optimiza el nuevo acceso a recursos desde ips con conecciones
+  # establecidas
+  $iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+  $iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+  #Habilita loopback para mysql coneccion a localhost por ejemplo
+  $iptables -A INPUT -i lo -j ACCEPT
+  $iptables -A OUTPUT -o lo -j ACCEPT
+ 
+  #Permite el acceso a ssh desde cualquier ip, sin embargo la registra
+  # los ataques via ssh son filtrados utilizando con denyhosts pero solo a nivel
+  # medio dado que se catiga con la pena de un  BLOCK_SERVICE = sshd solo al 
+  # servicio ssh y no al resto
+  #$iptables -A INPUT -p TCP --dport 22 -j LOG --log-prefix "Intento_SSH: "
+  #$iptables -A INPUT -p TCP --dport 22 -j ACCEPT
+  $iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+  $iptables -A OUTPUT -p udp --sport 22 -j ACCEPT
+ 
+  #Permitimos la entrada y salida (solicitu y respuesta)  por el puerto 80 TCP:
+  $iptables -A INPUT -p TCP --dport 80 -d $IPWEB -m state --state NEW -j ACCEPT
+  $iptables -A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT
+  #y https 
+  $iptables -A INPUT -p tcp -m tcp --sport 443 -j ACCEPT
+  $iptables -A OUTPUT -p tcp -m tcp --dport 443 -j ACCEPT  
+ 
+  #permitimos mysql
+  $iptables -A INPUT -p tcp -m tcp --sport 3306 -j ACCEPT
+  $iptables -A OUTPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+   
+  #permitimos SVN
+  $iptables -A INPUT -p tcp -m tcp --sport 3690 -j ACCEPT
+  $iptables -A OUTPUT -p tcp -m tcp --dport 3690 -j ACCEPT
+ 
+ 
+  #Permitimos al servidor la salida de correos(Utilizada en envio de
+  #recuperacion de contranas por ejemplo)
+  $iptables -A OUTPUT -d $IPWEB -p tcp --dport 25 -j ACCEPT
+ 
+  #Permitimos al servidor sincronizar su hora:
+  $iptables -A INPUT -p udp -s $IPNTP  -d $IPWEB --dport 123 -j ACCEPT
+  $iptables -A OUTPUT -p udp -s $IPWEB -d $IPNTP  --sport 123 -j ACCEPT
+ 
+ 
+  #Log de todo lo que no se permite:
+  #$iptables -A INPUT -j LOG --log-prefix "Default_Drop: "
+  #$iptables -A OUTPUT -j LOG --log-prefix "Default_Drop: "
+ 
+;;
+ 
+stop)
+ 
+  #Borramos antiguas reglas del firewall
+  $iptables -F 
+ 
+  #Ponemos la politica en ACCEPT
+  $iptables -P INPUT ACCEPT
+  $iptables -P OUTPUT ACCEPT
+ 
+ 
+;;
+
+restart)
+  /etc/init.d/Firewall.sh stop
+  /etc/init.d/Firewall.sh start
+  
+;; 
+ 
+*)
+
+  echo "Uso: /etc/init.d/Firewall.sh {start|stop|restart}"
+;;
+  
+esac
+</pre>
+<a name="Agregando_otros_filtros"></a><h2> <span class="mw-headline"> Agregando otros filtros </span></h2>
+<p>Si desea agregar un puerto de un servicio que no est{a considerado agregué las siguientes lienas en la sección start (donde estan las demás) reemplaze las mayúsculas obviamente.
+</p><p><b>    #permitimos NOMBRE_SERVICIO</b>
+</p>
+<pre>   $iptables -A INPUT -p tcp -m tcp --sport PUERTOSERVICIO -j ACCEPT
+   $iptables -A OUTPUT -p tcp -m tcp --dport PUERTOSERVICIO -j ACCEPT
+</pre>
+<p>
+</p>
+<a name="Leer_m.C3.A1s"></a><h2> <span class="mw-headline"> Leer más </span></h2>
+<ul><li> <a href="/wiki/Comandos_b%C3%A1sicos_en_Linux" title="Comandos básicos en Linux">Comandos_básicos_en_Linux</a>
+</li><li> <a href="/wiki/Tutoriales_/_Manuales_by_Gulix" class="mw-redirect" title="Tutoriales / Manuales by Gulix"> Otros tutoriales de Gulix </a>
+</li></ul>
+<a name="Autores_de_este_Art.C3.ADculo"></a><h2> <span class="mw-headline"> Autores de este Artículo </span></h2>
+<p>En este artículo han participado los siguientes usuarios de la comunidad gulix(Agregue su firma si ha realizado modificaciones que han sido aceptadas en este artículo):
+</p><p>--<a href="/w/index.php?title=Usuario:Knxroot&amp;action=edit" class="new" title="Usuario:Knxroot">Knxroot</a> 06:17 22 feb 2010 (UTC)
+(<a href="http://gruluf.org" class="external free" title="http://gruluf.org" rel="nofollow">http://gruluf.org</a>, <a href="http://lacosox.org" class="external free" title="http://lacosox.org" rel="nofollow">http://lacosox.org</a>)
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 8/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+-->
+
+<!-- Saved in parser cache with key gulix_wiki-wiki2007:pcache:idhash:600-0!1!0!!es!2!edit=0 and timestamp 20121015115217 -->
+<div class="printfooter">
+Obtenido de "<a href="http://gulix.cl/wiki/Firewall_Simple_por_iptables_en_Linux">http://gulix.cl/wiki/Firewall_Simple_por_iptables_en_Linux</a>"</div>
+				<div id="catlinks"><p class='catlinks'><a href="/wiki/Especial:Categories" title="Especial:Categories">Categoría</a>: <span dir='ltr'><a href="/wiki/Categor%C3%ADa:Tutoriales" title="Categoría:Tutoriales">Tutoriales</a></span></p></div>				<!-- end content -->
+				<div class="visualClear"></div>
+			</div>
+		</div>	
+	
+	
+	
+	
+	
+	
+	</td>
+</tr>
+</table>
+
+
+
+
+<TABLE cellpadding="0" cellspacing="0" style="width:100%;height:100%;" id="principal">
+  <TBODY>
+    
+    <TR>
+      <TD class="contenido" colspan="3" width="100%">
+      <table width="100%">
+	<TR><td width="100%">
+        <div id="box" class="mostrar">
+<!-- aqui -->
+
+	<div id="globalWrapper">
+		<div id="column-content">
+	
+		</div>
+		<div id="column-one">
+  
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/w/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+				<div id="f-copyrightico"><a href="http://www.gnu.org/copyleft/fdl.html"><img src="/w/skins/common/images/gnu-fdl.png" alt='GNU Free Documentation License 1.2' /></a></div>
+			<ul id="f-list">
+				<li id="lastmod"> Esta página fue modificada por última vez el 06:24, 22 feb 2010.</li>
+				<li id="viewcount">Esta página ha sido visitada 2.192 veces.</li>
+				<li id="copyright">El contenido está disponible bajo los términos de la <i><a href="http://www.gnu.org/copyleft/fdl.html" class="external " title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a></i></li>
+				<li id="privacy"><a href="/wiki/Proyectos_GULIX:Pol%C3%ADtica_de_protecci%C3%B3n_de_datos" title="Proyectos GULIX:Política de protección de datos">Política de protección de datos</a></li>
+				<li id="about"><a href="/wiki/Proyectos_GULIX:Acerca_de" title="Proyectos GULIX:Acerca de">Acerca de Proyectos GULIX</a></li>
+				<li id="disclaimer"><a href="/wiki/Proyectos_GULIX:Limitaci%C3%B3n_general_de_responsabilidad" title="Proyectos GULIX:Limitación general de responsabilidad">Aviso legal</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3303528-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script></div>
+<!-- Served in 0.239 secs. -->
+        </div>
+        <div id="Buscar" class="oculto">
+          <!-- SiteSearch Google -->
+          <form method="get" action="http://www.gulix.cl/search.php">
+          <table border="0" bgcolor="#ffffff" align="center">
+          <tr><td nowrap="nowrap" valign="top" align="left" height="32">
+          <br>
+          <h2>Buscar</h2>
+          <input type="hidden" name="domains" value="www.gulix.cl">
+          <label for="sbi" style="display: none">Introduzca los términos de búsqueda.</label>
+          <input type="text" name="q" size="25" maxlength="255" value="" id="sbi">
+          </td></tr>
+          <tr>
+          <td nowrap="nowrap">
+          <table>
+          <tr>
+          <td>
+          <input type="radio" name="sitesearch" value="" checked id="ss0">
+          <label for="ss0" title="Buscar en la web"><font size="-1" color="#000000">Web</font></label></td>
+          <td>
+          <input type="radio" name="sitesearch" value="www.gulix.cl" id="ss1">
+          <label for="ss1" title="Buscar www.gulix.cl"><font size="-1" color="#000000">www.gulix.cl</font></label></td>
+          </tr>
+          </table>
+          <label for="sbb" style="display: none">Envíe el formulario de búsqueda</label>
+          <input type="submit" name="sa" value="Búsqueda de Google" id="sbb">
+          <input type="hidden" name="client" value="pub-8673081827788089">
+          <input type="hidden" name="forid" value="1">
+          <input type="hidden" name="channel" value="2532393091">
+          <input type="hidden" name="ie" value="UTF-8">
+          <input type="hidden" name="oe" value="UTF-8">
+          <input type="hidden" name="cof" value="GALT:#008000;GL:1;DIV:#336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:336699;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;FORID:1">
+          <input type="hidden" name="hl" value="es">
+          </td></tr></table>
+          </form>
+          <!-- SiteSearch Google -->
+        </div>
+        </td></TR>
+        </table>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+</div>
+</div>
+ <div id="footer_gulix">
+                <ul class="footer-menu_gulix">
+                    
+                           <!-- <li><a href="">Acerca de...</a></li>
+                            <li><a href="contacto/">Contacto</a></li>
+                        <li ><a href="" style="font-size: 8pt;">Terminos de Uso</a></li>
+                    <li ><a href="" style="font-size: 8pt;">Política</a></li>
+                    -->
+                    <li class="float-right" style="font-size: 8pt;"><b>powered by GULIX</b></li>
+                    
+                </ul>
+</div>
+
+
+</div><!-- fin main -->
+
+
+
+
+
+<script type="text/javascript">
+estado_barra();
+</script>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-3303528-1";
+urchinTracker();
+</script>
+</body></html>

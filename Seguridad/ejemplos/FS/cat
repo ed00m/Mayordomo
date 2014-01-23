@@ -1,0 +1,84 @@
+#!/bin/sh -x
+set -e
+
+USER=${1:?INGRESA NOMBRE DEL USUARIO}
+
+###########
+#
+# ESTE SCRIPT BUSCA LOS ARCHIVOS CON OWNER DISTINTO AL USUARIO QUE SE INGRESO
+#
+##########
+
+USEREXEC=`whoami`
+
+if [ ${USEREXEC} != "root" ];then
+    echo "* EJECUTA ESTE SCRIPT COMO ROOT PARA OBTENER MAS RESULTADOS"
+    exit 1
+else
+    find / ! -user ${USER} -exec ls -ltrh {} \;
+fi
+exit 0
+#!/bin/sh -x
+set -e
+
+###########
+#
+# ESTE SCRIPT BUSCA ARCHIVOS VACIOS EN EL SISTEMA
+#
+##########
+
+USEREXEC=`whoami`
+
+if [ ${USEREXEC} != "root" ];then
+    echo "* EJECUTA ESTE SCRIPT COMO ROOT PARA OBTENER MAS RESULTADOS"
+    exit 1
+else
+    find / -depth -type f -empty
+fi
+exit 0
+#!/bin/sh -x
+set -e
+
+###########
+#
+# ESTE SCRIPT BUSCA DIRECTORIOS VACIOS EN EL SISTEMA
+#
+##########
+
+USEREXEC=`whoami`
+
+if [ ${USEREXEC} != "root" ];then
+    echo "* EJECUTA ESTE SCRIPT COMO ROOT PARA OBTENER MAS RESULTADOS"
+    exit 1
+else
+    find / -depth -type d -empty
+fi
+exit 0
+#!/bin/sh
+
+###########
+#
+# ESTE SCRIPT BUSCA INTERFACES DE RED ETHERNET EN EL SISTEMA Y
+# LES CAMBIA EL MAC ADDRESS
+#
+##########
+
+USEREXEC=`whoami`
+
+if [ ${USEREXEC} != "root" ];then
+    echo "* EJECUTA ESTE SCRIPT COMO ROOT PARA OBTENER MAS RESULTADOS"
+        exit 1
+else
+
+    DEV=$(ifconfig|awk '/eth/ { print $1 }')
+    
+    echo "* Buscando interfaces ethernet"
+
+    for i in ${DEV};
+    do
+        echo "* Asignando MAC ADDRESS nueva"
+        MAC="$(tr -dc a-d0-5 < /dev/urandom|head -c 2):$(tr -dc a-d0-5 < /dev/urandom|head -c 2):$(tr -dc a-d0-5 < /dev/urandom|head -c 2):$(tr -dc a-d0-5 < /dev/urandom|head -c 2):$(tr -dc a-d0-5 < /dev/urandom|head -c 2):$(tr -dc a-d0-5 < /dev/urandom|head -c 2)"
+        echo "ifconfig eth0 hw ether "${MAC}
+    done
+fi
+exit 0

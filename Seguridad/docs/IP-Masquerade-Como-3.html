@@ -1,0 +1,850 @@
+<HTML>
+<HEAD>
+<TITLE>Mini-COMO de Linux IP Masquerade, en ESPA&Ntilde;OL.: Configuraci&oacute;n de IP Masquerade.</TITLE>
+</HEAD>
+<BODY>
+<A HREF="IP-Masquerade-Como-2.html">Anterior</A>
+<A HREF="IP-Masquerade-Como-4.html">Siguiente</A>
+<A HREF="IP-Masquerade-Como.html#toc3">Indice</A>
+<HR>
+<H2><A NAME="s3">3. Configuraci&oacute;n de IP Masquerade.</A></H2>
+
+
+<P>Si su red privada contiene informaci&oacute;n vital, pi&eacute;nselo dos veces antes de
+usar IP Masquerade. Esto puede ser una PASARELA para que salga a Internet,
+y viceversa, para que alguien de otra parte del mundo entre en su red.</P>
+
+<H2><A NAME="ss3.1">3.1 C&oacute;mo compilar el n&uacute;cleo para dar soporte IP Masquerade. </A></H2>
+
+
+<P>Por favor, dir&iacute;jase a <CODE>
+<A HREF="http://ipmasq.home.ml.org/">http://ipmasq.home.ml.org/</A></CODE> para informaci&oacute;n m&aacute;s actualizada,
+es dif&iacute;cil actualizar este COMO frecuentemente. </P>
+<P>
+<UL>
+<LI>Lo primero de todo, necesita las fuentes del n&uacute;cleo (preferiblemente
+la &uacute;ltima versi&oacute;n estable, <CODE>2.0.0</CODE> o superior). 
+</LI>
+<LI>Si es la primera vez que compila el n&uacute;cleo, no se asuste. De hecho
+es bastante f&aacute;cil y est&aacute; perfectamente documentado en el <I>Kernel-Como</I>
+<CODE>
+<A HREF="http://www.insflug.org">http://www.insflug.org</A></CODE>. 
+</LI>
+<LI>Descomprima las fuentes del n&uacute;cleo en <CODE>/usr/src/</CODE> con el comando: 
+<BLOCKQUOTE><CODE>
+<PRE>
+tar xvzf linux-2.0.x.tar.gz -C /usr/src
+</PRE>
+</CODE></BLOCKQUOTE>
+
+
+donde <CODE>x</CODE> es el nivel del parche sobre el n&uacute;cleo <CODE>2.0.x</CODE> (aseg&uacute;rese
+de que hay un directorio o un enlace simb&oacute;lico llamado <CODE>linux</CODE>).
+</LI>
+<LI>Aplique los parches apropiados. Desde que est&aacute;n saliendo parches
+nuevos, los detalles no ser&aacute;n incluidos aqu&iacute;. Por favor busque en
+<CODE>
+<A HREF="http://ipmasq.home.ml.org">IP Masquerade Resources</A></CODE> para informaci&oacute;n m&aacute;s actualizada.
+</LI>
+<LI>Consulte el <I>Kernel-Como</I> y el fichero <CODE>README</CODE> de los fuentes
+del n&uacute;cleo para m&aacute;s instrucciones sobre la compilaci&oacute;n. 
+</LI>
+<LI>Aqu&iacute; est&aacute;n las opciones que necesita para compilar:
+<P>Diga  <EM>SI</EM> a lo siguiente: </P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * Prompt for development and/or incomplete code/drivers 
+    CONFIG_EXPERIMENTAL 
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>esto permite seleccionar el c&oacute;digo experimental <CODE>ip_masq</CODE> compilado en
+el n&uacute;cleo.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * Enable loadable module support 
+    CONFIG_MODULES
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>le permitir&aacute; cargar m&oacute;dulos. </P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * Networking support 
+    CONFIG_NET 
+
+  * Network firewalls 
+    CONFIG_FIREWALL 
+
+  * TCP/IP networking 
+    CONFIG_INET 
+
+  * IP: forwarding/gatewaying 
+    CONFIG_IP_FORWARD 
+
+  * IP: firewalling 
+    CONFIG_IP_FIREWALL 
+
+  * IP: masquerading (EXPERIMENTAL) 
+    CONFIG_IP_MASQUERADE
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>aunque es experimental, es *INDISPENSABLE*</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * IP: ipautofw masquerade support (EXPERIMENTAL) [SOLO nucleos 2.0.30 y superiores]
+    CONFIG_IP_MASQUERADE_IPAUTOFW
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>recomendado.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * IP: ICMP masquerading [SOLO nucleos 2.0.30 y superiores]
+    CONFIG_IP_MASQUERADE_ICMP
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>soporte para enmascarar paquetes ICMP, opcional.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * IP: always defragment
+    CONFIG_IP_ALWAYS_DEFRAG
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>altamente recomendado</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+  * Dummy net driver support
+    CONFIG_DUMMY
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>recomendado.</P>
+<P>
+<DL>
+<DT><B>NOTA:</B><DD><P>Estos son los componentes que necesita para <CODE>ip_masq</CODE>,
+seleccione cualquier otra opci&oacute;n que necesite para su configuraci&oacute;n
+espec&iacute;fica. </P>
+</DL>
+</P>
+
+</LI>
+<LI>Despu&eacute;s de compilar el n&uacute;cleo, deber&iacute;a de compilar e instalar los
+m&oacute;dulos:
+
+<BLOCKQUOTE><CODE>
+<PRE>
+make modules; make modules_install
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
+<LI>Luego debe a&ntilde;adir unas pocas l&iacute;neas al fichero
+<CODE>/etc/rc.d/rc.local</CODE> (o en el apropiado) para cargar los m&oacute;dulos
+requeridos, que residen en <CODE>/lib/modules/2.0.x/ipv4/</CODE>,
+autom&aacute;ticamente durante el arranque: 
+
+<BLOCKQUOTE><CODE>
+<PRE>
+        .
+        .
+        .
+/sbin/depmod -a
+/sbin/modprobe ip_masq_ftp
+/sbin/modprobe ip_masq_raudio
+/sbin/modprobe ip_masq_irc
+</PRE>
+</CODE></BLOCKQUOTE>
+
+
+(u otros m&oacute;dulos como <CODE>ip_masq_cuseeme</CODE>, o <CODE>ip_masq_vdolive</CODE> si ha
+aplicado parches) </LI>
+</UL>
+</P>
+<P>
+<DL>
+<DT><B>Nota:</B><DD><P>Tambi&eacute;n puede cargar los m&oacute;dulos manualmente antes
+de usar <CODE>ip_masq</CODE>, pero no use <CODE>kerneld</CODE> para esto, NO funcionar&aacute;. </P>
+</DL>
+</P>
+
+
+<H2><A NAME="ss3.2">3.2 Asignaci&oacute;n de direcciones IP en la red privada </A></H2>
+
+
+<P>Como todas las OTRAS m&aacute;quinas no tienen direcci&oacute;n oficial asignada, debe
+haber una forma correcta de adjudicar direcciones para esas m&aacute;quinas. </P>
+<P>De la FAQ IP Masquerade:  </P>
+<P>Hay un RFC (#1597) en el cual est&aacute;n las direcciones IP para ser usadas
+en una red no conectada a Internet. Hay 3 bloques de n&uacute;meros reservados
+espec&iacute;ficamente para este fin. El que yo uso es una subred de clase C 255
+desde 192.168.1.n hasta 192.168.255.n . </P>
+<P>Del RFC 1597:
+Secci&oacute;n 3: Espacio para Direcciones Privadas</P>
+<P>El <I>Internet Assigned Numbers Authority</I> (<I>IANA</I>) tiene reservado
+los siguientes 3 bloques de direcciones IP para redes privadas:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+              10.0.0.0        -   10.255.255.255
+              172.16.0.0      -   172.31.255.255
+              192.168.0.0     -   192.168.255.255
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Nos referiremos al primer bloque como "bloque de 24-bit", al segundo como
+"bloque de 20-bit", y al tercero como "bloque de 16-bit". Observe que el
+primer bloque no es m&aacute;s que un simple n&uacute;mero de red de clase A, mientras
+que el segundo bloque es un conjunto de 16 n&uacute;meros de red de clase B
+contiguos y el tercer bloque un conjunto de 255 n&uacute;meros de red de clase C
+contiguos.</P>
+<P>As&iacute;, si est&aacute; usando una red de clase C, deber&iacute;a de nombrar a sus m&aacute;quinas
+como 192.168.1.1, 1.92.168.1.2, 1.92.168.1.3, ..., 192.168.1.x</P>
+<P>192.168.1.1 es normalmente la m&aacute;quina pasarela, la cual es su servidor
+Linux conectado a Internet. Observe que 192.168.1.0 y 192.168.1.255 son
+las direcciones de RED (<I>Network</I>) y la direcci&oacute;n de EMISI&Oacute;N
+(<I>Broadcast</I>) respectivamente, las cuales est&aacute;n reservadas. Evite usar
+estas direcciones en sus m&aacute;quinas. </P>
+
+
+<H2><A NAME="ss3.3">3.3 Configuraci&oacute;n de las OTRAS m&aacute;quinas. </A></H2>
+
+
+<P>Adem&aacute;s de asignar una direcci&oacute;n IP apropiada a las m&aacute;quinas, tambi&eacute;n
+deber&iacute;a de poner la apropiada de la pasarela (<EM>gateway</EM>). En general,
+esto es coser y cantar. Simplemente introduzca la direcci&oacute;n de su servidor
+Linux (usualmente 192.168.1.1) como la direcci&oacute;n de la m&aacute;quina pasarela.</P>
+<P>Como Servidor de Nombres, puede a&ntilde;adir alg&uacute;n DNS disponible. El m&aacute;s obvio
+deber&iacute;a ser el que est&eacute; usando su m&aacute;quina Linux. Tambi&eacute;n puede a&ntilde;adir
+opcionalmente alg&uacute;n sufijo de dominio de b&uacute;squeda. </P>
+<P>Despu&eacute;s de que haya reconfigurado esas direcciones, recuerde reiniciar los
+servicios apropiados o reiniciar su sistema. </P>
+<P>Las siguientes instrucciones de configuraci&oacute;n suponen que est&aacute; usando una
+red de clase C con 192.168.1.1 como direcci&oacute;n de su servidor Linux. Por
+favor, tenga en cuenta que 192.168.1.0 y 192.168.1.255 est&aacute;n reservadas. </P>
+
+<H3><A NAME="win95"></A> Configuraci&oacute;n de Windows 95. </H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado todav&iacute;a la tarjeta de red y el
+correspondiente controlador de dispositivo (<I>driver</I>), h&aacute;galo ahora.</LI>
+<LI>Vaya a <EM>'Panel de Control'/'Red'</EM>.</LI>
+<LI>A&ntilde;ada <EM>'Protocolo'/'Microsoft'/'TCP/IP' </EM> si no lo tiene.
+</LI>
+<LI>En <EM>'Propiedades'/'TCP/IP'</EM>, vaya a <EM>'Direcci&oacute;n
+IP'</EM> y ponga la direcci&oacute;n IP 192.168.1.x, (1 &lt; x &lt; 255), y como
+m&aacute;scara de subred 255.255.255.0.</LI>
+<LI>A&ntilde;ada 192.168.1.1 como su pasarela en <EM>'Puerta de
+enlace (Gateway)'</EM>. </LI>
+<LI>En <EM>'Configuraci&oacute;n DNS'/'Orden de b&uacute;squeda del servidor
+DNS'</EM> a&ntilde;ada el DNS que usa su servidor Linux (usualmente est&aacute; en
+<CODE>/etc/resolv.conf</CODE>).  Opcionalmente, puede a&ntilde;adir el apropiado
+sufijo de b&uacute;squeda de dominio.</LI>
+<LI>Deje las otras opciones como est&aacute;n, salvo que sepa lo que est&aacute; haciendo. </LI>
+<LI>Pulse <EM>'Aceptar'</EM> en todas las cajas de di&aacute;logo y
+reinicialice el sistema.
+</LI>
+<LI>Haga un <CODE>Ping</CODE> a la m&aacute;quina Linux para comprobar la red: 
+<EM>'Inicio/Ejecutar'</EM>, teclee : <CODE>ping 192.168.1.1</CODE>.
+
+(Esto s&oacute;lo comprueba la conexi&oacute;n local, todav&iacute;a no puede hacer <CODE>ping</CODE>
+al exterior.)
+</LI>
+<LI>Opcionalmente puede crear un fichero <CODE>HOSTS</CODE> en el directorio de
+windows as&iacute; puede usar los nombres de las m&aacute;quinas de su red local.  Hay
+un ejemplo llamado <CODE>HOSTS.SAM</CODE> en el directorio
+<CODE>c:\windows</CODE>.</LI>
+</OL>
+</P>
+
+<H3>Configuraci&oacute;n de Windows para Trabajo en Grupo (3.11).</H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado la tarjeta de red y el controlador, h&aacute;galo ahora.</LI>
+<LI>Instale el paquete TCP/IP 32b si todav&iacute;a no lo tiene.
+</LI>
+<LI>En <EM>'Principal'/'Configuraci&oacute;n de Windows'/'Configuraci&oacute;n de
+la Red'</EM>, pulse en <EM>'Controladores'</EM>. 
+</LI>
+<LI>Marque <EM>'Microsoft TCP/IP-32 3.11b'</EM> en la secci&oacute;n
+<EM>'Controladores de Red'</EM>, pulse <EM>'Setup'</EM>.
+</LI>
+<LI>Ponga la direcci&oacute;n IP 192.168.1.x (1 &lt; x &lt; 255), y la m&aacute;scara
+de subred 255.255.255.0 y como Default Gateway 192.168.1.1
+</LI>
+<LI>No habilite <EM>'Automatic DHCP Configuration'</EM> y no ponga nada
+en esas &aacute;reas de entrada <EM>'WINS Server'</EM> a menos que est&eacute; bajo un
+dominio de Windows NT y sepa lo que est&aacute; haciendo. 
+</LI>
+<LI>Pulse <EM>'DNS'</EM>, a&ntilde;ada la informaci&oacute;n mencionada en el PASO 6
+de la secci&oacute;n 
+<A HREF="#win95">win95</A>, luego pulse <EM>'Aceptar'</EM> cuando est&eacute;
+listo. 
+</LI>
+<LI>Pulse <EM>'Advanced'</EM>, active <EM>'Enable DNS for Windows Name
+Resolution'</EM> y <EM>'Enable LMHOSTS lookup'</EM> si est&aacute; usando un
+fichero de b&uacute;squeda de servidores, similar al mencionado en el PASO 10 de
+la secci&oacute;n 
+<A HREF="#win95">win95</A>
+</LI>
+<LI>Pulse <EM>'OK'</EM> en todas las cuadros de di&aacute;logo y reinicialice
+el sistema. 
+</LI>
+<LI>Haga un <CODE>Ping</CODE> a la m&aacute;quina Linux para comprobar la conexi&oacute;n de
+red: <EM>'Archivo/Ejecutar'</EM>, ponga: <CODE>ping 192.168.1.1</CODE>
+
+(Con esto s&oacute;lo comprueba la conexi&oacute;n de la red local, todav&iacute;a no puede
+hacer un <CODE>ping</CODE> al resto del mundo.) </LI>
+</OL>
+</P>
+
+<H3>Configuraci&oacute;n de Windows NT.</H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado su tarjeta de red y el controlador, h&aacute;galo ahora. 
+</LI>
+<LI>Vaya a <EM>'Inicio'/'Panel de Control'/'Red'</EM>   
+</LI>
+<LI>A&ntilde;ada <EM>'Protocolo TCP/IP y Componentes Relacionados'</EM> desde
+el men&uacute; <EM>'Protocolos'</EM> mediante el bot&oacute;n <EM>'Agregar'</EM> si no
+tiene todav&iacute;a el servicio TCP/IP instalado. 
+</LI>
+<LI>En el &aacute;rea bajo <EM>'Protocolos de red'</EM>, seleccione
+<EM>'Protocolo TCP/IP'</EM>. Pinche en propiedades.
+</LI>
+<LI>En <EM>'Configuraci&oacute;n TCP/IP'</EM>, seleccione el adaptador de los
+instalados adecuado, por ejemplo: <CODE>[1]Novell NE2000 Adapter</CODE>. Luego
+ponga la Direcci&oacute;n IP 192.168.1.x (1 &lt; x &lt; 255), como M&aacute;scara de
+Subred 255.255.255.0 y como Pasarela 192.168.1.1.
+</LI>
+<LI>No use la <EM>'Configuraci&oacute;n DHCP Autom&aacute;tica'</EM> y no ponga nada
+en <EM>'WINS Server'</EM> a menos que est&eacute; bajo un domino de Windows NT y
+sepa lo que est&aacute; haciendo. 
+</LI>
+<LI>Pinche en <EM>'DNS'</EM>, y rellene con la informaci&oacute;n apropiada
+mencionada en el PASO 6 de la secci&oacute;n 
+<A HREF="#win95">win95</A>. Haga click en
+<EM>'OK'</EM> cuando est&eacute; listo.
+</LI>
+<LI>Vaya a la secci&oacute;n <EM>'Direcci&oacute;n WINS'</EM>, y active las opciones
+<EM>'Activar DNS para resoluci&oacute;n de Windows'</EM> y <EM>'Activar la
+b&uacute;squeda de LMHOSTS'</EM> si est&aacute; usando un fichero de b&uacute;squeda de
+servidores, similar al mencionado en el PASO 10 de la secci&oacute;n 
+<A HREF="#win95">win95</A>
+</LI>
+<LI>Pulse <EM>'Aceptar'</EM> en todos los cuadros de di&aacute;logo y
+reinicialice el sistema.
+</LI>
+<LI>Haga un <CODE>Ping</CODE> a la m&aacute;quina Linux para comprobar la conexi&oacute;n de red: 
+(<EM>'Inicio/Ejecutar'</EM>), ponga: <CODE>ping 192.168.1.1</CODE>.
+
+(Esto s&oacute;lo comprueba la conexi&oacute;n de la red local, todav&iacute;a no puede hacer
+un <CODE>ping</CODE> al mundo exterior.)  </LI>
+</OL>
+</P>
+
+<H3>Configuraci&oacute;n de sistemas basados en UNIX.</H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado la tarjeta de red y recompilado su n&uacute;cleo con el
+controlador adecuado, h&aacute;galo ahora.
+</LI>
+<LI>Instale la red TCP/IP, as&iacute; como el paquete de herramientas de red,
+si no lo ha hecho todav&iacute;a. 
+</LI>
+<LI>Ponga en la <EM>DIRECCI&Oacute;N IP(IPADDR)</EM> 192.168.1.x (1 &lt; x &lt; 
+255), y luego ponga 255.255.255.0 en <EM>NETMASK</EM>, <EM>GATEWAY</EM>
+192.168.1.1, y en <EM>BROADCAST</EM> 192.168.1.255.
+
+Por ejemplo, puede editar el fichero
+<CODE>/etc/sysconfig/network-scripts/ifcfg-eth0</CODE> en sistemas Red Hat
+Linux, o simplemente hacerlo mediante el Control Panel.
+
+(Es diferente en SunOS, BSDi, Linux Slackware, etc...) 
+</LI>
+<LI>A&ntilde;ada su DNS y b&uacute;squeda de sufijo de dominio en
+<CODE>/etc/resolv.conf</CODE>
+</LI>
+<LI>Puede querer actualizar su fichero <CODE>/etc/networks</CODE>
+dependiendo de sus configuraciones. 
+</LI>
+<LI>Reinicialice los servicios apropiados, o simplemente reinicialice el
+sistema. 
+</LI>
+<LI>Use un <CODE>ping</CODE> (comando: <CODE>ping 192.168.1.1</CODE>) para comprobar
+la conexi&oacute;n con la m&aacute;quina pasarela.  
+
+(Esto s&oacute;lo comprueba la conexi&oacute;n de la red local, todav&iacute;a no puede hacer
+un <CODE>ping</CODE> al mundo exterior.)  </LI>
+</OL>
+</P>
+
+<H3>Configuraci&oacute;n DOS usando el paquete NCSA Telnet. </H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado la tarjeta de red, h&aacute;galo ahora.
+</LI>
+<LI>Cargue el controlador adecuado. Para una tarjeta NE2000 , use <CODE>nwpd 0x60 10 0x300</CODE>, con su tarjeta de red en el IRQ 10 y la direcci&oacute;n hardware 
+en 0x300 (Su configuraci&oacute;n puede ser distinta).
+</LI>
+<LI>Cree un nuevo directorio, y desempaquete el NCSA Telnet: 
+
+<BLOCKQUOTE><CODE>
+<PRE>
+pkunzip tel2308b.zip
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
+<LI>Use un editor de texto para abrir el fichero <CODE>config.tel</CODE>
+</LI>
+<LI>Ponga <CODE>myip=192.168.1.x</CODE> (1 &lt; x &lt; 255), y
+<CODE>netmask=255.255.255.0</CODE>
+</LI>
+<LI>En este ejemplo, deber&iacute;a de poner <CODE>hardware=packet, interrupt=10, ioaddr=60</CODE> 
+</LI>
+<LI>Deber&iacute;a de tener al menos especificada una m&aacute;quina individual como 
+pasarela, por ejemplo, el servidor Linux :
+
+<BLOCKQUOTE><CODE>
+<PRE>
+name=default
+host=Nombre_del_servidor_Linux
+hostip=192.168.1.1
+gateway=1
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
+<LI>Tiene otra especificaci&oacute;n para el servicio de nombre de dominio: 
+
+<BLOCKQUOTE><CODE>
+<PRE>
+name=dns.dominio.com ; hostip=123.123.123.123; nameserver=1
+</PRE>
+</CODE></BLOCKQUOTE>
+
+
+Nota: sustituya la informaci&oacute;n sobre el DNS por la que use en su servidor
+Linux.
+</LI>
+<LI>Salve su fichero <CODE>config.tel</CODE> 
+</LI>
+<LI>Haga un telnet a la m&aacute;quina Linux para comprobar la conexi&oacute;n de red: 
+<CODE>telnet 192.168.1.1</CODE></LI>
+</OL>
+</P>
+
+<H3><A NAME="mactcp"></A> Configuraci&oacute;n de sistemas basados en MacOS usando MacTCP </H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado en controlador de su tarjeta ethernet, ahora
+podr&iacute;a ser un buen momento para hacerlo. 
+</LI>
+<LI>Abra el <EM>MacTCP control panel</EM>. Seleccione el controlador de red
+adecuado (Ethernet, NO EtherTalk) y pulse el bot&oacute;n <EM>'More...'</EM>. 
+</LI>
+<LI>Bajo <EM>'Obtain Address:'</EM>, pulse <EM>'Manually'</EM>.
+</LI>
+<LI>Bajo <EM>'IP Address:'</EM>, seleccione <EM>class C</EM> del men&uacute;
+desplegable. Ignore el resto de esta secci&oacute;n de la caja de di&aacute;logo. 
+</LI>
+<LI>Rellene con la informaci&oacute;n adecuada, la <EM>'Domain Name Server 
+Information:'</EM>.
+</LI>
+<LI>Bajo <EM>'Gateway Address:'</EM>, introduzca 192.168.1.1
+</LI>
+<LI>Pulse <EM>'OK'</EM> y s&aacute;lvelo. En la ventana principal en <EM>MacTCP
+control panel</EM>, introduzca la direcci&oacute;n IP de su Mac (192.168.1.x, 1 &lt;
+x &lt; 255) en la caja <EM>'IP Address:'</EM>.
+</LI>
+<LI>Cierre el <EM>MacTCP control panel</EM>.  Si aparece un cuadro de
+di&aacute;logo indicando que reinicie el sistema, h&aacute;galo. 
+</LI>
+<LI>Puede hacer un ping a la m&aacute;quina Linux para comprobar la conexi&oacute;n de
+red. Si tiene el programa freeware <EM>MacTCP Watcher</EM>, pulse en el bot&oacute;n
+<EM>' Ping'</EM>, e introduzca la direcci&oacute;n de su m&aacute;quina
+Linux(192.168.1.1) en la caja de di&aacute;logo que se despliega. (Esto solamente
+comprueba la conexi&oacute;n de la red local, y todav&iacute;a no puede hacer un ping al
+exterior.)
+</LI>
+<LI>Opcionalmente puede crear un archivo <CODE>Hosts</CODE> en su <I>System
+Folder</I> de forma que pueda usar los nombres de la m&aacute;quinas de su red
+local. Este archivo podr&iacute;a existir ya en su <I>System Folder</I>, y podr&iacute;a
+contener algunas entradas de ejemplo (comentadas) que puede modificar de
+acuerdo a sus necesidades.  </LI>
+</OL>
+</P>
+
+<H3><A NAME="opent"></A> Configuraci&oacute;n de sistemas basados en MacOS usando Open Transport. </H3>
+
+
+<P>
+<OL>
+<LI>Si no ha instalado el controlador adecuado de la tarjeta ethernet,
+ahora ser&iacute;a un buen momento para hacerlo. 
+</LI>
+<LI>Abra el <EM>TCP/IP Control Panel</EM> y elija <EM>'User Mode
+...'</EM> del men&uacute; <EM>Edit</EM>. Aseg&uacute;rese que el modo de usuario es al menos
+<EM>'Advanced '</EM> y pulse el bot&oacute;n<EM>'OK'</EM>. 
+</LI>
+<LI>Elija <EM>'Configurations...'</EM> del men&uacute; <EM>File</EM>.
+Seleccione su configuraci&oacute;n <EM>'Default'</EM> y pulse el bot&oacute;n
+<EM>'Duplicate...'</EM>. Introduzca 'IP Masq' (o algo para saber que est&aacute;
+es una configuraci&oacute;n especial) en el di&aacute;logo <EM>'Duplicate
+Configuration'</EM>, &eacute;ste probablemente contendr&aacute; algo como <EM>'Default
+copy'</EM>. Luego pulse el bot&oacute;n <EM>'OK'</EM>, y el bot&oacute;n <EM>'Make
+Active'</EM>
+</LI>
+<LI>Seleccione <EM>'Ethernet'</EM> del desplegable <EM>'Connect
+via:'</EM>. 
+</LI>
+<LI>Seleccione el elemento apropiado del desplegable
+<EM>'Configure:'</EM>. Si no sabe que opci&oacute;n elegir, probablemente deber&iacute;a
+de reselecionar su configuraci&oacute;n <EM>'Default'</EM> y salir. Yo uso
+<EM>'Manually'</EM>. 
+</LI>
+<LI>Introduzca la direcci&oacute;n IP de su Mac (192.168.1.x, 1 &lt; x &lt; 
+255) en la caja <EM>'IP Address:'</EM>.
+</LI>
+<LI>Ponga 255.255.255.0 en la caja de  <EM>'Subnet mask:'</EM> .
+</LI>
+<LI>Ponga 192.168.1.1 en la caja de <EM>'Router address:'</EM>.
+</LI>
+<LI>Introduzca la direcci&oacute;n IP de su DNS en la caja <EM>'Name server addr.:
+'</EM>.
+</LI>
+<LI>Introduzca el nombre de su dominio de Internet (por ejemplo:
+'microsoft.com')  en la caja <EM>'Starting domain name'</EM> bajo
+<EM>'Implicit Search Path:'</EM>. 
+</LI>
+<LI>Los siguientes procesos son opcionales. La introducci&oacute;n de valores
+incorrectos puede dar lugar a comportamientos err&oacute;neos. Si no est&aacute; seguro,
+lo mejor es que los deje en blanco, sin marcar o sin seleccionar.  Borre
+la informaci&oacute;n de esos campos, si es necesario. Hasta donde s&eacute;, no hay
+forma de decirle al sistema, a trav&eacute;s de los di&aacute;logos TCP/IP, que no use
+un archivo de Hosts alternativo previamente seleccionado. Si Vd sabe c&oacute;mo,
+me interesar&iacute;a.  Marque '802.3' si su red requiere tramas del tipo 802.3. 
+</LI>
+<LI>Pulse el bot&oacute;n <EM>'Options...'</EM> para estar seguro de que el
+TCP/IP est&aacute; activo. Yo uso la opci&oacute;n '<I>Load only when needed</I>'. Si usa
+y quita aplicaciones TCP/IP con frecuencia sin reiniciar su m&aacute;quina, puede
+que al deshabilitar esta &uacute;ltima opci&oacute;n prevenga/reduzca los efectos de la
+administraci&oacute;n de memoria. Con esta opci&oacute;n deshabilitada las pilas del
+protocolo TCP/IP est&aacute;n siempre cargadas y disponibles para su uso. Si est&aacute;
+habilitada, las pilas TCP/IP se cargar&aacute;n autom&aacute;ticamente cuando se
+necesiten y se descargar&aacute;n cuando no. Estos procesos de carga y descarga
+hacen que la memoria de su m&aacute;quina se fragmente. 
+</LI>
+<LI>Puede hacer un ping a su servidor Linux para comprobar la conexi&oacute;n
+de red. Si tiene el programa freeware <EM>MacTCP Watcher</EM>, pulse el
+bot&oacute;n <EM>'Ping' </EM>, e introduzca la direcci&oacute;n de su servidor Linux
+(192.168.1.1) en la caja de di&aacute;logo que aparece.  (Esto s&oacute;lo comprueba su
+conexi&oacute;n de la red local, todav&iacute;a no puede hacer un ping al mundo
+exterior.)
+</LI>
+<LI>Puede crear un fichero <CODE>Hosts</CODE> en <I>System Folder</I> y as&iacute; podr&aacute;
+usar los nombres de las m&aacute;quinas de su red local. Este fichero puede ya
+existir o no en la <I>System Folder</I>. Si es as&iacute;, deber&iacute;a de contener
+alguna entrada (como comentario) de ejemplo, la cual puede modificar
+dependiendo de sus necesidades.  Si no, puede obtener una copia del
+fichero de un sistema que use MacTCP, o crearlo Vd. mismo (sigue un
+subconjunto del formato de ficheros de Unix <CODE>/etc/hosts</CODE>, descrito
+en la p&aacute;gina 33 de RFC 1035).  Una vez haya creado el fichero, abra el
+<EM>TCP/IP control panel</EM>, pulse el bot&oacute;n <EM>'Select Hosts
+File...'</EM>, y abra el archivo <CODE>Hosts</CODE>.
+</LI>
+<LI>Pulse la caja cerrar o elija <EM>'Close'</EM> o <EM>'Quit'</EM> del
+men&uacute; <EM>File</EM>, y luego pulse el bot&oacute;n <EM>'Save'</EM> pasa salvar los
+cambios que ha hecho. 
+</LI>
+<LI>Los cambios tendr&aacute;n efecto inmediatamente, pero reinicializando el
+sistema no pierde nada. </LI>
+</OL>
+</P>
+
+<H3><A NAME="novell"></A> Configuraci&oacute;n de red Novell usando DNS. </H3>
+
+
+<P>
+<OL>
+<LI>Si no tiene instalado el controlador apropiado de su tarjeta
+ethernet, ahora ser&iacute;a un buen momento para hacerlo. 
+</LI>
+<LI>Descargue el fichero <CODE>tcpip16.exe</CODE> de <CODE>
+<A HREF="ftp://ftp.novell.com/pub/updates/unixconn/lwp5">ftp.novell.com/pub/updates/unixconn/lwp5</A></CODE>
+</LI>
+<LI>edite 
+<PRE>
+c:\nwclient\startnet.bat
+</PRE>
+: (aqu&iacute; tiene una copia
+del m&iacute;o)
+
+<BLOCKQUOTE><CODE>
+<PRE>
+SET NWLANGUAGE=ENGLISH
+LH LSL.COM
+LH KTC2000.COM
+LH IPXODI.COM
+LH tcpip
+LH VLM.EXE
+F:
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
+<LI>edite
+<PRE>
+c:\nwclient\net.cfg
+</PRE>
+: (cambie el enlace del
+controlador por el suyo; por ejemplo : NE2000) 
+
+<BLOCKQUOTE><CODE>
+<PRE>
+Link Driver KTC2000
+        Protocol IPX 0 ETHERNET_802.3    
+        Frame ETHERNET_802.3     
+        Frame Ethernet_II        
+        FRAME Ethernet_802.2
+
+NetWare DOS Requester
+           FIRST NETWORK DRIVE = F
+           USE DEFAULTS = OFF
+           VLM = CONN.VLM
+           VLM = IPXNCP.VLM
+           VLM = TRAN.VLM
+           VLM = SECURITY.VLM
+           VLM = NDS.VLM
+           VLM = BIND.VLM
+           VLM = NWP.VLM
+           VLM = FIO.VLM
+           VLM = GENERAL.VLM
+           VLM = REDIR.VLM
+           VLM = PRINT.VLM
+           VLM = NETX.VLM
+
+Link Support
+        Buffers 8 1500
+        MemPool 4096
+
+Protocol TCPIP
+        PATH SCRIPT     C:\NET\SCRIPT
+        PATH PROFILE    C:\NET\PROFILE
+        PATH LWP_CFG    C:\NET\HSTACC
+        PATH TCP_CFG    C:\NET\TCP
+        ip_address      xxx.xxx.xxx.xxx
+        ip_router       xxx.xxx.xxx.xxx
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
+<LI>finalmente, cree el 
+<PRE>
+c:\bin\resolv.cfg
+</PRE>
+:
+
+<BLOCKQUOTE><CODE>
+<PRE>
+SEARCH DNS HOSTS SEQUENTIAL
+NAMESERVER 207.103.0.2
+NAMESERVER 207.103.11.9
+</PRE>
+</CODE></BLOCKQUOTE>
+
+</LI>
+<LI>Espero que esto ayude a alguien para conseguir poner su red Novell
+en l&iacute;nea. Esto se puede hacer usando Netware 3.1x o 4.x</LI>
+</OL>
+</P>
+
+<H3>Configuraci&oacute;n de OS/2 Warp.</H3>
+
+
+<P>
+<OL>
+<LI>Si no tiene instalado el controlador de su tarjeta Ethernet, ahora
+ser&iacute;a un buen momento para hacerlo. 
+</LI>
+<LI>Instale el protocolo TCP/IP, si todav&iacute;a no lo tiene. 
+</LI>
+<LI>Dir&iacute;jase a <EM>Programms/ TCP/IP (LAN) / TCP/IP</EM> Settings.
+</LI>
+<LI>En <EM>'Network'</EM> a&ntilde;ada su direcci&oacute;n TCP/IP y ponga como m&aacute;scara
+de red (Netmask) 255.255.255.0
+</LI>
+<LI>En <EM>'Routing'</EM> presione <EM>'Add'</EM>. Ponga el
+<EM>Type</EM> en <EM>'default'</EM> y teclee la direcci&oacute;n IP de su
+servidor Linux en el campo <EM>'Router Address'</EM>. (192.168.1.1). </LI>
+<LI>Ponga la misma direcci&oacute;n DNS (Servidor de nombres) que usa su
+servidor Linux en <EM>'Hosts'</EM>.
+</LI>
+<LI>Cierre el panel de control de TCP/IP. Y responda SI a la
+siguiente(s) pregunta(s). 
+ </LI>
+<LI>Reinicialice la m&aacute;quina.
+</LI>
+<LI>Debe de hacer un ping al servidor Linux para comprobar la
+configuraci&oacute;n de red.  Teclee <CODE>'ping 192.168.1.1'</CODE> en una 'Ventana
+de comandos de OS/2'. Si los paquetes ping son recibidos es que todo
+est&aacute; bien. </LI>
+</OL>
+</P>
+
+<H3>Configuraci&oacute;n de otros sistemas.</H3>
+
+
+<P>Se deber&iacute;an de seguir los mismos pasos para otras configuraciones. Lea las
+secciones anteriores. Si est&aacute; interesado en escribir sobre alguno de estos
+sistemas, o algunas variantes de sistemas basados en UNIX, por favor mande
+las instrucciones detalladas de configuraci&oacute;n a <CODE>
+<A HREF="mailto:ambrose@writeme.com">ambrose@writeme.com</A></CODE>.</P>
+
+
+<H2><A NAME="ss3.4">3.4 Configuraci&oacute;n de la pol&iacute;tica de IP Forwarding. </A></H2>
+
+
+<P>Llegados a este punto ya deber&iacute;a de tener instalados el n&uacute;cleo y dem&aacute;s
+paquetes requeridos, as&iacute; como los m&oacute;dulos cargados. Tambi&eacute;n, la direcci&oacute;n
+IP, la pasarela, y el DNS deber&iacute;an estar configurados en todas las
+<B>OTRAS</B> m&aacute;quinas. </P>
+<P> Ahora, la &uacute;nica cosa que queda por hacer es usar
+<CODE>ipfwadm</CODE> para reenviar los paquetes apropiados a la m&aacute;quina apropiada: </P>
+<P>Esto puede ser de realizado de diferentes formas. Las siguientes
+sugerencias y ejemplos a m&iacute; me funcionan, pero usted puede tener
+diferentes ideas, por favor mire la secci&oacute;n 
+<A HREF="IP-Masquerade-Como-4.html#ipfwadm">ipfwadm</A> y las
+p&aacute;ginas <CODE>man</CODE> de <CODE>ipfwadm</CODE> para m&aacute;s detalles.</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -F -p deny 
+ipfwadm -F -a m -S yyy.yyy.yyy.yyy/x -D 0.0.0.0/0 
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>donde  <CODE>x</CODE> es uno de los siguientes n&uacute;meros dependiendo del tipo de su
+subred, e <CODE>yyy.yyy.yyy.yyy</CODE> es su direcci&oacute;n de red. </P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+mascara de red  | x  | Subred
+~~~~~~~~~~~~~~~~|~~~~|~~~~~~~~~~~~~~~
+255.0.0.0       | 8  | Clase A
+255.255.0.0     | 16 | Clase B
+255.255.255.0   | 24 | Clase C
+255.255.255.255 | 32 | Punto-a-punto
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Por ejemplo, si estuviera en una subred de clase C , tendr&iacute;a que haber
+puesto:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -F -p deny 
+ipfwadm -F -a m -S 192.168.1.0/24 -D 0.0.0.0/0 
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Al segundo comando podr&iacute;a a&ntilde;adir bien <CODE>-V 192.168.1.1</CODE> o bien
+<CODE>-W eth0</CODE> para asegurar que los paquetes enmascarados vienen a
+trav&eacute;s del interfaz del sistema apropiado. Si quiere estar seguro a
+conciencia (tambi&eacute;n conocido como paranoia justificable) entonces querr&aacute;
+hacer esto. </P>
+<P>Puesto que <CODE>bootp</CODE> solicita paquetes que vienen sin una direcci&oacute;n IP
+v&aacute;lida el cliente no sabe nada sobre ello, para gente con un servidor
+<CODE>bootp</CODE> en la m&aacute;quina masquerade/cortafuegos es necesario usar lo
+siguiente antes del comando <CODE>deny</CODE>:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -I -a accept -S 0/0 68 -D 0/0 67 -W bootp_clients_net_if_name -P udp
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Tambi&eacute;n puede hacerlo m&aacute;quina por m&aacute;quina. Por ejemplo, si quiere que la 
+192.168.1.2 y la 192.168.1.8 tengan acceso a Internet, pero no las otras 
+m&aacute;quinas, deber&iacute;a de poner:</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -F -p deny 
+ipfwadm -F -a m -S 192.168.1.2/32 -D 0.0.0.0/0 
+ipfwadm -F -a m -S 192.168.1.8/32 -D 0.0.0.0/0 
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Alternativamente, puede poner la m&aacute;scara de red en lugar del valor, 
+por ejemplo: 192.168.1.0/255.255.255.0</P>
+<P>Lo que parece ser un ERROR com&uacute;n es poner como  primer comando :</P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+ipfwadm -F -p masquerade
+</PRE>
+</CODE></BLOCKQUOTE>
+</P>
+<P><B>NO</B> haga que su pol&iacute;tica por defecto sea masquerading de esta
+forma alguien puede manipular su ruta y ser&aacute; capaz de entrar a trav&eacute;s su
+pasarela, ¡¡us&aacute;ndola para enmascarar su identidad!! </P>
+<P>De nuevo, puede a&ntilde;adir estas l&iacute;neas al fichero <CODE>/etc/rc.local</CODE>, o
+al fichero <CODE>rc</CODE> que prefiera, o h&aacute;galo manualmente cada vez que
+necesite <CODE>ip_masq</CODE>. </P>
+<P>Por favor lea la secci&oacute;n 
+<A HREF="IP-Masquerade-Como-4.html#ipfwadm">ipfwadm</A> para una gu&iacute;a detallada de
+<CODE>ipfwadm</CODE>.</P>
+
+
+<H2><A NAME="ss3.5">3.5 Comprobaci&oacute;n de IP Masquerade. </A></H2>
+
+
+<P>Despu&eacute;s de todo este duro trabajo, es la hora hacer un intento. Aseg&uacute;rese
+de que la conexi&oacute;n a Internet del servidor Linux est&aacute; bien.</P>
+<P>Puede intentar navegar por alg&uacute;n sitio web de <EM>'¡¡¡INTERNET!!!'</EM> en
+sus <B>OTRAS</B> m&aacute;quinas, y ver si lo consigue. En su primer intento le
+recomiendo usar una direcci&oacute;n IP en vez de un nombre de m&aacute;quina, porque la
+configuraci&oacute;n del DNS puede no ser correcta.</P>
+<P>Por ejemplo, puede acceder al servidor <I>Linux Documentation Project</I><BR>
+ <CODE>
+<A HREF="http://sunsite.unc.edu/mdw/linux.html">http://sunsite.unc.edu/mdw/linux.html</A></CODE> con el valor de
+<CODE>
+<A HREF="http://152.2.254.81/mdw/linux.html">http://152.2.254.81/mdw/linux.html</A></CODE>.</P>
+<P>Si ve la p&aacute;gina del LDP, ¡felicidades!, ¡funciona! Luego puede intentarlo
+con el nombre del servidor, y luego un telnet, ftp, Real Audio, True
+Speech, ... o todo aquello soportado por IP Masquerade..... </P>
+<P>Hasta ahora no he tenido problemas con las configuraciones anteriores, y
+est&aacute;n totalmente acreditadas por la gente que invierte su tiempo en hacer
+que esta maravillosa prestaci&oacute;n funcione. </P>
+
+
+<HR>
+<A HREF="IP-Masquerade-Como-2.html">Anterior</A>
+<A HREF="IP-Masquerade-Como-4.html">Siguiente</A>
+<A HREF="IP-Masquerade-Como.html#toc3">Indice</A>
+</BODY>
+</HTML>

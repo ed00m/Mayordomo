@@ -1,0 +1,340 @@
+Shorewall + ULOGD en Slackware 10.x
+
+Normalmente cuando se usan reglas de iptables para registrar lo que concuerde
+con una regla de Iptables se usa el target LOG, por ejemplo:
+-j LOG --log-prefix "Firewall: "
+todos estos mensajes son enviados a syslogd, y syslogd los registra en
+/var/log/messages.
+
+Hay un par de limitaciones al usar logs basados en syslogd:
+
+   1. Si pones, por ejemplo, kern.info en /etc/syslog.conf para redirigir los
+logs del firewall a un archivo diferente, esto tambien recibira mensajes de
+nivel 5 (notice) hasta 0 (emerg).
+
+   2. Todos los mensajes de kernel.info iran a su destino, y no solo los
+mensajes de Netfilter.
+
+Con shorewall podemos hacer uso de el "target" ULOG de iptables/netfilter,
+cuando ULOG es usado, Shorewall redireccionara los mensajes de
+Netfilter/iptables que usen el target ULOG a un proceso llamado "ulogd" y este
+escribira los registros por ejemplo en un archivo aparte, o en una base de
+datos, en este caso sera a un archivo, por ejemplo /var/log/firewall.log, tu
+puedes usar cualquier otro nombre.
+
+Bien entonces sigamos con las comprobaciones de requerimientos previos.
+
+- Comprobar que el kernel tiene el modulo para ulogd.
+
+# ls /lib/modules/`uname -r`/kernel/net/ipv4/netfilter/ipt_ULOG*
+/lib/modules/2.4.26/kernel/net/ipv4/netfilter/ipt_ULOG.o.gz
+
+- Ver que iptables fue compilado con soporte para ULOGD.
+
+# ls /usr/lib/iptables/libipt_ULOG.so
+/usr/lib/iptables/libipt_ULOG.so
+
+Si el kernel e iptables tienen soporte para ULOG entonces el siguiente paso es
+instalar el Daemon "ulogd":
+
+# wget
+http://www.tuxjm.net/downloads/packages/Slackware-10.1/ulogd/ulogd-1.21-i486-1jm
+.tgz
+
+(lo anterior va en una sola linea)
+
+# installpkg ulogd-1.21-i486-1jm.tgz
+
+Personalizar el archivo de configuracion para "ulogd", /etc/ulogd.conf
+
+# vim /etc/ulogd.conf
+
+Cambiar la linea 53
+
+de 
+
+file="/var/log/ulogd.syslogemu"
+
+a
+
+file="/var/log/firewall.log"
+
+Esto es para que en lugar de que las reglas de logueo se escriban en
+/var/log/messages (por default) se escriban en /var/log/firewall.log y asi
+esten los logs en un lugar aparte de los mensajes del kernel.
+
+En /etc/rc.d/rc.inet2 agragar las lineas:
+
+# Start the ULOGD Daemon:
+if [ -x /etc/rc.d/rc.ulogd ]; then
+  . /etc/rc.d/rc.ulogd start
+fi
+
+Agregarlo antes de las lineas:
+
+# If there is a firewall script, run it before enabling packet forwarding.
+# See the HOWTOs on http://www.netfilter.org/ for documentation on
+# setting up a firewall or NAT on Linux.  In some cases this might need to
+# be moved past the section below dealing with IP packet forwarding.
+if [ -x /etc/rc.d/rc.firewall ]; then
+  /etc/rc.d/rc.firewall start
+fi
+
+Esto es asi porque Shorewall inicia al arranque del sistema con el script
+/etc/rc.d/rc.firewall, y es aqui donde se le dice que arranque, por lo cual se
+recomienda iniciar el servicio "ulogd" antes de que inicien la carga de reglas
+del firewall de Shorewall.
+
+- Crear el archivo donde se registrarn los eventos del firewall.
+
+# touch /var/log/firewall.log
+
+El paquete que acabamos de instalar de ulogd, tiene el archivo
+/etc/logrotate.d/ulogd que contiene la linea de los archivos de log que rotara:
+
+/var/log/ulogd.log /var/log/ulogd.syslogemu /var/log/ulogd.pktlog
+/var/log/ulogd.pcap {
+
+cambiarla por:
+
+/var/log/ulogd.log /var/log/firewall.log {
+
+Si eliges cambiar el nombre donde se registraran los eventos de
+netfilter/iptables recuerda cambiar el archivo de logrotate.
+
+Ahora sera necesario cambiar todas las instancias de los niveles de log
+(usualmente "info") en tus archivos de configuracion de Shorewall a "ULOG" -
+esto incluye entradas en el archivo policy, rules y shorewall.conf.
+
+En este caso agregaremos una variable de entorno para Shorewall.
+
+- Agregar a /etc/shorewall/params
+
+LOG=ULOG
+
+- Cambiar en /etc/shorewall/policy
+
+de:
+
+net             fw              REJECT          info
+
+a:
+
+net             fw              REJECT          $LOG
+
+Esto es para loguear todo lo que no esta explicitamente permitido, desde el
+Internet (zona net) a el mismo Firewall (zona fw).
+
+Con esto veremos entradas en en log (/var/log/firewall.log) algo asi:
+
+Jun 19 05:01:18 firewall Shorewall:net2fw:REJECT: IN=eth0 OUT=
+MAC=00:48:54:53:bc:db:00:60:5c:96:1b:00:08:00  SRC=IP.OR.I.GEN 
+DST=IP.FIR.EW.ALL LEN=46 TOS=00 PREC=0x00 TTL=108 ID=49833 CE PROTO=UDP
+SPT=4259 DPT=1024 LEN=26
+
+Como podemos ver los registros tienen un prefijo, de "Shorewall:net2fw:REJECT:)
+
+Esto obvio agrega de quien es la regla (Shorewall), de donde y a donde
+(net2fw), es decir, de network (zona Internet) al firewall (zona fw). y la regla
+que le aplica a esa conexion no permitida (REJECT).
+
+- Cambiar:
+
+de:
+
+loc             net             REJECT          info
+
+a:
+
+loc             net             REJECT          $LOG
+
+Esto es para loguear todo lo que no esta explicitamente permitido, desde el
+la red local (zona loc) a Internet (zona net).
+
+Con esto veremos entradas en en log (/var/log/firewall.log) algo asi:
+
+Jun 22 12:22:28 firewall Shorewall:loc2net:REJECT: IN=eth1 OUT=eth0
+MAC=00:e0:4c:21:db:e3:00:0a:e6:e9:68:a7:08:00  SRC=10.0.0.92 DST=64.4.12.201
+LEN=28 TOS=00 PREC=0x00 TTL=127 ID=55843 CE PROTO=UDP SPT=1841 DPT=9 LEN=8
+
+Como vemos ahi, se esta registrando un acceso desde la red local (zona loc)
+a el Internet (zona net), entrando por la interfaz conectada a la red local
+(IN=eth1), y que intenta salir por la interfaz conectada a Internet (OUT=eth0),
+proveniente de el host SRC=10.0.0.92, y con destino al host DST=64.4.12.201 al
+puerto PROTO=TCP DPT=1863 (TCP/1863), osea el Messenger. :).
+
+- Cambiar:
+
+de:
+
+all             all             REJECT          info
+
+a:
+
+all             all             REJECT          $LOG
+
+Esta politica es para loguear todo lo que no quede en ninguna regla
+(/etc/shorewall/rules) y que tampoco concuerde con ninguna de las politicas
+antes definidas (/etc/shorewall/policy).
+
+Si se quieren loguear las reglas (/etc/shorewall/rules) se haria asi:
+
+ACCEPT:$LOG     loc		 net:ip.smtp.ser.ver	tcp   25
+ACCEPT:$LOG     loc:ip.conta.dor net             	tcp   443
+REJECT:$LOG     loc:ip.alm.acen  net:ip.prohibido       tcp   80
+
+Esos son unos ejemplos de reglas que se pueden hacer y al mismo tiempo que
+registre a ulogd.
+
+- Cambiar en /etc/shorewall/shorewall.conf
+
+de:
+LOGFILE=/var/log/messages
+
+a:
+LOGFILE=/var/log/firewall.log
+
+de:
+LOGNEWNOTSYN=info
+
+a:
+LOGNEWNOTSYN=$LOG
+
+de:
+MACLIST_LOG_LEVEL=info
+
+a:
+MACLIST_LOG_LEVEL=$LOG
+
+de:
+TCP_FLAGS_LOG_LEVEL=info
+
+a:
+TCP_FLAGS_LOG_LEVEL=$LOG
+
+de:
+RFC1918_LOG_LEVEL=info
+
+a:
+RFC1918_LOG_LEVEL=$LOG
+
+de:
+SMURF_LOG_LEVEL=info
+
+a:
+SMURF_LOG_LEVEL=$LOG
+
+de:
+BOGON_LOG_LEVEL=info
+
+a:
+BOGON_LOG_LEVEL=$LOG
+
+
+La linea con la variable LOGFILE=/var/log/firewall.log le dice al programa
+/sbin/shorewall donde buscar los logs, cuando procese sus comandos "show log",
+"logwatch" y "monitor".
+
+Bien, ahora que ya se comprobo que tenemos los requerimientos necesarios y que
+hemos configurado correctamente los servicios y sus parametros, entonces es
+hora de levantar esto.
+
+- Primero hay que levantar el servicio "ulogd".
+
+# /etc/rc.d/rc.ulogd start
+Starting ulogd:
+
+- Y ver que registre su inicio:
+
+# tail -f /var/log/ulogd.log
+Thu Jun 23 02:22:16 2005 <3> ulogd.c:487 ulogd Version 1.21 starting
+Thu Jun 23 02:22:16 2005 <5> ulogd.c:766 initialization finished, entering main
+loop
+
+- y comprobar que el servicio este arriba:
+
+# ps aux | grep ulogd | grep -v grep
+root      4257  0.0  0.2  1532  492 pts/2    S    02:22   0:00 ulogd
+
+Ahora hay que reiniciar Shorewall para que empiece a registrar sus eventos a
+"ulogd".
+
+# /etc/rc.d/rc.firewall restart
+
+Ver que todo haya iniciado bien:
+...
+Activating Rules...
+Processing /etc/shorewall/start ...
+Shorewall Restarted
+
+Y revisar los logs:
+
+# tail -f /var/log/firewall.log
+
+Bien esto es todo en cuanto a Shorewal y ulogd.
+
+Ahora hay que configurar "logwatch" para que nos envie reportes de nuestros logs
+en el sistema, y como ahora usamos "ulogd", entonces hay que agregar un plugin a
+logwatch para que tome los registros de /var/log/firewall.log
+
+Primero que nada hay que instalar logwatch:
+
+# wget
+http://www.tuxjm.net/downloads/packages/Slackware-10.1/logwatch/logwatch-6.0.2-n
+oarch-1jm.tgz
+
+(lo anterior en una sola linea)
+
+# installpkg logwatch-6.0.2-noarch-1jm.tgz
+
+- Tambien instalar el plugin de logwatch_ulogd
+
+# wget
+http://www.tuxjm.net/downloads/packages/Slackware-10.1/logwatch_ulogd/logwatch_u
+logd-6.0.2-noarch-1jm.tgz
+
+(lo anterior en una sola linea)
+
+# installpkg logwatch_ulogd-6.0.2-noarch-1jm.tgz
+
+# vim /etc/log.d/conf/logfiles/ulogd.conf
+
+Cambiar:
+
+de:
+LogFile = ulogd.syslogemu
+
+a:
+LogFile = firewall.log
+
+de:
+Archive = ulogd.syslogemu.*
+
+a:
+Archive = firewall.log.*
+
+de:
+Archive = ulogd.syslogemu.*.gz
+
+a:
+Archive = firewall.log.*.gz
+
+El paquete que acabamos de insalar, instala el archivo:
+/etc/cron.daily/logwatch por lo que diaro ejecutara el script de logwatch y nos
+enviara reportes por mail al usuario root. :)
+
+Referencias:
+
+Shorewall: http://shorewall.sourceforge.net
+ulogd:     http://gnumonks.org/gnumonks/projects/project_details?p_id=1
+logwatch:  http://www2.logwatch.org
+logwatch_and_ulogd:  http://slovak.ece.utexas.edu/mirrors/shorewall/contrib/ulog_and_logwatch/
+
+FIN.
+
+Autor: Jorge Armando Medina.
+email: jmedina@tuxjm.net
+Sitio Web: http://www.tuxjm.net
+
+Visita la pagina del Grupo de Usuarios Linux Tijuana en:
+http://www.linuxtj.org

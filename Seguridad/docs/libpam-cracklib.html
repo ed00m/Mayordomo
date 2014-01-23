@@ -1,0 +1,918 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<title>Debian -- Details of package libpam-cracklib in sid</title>
+<link rev="made" href="mailto:webmaster@debian.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Author" content="Debian Webmaster, webmaster@debian.org">
+<meta name="Description" content="PAM module to enable cracklib support">
+<meta name="Keywords" content="Debian,  sid, us, main, admin, 1.1.3-7.1">
+
+
+<link href="/debpkg.css" rel="stylesheet" type="text/css" media="all">
+
+<script src="/packages.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="header">
+   <div id="upperheader">
+
+   <div id="logo">
+  <!-- very Debian specific use of the logo stuff -->
+<a href="http://www.debian.org/"><img src="/Pics/openlogo-50.png" alt="Debian" with="50" height="61"></a>
+</div> <!-- end logo -->
+<p class="hidecss"><a href="#inner">skip the navigation</a></p>
+<p class="section"><a href="/">Packages</a></p>
+</div> <!-- end upperheader -->
+<!-- navbar -->
+<div id="navbar">
+<ul>
+   <li><a href="http://www.debian.org/intro/about">About Debian</a></li>
+   <li><a href="http://www.debian.org/distrib/">Getting Debian</a></li>
+   <li><a href="http://www.debian.org/support">Support</a></li>
+   <li><a href="http://www.debian.org/devel/">Developers'&nbsp;Corner</a></li>
+</ul>
+</div> <!-- end navbar -->
+
+<div id="pnavbar">
+ &nbsp;&#x2F; <a href="/" title="Debian Packages Homepage">Packages</a>
+
+ &#x2F; <a href="/sid/" title="Overview over this suite">sid (unstable)</a> 
+
+ &#x2F; <a href="/sid/admin/" title="All packages in this section">admin</a> 
+
+ &#x2F; libpam-cracklib 
+
+</div> <!-- end navbar -->
+
+</div> <!-- end header -->
+<div id="content">
+
+
+<form method="GET" action="/search">
+<div id="hpacketsearch">
+
+
+
+
+
+
+<input type="submit" value="Search">
+<select size="1" name="searchon">
+<option value="names" selected="selected">
+package names</option>
+<option value="all" >descriptions</option>
+<option value="sourcenames" >source package names</option>
+<option value="contents" >package contents</option>
+</select>
+<input type="text" size="30" name="keywords" value="" id="kw">
+<span style="font-size: 60%"><a href="/">all options</a></span>
+</div> <!-- end hpacketsearch -->
+</form>
+
+<!-- show.tmpl -->
+
+
+   <div id="pothers">       [&nbsp;    <a  href="/squeeze/libpam-cracklib">squeeze</a>  &nbsp;]
+          [&nbsp;    <a  href="/wheezy/libpam-cracklib">wheezy</a>  &nbsp;]
+          [&nbsp;   <strong>sid</strong>  &nbsp;]</div>
+
+
+<div id="psource">
+  [&nbsp;Source:    <a title="Source package building this package" href="/source/sid/pam">pam</a>  &nbsp;]
+</div>
+
+<!-- messages.tmpl -->
+
+<h1>Package: libpam-cracklib (1.1.3-7.1 and others)
+</h1>
+
+
+<div id="pmoreinfo">
+<h2>Links for libpam-cracklib</h2>
+
+<div class="screenshot">
+<a id="screenshot" href="http://screenshots.debian.net/package/libpam-cracklib"><img src="http://screenshots.debian.net/thumbnail-with-version//libpam-cracklib/1.1.3-7.1" alt="Screenshot" border="0"/></a>
+</div>
+
+<h3>Debian Resources:</h3>
+<ul>
+<li><a href="http://bugs.debian.org/libpam-cracklib">Bug Reports</a></li>
+
+<li><a href="http://packages.qa.debian.org/pam">Developer Information (PTS)</a></li>
+
+
+
+<li><a href="/changelogs/pool/main/p/pam/pam_1.1.3-7.1/changelog">Debian Changelog</a></li>
+<li><a href="/changelogs/pool/main/p/pam/pam_1.1.3-7.1/libpam-cracklib.copyright">Copyright File</a></li>
+
+
+
+
+  
+      
+      
+    
+    <li><a href="http://patch-tracker.debian.org/package/pam/1.1.3-7.1">Debian Patch Tracker</a></li>
+      
+</ul>
+
+
+  <h3>Download Source Package <a href="/source/sid/pam">pam</a>:</h3>
+  
+    <ul>
+    <li><a href="http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3-7.1.dsc">[pam_1.1.3-7.1.dsc]</a></li>
+    
+  
+    
+    <li><a href="http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3.orig.tar.gz">[pam_1.1.3.orig.tar.gz]</a></li>
+    
+  
+    
+    <li><a href="http://ftp.de.debian.org/debian/pool/main/p/pam/pam_1.1.3-7.1.diff.gz">[pam_1.1.3-7.1.diff.gz]</a></li>
+    </ul>
+  
+  
+
+
+  <h3>Maintainers:</h3><ul>	<li><a href="mailto:vorlon@debian.org">Steve Langasek</a>
+	(<a href="http://qa.debian.org/developer.php?login=vorlon%40debian.org" title="An overview over the maintainer's packages and uploads">QA&nbsp;Page</a>)
+	</li>	<li><a href="mailto:hartmans@debian.org">Sam Hartman</a>
+	(<a href="http://qa.debian.org/developer.php?login=hartmans%40debian.org" title="An overview over the maintainer's packages and uploads">QA&nbsp;Page</a>)
+	</li>	<li><a href="mailto:rleigh@debian.org">Roger Leigh</a>
+	(<a href="http://qa.debian.org/developer.php?login=rleigh%40debian.org" title="An overview over the maintainer's packages and uploads">QA&nbsp;Page</a>)
+	</li></ul>
+
+<h3>External Resources:</h3>
+<ul>
+<li><a href="http://pam.sourceforge.net/">Homepage</a> [pam.sourceforge.net]</li>
+</ul>
+
+
+
+	
+	<h3>Similar packages:</h3>
+	<ul>
+	
+	<li><a href="/libpam-smbpass">libpam-smbpass</a></li>
+	
+
+	
+	<li><a href="/libpam-passwdqc">libpam-passwdqc</a></li>
+	
+
+	
+	<li><a href="/libpam-opie">libpam-opie</a></li>
+	
+
+	
+	<li><a href="/libpam-script">libpam-script</a></li>
+	
+
+	
+	<li><a href="/libpam-pwdfile">libpam-pwdfile</a></li>
+	
+
+	
+	<li><a href="/libpam-mount">libpam-mount</a></li>
+	
+
+	
+	<li><a href="/libpam-mysql">libpam-mysql</a></li>
+	
+
+	
+	<li><a href="/libpam-ncp">libpam-ncp</a></li>
+	
+
+	
+	<li><a href="/poppassd">poppassd</a></li>
+	
+
+	
+	<li><a href="/libpam-modules">libpam-modules</a></li>
+	</ul>
+
+
+</div> <!-- end pmoreinfo -->
+
+
+
+
+<div id="ptablist">
+</div>
+
+
+<div id="pdesctab">
+
+<div id="pdesc" >
+	
+	<h2>PAM module to enable cracklib support</h2>
+	<p>
+This package includes libpam_cracklib, a PAM module that tests
+passwords to make sure they are not too weak during password change.
+	
+
+</div> <!-- end pdesc -->
+
+
+      <div id="ptags"><p>
+    <a href="http://debtags.alioth.debian.org/edit.html?pkg=libpam-cracklib">Tags</a>:
+  
+  Software Development: 
+  
+   <a href="/about/debtags#devel::library">Libraries</a>, 
+  
+  
+  
+
+  
+  
+  Role: 
+  
+   <a href="/about/debtags#role::shared-lib">Shared Library</a>, 
+  
+  
+  
+
+  
+  
+  Security: 
+  
+  security::authentication,
+ use::configuring
+  
+  
+      </p>
+    </div> <!-- end ptags -->
+
+
+
+</div> <!-- pdesctab -->
+
+
+
+
+
+      <div id="pdeps">
+    <h2>Other Packages Related to libpam-cracklib</h2>
+
+    <table id="pdeplegend" class="visual" summary="legend"><tr>
+    
+    <td><ul class="uldep"><li>depends</li></ul></td>
+    <td><ul class="ulrec"><li>recommends</li></ul></td>
+    <td><ul class="ulsug"><li>suggests</li></ul></td>
+    
+    </tr></table>
+
+  <ul class="uldep">
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/cracklib-runtime">cracklib-runtime</a>
+	
+        </dt>        <dd lang="en">runtime support for password checker library cracklib2
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc0.1">libc0.1</a>
+	 (>= 2.3)
+         [kfreebsd-amd64, kfreebsd-i386]</dt>        <dd lang="en">Embedded GNU C Library: Shared libraries	  <br>also a virtual package provided by
+	  
+	    <span id="js_libc0.1" class="p_js_elem"></span> <span id="html_libc0.1"><a href="/sid/libc0.1-udeb">libc0.1-udeb</a></span>
+	
+        
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc0.3">libc0.3</a>
+	 (>= 2.3)
+         [hurd-i386]</dt>        <dd lang="en">Embedded GNU C Library: Shared libraries	  <br>also a virtual package provided by
+	  
+	    <span id="js_libc0.3" class="p_js_elem"></span> <span id="html_libc0.3"><a href="/sid/libc0.3-udeb">libc0.3-udeb</a></span>
+	
+        
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.11)
+         [hppa, powerpcspe]</dt>        <dd lang="en">Embedded GNU C Library: Shared libraries	  <br>also a virtual package provided by
+	  
+	    <span id="js_libc6" class="p_js_elem"></span> <span id="html_libc6"><a href="/sid/libc6-udeb">libc6-udeb</a></span>
+	
+        
+        </dd>
+      
+      </dl>
+    
+  
+    
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.13)
+         [s390x, sh4]</dt>
+      </dl>
+    
+  
+    
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.13-28)
+         [armhf]</dt>
+      </dl>
+    
+  
+    
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.3)
+         [amd64, i386, m68k, mips, mipsel, powerpc, s390, sparc64]</dt>
+      </dl>
+    
+  
+    
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.4)
+         [armel]</dt>
+      </dl>
+    
+  
+    
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.5)
+         [avr32]</dt>
+      </dl>
+    
+  
+    
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6">libc6</a>
+	 (>= 2.6)
+         [sparc]</dt>
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libc6.1">libc6.1</a>
+	 (>= 2.3)
+         [alpha, ia64]</dt>        <dd lang="en">Embedded GNU C Library: Shared libraries	  <br>also a virtual package provided by
+	  
+	    <span id="js_libc6.1" class="p_js_elem"></span> <span id="html_libc6.1"><a href="/sid/libc6.1-udeb">libc6.1-udeb</a></span>
+	
+        
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libcrack2">libcrack2</a>
+	 (>= 2.8.12)
+        </dt>        <dd lang="en">pro-active password checker library
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libpam-runtime">libpam-runtime</a>
+	 (>= 1.0.1-6)
+        </dt>        <dd lang="en">Runtime support for the PAM library
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/libpam0g">libpam0g</a>
+	 (>= 1.1.1)
+        </dt>        <dd lang="en">Pluggable Authentication Modules library
+        </dd>
+      
+      </dl>
+    
+  
+    <li>
+    
+      <dl>
+      <dt><span class="nonvisual">dep:</span>
+	<a href="/sid/wamerican">wamerican</a>
+	
+        </dt>        <dd lang="en">American English dictionary words for /usr/share/dict
+        </dd>
+      
+      
+    
+      
+      <dt>or 
+	<a href="/sid/wordlist">wordlist</a>
+	
+        </dt>        <dd lang="en">	  virtual package provided by
+	  
+	    <span id="js_wordlist" class="p_js_elem"></span> <span id="html_wordlist"><a href="/sid/miscfiles">miscfiles</a>, <a href="/sid/wamerican">wamerican</a>, <a href="/sid/wamerican-huge">wamerican-huge</a>, <a href="/sid/wamerican-insane">wamerican-insane</a>, <a href="/sid/wamerican-large">wamerican-large</a>, <a href="/sid/wamerican-small">wamerican-small</a>, <a href="/sid/wbrazilian">wbrazilian</a>, <a href="/sid/wbritish">wbritish</a>, <a href="/sid/wbritish-huge">wbritish-huge</a>, <a href="/sid/wbritish-insane">wbritish-insane</a>, <a href="/sid/wbritish-large">wbritish-large</a>, <a href="/sid/wbritish-small">wbritish-small</a>, <a href="/sid/wbulgarian">wbulgarian</a>, <a href="/sid/wcanadian">wcanadian</a>, <a href="/sid/wcanadian-huge">wcanadian-huge</a>, <a href="/sid/wcanadian-insane">wcanadian-insane</a>, <a href="/sid/wcanadian-large">wcanadian-large</a>, <a href="/sid/wcanadian-small">wcanadian-small</a>, <a href="/sid/wcatalan">wcatalan</a>, <a href="/sid/wdanish">wdanish</a>, <a href="/sid/wdutch">wdutch</a>, <a href="/sid/wfaroese">wfaroese</a>, <a href="/sid/wfinnish">wfinnish</a>, <a href="/sid/wfrench">wfrench</a>, <a href="/sid/wgalician-minimos">wgalician-minimos</a>, <a href="/sid/wgerman-medical">wgerman-medical</a>, <a href="/sid/witalian">witalian</a>, <a href="/sid/wngerman">wngerman</a>, <a href="/sid/wnorwegian">wnorwegian</a>, <a href="/sid/wogerman">wogerman</a>, <a href="/sid/wpolish">wpolish</a>, <a href="/sid/wportuguese">wportuguese</a>, <a href="/sid/wspanish">wspanish</a>, <a href="/sid/wswedish">wswedish</a>, <a href="/sid/wswiss">wswiss</a>, <a href="/sid/wukrainian">wukrainian</a></span>
+	
+	<script type="text/javascript">init_toggle_elem("wordlist","show 36 providing packages", "hide 36 providing packages")</script>
+	
+        
+        </dd>
+      
+      </dl>
+    
+  
+  </ul>
+
+      </div> <!-- end pdeps -->
+
+
+
+      <div id="pdownload">
+    <h2>Download libpam-cracklib</h2>
+    
+    <table summary="The download table links to the download of the package and a file overview. In addition it gives information about the package size and the installed size.">
+    <caption class="hidecss">Download for all available architectures</caption>
+    <tr><th>Architecture</th>
+	<th>Version</th>
+	<th>Package Size</th>
+	<th>Installed Size</th>
+	<th>Files</th>
+    </tr>
+
+<tr>
+
+<th><a href="/sid/alpha/libpam-cracklib/download">alpha</a> <strong>(unofficial port)</strong></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.8&nbsp;kB</td><td class="size">142.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/alpha/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/amd64/libpam-cracklib/download">amd64</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.7&nbsp;kB</td><td class="size">138.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/amd64/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/armel/libpam-cracklib/download">armel</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.0&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/armel/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/armhf/libpam-cracklib/download">armhf</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">80.3&nbsp;kB</td><td class="size">133.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/armhf/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/avr32/libpam-cracklib/download">avr32</a> <strong>(unofficial port)</strong></th>
+
+<td class='vold'>1.1.1-3</td>
+<td class="size">76.2&nbsp;kB</td><td class="size">144.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/avr32/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/hppa/libpam-cracklib/download">hppa</a></th>
+
+<td class='vold'>1.1.2-2</td>
+<td class="size">80.1&nbsp;kB</td><td class="size">152.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/hppa/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/hurd-i386/libpam-cracklib/download">hurd-i386</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.5&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/hurd-i386/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/i386/libpam-cracklib/download">i386</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.7&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/i386/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/ia64/libpam-cracklib/download">ia64</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">83.2&nbsp;kB</td><td class="size">96.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/ia64/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/kfreebsd-amd64/libpam-cracklib/download">kfreebsd-amd64</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.4&nbsp;kB</td><td class="size">96.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/kfreebsd-amd64/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/kfreebsd-i386/libpam-cracklib/download">kfreebsd-i386</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.4&nbsp;kB</td><td class="size">95.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/kfreebsd-i386/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/m68k/libpam-cracklib/download">m68k</a> <strong>(unofficial port)</strong></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.3&nbsp;kB</td><td class="size">141.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/m68k/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/mips/libpam-cracklib/download">mips</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.1&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/mips/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/mipsel/libpam-cracklib/download">mipsel</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.4&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/mipsel/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/powerpc/libpam-cracklib/download">powerpc</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.9&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/powerpc/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/powerpcspe/libpam-cracklib/download">powerpcspe</a> <strong>(unofficial port)</strong></th>
+
+<td class='volder'>1.1.3-2</td>
+<td class="size">80.1&nbsp;kB</td><td class="size">152.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/powerpcspe/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/s390/libpam-cracklib/download">s390</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.1&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/s390/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/s390x/libpam-cracklib/download">s390x</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.3&nbsp;kB</td><td class="size">138.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/s390x/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/sh4/libpam-cracklib/download">sh4</a> <strong>(unofficial port)</strong></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.5&nbsp;kB</td><td class="size">137.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/sh4/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/sparc/libpam-cracklib/download">sparc</a></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.2&nbsp;kB</td><td class="size">141.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/sparc/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+  
+
+  
+
+<tr>
+
+<th><a href="/sid/sparc64/libpam-cracklib/download">sparc64</a> <strong>(unofficial port)</strong></th>
+
+<td class='vcurrent'>1.1.3-7.1</td>
+<td class="size">81.3&nbsp;kB</td><td class="size">143.0&nbsp;kB</td>
+<td>
+
+  [<a href="/sid/sparc64/libpam-cracklib/filelist">list of files</a>]
+
+</td>
+</tr>
+
+      </table>
+
+    </div> <!-- end pdownload -->
+
+
+
+
+
+</div> <!-- end inner -->
+
+<div id="footer">
+
+
+<hr class="hidecss">
+<!--UdmComment-->
+<div id="pageLang">
+<div id="langSelector">
+<p>This page is also available in the following languages (How to set <a href="http://www.debian.org/intro/cn">the default document language</a>):</p>
+<div id="langContainer">
+
+<a href="/bg/sid/libpam-cracklib" title="Bulgarian" hreflang="bg" lang="bg" rel="alternate">&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080; (B&#601;lgarski)</a>
+
+<a href="/da/sid/libpam-cracklib" title="Danish" hreflang="da" lang="da" rel="alternate">dansk</a>
+
+<a href="/de/sid/libpam-cracklib" title="German" hreflang="de" lang="de" rel="alternate">Deutsch</a>
+
+<a href="/fi/sid/libpam-cracklib" title="Finnish" hreflang="fi" lang="fi" rel="alternate">suomi</a>
+
+<a href="/fr/sid/libpam-cracklib" title="French" hreflang="fr" lang="fr" rel="alternate">fran&ccedil;ais</a>
+
+<a href="/hu/sid/libpam-cracklib" title="Hungarian" hreflang="hu" lang="hu" rel="alternate">magyar</a>
+
+<a href="/it/sid/libpam-cracklib" title="Italian" hreflang="it" lang="it" rel="alternate">Italiano</a>
+
+<a href="/ja/sid/libpam-cracklib" title="Japanese" hreflang="ja" lang="ja" rel="alternate">&#26085;&#26412;&#35486; (Nihongo)</a>
+
+<a href="/nl/sid/libpam-cracklib" title="Dutch" hreflang="nl" lang="nl" rel="alternate">Nederlands</a>
+
+<a href="/pl/sid/libpam-cracklib" title="Polish" hreflang="pl" lang="pl" rel="alternate">polski</a>
+
+<a href="/ru/sid/libpam-cracklib" title="Russian" hreflang="ru" lang="ru" rel="alternate">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081; (Russkij)</a>
+
+<a href="/sk/sid/libpam-cracklib" title="Slovak" hreflang="sk" lang="sk" rel="alternate">slovensky</a>
+
+<a href="/sv/sid/libpam-cracklib" title="Swedish" hreflang="sv" lang="sv" rel="alternate">svenska</a>
+
+<a href="/uk/sid/libpam-cracklib" title="Ukrainian" hreflang="uk" lang="uk" rel="alternate">&#1091;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072; (ukrajins'ka)</a>
+
+<a href="/zh-cn/sid/libpam-cracklib" title="Chinese (China)" hreflang="zh-cn" lang="zh-cn" rel="alternate">&#20013;&#25991; (Zhongwen,&#31616;)</a>
+
+<a href="/zh-tw/sid/libpam-cracklib" title="Chinese (Taiwan)" hreflang="zh-tw" lang="zh-tw" rel="alternate">&#20013;&#25991; (Zhongwen,&#32321;)</a>
+
+</div>
+</div>
+</div>
+<!--/UdmComment-->
+
+
+<hr class="hidecss">
+<div id="fineprint" class="bordertop">
+<div id="impressum">
+<p>To report a problem with the web site, e-mail <a href="mailto:debian-www@lists.debian.org">debian-www@lists.debian.org</a>. For other contact information, see the Debian <a href="http://www.debian.org/contact">contact page</a>.</p>
+
+<p>
+Content Copyright &copy; 1997 - 2012 <a href="http://www.spi-inc.org/">SPI Inc.</a>; See <a href="http://www.debian.org/license">license terms</a>. Debian is a <a href="http://www.debian.org/trademark">trademark</a> of SPI Inc.
+ <a href="/about/">Learn more about this site</a>.</p>
+
+</div> <!-- end impressum -->
+
+<div id="sponsorfooter"><p>
+This service is sponsored by <a href="http://1und1.de/">1&1 Internet AG</a>.</p></div>
+
+</div> <!-- end fineprint -->
+</div> <!-- end footer -->
+</body>
+</html>

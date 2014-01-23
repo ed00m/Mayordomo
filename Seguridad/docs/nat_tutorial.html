@@ -1,0 +1,523 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+<title>
+NAT with Linux and iptables - Tutorial (Introduction)</title>
+<link rel="stylesheet" href="main.css" type="text/css">
+<meta name="author" content="Karl Rupp">
+<link rel="shortcut icon" href="http://www.karlrupp.net/favicon.ico" type="image/x-icon" />
+<meta name="content-language" content="en">
+<meta name="keywords" content="NAT, Linux, iptables">
+</head>
+	<body>
+	<div class="container">
+	
+	<!-- Navigation and Logo on the left: -->
+   <div class="leftbar">
+	  <div class="logo">
+	     <a class="logo" href="http://www.karlrupp.net/">
+	        <img src="http://www.karlrupp.net/logo.gif" alt="Logo">
+	     </a>
+	  </div>
+     <div class="navigation">
+   		<h3>Computer</h3>
+   		<ul>
+      		<li><a href="/en/computer/siesta_gui_description">Siesta-GUI</a></li>
+   	   	<li><a href="/en/computer/logsplitter_description">Logsplitter</a></li>
+   	   	<li><a href="/en/computer/nat_tutorial">NAT Tutorial</a></li>
+   	   	<li><a href="/en/computer/how_to_fight_guestbook_spam">How to Fight Guestbook Spam</a></li>
+   		</ul>
+   		
+   		<h3>Electronics</h3>
+   		<ul>
+      		<li><a href="/en/electronics/steering_wheel_for_pc_intro">Steering wheel for PC</a></li>
+   	   	<li><a href="/en/electronics/useful_circuits">Useful Circuits</a></li>
+   	   	<li><a href="/en/electronics/usb">USB</a></li>
+   	   	<li><a href="/en/electronics/microcontroller">Microcontroller</a></li>
+   		</ul>
+   
+   		<h3>Uni</h3>
+   		<ul>
+      		<li><a href="/en/uni/matlab_introduction">Matlab Introduction</a</li>
+      		<li><a href="/en/uni/java_introduction">Java Introduction</a></li>
+      		<li><a href="/en/uni/bachelor_thesis">Bachelor Thesis</a></li>
+   		</ul>
+   
+   		<h3>Fun</h3>
+   		<ul>
+      		<li><a href="/en/fun/funny_search_strings">Funny Search Strings</a></li>
+   	   	<li><a href="/en/fun/funny_guestbook_spam">Funny Guestbook Spam</a></li>
+   		</ul>
+
+   		<h3>Links</h3>
+   		<ul>
+      		<li><a href="/en/links/fun">Fun</a></li>
+      		<li><a href="/en/links/general">General</a></li>
+   		</ul>
+   
+   		<div class="nav_bottom">
+      		<a href="content.php?topic=-1&amp;item=1&amp;lang=en">Impressum</a><br>
+      		<a href="mailto:karlirupp@hotmail.com">Contact me</a>
+   		</div>
+     </div>      
+   </div>
+   
+   <div class="rightbar">
+	   
+     <div class="banner">
+        <img src="http://www.karlrupp.net/banner.jpg" alt="Banner">
+     </div>
+     <div class="container2">
+
+   	<div class="content">
+<!-- Content here -->                <h1>NAT - Network Address Translation</h1>
+						<h2>Introduction</h2>
+						<p>Network Address Translation generally involves <i>"re-writing the source and/or destination addresses of IP packets as they pass through a router or firewall"</i> (from <a href="http://en.wikipedia.org/wiki/Network_Address_Translation">http://en.wikipedia.org/wiki/Network_Address_Translation</a>)</p>
+
+      <p>This tutorial should explain what Network Address Translation is about, what to use it for and how to configure it under Linux (or more generally Unix-derivates). This introduction does not claim to be complete or covering all details, its main purpose is to provide the reader a feeling for what is possible and meaningful in modern computer networks and what is not.</p>
+
+      <p>First of all the structure of an IP-packet will be considered. After a short overview of the possibilities of the (Linux-)kernel I will jump right into the main area of application of NAT, namely the connection of a private subnet to the internet using a router (in our case a linux machine with iptables). After that I would like to present some further possibilities like redirection or how to circumvent restrictive proxies. However, I do not claim my presented solutions to be the most intelligent, most powerful or the most ingenious ones, they shall rather be understood as a proof of concept.</p>
+      
+						<h2>Packets within a network</h2>
+						<p>Before we start to manipulate packets we have to take at look at their main attributes. I will restrict my considerations to IP-packets using TCP/UDP for the transport layer since these are the most common ones.</p>
+						
+						<p>A detailled description of the structure of IP-packets can be found at various locations, e.g. <a href="http://en.wikipedia.org/wiki/IPv4">IPv4 at Wikipedia</a>. Our main focus will be on the two fields <b>Source Address</b> and <b>Destination Address</b> because they are containing - nomen est omen - the IP addresses of the source and the destination respectively.</p>
+						
+						<p>Once an IP packet is received the receiver has to assign the data to a process, which is the role of the transport layer, in our case TCP and UDP. Once again further details can be found at various locations, e.g. <a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP at Wikipedia</a> and <a href="http://en.wikipedia.org/wiki/User_Datagram_Protocol">UDP at Wikipedia</a> and the linked resources there. For our purposes it is sufficient to know that each (networking) processes uses its own port number(s). For example a http-Server uses port number 80, SSH uses port 22 and so on. The combination of IP-address and port number is called socket and is unique. Therefore connections are uniquely defined by their endpoints (=sockets), a connection sends data from the clients socket to the server socket and vice versa, for example from the socket with IP 123.123.123.123, port 65432 to the socket with IP 112.112.112.112, Port 80 as it may occur for a browser on 123.123.123.123 that connects to a http-server on 112.112.112.112. Server processes are usually using standardised ports, so called 'well known ports', c.f. <a href="http://www.iana.org/assignments/port-numbers">well known ports at IANA</a> or <a href="http://en.wikipedia.org/wiki/Well_known_ports">well known ports at Wikipedia</a>. A client usually uses a port from the upper port range (larger than 1023).</p>
+
+						<h2>Linux and Netfilter</h2>
+      <p>The Linux kernel usually posesses a packet filter framework called <b>netfilter</b> (Project home: <a href="http://www.netfilter.org/">netfilter.org</a>). This framework enables a Linux machine with an appropriate number of network cards (interfaces) to become a router capable of NAT. We will use the command utility 'iptables' to create complex rules for modification and filtering of packets. The important rules regarding NAT are - not very surprising - found in the 'nat'-table. This table has three predefinded chains: <b>PREROUTING</b>, <b>OUTPUT</b> und <b>POSTROUTING</b>.</p>
+
+						<p class="centered"><img src="computer/graphics/nat-chains.gif" alt="Sequence of NAT-chains"></p>
+
+						<p>The chains <b>PREROUTING</b> und <b>POSTROUTING</b> are the most important ones. As the name implies, the PREROUTING chain is responsible for packets that just arrived at the network interface. So far no routing decision has taken place, therefore it is not yet known whether the packet would be interpreted locally or whether it would be forwarded to another machine located at another network interface. After the packet has passed the PREROUTING chain the routing decision is made. In case that the local machine is the recipient, the packet will be directed to the corresponding process and we do not have to worry about NAT anymore. In case that the recipient is located in a (sub-)net located at a different network interface, the packet will be forwarded to that interface, provided that the machine is configured to do so. Just before are forwarded packet leaves the machine it passes the POSTROUTING chain and then leaves through the network interface. For locally generated packets there is a small difference: Instead of passing the PREROUTING chain it passes the OUTPUT chain and then moves on to the POSTROUTING chain.</p>
+						
+						
+						<p>Before we start with our packet manipulations we have to enable the required features. To get all the needed functionality the commands (without '$&gt;' at the beginning, lines starting with '#' are comments)</p>
+						
+						<div class="code">
+<pre>
+   # <code class="comment">IMPORTANT: Activate IP-forwarding in the kernel!</code>
+
+   # <code class="comment">Disabled by default!</code>
+   $> <code class="bash">echo "1" > /proc/sys/net/ipv4/ip_forward</code>
+   
+   # <code class="comment">Load various modules. Usually they are already loaded </code>
+   # <code class="comment">(especially for newer kernels), in that case </code>
+   # <code class="comment">the following commands are not needed.</code>
+    
+   # <code class="comment">Load iptables module:</code>
+   $> <code class="bash">modprobe ip_tables</code>
+   
+   # <code class="comment">activate connection tracking</code>
+   # <code class="comment">(connection's status are taken into account)</code>
+   $> <code class="bash">modprobe ip_conntrack</code>
+
+   # <code class="comment">Special features for IRC:</code>
+   $> <code class="bash">modprobe ip_conntrack_irc</code>
+
+   # <code class="comment">Special features for FTP:</code>
+   $> <code class="bash">modprobe ip_conntrack_ftp</code>
+
+</pre>
+						</div>
+      <p>should be sufficient. In case of error messages it is likely that you do not have the routing features compiled into your kernel and should for example have a look at <a href="http://www.comptechdoc.org/os/linux/usersguide/linux_ugipmasq.html">http://www.comptechdoc.org/os/linux/usersguide/linux_ugipmasq.html</a>.</p>
+      
+						<h2>Example: Connect a private subnet to the internet using NAT</h2>
+						<p>On the one hand we know how IP packets look like, on the other hand we are ready to manipulate packets under Linux (and other Unix derivates). Therefore we are ready for our first application! The most popular question regarding NAT seems to be the one about sharing an internet connection for computers within a private subnet. For this reason I want to start with this particular scenario.</p>
+						
+						<h4>An analogon: Several subtenants without own postal addresses</h4>
+
+         <p>First we should consider the following accurate analogon which is hopefully much easier to understand: Let us assume the following situation: there is a landlord with several subtenants. The postman has no idea about the subtenants und would reject every letter that is directly addressed to one of the subtenants. The landlord has several pigeon holes that can be used for addressing. The subtenants have the possibility to place their letters in a postbox at the landlord's office who will then bring the letters to the post office. The question now is: How can all the subtenants fully participate at any kind of mail correspondence (i.e. send and receive letters)?</p>
+
+         <p>One solution for this given problem is the following: The landlord takes the letters sent by the subtenants, assigns each subtenant a pigeon hole and then replaces the subtenants address (which is in some sense invalid since the postman would reject any answers) by the landlord's own address including the pigeon hole number. The receipient of such a letter will then send the reply back to the landlord including the pigeon hole number and then the landlord could easily hand over (after he has replaced his address by the subtenant's address so that the subtenant does not recognise this 'cheat') the letter to the matched subtenant. This solution is optimal in the sense that it is fully transparent for the subtenants, none of them would ever notice the postman not being capable of sending letters directly to the subtenants!</p>
+						
+						<h4>From the subtenant problem to the computer world</h4>
+			<p>NAT just works similar to the subtenant problem mentioned above. Every subtenant family represents an IP address in the local net, every subtenant family member represents a port number, the landlords represents a router and the recipient acts as an arbitrary computer in the internet. Consequently a socket can be seen as a combination of address and pigeon hole or subtenant family und a member of that family. Let us recapitulate: The process of communication is as follows:</p>
+
+						<ul>
+						<li>The subtenants have to put their letters into the postbox at the landlord's office</li>
+
+						<li>The landlord replaces the sender's address by his own including the pigeon hole number</li>
+						<li>Once he gets a reply the landlord has to replace his address (including the pigeon hole number) with the corresponding subtenant's address.</li>
+						</ul>
+						
+						<p>Actually the situation in the local net is nearly the same:</p>
+						
+						<ul>
+						<li>All computers within the local net ('clients') send their packets with the receipient's socket to the router (this is actually realised by setting the router as standard gateway at the client, the delivery is then handled using Ethernet or any other lower level protocol).</li>
+						<li>The router replaces the sender's socket by an own, unused socket.</li>
+
+						<li>Replies to this specific socket will be forwarded to the appropriate computer in the local net, replacing the receipients address (the router's socket) by the clients socket.</li>
+						</ul>
+						
+						<p>We will presume that the standard gateway is set properly at each client. All that is left is to configure the router. Fortunately the netfilter framework automatically adds to each rule its inverse rule, therefore we only have to set one explicit rule. Usually the decision for one of these two rules is made by taking the one with the lower level of undetermination. For example, the rule 'Replace the sender's address for all packets from the local subnet' is much easier than 'if a client has sent something to a server, then replace the receipient in the server's response by something'. As a rule of thumb can be used that the rule that is executed first is the one that is set explicitly in the kernel.</p>
+						
+						<h4>How to set rules</h4>
+						<p>All we want to have is the following: packets arriving from the local net with a receipient's IP address somewhere in the internet have to be modified such that the sender's address is equal to the router's address. For further command examples let us assume that the first interface 'eth0' is connected to the local net and that the router is connected to the internet via the second interface 'eth1'. The command for a shared internet connection then simply is:</p>
+						
+						<div class="code">
+<pre>
+   # <code class="comment">Connect a LAN to the internet</code>
+   $> <code class="bash">iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE</code>
+</pre>
+						</div>
+						
+						<p>This command can be explained in the following way:</p>
+					   <table class="explanation">
+                     <tr>
+                     	<td><i>iptables:</i></td>
+                     	<td>&nbsp;</td>
+                     	<td>the command line utility for configuring the kernel</td>
+                     </tr>
+                     <tr>
+                     	<td><i>-t nat</i></td>
+                     	<td>&nbsp;</td>
+                     	<td>select table "nat" for configuration of NAT rules.</td>
+                     </tr>
+                     <tr>
+                     	<td><i>-A POSTROUTING</i></td>
+                     	<td>&nbsp;</td>
+                     	<td>Append a rule to the POSTROUTING chain (-A stands for "append").</td>
+                     </tr>
+
+                     <tr>
+                     	<td><i>-o eth1</i></td>
+                     	<td>&nbsp;</td>
+                     	<td>this rule is valid for packets that leave on the second network interface (-o stands for "output")</td>
+                     </tr>
+                     <tr>
+                        <td><i>-j MASQUERADE</i></td>
+
+                     	<td>&nbsp;</td>
+                        <td>the action that should take place is to 'masquerade' packets, i.e. replacing the sender's address by the router's address.</td>
+                     </tr>
+                  </table>
+
+      <p>Some further comments on the above command instruction: packets generated by the router itself are masked as well because they pass the POSTROUTING chain too! (see illustration further above) However, since the kernel tries to keep the source ports unchanged and processes running on the router acquire free ports only, locally generated packets usually remain unchanged, although the rule is executed. The output interface can be of any type, ISDN or DSL interfaces are also possible (often 'ppp0' or 'ippp0'). A quick overview of all available network interfaces gives</p>
+						<div class="code">
+<pre>
+   # <code class="comment">Display available network interfaces</code>
+   $> <code class="bash">ifconfig</code>
+</pre>
+                  </div>
+                  
+                  <h4>Disadvantages of using NAT</h4>
+                  <p>Local computers can access the internet, but there are still some restrictions left. A computer located in the internet is not able to establish a connection to a local computer, all he can do is address (a port of) the router and hope the best. Usually the addressed port is currently not used and hence the packet will be rejected. Even if the port is currently used by a local machine the packet might be forwarded but will then usually be rejected since the computer is already communicating with a different computer. Establishing connections from the internet to one of the local computers is therefore nearly impossible. For regular services it is possible to statically map ports on the router to sockets in the local net, for example one can configure the router to forward packets arriving at port 80 to a HTTP-server located in the local net. Very often this is needed for playing online games, especially if you want to host games.</p>
+                  
+           			<h2>A closer look at iptables</h2>
+           			<p>Now that we have mastered our first challenge it is time to have a closer look (or two) at the possibilites of <i>iptables</i>. An iptables-call has the following pattern:</p>
+						<div class="code">
+
+<pre>
+    # <code class="comment">Abstract structure of an iptables instruction:</code>
+    <code class="bash">iptables [-t <i>table</i>] <i>command</i> [<i>match pattern</i>] [<i>action</i>]</code>
+
+</pre>
+                  </div>
+                  <p>For NAT we always have to choose the <i>nat</i>-table. A command might need further options, for example a pattern and an action to perform in case the pattern matches.</p>
+						
+						<h4>Choosing a table</h4>
+						<p>All our commands regarding NAT will start like this:</p>
+						<div class="code">
+<pre>
+
+    # <code class="comment">Choosing the nat-table</code>
+    # <code class="comment">(further arguments abbreviated by [...])</code>
+    <code class="bash">iptables -t nat [...]</code>
+</pre>
+                  </div>
+                  <p>This selects the <i>nat</i>-table. There are two other tables, namely <i>mangle</i> und <i>filter</i>, but those are not used for NAT and therefore I mention them for completeness only. Since the default table is <i>filter</i> we have to select the <i>nat</i> table every time again.</p>
+                  
+                  <h4>Commands</h4>
+         <p>The most important commands are the following: (further patterns and actions again abbreviated with [...])</p>
+												<div class="code">
+<pre>
+    # <code class="comment">In the following "chain" represents</code>
+    # <code class="comment">one of the chains PREROUTING, OUTPUT and POSTROUTING</code>
+    
+    # <code class="comment">add a rule:</code>
+    $> <code class="bash">iptables -t nat -A <i>chain</i> [...]</code>
+
+    # <code class="comment">list rules:</code>
+    $> <code class="bash">iptables -t nat -L</code>
+
+    # <code class="comment">remove user-defined chain with index 'myindex':</code>
+    $> <code class="bash">iptables -t nat -D <i>chain</i> <i>myindex</i></code>
+
+    # <code class="comment">Remove all rules in chain 'chain':</code>
+
+    $> <code class="bash">iptables -t nat -F <i>chain</i></code>
+</pre>
+                  </div>
+                  
+                  <p>For a full listing of all possible commands I recommend the manual pages of iptables. To view them, simply type</p>
+												<div class="code">
+<pre>
+    # <code class="comment">manual pages of iptables</code>
+    $> <code class="bash">man iptables</code>
+</pre>
+                  </div>
+                  <p>and quit by typing 'q'.</p>
+                  
+                  <h4>Choosing match patterns</h4>
+        <p>To manipulate specific packets we have to use appropriate match patterns, therefore there a numerous options to specify them. I will present the most popular ones to clarify their usage. All available match patterns can be found in the manual pages of <i>iptables</i>.</p>
+                  
+						<div class="code">
+
+<pre>
+    # <code class="comment">actions to be taken on matched packets</code>
+    # <code class="comment">will be abbreviated by '<i>[...]</i>'.</code>
+    # <code class="comment">Depending on the match pattern the appropriate chain is selected.</code>
+
+    # <code class="comment">TCP packets from 192.168.1.2:</code>
+    $> <code class="bash">iptables -t nat -A POSTROUTING -p tcp -s 192.168.1.2 <i>[...]</i></code>
+
+    # <code class="comment">UDP packets to 192.168.1.2:</code>
+    $> <code class="bash">iptables -t nat -A POSTROUTING -p udp -d 192.168.1.2 <i>[...]</i></code>
+
+    # <code class="comment">all packets from 192.168.x.x arriving at eth0:</code>
+    $> <code class="bash">iptables -t nat -A PREROUTING -s 192.168.0.0/16 -i eth0 <i>[...]</i></code>
+
+    # <code class="comment">all packets except TCP packets and except packets from 192.168.1.2:</code>
+    $> <code class="bash">iptables -t nat -A PREROUTING -p ! tcp -s ! 192.168.1.2 <i>[...]</i></code>
+    
+    # <code class="comment">packets leaving at eth1:</code>
+    $> <code class="bash">iptables -t nat -A POSTROUTING -o eth1 <i>[...]</i></code>
+
+    # <code class="comment">TCP packets from 192.168.1.2, port 12345 to 12356</code>
+    # <code class="comment">to 123.123.123.123, Port 22</code>
+    # <code class="comment">(a backslash indicates contination at the next line)</code>
+    $> <code class="bash">iptables -t nat -A POSTROUTING -p tcp -s 192.168.1.2 \</code>
+       <code class="bash">--sport 12345:12356 -d 123.123.123.123 --dport 22 <i>[...]</i></code>
+</pre>
+                  </div>
+                  <p>For most of the switches there exists a long form, e.g. <i>--source</i> instead of <i>-s</i>. Using them makes the whole instruction longer but more readable, especially if you are new to iptables.</p>
+                  
+                  <h4>Actions for matched packets</h4>
+                  <p>We are already able to select desired packets, all that is left is an appropriate action. For the nat-table only the actions <i>SNAT</i>, <i>MASQUERADE</i>, <i>DNAT</i> and <i>REDIRECT</i>, all of them with preceeding '<i>-j</i>', are meaningful. Their exact meaning will be explained in the subsequent section.</p>
+                  
+		<div class="code">
+<pre>
+    # <code class="comment">In the following the table selection, the command and the match pattern</code>
+    # <code class="comment">will be abbreviated using [...]</code>
+
+    # <code class="comment">Source-NAT: Change sender to 123.123.123.123</code>
+    $> <code class="bash">iptables [...] -j SNAT --to-source 123.123.123.123</code>
+
+    # <code class="comment">Mask: Change sender to outgoing network interface</code>
+    $> <code class="bash">iptables [...] -j MASQUERADE</code>
+
+    # <code class="comment">Destination-NAT: Change receipient to 123.123.123.123, port 22</code>
+    $> <code class="bash">iptables [...] -j DNAT --to-destination 123.123.123.123:22</code>
+
+    # <code class="comment">Redirect to local port 8080</code>
+    $> <code class="bash">iptables [...] -j REDIRECT --to-ports 8080</code>
+</pre>
+                  </div>
+						
+						<h2>Explaination of possible actions</h2>
+						<p>Now most of the options of iptables are explained and it is time to have a closer look at the four possible actions:</p>
+
+                  <h4>Source-NAT (SNAT) - Change sender statically</h4>
+                  <p>In our previous example of connecting a local net to the internet we already used Source NAT (short: SNAT). As the name implies the sender's address is changed statically. The reason for choosing MASQUERADE in the previous example anyway has the following reason: For SNAT one has to specify the new source-IP explicitly. For routers with a static IP address SNAT is the best choice because it is faster than MASQUERADE which has to check the current IP address of the outgoing network interface at every packet. Since SNAT is only meaningful for packets leaving the router it is used within the POSTROUTING chain only.</p>
+      <div class="code">
+<pre>
+    # <code class="comment">Options for SNAT (abstract of manual page)</code>
+    <code class="bash">--to-source &lt;ipaddr&gt;[-&lt;ipaddr&gt;][:port-port] </code>
+
+</pre>
+                  </div>
+
+                  <h4>MASQUERADE - Change sender to router's IP-Adress</h4>
+                  <p>Using the MASQUERADE target every packet receives the IP of the router's outgoing interface. The advantage over SNAT is that dynamically assigned IP addresses from the provider do not affect the rule, there is no need to adopt the rule. For ordinary SNAT you would have to change the rule every time the IP of the outgoing interface changes. As for SNAT, MASQUERADE is meaningful within the POSTROUTING-chain only. Unlike SNAT, MASQUERADE does not offer further options.</p>
+                  
+                  <h4>Destination-NAT (DNAT) - Changing the receipient</h4>
+                  <p>If you want to change the receipient of a packet, Destination NAT (DNAT) is your choice! DNAT can be used for servers running behind a firewall. Obviously the receipient has to be changed before any routing decisions are made, therefore DNAT is meaningful within the PREROUTING chain and the OUTPUT chain (for locally generated packets) only.</p>
+
+			<div class="code">
+<pre>
+    # <code class="comment">Options for DNAT (abstract of manual page)</code>
+    <code class="bash">--to-destination &lt;ipaddr&gt;[-&lt;ipaddr&gt;][:port-port] </code>
+</pre>
+                  </div>
+                  
+                  <h4>REDIRECT - Redirect packets to local machine</h4>
+      <p>A special case of DNAT is REDIRECT. Packets are redirected to a local port of the router, enabling for example transparent proxying. As for DNAT, REDIRECT acts within the PREROUTING and the OUTPUT chain respectively.</p>
+
+		<div class="code">
+<pre>
+    # <code class="comment">Options for REDIRECT (abstract of manual page)</code>
+    <code class="bash">--to-ports &lt;port&gt;[-&lt;port&gt;] </code>
+
+</pre>
+                  </div>
+
+                  
+                  <h2>Applications</h2>
+                  <p>Probably you have been confused by the cryptic instructions used in the first example (connecting a local net to the internet). Now, after some explanations, the instructions are hopefully a little bit clearer than before. The question might have changed from 'How can someone construct such cryptic instructions' to 'Okay, and what can I do with all these cryptic instructions?'. This section tries to give you some ideas on how to use NAT. The range of applications is moreless unlimited, however I will try to cover the most spread use cases.</p>
+                  
+                  <h4>Transparent Proxying</h4>
+      <p>Let us assume that we have a local net connected to the internet using NAT. To keep the traffic low we would like to run a HTTP-proxy on port 8080 of the local network interface handling all of the http-traffic.</p>
+                  
+      <p>The first solution that comes in mind is to 'motivate' each user (i.e. do it on your own) to configure their browser to use the proxy server and afterwards block all outgoing traffic to port 80. This might be a satisfactory solution for small networks but does not scale for large networks, because you would have to take care on every single client! (At least you avoid the disadvantages of transparent proxying...)</p>
+      
+                  <p class="centered"><img src="computer/graphics/transparent-proxy-en.gif" alt="Transparent Proxying"></p>
+
+      <p>With NAT we have another possibility: All incoming packets going to port 80 will be redirected to port 8080. The command is:</p>                  
+ 
+			<div class="code">
+<pre>
+    # <code class="comment">Transparent proxying:</code>
+    # <code class="comment">(local net at eth0, proxy server at port 8080)</code>
+    $> <code class="bash">iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 \
+       -j REDIRECT --to-ports 8080 </code>
+</pre>
+                  </div>
+                  
+      <p>Of course a HTTP-Proxy at port 8080 needs to be up and running. Maybe some special configurations (or even a special compilation) are needed for your proxy server in order to support transparent proxying. Disadvantages of transparent proxying are the higher CPU load (especially for really large networks) and some problems with old or very simple browsers.</p>                  
+
+                  <h4>Help! I am behind a restrictive firewall!</h4>
+                  <p>Before we start I have to place a warning:</p>
+                  <div class="warning">Everybody has to check on his or her own, whether the following steps violate any existing usage conditions, BEFORE he or she uses one of the presented techniques! Usage of the following commands is at your own risk, I can not hold any responsibilty for damages or fines that result from an unappropriate usage of the following commands and techniques!</div>
+
+      <p>Although you may not expect it, but NAT can even help you in such a case! Let us assume that only a few ports can be reached from your local network. First of all one has to find these open ports. One wide spread utility to use is <a href="http://insecure.org/nmap/">nmap</a>: (please scan your own computers only, scanning unknown computers can be interpreted as a first step to intrusion!)</p>
+
+						<div class="code">
+<pre>
+    # <code class="comment">Scan a machine:</code>
+    # <code class="comment">(Replace www.example.com by an appropriate machine)</code>
+    $> <code class="bash">nmap www.example.com</code>
+</pre>
+                  </div>
+                  
+      <p>The output will display various ports, most of them will be in state 'closed' (no service at that port), others will be in state 'filtered' (no connection to that port), perhaps some are in state 'open' (service running). Let us assume all ports below 5000 are closed, except port 80, but there are ports starting at 5000 that can be reached. To get a connection to any port below 5000 to an arbitrary machine one needs a (Linux-) machine that is located outside the firewall (no matter where as long as it can be reached and is not itself restricted by a firewall), that can be accessed and that supports NAT (iptables).</p>
+      
+      <p>First of all we have to gain access to that machine (suppose IP 111.111.111.111) outside the firewall. We use any workstation outside the firewall to establish a SSH connection to 111.111.111.111. Then we issue the command</p>                  
+
+						<div class="code">
+<pre>
+    # <code class="comment">Redirect SSH from port 5000 to port 22:</code>
+    $> <code class="bash">iptables -t nat -A PREROUTING -p tcp --dport 5000 -j REDIRECT --to-ports 22</code>
+</pre>
+                  </div>
+                  <p>Now we can return to our machine behind the restrictive firewall and can access 111.111.111.111 via SSH on port 5000. Alternatively you can configure your SSH-daemon to run on port 5000. However, now you are able to configure the remote machine appropriately. To connect to port 110 (POP3) on machine 123.123.123.123, issue the command
+                  
+						<div class="code">
+<pre>
+    # <code class="comment">redirect port 5001 to port 110 (POP3) at 123.123.123.123:</code>
+    $> <code class="bash">iptables -t nat -A PREROUTING -p tcp --dport 5001 \
+       -j DNAT --to-destination 123.123.123.123:110</code>
+       
+    # <code class="comment">Change sender to redirecting machine:</code>
+    $> <code class="bash">iptables -t nat -A POSTROUTING -p tcp --dport 110 \
+       -j MASQUERADE</code>
+       
+</pre>
+                  </div>
+                  
+                  <p class="centered"><img src="computer/graphics/port110-en.gif" alt="Port 110 via redirections"></p>
+
+      <p>Instead of the last MASQUERADE command SNAT is possible as well (<i>-j SNAT --to-source 111.111.111.111</i>), but since we are the only user of that connection this does not matter, therefore I chose MASQUERADE because it is shorter and easier to use.</p>
+
+      <p>We can connect to all other ports in exactly the same manner as long as we have enough open ports. Even secure connections (like IMAPS) can be redirected in that way, warnings regarding the security certificate have to be ignored (as long as we know what we are doing!). For the POP3-connection from above you still have to configure your mail client accordingly, your server for mails would then be 111.111.111.111, port 5001.</p>
+                  
+      <p>If our 'provider' runs a proxy for connections to port 80 (i.e. the provider uses a transparent proxy) and monitors the content and we do not agree with that, then NAT can help us once again. Assuming that proxy avoidance is not prohibited, we can set up a proxy (configured for transparent proxying) at 111.111.111.111, port 5002. After that you enter on your <b>local</b> machine the following command:</p>
+      
+		<div class="code">
+<pre>
+    # <code class="comment">redirect http-Traffic going to Port 80 to 111.111.111.111:5002:</code>
+    $> <code class="bash">iptables -t nat -A OUTPUT -p tcp --dport 80 \
+       -j DNAT --to-destination 111.111.111.111:5002</code>
+</pre>
+                  </div>
+                  
+      <p>In that way you have successfully circumvented the provider's proxy! (<i>In my view it is very fancy to circumvent a transparent proxy using a transparent proxy! :-)</i> ) Alternatively you can again configure your browser by hand to use your new proxy, but this may still lead to some troubles with other programs. However, configuring your browser by hand would at least avoid the disadvantages of transparent proxying.</p>
+
+      <p>To close this application I want to recapitulate our steps: First we find an open port for a SSH-connection. Then we statically redirect the other open ports to the desired destinations (usually one is not using that many non-HTTP-servers). If one manages to do this redirection dynamically, then two open TCP ports (one for SSH) and one open UDP port are sufficient to connect to nearly every port at every machine, the only disadvantage then would be that you can have only one connection at a time (per protocol).</p>                  
+                  
+                  <h4>Running a Server behind a NAT-router</h4>
+      <p>For servers running behind a NAT-router additional steps are needed since at first you cannot connect from outside to the server. Let us assume that we have a HTTP-server with IP 192.168.1.2 and our router has the IP address 192.168.1.1 and is connected to the internet over its second network interface with IP 123.123.123.123. To reach the HTTP-server from outside, type</p>
+
+						<div class="code">
+<pre>
+    # <code class="comment">redirect http traffic to 192.168.1.2:</code>
+    $> <code class="bash">iptables -t nat -A PREROUTING -p tcp -i eth1 --dport 80 -j DNAT --to 192.168.1.2</code>
+</pre>
+                  </div>
+
+                  <p>and you are done. Now you are able to access the HTTP-server from outside using the IP 123.123.123.123.</p>
+                   
+                  <h2>Related articles</h2>
+                  <p>Similar topics can be found under:</p>
+                  <ul>
+                     <li><a href="http://iptables-tutorial.frozentux.net/iptables-tutorial.html">http://iptables-tutorial.frozentux.net/iptables-tutorial.html</a> : Very comprehensive source of informations about iptables.</li>
+                     <li><a href="http://www.faqs.org/docs/Linux-mini/TransparentProxy.html">http://www.faqs.org/docs/Linux-mini/TransparentProxy.html</a> : Dealing extensively with transparent proxying.</li>
+                     <li><a href="http://www.barryodonovan.com/publications/lg/108/">http://www.barryodonovan.com/publications/lg/108/</a> : Further abilities of the netfilter Framework by use of extensions.</li>
+
+                  </ul>
+
+                  <h2>Closing words, acknowledgement and so on</h2>
+      <p>The netfilter framework is very powerful but still quite easy to configure once you are used to the syntax. Many tasks can be accomplished and although at first sight the commands are cryptic, they dismantle after some practice to very well structured patterns that allow quick and simple administration.</p>
+      
+      <p>I would like to thank every tough reader who managed it up to these lines :-) Further I thank my laptop running SUSE 10.1 that hasn't crashed while writing this article.</p>
+      
+      <p>Since my mother tongue is not English, I am very happy about all hints on how to improve certain words/sentences/passages! As for the technical part, feel free to use the comment module below or write me an Email (use my contact address or <img src="nat.png" alt="nat karlrupp.net">) if you have any proposals, wishes or complaints.</p>			<br><br>
+			<center><h4>Comments:</h4>
+			('Name' und 'Comment' are compulsory)
+			<form action="submitentry.php" method="post">
+			<div id="commentmain">
+	
+			<div id="commentright">
+			Comment:<br>
+			<textarea name="Eintrag" cols="42" rows="5"></textarea><br>
+			<input type="submit" value="Submit comment"><br>
+			</div>
+      
+	            
+
+		<div id="commentleft">
+		Name:<br><input name="Name" size="20" maxlength="60"><br><br>
+		Email:<br><input name="Email" size="20" maxlength="60"><br>
+		<!-- Homepage: -->
+		<br><input name="Homepage" type="hidden" size="20" maxlength="60" value="http://">
+      
+      <input type="hidden" name="timechk" value="1352252701">		
+		<input name="topic" type="hidden" value="1">
+		<input name="item" type="hidden" value="5">
+		<input name="lang" type="hidden" value="1">
+		</div>
+
+		</div></form>
+		</center> <br><br>
+
+		<div class="commentHead"><a href="mailto:vickynu121@gmail.com">vignesh</a>, on 4/ 9/ 2012 at 15:44<br></div><div class="commentbody">i want iptables commands more and more ..i could not understand iptables please help me....</div>
+<div class="commentHead"><a href="mailto:chetan.muneshwar@gmail.com">chetan</a>, on 6/ 8/ 2012 at 05:43<br></div><div class="commentbody">Its perfect !!!! <br><br>Our confusion over iptables rules got cleared every-time we referred this post :)</div>
+<div class="commentHead">Vanach, on 17/ 5/ 2012 at 06:00<br></div><div class="commentbody">Very useful and clear :)</div>
+<div class="commentHead"><a href="mailto:neuvin273@gmail.com">neuvin</a>, on 29/ 4/ 2012 at 07:45<br></div><div class="commentbody">best on the net by far</div>
+<div class="commentHead"><a href="mailto:rakesh.rajalwal@gmail.com">Rakesh</a>, on 31/ 1/ 2012 at 12:35<br></div><div class="commentbody">Excellent article, Best on the net.</div>
+<div class="commentHead"><a href="mailto:manuaug@gmail.com">manu </a>, on 11/ 1/ 2012 at 14:05<br></div><div class="commentbody">the best iptables tutorial i ever founded...<br>u explained the basics very well,thanks </div>
+<div class="commentHead">yg, on 17/ 11/ 2011 at 16:26<br></div><div class="commentbody">very good, thanks</div>
+<div class="commentHead"><a href="mailto:mh2ict@gmail.com">M. H. Haque</a>, on 6/ 11/ 2011 at 14:16<br></div><div class="commentbody">Very Helpful Doc for configuring IPTABLES.<br>www.rhcsolutions.info/rhc<br></div>
+<div class="commentHead"><a href="mailto:mike_r_harmon@yahoo.com">mrharmon</a>, on 13/ 10/ 2011 at 10:32<br></div><div class="commentbody">thank you, very good article</div>
+<div class="commentHead"><a href="mailto:ahmed_faew@yahoo.com">zeko</a>, on 24/ 7/ 2011 at 18:56<br></div><div class="commentbody">very very good article<br>it so helpful for me<br></div>
+<div class="commentHead">simbu, on 19/ 6/ 2011 at 09:00<br></div><div class="commentbody">Great Article .</div>
+<div class="commentHead"><a href="mailto:polomora@gmail.com">PaulMoore</a>, on 9/ 5/ 2011 at 15:14<br></div><div class="commentbody">Great article. Many thanks. Explains how NAT works, just what I needed.</div>
+<div class="commentHead"><a href="mailto:narenderhanu@gmail.com">Narender</a>, on 15/ 2/ 2011 at 13:09<br></div><div class="commentbody">can u send me on mail how configure nat in linux </div>
+<div class="commentHead"><a href="mailto:queenie245@gmail.com">Queenie</a>, on 10/ 11/ 2010 at 08:39<br></div><div class="commentbody">Very nicely explained. Great work!!</div>
+<div class="commentHead"><a href="mailto:ayaanmullick@hotmail.com">ayaan</a>, on 1/ 6/ 2010 at 05:32<br></div><div class="commentbody">i want hole configuration of linux proxy server</div>
+<div class="commentHead"><a href="mailto:arulselvam10@gmail.com">Arulselvam</a>, on 18/ 5/ 2010 at 13:54<br></div><div class="commentbody">Great. for the beginner it s very much simple and clear. It is very much useful</div>
+<div class="commentHead"><a href="mailto:yohanescatur@gmail.com">yohanes catur</a> (http://yohanescatur.blogspot.com), on 17/ 7/ 2009 at 07:58<br></div><div class="commentbody">Thankyou for this tutorial. Lot of help from this tutorial. </div>
+<div class="commentHead">RT, on 8/ 7/ 2009 at 01:18<br></div><div class="commentbody">excellent article.</div>
+<div class="commentHead"><a href="mailto:vhokonya@ecb.co.zw">Victor Hokonya</a>, on 15/ 8/ 2008 at 08:45<br></div><div class="commentbody">Thanks very much for such a rich tutorial.<br><br>I have one question hich i hope you can help me.<br>I have a web application that is hosted on a windows xp box with a private ip address. i want it to be accessed from the internet through our site hosted on a linux box acting as the proxy server and the web server(running apache). i have a firewall between the proxy and the internet.<br><br>i want requests from the internet for the web application to go directly to the xp box once they reach my private network. what i&#039;m not sure of is should i configure this on the firewall, since requests get to the firewall first before they get to the proxy or i should do it on the proxy. Where and how should i do this prerouting configuration? my web application on xp is running on sun java application server.</div>
+<div class="commentHead"><a href="mailto:prmd_pwr@yahoo.co.in">Pramod</a>, on 28/ 3/ 2008 at 11:37<br></div><div class="commentbody">Very Very Good Article.............<br>I got toooooooooooo mcuh help from this</div>
+  </div>   <div class="content_nav">
+</div><div class="content_nav2">
+Last update: 17/2/2007        </div>
+     </div> <!-- container2 -->
+	 </div> <!-- rightbar -->
+	</div> <!-- container -->
+		
+</body>
+</html>

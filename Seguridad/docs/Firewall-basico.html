@@ -1,0 +1,531 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="alexaVerifyID"      content="CuQyAPLPIm8kj6STANhRBKFhLgc" />
+    <meta name="description"        content="ejemplo de firewall de iptables basico para un solo equipo" />
+    <meta name="keywords"           content="iptables, firewall iptables, iptables basico, ejemplo iptables, ejemplo firewall, firewall basico, script iptables, script firewall, lin" />
+    <meta property="fb:admins" content="{linuxtotal.com.mx@gmail.com}"/>
+    <meta property="fb:app_id" content="{267261299964291}"/>
+    
+    <link href="lib/lt_estilos.css"           rel="stylesheet" type="text/css" />
+    <link href="lib/lt_estilos_imprimir.css"  rel="stylesheet" type="text/css" media="print" />
+    <link href="lib/gfdynamicfeedcontrol.css" rel="stylesheet" type="text/css" />    
+    <link href="imagenes/favicon.ico"         rel="shortcut icon"  />
+    <link href="/linuxtotal.xml"              rel="alternate"  type="application/rss+xml" title="LinuxTotal.com.mx" />
+     
+    <!--<script src="lib/prototype.js"></script>--> 
+    <script src="http://www.google.com/jsapi/?key=ABQIAAAAzRn28Q9aUHGMuNjGSvUEDhRgfBwouMd-rmnJKUn0_kbniC8AkBR6yTT0j2Ppz3zmnNfAJQij-vXcYA" type="text/javascript"></script>
+    <script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js" type="text/javascript"></script>
+    <script src="lib/funciones.js"  type="text/javascript"></script>
+
+    <script type="text/javascript">
+      google.load("prototype", "1.6.0.3");
+      google.load("scriptaculous", "1.8.2");
+      google.load("feeds", "1");
+      google.setOnLoadCallback(loadFeedControl);    
+    </script>
+
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+      {lang: 'es'}
+    </script>
+
+    <title>ejemplo de un firewall iptables básico</title>
+    
+
+      <script type="text/javascript">
+      
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-5773177-1']);
+	_gaq.push(['_trackPageview']);
+      
+	(function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+      
+      </script>
+      
+  </head>
+
+  <body id="principal">
+  <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=267261299964291";
+	fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+  
+  
+  
+    <div id="envoltura">
+      <!--<div id="encabezado_arriba"></div>-->
+      <div id="encabezado_abajo"><table border="0" width="100%" height="92px" align="center">
+ <tr>
+   <td align="center" valign="top" width="735px"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-9611570275983675";
+/* fijo_superior */
+google_ad_slot = "5060023147";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></td>
+   <!--<td valign="top"></td>   -->
+  </tr>
+</table>
+</div> 
+      
+      <div id="encabezado"><table border="0" width="100%">
+<tr>
+<td  width="50%">
+<table border="0">
+ <tr>
+   <td><a href="http://www.linuxtotal.com.mx"><img src="imagenes/tux.png" alt="logotux" height="60" border="0"></a></td>
+   <td><label  style="font-size:3.2em; font-weight:bolder; color:#99FF33;">
+           <a href="http://www.linuxtotal.com.mx" name="#arribaInicio" style="color:#99FF33" >LinuxTotal</a></label>
+       <label style="font-size:1.6em; font-weight:bolder; color:#99FF33">
+           <a href="http://www.linuxtotal.com.mx"  style="color:#99FF33">.com.mx</a>
+       </label>
+   </td>
+  </tr>
+  <tr><td colspan='2' align='left'><p>Información y servicios en Linux y Open Source</p></td></tr>
+</table>
+</td>
+
+<td width="50%" align="right" valign="top">
+  <div id="busquedaArriba"><style type="text/css">
+@import url(http://www.google.com/cse/api/branding.css);
+</style>
+<div style="background-color:#336633;color:#000000; text-align:right; ">
+    <form action="http://www.linuxtotal.com.mx/index.php?cont=busq" id="cse-search-box">
+      <div >
+        <input type="hidden" name="cx" value="partner-pub-9611570275983675:5426518653" />
+        <input type="hidden" name="cof" value="FORID:10" />
+        <input type="hidden" name="ie" value="UTF-8" />
+        <input type="text" name="q" size="30" style="width:200px !important;border:1px solid;height:23px" />
+        <input type="submit" name="sa" value="Buscar" style="width:80px" />
+      </div>
+    </form>
+    <script type="text/javascript" src="http://www.google.com.mx/coop/cse/brand?form=cse-search-box&amp;lang=es"></script>
+</div></div>
+</td>
+
+</tr>
+</table></div>
+      <div id="menu"><ul>
+ <li>
+  <a href="index.php?cont=inic" alt="PORTADA PRINCIPAL DE LINUXTOTAL" >Inicio</a>
+ </li>
+ <!--
+ <li>
+  <a href="index.php?cont=info&ap=a" alt="ARTÍCULOS Y DOCUMENTOS SOBRE LINUX Y OPEN SOURCE">Artículos</a>
+ </li>
+ -->
+ <li>
+  <a href="index.php?cont=serv" alt="ASESORÍA EN LINUX">Servicios</a>
+ </li>
+ <!--
+  <li>
+  <a href="index.php?cont=noti" alt="LO ÚLTIMO EN NOTICIAS Y ENLACES DESDE LOS SITIOS PRINCIPALES DE LINUX Y OPEN SOURCE">Noticias</a>
+ </li>
+ -->
+ <li>
+  <a href="index.php?cont=cont" alt="UTILIZA LA FORMA DE CONTACTO PARA CUALQUIER INQUIETUD, COMENTARIOS O SUGERENCIAS">Contacto</a>
+ </li> 
+ <li>
+  <a href="index.php?cont=acerca" alt="ACERCA DE LINUXTOTAL">Acerca de</a>
+ </li>  
+ <li>
+  <a href="index.php?cont=english" alt="ARTICLES IN ENGLISH">English</a>
+ </li>  
+</ul>
+</div>
+      <div id="camino"><a href='index.php?cont=inic'>Inicio</a> :: <a href='index.php?cont=info&ap=a'>Información</a> :: <a href='index.php?cont=info_seyre'><label style='color:#f00'>Seguridad y Redes</label></a></div>
+      <div id="cuerpo_enmedio">
+
+<div style="text-align:center">
+
+<div >
+    <label style="font-weight:bold;font-size:13pt">Artículo destacado: "<a href="index.php?cont=info_admon_021">MYSQLDUMP - GU&Iacute;A PR&Aacute;CTICA</a>"</label>
+</div>
+
+    
+<table border="0" width="100%" align="center">
+   <tr>
+     <td>
+         <span style="color:#0000ff; font-size:9pt; font-weight:bold">Linuxtotal en:</span> 
+     </td>
+     <td>
+        <a href="http://www.facebook.com/linuxtotal" title="facebook" target="_BLANK"><img src="imagenes/facebook.jpg" width="85" height="19" style="border: 0px;" /></a>
+     </td>
+     
+     <td>
+        <a href="http://twitter.com/linuxtotal" title="twitter" target="_BLANK"><img src="imagenes/twitter.png" height="25" style="border: 0px;" /></a>
+     </td>     
+     
+     <td>
+        <a rel="author" href="https://plus.google.com/103812301844456354055/posts">
+            <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="20" height="20"> Google+
+        </a>
+     </td>
+     
+     <td>
+<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/MemberProfile" data-id="http://www.linkedin.com/in/linuxtotal" data-format="click" data-related="false"></script> LinkedIn
+     </td>
+     
+     
+     <td>
+        <a href="http://www.youtube.com/user/linuxtotal" title="YouTube" target="_BLANK"><img src="imagenes/youtube.jpg" height="25" style="border: 0px;" /></a>
+     </td>     
+     
+     <td>
+        <a href="linuxtotal.xml" ><img src="imagenes/feed-icon.png" alt="linuxtotal rss feed" border="0" height="20"> RSS</a>
+     </td>
+    
+    
+    <!-- 
+     <td>
+        <a href="http://fusion.google.com/add?feedurl=http%3A//www.linuxtotal.com.mx/linuxtotal.xml">
+        <img src="http://buttons.googlesyndication.com/fusion/add.gif" width="95" height="17" border="0" alt="Añadir a Google"></a>
+     </td>
+     <td>
+        <a href="http://us.rd.yahoo.com/my/atm/info@linuxtotal.com.mx/LinuxTotal/*http://add.my.yahoo.com/rss?url=http%3A//www.linuxtotal.com.mx/linuxtotal.xml">
+        <img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" width="95" height="17" border="0" align="middle" alt="Añadir a My Yahoo!"></a>
+     </td>
+    <td>
+        <a href="http://my.msn.com/addtomymsn.armx?id=rss&ut=http://www.linuxtotal.com.mx/linuxtotal.xml">
+        <img src="imagenes/mymsn.gif" border="0" alt="Añadir a mymsn" width="95" height="20"></a>
+    </td>
+    -->
+    
+    <td>
+        <strong><a href="#" rel="sidebar" onclick="if(document.all && !window.opera){ window.external.AddFavorite(location.href, document.title); return false; } else { this.title = document.title; }" title="Añadir a favoritos" style="font-size:8pt" >[ A&ntilde;adir a favoritos ]</a></strong>
+        
+    </td>
+    
+   </tr>
+</table>
+</div></div>   
+      <div id="cuerpo"><!-- info_seyre_002 -->
+<div id="contenidoizquierdo">
+<a name="arriba"><h1 style='color:#f00'>FIREWALL BÁSICO</h1></a>    
+  <div id='fb_tw' style='margin-top:15px;margin-bottom:15px'><table><tr><td style='border:0;width:80px'>    <a href='https://twitter.com/share' class='twitter-share-button' data-count='vertical' data-via='linuxtotal' data-lang='es'>Tweet</a><script type='text/javascript' src='//platform.twitter.com/widgets.js'></script></td><td style='border:0;width:80px'><div id='fb-root'></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) {return;}js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/en_US/all.js#appId=267261299964291&xfbml=1';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class='fb-like' data-send='false' data-layout='box_count' data-width='50' data-show-faces='true' data-font='arial'></div></td><td style='border:0;width:80px'><g:plusone size='tall'></g:plusone></td><td style='border:0;width:80px'><script src='http://platform.linkedin.com/in.js' type='text/javascript'></script><script type='IN/Share' data-counter='top'></script></td><td style='border:0;width:80px'><script src='http://www.stumbleupon.com/hostedbadge.php?s=5'></script></td></tr></table></div>     
+
+<h4>Copyright  2005-2012 Sergio González Durán<br \>Se concede permiso para copiar, distribuir y/o modificar este documento siempre y cuando se cite al autor y la fuente de linuxtotal.com.mx y según los términos de la <a href='http://www.gnu.org/licenses/translations.html'>GNU Free Documentation License</a>, Versión 1.2 o cualquiera posterior publicada por la Free Software Foundation.</h4> 
+<h3>autor: sergio.gonzalez.duran@gmail.com</h3>
+<hr>
+<p>El siguiente es un script muy básico de iptables que puedes usar para proteger 
+un solo equipo conectado a Internet a través de un modem o de una línea dedicada como 
+adsl (algo parecido es lo que yo uso). Lo básico no es sinónimo de inseguro, de hecho 
+este pequeño firewall es un excelente ejemplo de la potencia de <label class=t1>iptables</label>, el firewall 
+de Linux, que con unas cuantas líneas es posible establecer un cortafuegos bastante 
+seguro y eficaz.<br />
+Tan solo copia y pega lo siguiente en cualquier editor, guárdalo con el nombre que 
+gustes, ejemplo: fw_equipo, después cambia sus permisos para que pueda ser ejecutado:</p>  
+<div class="e"><pre>#> chmod 700 fw_equipo</pre></div>
+<p>y después ejecútalo: (tienes que ser root para ejecutarlo)</p>
+<div class="e"><pre>#> ./fw_equipo</pre></div>
+<p>Si no manda errores, listo, tu firewall esta protegiéndote de ataques y de accesos indeseados.</p>
+<div class="e">
+<pre># ---------------------------------------------------------------------------------
+# www.linuxtotal.com.mx
+# firewall para un solo equipo conectado a traves de modem o adsl
+# por: sergio.gonzalez.duran@gmail.com
+
+# (1) se eliminan reglas previas que hubiera y cadenas definidas por el usuario
+<label class=t3>iptables -F
+iptables -X</label>
+
+# (2) se establecen politicas "duras" por defecto, es decir solo lo que se autorice
+# explicitamente podra ingresar o salir del equipo
+<label class=t3>iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP</label>
+
+# (3)a la interface lo (localhost) se le permite todo
+<label class=t3>iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT</label>
+
+# (4) evitamos ataques syn-flood limitando el acceso de paquetes nuevos
+# desde internet a solo 4 por segundo y los demas se descartan
+<label class=t3>iptables -A INPUT -p tcp --syn -m limit --limit 1/s --limit-burst 4 -j DROP</label>
+
+# (5) se evitan paquetes tcp que sean nuevos y que no tengan el flag SYN
+# es decir, hay ataques o escaneos que llegan como conexiones nuevas
+# pero sin ser paquetes syn, definitivamente no nos interesan
+<label class=t3>iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP</label>
+
+# (6) todo lo que sea icmp (ping) y que intente entrar, se descarta
+# con esto bloqueamos cualquier tipo de paquetes con protocolo icmp
+# evitando ataques como el del ping de la muerte, aunque esta regla
+# podria provocar problemas de comunicacion con algunos ISP.
+<label class=t3>iptables -A INPUT -p icmp -j DROP</label>
+
+# (7) por ultimo las dos siguientes reglas permiten salir del equipo 
+# (output) conexiones nuevas que nosotros solicitamos, conexiones establecidas
+# y conexiones relacionadas, y deja entrar (input) solo conexiones establecidas
+# y relacionadas.
+<label class=t3>iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT</label>
+# ---------------------------------------------------------------------------------
+</pre></div>
+<p>Eso es todo. Aunque los comentarios (#) son bastante explícitos, para aquellos que 
+se inician o quieren aprender mas de <label class=t1>iptables</label>, demos un repaso.</p>
+<p>El paso (1) hace un Flush (borrado) de las reglas que ya hubiera, muchas 
+distribucciones se instalan con un juego previo de reglas de iptables que para 
+este caso no nos sirven, por eso las eliminamos, asi como la opción X que permite 
+eliminar las cadenas de reglas personalizadas. Si quieres ver que reglas tienes 
+actualmente en tu firewall usa la opción <label class=t1>-L</label>, o también 
+<label class=t1>-L -n</label> que con esta opción
+'n' muestra los puertos en formato numérico:</p>
+<div class="e"><pre>#> iptables -L</pre></div>
+<p>En el segundo paso (2) establecemos las políticas del firewall, hay dos tipos 
+de políticas ACCEPT y DROP, en el primer caso, estariamos aceptando TODO lo que 
+entre y salga del equipo y después se tendría que negar lo que no se quiera, cosa 
+bastante tediosa e insegura. Lo mejor en firewalls es siempre establecer políticas 
+DROP, con esto por default, todo, absolutamente todo es prohibido de entrar o salir, 
+asi que tenemos que ir poniendo reglas que abran los puertos o conexiones que si 
+queramos. La desventaja de crear un firewall con políticas DROP es que suelen ser 
+mas complejos de crear y mantener, pero valen la pena, son por mucho más seguros.</p>
+<p>Se establecen entonces para los paquetes que entran al equipo INPUT, para los 
+paquetes que salen del equipo OUTPUT y para paquetes que atraviesan el equipo FORWARD, 
+aunque esta última política en el caso de una PC con una sola tarjeta de red es 
+innecesaria, o mas bien esta sobrando.</p>
+<p>El paso (3) es necesario e importante ya que como estamos negando todo por default 
+eso abarca también a nuestro dispositivo de red local o virtual, localhost, y varios 
+servicios que trabajan de manera local en nuestro equipo como el sistema de ventanas 
+X, hacen uso de este dispositivo para trabajar. Localhost no se conecta de ninguna 
+manera al exterior a la LAN o Internet, por lo que es seguro simplemente decirle al 
+firewall que acepte todo de entrada y salida que provenga de localhost.</p>
+<p>Los pasos (4), (5) y (6) podrían parecer redundantes o inecesarios ya que como 
+se observa su target es DROP lo que quiere decir que si el paquete se cumple en 
+alguna de esas tres reglas se descartará. Realmente no sobran, añaden un extra de 
+seguridad al firewall, ya que recordemos que las reglas son checadas contra los 
+paquetes que entran o salen en un orden estrictamente secuencial a como las 
+introducimos. Las dos últimas reglas permitirán el paso de paquetes (tal vez), 
+asi que lo que hacemos es depurar los paquetes en los pasos (4), (5) y (6) para 
+que llegan un poco mas controlados a la decisión del paso (7) si son aceptados o no.
+<p>Finalmente en el paso (7) se permiten un par de reglas que forman un firewall 
+de estado completo, donde se analiza el estado de los paquetes, sin importar su 
+protocolo, destino, etc. En la regla de INPUT es decir lo que entra al equipo 
+desde Internet solo se permiten paquetes cuyo estado ya este registrado en la 
+tabla de conexiones del kernel. Esto implica que ningún paquete que sea nuevo será 
+permitido, solo se aceptará lo que previamente se haya solicitado desde nuestro 
+equipo y que es precisamente la última regla, la de OUTPUT,  donde establecemos 
+que pueden salir paquetes nuevas, como una petición de página web, que son paquetes 
+NEW, paquetes previamente establecidos (ESTABLISHED), como comunicaciones de chat 
+y conexiones relacionadas a una establecida (RELATED), por ejemplo conexiones ftp 
+que establecen conexión de control y de datos en los puertos 20 y 21.</p>
+<p>Recuerda que este pequeño script es solo para un equipo que no ofrece ningún
+servicio al exterior, al Internet, por lo que es relativamente fácil con unas cuantas
+reglas configurarlo y dejarlo seguro, para un servidor Web por ejemplo, o un equipo
+Linux con funciones de NAT (que este ubicado entre una LAN e Internet) tendría que
+ser un firewall muy distinto al aqui presentado.</p>
+<p>Listo, ojalá que este pequeño firewall te sea de utilidad y te ayude a comprender
+como funciona <label class=t1>iptables</label>.</p>
+<!-- FIN DEL ARTICULO -->
+
+<div id='finArticulo'><br /><div style='text-align:center;font-size:12pt'><strong><a href="javascript:favoritos('LinuxTotal - ejemplo de un firewall iptables básico', 'http://www.linuxtotal.com.mx/index.php?cont=info_seyre_002')">AÑADIR ESTE ART&Iacute;CULO A MIS FAVORITOS</a></strong></div><br /><div id='fb_tw' style='margin-top:15px;margin-bottom:15px'><table><tr><td style='border:0;width:80px'>    <a href='https://twitter.com/share' class='twitter-share-button' data-count='vertical' data-via='linuxtotal' data-lang='es'>Tweet</a><script type='text/javascript' src='//platform.twitter.com/widgets.js'></script></td><td style='border:0;width:80px'><div id='fb-root'></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) {return;}js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/en_US/all.js#appId=267261299964291&xfbml=1';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class='fb-like' data-send='false' data-layout='box_count' data-width='50' data-show-faces='true' data-font='arial'></div></td><td style='border:0;width:80px'><g:plusone size='tall'></g:plusone></td><td style='border:0;width:80px'><script src='http://platform.linkedin.com/in.js' type='text/javascript'></script><script type='IN/Share' data-counter='top'></script></td><td style='border:0;width:80px'><script src='http://www.stumbleupon.com/hostedbadge.php?s=5'></script></td></tr></table></div><br /><div id='gah5a'><script type="text/javascript"><!--
+google_ad_client = "ca-pub-9611570275983675";
+/* horizontal_5_anuncios */
+google_ad_slot = "6200457143";
+google_ad_width = 468;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div><hr /><div style='font-size:11pt;font-weight:bold'>COMENTARIOS</div><div class='fb-comments' data-href='http://www.linuxtotal.com.mx/index.php?cont=info_seyre_002' data-num-posts='5' data-width='628'></div><table style='border:0'>
+  <tr>
+    <td style='border:0'>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="image" src="https://www.paypal.com/es_XC/i/btn/x-click-but04.gif" border="0" name="submit" alt="Realice pagos con PayPal: es rápido, gratis y seguro.">
+        <img alt="" border="0" src="https://www.paypal.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+        </form>
+    </td>
+
+    <td style='border:0'><label style='font-size:11pt;font-weight:bold'>
+Tu contribuci&oacute;n voluntaria permite crear m&aacute;s contenido de calidad. Gracias por tu aportaci&oacute;n.        </label></td>
+
+  </tr>  
+</table>
+
+
+
+
+
+<hr /></div><div id="masArticulos">
+<p>M&aacute;s art&iacute;culos sobre Linux y Open Source</p>
+<ul><li><a href='index.php?cont=info_seyre_005'>Creando contraseñas (passwords) con mkpasswd</a></li><li><a href='index.php?cont=info_admon_012'>Manual básico de administración de procesos</a></li><li><a href='index.php?cont=info_shell_006'>Mostrar un reloj en la consola de texto (reloj.sh)</a></li><li><a href='index.php?cont=info_admon_006'>Manual básico de CRON</a></li><li><a href='index.php?cont=info_seyre_007'>Como crear un sistema de archivos encriptado</a></li><li><a href='index.php?cont=info_admon_001'>Agregar un disco duro nuevo</a></li></ul></div>
+
+<br />
+<div id="menup">
+<ul>
+<li><a href="#arriba">Subir</a></li>
+<li><a href="index.php?cont=inic">Inicio</a></li>
+<li><a href="index.php?cont=serv">Servicios</a></li>
+<li><a href="index.php?cont=cont">Contacto</a></li>
+</ul>
+</div>
+ <hr /><br /><div id='busquedaAbajo' style='text-align:center'><label class='tit_1'><a href='index.php#noticias'> Inf&oacute;rmate de noticias, eventos y <br />novedades del mundo Linux</a></label><br /><br /><style type="text/css">
+@import url(http://www.google.com/cse/api/branding.css);
+</style>
+<div class="cse-branding-bottom" style="background-color:#FFFFFF;color:#000000; text-align:left">
+  <div class="cse-branding-form">
+    <form action="http://www.linuxtotal.com.mx/index.php?cont=busq" id="cse-search-box">
+      <div style="">
+        <input type="hidden" name="cx" value="partner-pub-9611570275983675:7441484957" />
+        <input type="hidden" name="cof" value="FORID:10" />
+        <input type="hidden" name="ie" value="ISO-8859-1" />
+        <input type="text" name="q" size="55" style="width:238px;border:1px solid;height:23px" />
+        <input type="submit" name="sa" value="Buscar" style="width:80px" />
+      </div>
+    </form>
+  </div>
+      <div class="cse-branding-logo">
+        <img src="http://www.google.com/images/poweredby_transparent/poweredby_FFFFFF.gif" alt="Google" />
+      </div>    
+      <div class="cse-branding-text">
+        Búsqueda en LinuxTotal
+      </div>  
+</div>
+
+
+</div><br /></div>
+
+<div id="contenidoderecho" align="center" style="height:100%;border:0px solid;padding:0 2px 0 2px">
+  
+    <div id='ah' style="margin-bottom:50px">
+   <script type="text/javascript"><!--
+google_ad_client = "ca-pub-9611570275983675";
+/* bloque_300_250 */
+google_ad_slot = "3071421714";
+google_ad_width = 335;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script> 
+   </div>  
+    
+    <div style="margin-bottom:30px">   
+      <label class='tit_1'><a href="index.php#noticias"> Infórmate de noticias, eventos y novedades del mundo Linux</a></label>   
+    </div>   
+   
+    <div style="margin-bottom:30px">
+         <a href="https://twitter.com/linuxtotal" class="twitter-follow-button" data-show-count="false" data-lang="es">Segui @linuxtotal</a>
+         <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>         
+
+      <script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
+      <script  type="text/javascript">
+      new TWTR.Widget({
+        version: 2,
+        type: 'profile',
+        rpp: 14,
+        interval: 6000,
+        width: 330,
+        height:330,
+        theme: {
+          shell: {
+            background: '#99cc00',
+            color: '#ffffff'
+          },
+          tweets: {
+            background: '#336633',
+            color: '#ffffff',
+            links: '#99cc00'
+          }
+        },
+        features: {
+          scrollbar: true,
+          loop: false,
+          live: false,
+          hashtags: true,
+          timestamp: false,
+          avatars: false,
+          behavior: 'all'
+        }
+      }).render().setUser('linuxtotal').start();
+      </script>
+   </div>
+   
+    <div style="margin-bottom:30px">
+   <script type="text/javascript"><!--
+google_ad_client = "ca-pub-9611570275983675";
+/* ladoderecho */
+google_ad_slot = "2367852028";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script> 
+    </div>
+   
+
+
+   <label class='tit_1'>M&aacute;s art&iacute;culos de LinuxTotal</label><h5><a href='index.php?cont=info_seyre_004'></a></h5><p style='margin-bottom:10px'> <a href='index.php?cont=info_seyre_004'>(m&aacute;s)</a></p><h5><a href='index.php?cont=info_seyre_011'>Verificar Linux contra rootkits con rkhunter y chkrootkit</a></h5><p style='margin-bottom:10px'> <a href='index.php?cont=info_seyre_011'>(m&aacute;s)</a></p><h5><a href='index.php?cont=info_admon_015'></a></h5><p style='margin-bottom:10px'> <a href='index.php?cont=info_admon_015'>(m&aacute;s)</a></p><h5><a href='index.php?cont=info_admon_019'></a></h5><p style='margin-bottom:10px'> <a href='index.php?cont=info_admon_019'>(m&aacute;s)</a></p><h5><a href='index.php?cont=info__tips_002'>Formatear diskettes</a></h5><p style='margin-bottom:10px'>Como formatear disketes o floppies en Linux. <a href='index.php?cont=info__tips_002'>(m&aacute;s)</a></p><h5><a href='index.php?cont=info_admon_021'></a></h5><p style='margin-bottom:10px'> <a href='index.php?cont=info_admon_021'>(m&aacute;s)</a></p>    
+   
+    <div style="margin-bottom:30px">
+         <!-- BEGIN SMOWTION TAG - 300x250 - DO NOT MODIFY -->
+<script type="text/javascript"><!--
+smowtion_size = "300x250";
+smowtion_section = "2365220";
+//-->
+</script>
+<script type="text/javascript"
+src="http://ads.smowtion.com/ad.js">
+</script>
+<!-- END SMOWTION TAG - 300x250 - DO NOT MODIFY --> 
+    </div>
+ 
+   
+<center>
+<label style='font-size:9pt'>Si encuentras útil la información que proveé LinuxTotal, considera realizar un donativo para poder seguir proporcionando contenido de calidad y utilidad. Gracias.</label><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="image" src="https://www.paypal.com/es_XC/i/btn/x-click-but04.gif" border="0" name="submit" alt="Realice pagos con PayPal: es rápido, gratis y seguro.">
+<img alt="" border="0" src="https://www.paypal.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+</form>
+</center>
+
+    
+    
+
+</div>
+</div>
+      <div id="pie"><div id="anuncio_banner_inferior_pie" style='background-color:#fff'>
+ 	<!-- BEGIN SMOWTION TAG - 728x90 - DO NOT MODIFY -->
+	<script type="text/javascript"><!--
+	    smowtion_size = "728x90";
+	    smowtion_section = "2365220";
+	    //-->
+	</script>
+	<script type="text/javascript"
+	  src="http://ads.smowtion.com/ad.js">
+	</script>
+	<!-- END SMOWTION TAG - 728x90 - DO NOT MODIFY -->    
+</div>
+
+
+<div>
+LinuxTotal.com.mx &middot; Informaci&oacute;n y servicios en Linux y Open Source 
+  &middot; info@linuxtotal.com.mx &middot; sergio.gonzalez.duran@gmail.co<a href="index.php?cont=_preguntas" style="color:#fff; text-decoration: none">m</a>
+</div></div>
+    </div>
+
+<script type='text/javascript' src='http://buildmypinnedsite.com/script/v1.0/634617538416199062.js'></script>  </body>
+</html>
